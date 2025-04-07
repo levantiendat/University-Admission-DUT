@@ -1,0 +1,881 @@
+version: "3.1"
+stories:
+
+  # 1. Thông tin chung ngành CNTT
+  - story: "Pair - Thông tin chung ngành CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_major_info
+      - action: utter_major_info
+      - intent: goodbye
+      - action: utter_goodbye
+  - story: bot challenge
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  # 2. Không tìm thấy thông tin ngành (ask_major_info_not_found)
+  - story: "Pair - Không tìm thấy thông tin ngành"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_major_info_not_found
+      - action: utter_major_info_not_found
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 3. Chỉ tiêu tuyển sinh chung CNTT
+  - story: "Pair - Chỉ tiêu tuyển sinh chung CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_enrollment_quota
+      - action: utter_enrollment_quota
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 4. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: thông tin ngành
+  - story: "Pair - CNTT Đặc Thù: thông tin ngành"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_major_dthtdn_info
+      - action: utter_major_info_dthtdn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 5. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: chỉ tiêu tuyển sinh
+  - story: "Pair - CNTT Đặc Thù: chỉ tiêu tuyển sinh"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_enrollment_quota_major_dthtdn
+      - action: utter_enrollment_quota_major_dthtdn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 6. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: chương trình đào tạo
+  - story: "Pair - CNTT Đặc Thù: chương trình đào tạo"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_training_program_major_dthtdn
+      - action: utter_training_program_major_dthtdn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 7. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: chuẩn ngoại ngữ
+  - story: "Pair - CNTT Đặc Thù: chuẩn ngoại ngữ"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_standard_output_language_major_dthtdn
+      - action: utter_standard_output_language_major_dthtdn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 8. CNTT Ngoại Ngữ Nhật: thông tin ngành
+  - story: "Pair - CNTT Ngoại Ngữ Nhật: thông tin ngành"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_major_nnn_info
+      - action: utter_major_info_nnn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 9. CNTT Ngoại Ngữ Nhật: chỉ tiêu tuyển sinh
+  - story: "Pair - CNTT Ngoại Ngữ Nhật: chỉ tiêu tuyển sinh"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_enrollment_quota_major_nnn
+      - action: utter_enrollment_quota_major_nnn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 10. CNTT Ngoại Ngữ Nhật: chương trình đào tạo
+  - story: "Pair - CNTT Ngoại Ngữ Nhật: chương trình đào tạo"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_training_program_major_nnn
+      - action: utter_training_program_major_nnn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 11. CNTT Ngoại Ngữ Nhật: chuẩn ngoại ngữ
+  - story: "Pair - CNTT Ngoại Ngữ Nhật: chuẩn ngoại ngữ"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_standard_output_language_major_nnn
+      - action: utter_standard_output_language_major_nnn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 12. CNTT TTNT (Khoa Học Dữ Liệu & TTNT): thông tin ngành
+  - story: "Pair - CNTT TTNT: thông tin ngành"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_major_khdl_ttnt_info
+      - action: utter_major_info_khdl_ttnt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 13. CNTT TTNT: chỉ tiêu tuyển sinh
+  - story: "Pair - CNTT TTNT: chỉ tiêu tuyển sinh"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_enrollment_quota_major_khdl_ttnt
+      - action: utter_enrollment_quota_major_khdl_ttnt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 14. CNTT TTNT: chương trình đào tạo
+  - story: "Pair - CNTT TTNT: chương trình đào tạo"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_training_program_major_khdl_ttnt
+      - action: utter_training_program_major_khdl_ttnt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 15. CNTT TTNT: chuẩn ngoại ngữ
+  - story: "Pair - CNTT TTNT: chuẩn ngoại ngữ"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_standard_output_language_major_khdl_ttnt
+      - action: utter_standard_output_language_major_khdl_ttnt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 16. Phương thức xét tuyển chung
+  - story: "Pair - Phương thức xét tuyển chung CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_admission_methods
+      - action: utter_admission_methods
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 17. Xét tuyển thẳng (chi tiết)
+  - story: "Pair - Xét tuyển thẳng CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_direct_admission_detail
+      - action: utter_direct_admission_detail
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 18. Xét tuyển riêng (chi tiết)
+  - story: "Pair - Xét tuyển riêng CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_xet_tuyen_rieng_detail
+      - action: utter_xet_tuyen_rieng_detail
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 19. Quy trình xét tuyển chung
+  - story: "Pair - Quy trình xét tuyển CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_admission_process
+      - action: utter_admission_process
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 20. Tổ hợp thi – CNTT Đặc Thù (DT)
+  - story: "Pair - Tổ hợp thi CNTT Đặc Thù"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_TNTHPT_DT
+      - action: utter_TNTHPT_DT
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 21. Tổ hợp thi – CNTT Ngoại Ngữ Nhật (NNN)
+  - story: "Pair - Tổ hợp thi CNTT Ngoại Ngữ Nhật"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_TNTHPT_NNN
+      - action: utter_TNTHPT_NNN
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 22. Tổ hợp thi – CNTT TTNT (KHDL)
+  - story: "Pair - Tổ hợp thi CNTT TTNT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_TNTHPT_KHDL
+      - action: utter_TNTHPT_KHDL
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 23. Điểm chuẩn tuyển sinh riêng CNTT Đặc Thù (2 năm)
+  - story: "Pair - Điểm chuẩn riêng CNTT Đặc Thù (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_dthtdn_2years_rieng
+      - action: utter_cutoff_score_dthtdn_2years_rieng
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 24. Điểm chuẩn tuyển sinh riêng CNTT Ngoại Ngữ Nhật (2 năm)
+  - story: "Pair - Điểm chuẩn riêng CNTT Ngoại Ngữ Nhật (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_nnn_2years_rieng
+      - action: utter_cutoff_score_nnn_2years_rieng
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 25. Điểm chuẩn tuyển sinh riêng CNTT TTNT (2 năm)
+  - story: "Pair - Điểm chuẩn riêng CNTT TTNT (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_ttnt_2years_rieng
+      - action: utter_cutoff_score_ttnt_2years_rieng
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 26. Điểm chuẩn tuyển sinh THPT CNTT Đặc Thù (2 năm)
+  - story: "Pair - Điểm chuẩn THPT CNTT Đặc Thù (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_dthtdn_2years_thpt
+      - action: utter_cutoff_score_dthtdn_2years_thpt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 27. Điểm chuẩn tuyển sinh THPT CNTT Ngoại Ngữ Nhật (2 năm)
+  - story: "Pair - Điểm chuẩn THPT CNTT Ngoại Ngữ Nhật (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_nnn_2years_thpt
+      - action: utter_cutoff_score_nnn_2years_thpt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 28. Điểm chuẩn tuyển sinh THPT CNTT TTNT (2 năm)
+  - story: "Pair - Điểm chuẩn THPT CNTT TTNT (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_ttnt_2years_thpt
+      - action: utter_cutoff_score_ttnt_2years_thpt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 29. Tổng hợp điểm chuẩn riêng của tất cả ngành CNTT (2 năm)
+  - story: "Pair - Tổng hợp điểm chuẩn riêng CNTT (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_all_2years_rieng
+      - action: utter_cutoff_score_all_2years_rieng
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 30. Tổng hợp điểm chuẩn THPT của tất cả ngành CNTT (2 năm)
+  - story: "Pair - Tổng hợp điểm chuẩn THPT CNTT (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_all_2years_thpt
+      - action: utter_cutoff_score_all_2years_thpt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 31. Điểm chuẩn CNTT Đặc Thù tổng hợp (2 năm, cả 2 phương thức)
+  - story: "Pair - Điểm chuẩn CNTT Đặc Thù tổng hợp (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_dthtdn_2years_all
+      - action: utter_cutoff_score_dthtdn_2years_all
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 32. Điểm chuẩn CNTT Ngoại Ngữ Nhật tổng hợp (2 năm, cả 2 phương thức)
+  - story: "Pair - Điểm chuẩn CNTT Ngoại Ngữ Nhật tổng hợp (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_nnn_2years_all
+      - action: utter_cutoff_score_nnn_2years_all
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 33. Điểm chuẩn CNTT TTNT tổng hợp (2 năm, cả 2 phương thức)
+  - story: "Pair - Điểm chuẩn CNTT TTNT tổng hợp (2 năm)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_ttnt_2years_all
+      - action: utter_cutoff_score_ttnt_2years_all
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 34. Tổng hợp điểm chuẩn của tất cả ngành CNTT theo từng phương thức (bảng)
+  - story: "Pair - Bảng tổng hợp điểm chuẩn CNTT 2 năm (riêng & THPT)"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_cutoff_score_all_2years_both
+      - action: utter_cutoff_score_all_2years_both
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 35. Chương trình đào tạo chung CNTT
+  - story: "Pair - Chương trình đào tạo chung CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_training_program
+      - action: utter_training_program
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 36. Chuẩn đầu ra ngoại ngữ CNTT
+  - story: "Pair - Chuẩn đầu ra ngoại ngữ CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_standard_output_language
+      - action: utter_standard_output_language
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 37. FAQ Việc làm CNTT
+  - story: "Pair - FAQ Việc làm CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_job_opportunities
+      - action: utter_faq_job_opportunities
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 38. FAQ chuyên ngành CNTT (Danh sách chuyên ngành)
+  - story: "Pair - FAQ Chuyên ngành CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 39. FAQ An Toàn Thông Tin
+  - story: "Pair - FAQ An Toàn Thông Tin"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_attt
+      - action: utter_faq_attt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 40. FAQ Hệ Thống Thông Tin
+  - story: "Pair - FAQ Hệ Thống Thông Tin"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_httt
+      - action: utter_faq_httt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 41. FAQ Công Nghệ Phần Mềm
+  - story: "Pair - FAQ Công Nghệ Phần Mềm"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_cnpm
+      - action: utter_faq_cnpm
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 42. FAQ Hệ Thống Nhúng
+  - story: "Pair - FAQ Hệ Thống Nhúng"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_htn
+      - action: utter_faq_htn
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 43. FAQ CNTT TTNT (Khoa Học Dữ Liệu & TTNT)
+  - story: "Pair - FAQ CNTT TTNT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_khdl
+      - action: utter_faq_khdl
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 44. FAQ Mạng & Truyền Thông
+  - story: "Pair - FAQ Mạng & Truyền Thông"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_mtt
+      - action: utter_faq_mtt
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 45. FAQ Chứng chỉ ngoại ngữ CNTT
+  - story: "Pair - FAQ Chứng chỉ ngoại ngữ CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_faq_certificate_usage
+      - action: utter_faq_certificate_usage
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 46. Thông tin liên hệ tuyển sinh CNTT
+  - story: "Pair - Thông tin liên hệ tuyển sinh CNTT"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_contact_info
+      - action: utter_contact_info
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 47. Ngoài phạm vi (Out-of-Scope)
+  - story: "Pair - Ngoài phạm vi"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 48. Giới thiệu bản thân (iamabot)
+  - story: "Pair - Giới thiệu bản thân"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: iamabot
+      - action: utter_iamabot
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 49. Phản hồi cảm ơn
+  - story: "Pair - Cảm ơn"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: thank
+      - action: utter_thank
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # Direct pair cho từng intent (ví dụ cho một số intent chính)
+  - story: "Direct Pair - Thông tin chung ngành CNTT"
+    steps:
+      - intent: ask_major_info
+      - action: utter_major_info
+
+  - story: "Direct Pair - Chỉ tiêu tuyển sinh chung"
+    steps:
+      - intent: ask_enrollment_quota
+      - action: utter_enrollment_quota
+
+  - story: "Direct Pair - CNTT Đặc Thù: thông tin ngành"
+    steps:
+      - intent: ask_major_dthtdn_info
+      - action: utter_major_info_dthtdn
+
+  - story: "Direct Pair - CNTT Đặc Thù: chỉ tiêu tuyển sinh"
+    steps:
+      - intent: ask_enrollment_quota_major_dthtdn
+      - action: utter_enrollment_quota_major_dthtdn
+
+  - story: "Direct Pair - CNTT Đặc Thù: chương trình đào tạo"
+    steps:
+      - intent: ask_training_program_major_dthtdn
+      - action: utter_training_program_major_dthtdn
+
+  - story: "Direct Pair - CNTT Đặc Thù: chuẩn ngoại ngữ"
+    steps:
+      - intent: ask_standard_output_language_major_dthtdn
+      - action: utter_standard_output_language_major_dthtdn
+
+  - story: "Direct Pair - CNTT Ngoại Ngữ Nhật: thông tin ngành"
+    steps:
+      - intent: ask_major_nnn_info
+      - action: utter_major_info_nnn
+
+  - story: "Direct Pair - CNTT Ngoại Ngữ Nhật: chỉ tiêu tuyển sinh"
+    steps:
+      - intent: ask_enrollment_quota_major_nnn
+      - action: utter_enrollment_quota_major_nnn
+
+  - story: "Direct Pair - CNTT Ngoại Ngữ Nhật: chương trình đào tạo"
+    steps:
+      - intent: ask_training_program_major_nnn
+      - action: utter_training_program_major_nnn
+
+  - story: "Direct Pair - CNTT Ngoại Ngữ Nhật: chuẩn ngoại ngữ"
+    steps:
+      - intent: ask_standard_output_language_major_nnn
+      - action: utter_standard_output_language_major_nnn
+
+  - story: "Direct Pair - CNTT TTNT: thông tin ngành"
+    steps:
+      - intent: ask_major_khdl_ttnt_info
+      - action: utter_major_info_khdl_ttnt
+
+  - story: "Direct Pair - CNTT TTNT: chỉ tiêu tuyển sinh"
+    steps:
+      - intent: ask_enrollment_quota_major_khdl_ttnt
+      - action: utter_enrollment_quota_major_khdl_ttnt
+
+  - story: "Direct Pair - CNTT TTNT: chương trình đào tạo"
+    steps:
+      - intent: ask_training_program_major_khdl_ttnt
+      - action: utter_training_program_major_khdl_ttnt
+
+  - story: "Direct Pair - CNTT TTNT: chuẩn ngoại ngữ"
+    steps:
+      - intent: ask_standard_output_language_major_khdl_ttnt
+      - action: utter_standard_output_language_major_khdl_ttnt
+
+  - story: "Direct Pair - Phương thức xét tuyển"
+    steps:
+      - intent: ask_admission_methods
+      - action: utter_admission_methods
+
+  - story: "Direct Pair - Xét tuyển thẳng (chi tiết)"
+    steps:
+      - intent: ask_direct_admission_detail
+      - action: utter_direct_admission_detail
+
+  - story: "Direct Pair - Xét tuyển riêng (chi tiết)"
+    steps:
+      - intent: ask_xet_tuyen_rieng_detail
+      - action: utter_xet_tuyen_rieng_detail
+
+  - story: "Direct Pair - Quy trình xét tuyển"
+    steps:
+      - intent: ask_admission_process
+      - action: utter_admission_process
+
+  - story: "Direct Pair - Tổ hợp thi - CNTT Đặc Thù"
+    steps:
+      - intent: ask_TNTHPT_DT
+      - action: utter_TNTHPT_DT
+
+  - story: "Direct Pair - Tổ hợp thi - CNTT Ngoại Ngữ Nhật"
+    steps:
+      - intent: ask_TNTHPT_NNN
+      - action: utter_TNTHPT_NNN
+
+  - story: "Direct Pair - Tổ hợp thi - CNTT TTNT"
+    steps:
+      - intent: ask_TNTHPT_KHDL
+      - action: utter_TNTHPT_KHDL
+
+  - story: "Direct Pair - Điểm chuẩn riêng CNTT Đặc Thù (2 năm)"
+    steps:
+      - intent: ask_cutoff_score_dthtdn_2years_rieng
+      - action: utter_cutoff_score_dthtdn_2years_rieng
+
+  - story: "Direct Pair - Điểm chuẩn riêng CNTT Ngoại Ngữ Nhật (2 năm)"
+    steps:
+      - intent: ask_cutoff_score_nnn_2years_rieng
+      - action: utter_cutoff_score_nnn_2years_rieng
+
+  - story: "Direct Pair - Điểm chuẩn riêng CNTT TTNT (2 năm)"
+    steps:
+      - intent: ask_cutoff_score_ttnt_2years_rieng
+      - action: utter_cutoff_score_ttnt_2years_rieng
+
+  - story: "Direct Pair - Điểm chuẩn THPT CNTT Đặc Thù (2 năm)"
+    steps:
+      - intent: ask_cutoff_score_dthtdn_2years_thpt
+      - action: utter_cutoff_score_dthtdn_2years_thpt
+
+  - story: "Direct Pair - Điểm chuẩn THPT CNTT Ngoại Ngữ Nhật (2 năm)"
+    steps:
+      - intent: ask_cutoff_score_nnn_2years_thpt
+      - action: utter_cutoff_score_nnn_2years_thpt
+
+  - story: "Direct Pair - Điểm chuẩn THPT CNTT TTNT (2 năm)"
+    steps:
+      - intent: ask_cutoff_score_ttnt_2years_thpt
+      - action: utter_cutoff_score_ttnt_2years_thpt
+
+  - story: "Direct Pair - Tổng hợp điểm chuẩn riêng (2 năm)"
+    steps:
+      - intent: ask_cutoff_score_all_2years_rieng
+      - action: utter_cutoff_score_all_2years_rieng
+
+  - story: "Direct Pair - Tổng hợp điểm chuẩn THPT (2 năm)"
+    steps:
+      - intent: ask_cutoff_score_all_2years_thpt
+      - action: utter_cutoff_score_all_2years_thpt
+
+  - story: "Direct Pair - Tổng hợp điểm chuẩn CNTT Đặc Thù (2 năm, cả 2 phương thức)"
+    steps:
+      - intent: ask_cutoff_score_dthtdn_2years_all
+      - action: utter_cutoff_score_dthtdn_2years_all
+
+  - story: "Direct Pair - Tổng hợp điểm chuẩn CNTT Ngoại Ngữ Nhật (2 năm, cả 2 phương thức)"
+    steps:
+      - intent: ask_cutoff_score_nnn_2years_all
+      - action: utter_cutoff_score_nnn_2years_all
+
+  - story: "Direct Pair - Tổng hợp điểm chuẩn CNTT TTNT (2 năm, cả 2 phương thức)"
+    steps:
+      - intent: ask_cutoff_score_ttnt_2years_all
+      - action: utter_cutoff_score_ttnt_2years_all
+
+  - story: "Direct Pair - Bảng tổng hợp điểm chuẩn CNTT 2 năm (riêng & THPT)"
+    steps:
+      - intent: ask_cutoff_score_all_2years_both
+      - action: utter_cutoff_score_all_2years_both
+
+  - story: "Direct Pair - Chương trình đào tạo chung CNTT"
+    steps:
+      - intent: ask_training_program
+      - action: utter_training_program
+
+  - story: "Direct Pair - Chuẩn đầu ra ngoại ngữ CNTT"
+    steps:
+      - intent: ask_standard_output_language
+      - action: utter_standard_output_language
+
+  - story: "Direct Pair - FAQ Việc làm CNTT"
+    steps:
+      - intent: ask_faq_job_opportunities
+      - action: utter_faq_job_opportunities
+
+  - story: "Direct Pair - FAQ chuyên ngành CNTT (Danh sách chuyên ngành)"
+    steps:
+      - intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+
+  - story: "Direct Pair - FAQ An Toàn Thông Tin"
+    steps:
+      - intent: ask_faq_attt
+      - action: utter_faq_attt
+
+  - story: "Direct Pair - FAQ Hệ Thống Thông Tin"
+    steps:
+      - intent: ask_faq_httt
+      - action: utter_faq_httt
+
+  - story: "Direct Pair - FAQ Công Nghệ Phần Mềm"
+    steps:
+      - intent: ask_faq_cnpm
+      - action: utter_faq_cnpm
+
+  - story: "Direct Pair - FAQ Hệ Thống Nhúng"
+    steps:
+      - intent: ask_faq_htn
+      - action: utter_faq_htn
+
+  - story: "Direct Pair - FAQ CNTT TTNT"
+    steps:
+      - intent: ask_faq_khdl
+      - action: utter_faq_khdl
+
+  - story: "Direct Pair - FAQ Mạng & Truyền Thông"
+    steps:
+      - intent: ask_faq_mtt
+      - action: utter_faq_mtt
+
+  - story: "Direct Pair - FAQ Chứng chỉ ngoại ngữ CNTT"
+    steps:
+      - intent: ask_faq_certificate_usage
+      - action: utter_faq_certificate_usage
+
+  - story: "Direct Pair - Thông tin liên hệ tuyển sinh CNTT"
+    steps:
+      - intent: ask_contact_info
+      - action: utter_contact_info
+
+  - story: "Direct Pair - Out of scope"
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+
+  - story: "Direct Pair - Giới thiệu bản thân"
+    steps:
+      - intent: iamabot
+      - action: utter_iamabot
+
+  - story: "Direct Pair - Cảm ơn"
+    steps:
+      - intent: thank
+      - action: utter_thank
+
+
+  # ----------------------------
+  # Nhóm Phương Thức Xét Tuyển (Buttons)
+  # ----------------------------
+  - story: "Pair - Phương thức: Xét tuyển thẳng"
+    steps:
+      - intent: ask_admission_methods
+      - action: utter_admission_methods
+      - intent: ask_direct_admission_detail
+      - action: utter_direct_admission_detail
+
+  - story: "Pair - Phương thức: Xét tuyển theo phương thức riêng"
+    steps:
+      - intent: ask_admission_methods
+      - action: utter_admission_methods
+      - intent: ask_xet_tuyen_rieng_detail
+      - action: utter_xet_tuyen_rieng_detail
+
+  - story: "Pair - Phương thức: Quy trình xét tuyển"
+    steps:
+      - intent: ask_admission_methods
+      - action: utter_admission_methods
+      - intent: ask_admission_process
+      - action: utter_admission_process
+
+  - story: "Pair - Phương thức: Tổ hợp thi - Đặc Thù"
+    steps:
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_TNTHPT_DT
+      - action: utter_TNTHPT_DT
+
+  - story: "Pair - Phương thức: Tổ hợp thi - Ngoại Ngữ Nhật"
+    steps:
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_TNTHPT_NNN
+      - action: utter_TNTHPT_NNN
+
+  - story: "Pair - Phương thức: Tổ hợp thi - TTNT"
+    steps:
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_TNTHPT_KHDL
+      - action: utter_TNTHPT_KHDL
+
+  # ----------------------------
+  # Nhóm Đào Tạo Chuyên Ngành (Buttons)
+  # ----------------------------
+  - story: "Pair - Chuyên ngành: An Toàn Thông Tin"
+    steps:
+      - intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - intent: ask_faq_attt
+      - action: utter_faq_attt
+
+  - story: "Pair - Chuyên ngành: Hệ Thống Thông Tin"
+    steps:
+      - intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - intent: ask_faq_httt
+      - action: utter_faq_httt
+
+  - story: "Pair - Chuyên ngành: Công Nghệ Phần Mềm"
+    steps:
+      - intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - intent: ask_faq_cnpm
+      - action: utter_faq_cnpm
+
+  - story: "Pair - Chuyên ngành: Hệ Thống Nhúng"
+    steps:
+      - intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - intent: ask_faq_htn
+      - action: utter_faq_htn
+
+  - story: "Pair - Chuyên ngành: Khoa Học Dữ Liệu & TTNT"
+    steps:
+      - intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - intent: ask_faq_khdl
+      - action: utter_faq_khdl
+
+  - story: "Pair - Chuyên ngành: Mạng & Truyền Thông"
+    steps:
+      - intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - intent: ask_faq_mtt
+      - action: utter_faq_mtt
+
+  - story: "Chỉ tiêu Trường Đại Học Bách Khoa"
+    steps:
+      - intent: ask_enrollment_quota_uni
+      - action: utter_enrollment_quota_uni
+  
+  - story: "Phương thức tuyển sinh bách khoa"
+    steps:
+      - intent: ask_admission_method_uni
+      - action: utter_admission_methods_uni
+  
+  - story: "Xét tuyển bằng đánh giá năng lực"
+    steps:
+      - intent: ask_dgnl
+      - action: utter_dgnl
+  
+  - story: "Xét tuyển bằng đánh giá tư duy"
+    steps:
+      - intent: ask_dgtd
+      - action: utter_dgtd
+  
+  - story: "Lưu ý xét tuyển"
+    steps:
+      - intent: ask_cntt_luu_y
+      - action: utter_cntt_luu_y
+
+  - story: "Điểm TN THPT - Đặc thù"
+    steps:
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_cntt_dacthu
+      - action: utter_TNTHPT_DT
+
+  - story: "Điểm TN THPT - NNN"
+    steps:
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_cntt_nnn
+      - action: utter_TNTHPT_NNN
+
+  - story: "Điểm TN THPT - AI"
+    steps:
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
+      - intent: ask_cntt_ai
+      - action: utter_TNTHPT_KHDL
+

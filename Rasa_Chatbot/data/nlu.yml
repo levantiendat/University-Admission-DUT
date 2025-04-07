@@ -1,0 +1,760 @@
+version: "3.1"
+nlu:
+# ---------- CHÀO HỎI & KẾT THÚC ----------
+- intent: greet
+  examples: |
+    - xin chào
+    - chào bạn
+    - hi
+    - hello
+    - alo
+    - hế lô
+    - chào cậu
+    - chào mừng
+
+- intent: goodbye
+  examples: |
+    - tạm biệt
+    - bye bye
+    - chào tạm biệt
+    - hẹn gặp lại
+    - tạm biệt nhé
+    - hẹn gặp lại sau
+    - tạm biệt bạn
+
+- intent: thank
+  examples: |
+    - cảm ơn
+    - thanks
+    - cảm ơn bạn
+    - cám ơn nhiều
+    - tks
+
+- intent: iamabot
+  examples: |
+    - bạn là ai?
+    - ai là chatbot?
+    - giới thiệu bản thân
+    - bạn là bot phải không?
+    - bot ơi, bạn là ai?
+
+# ---------- THÔNG TIN CHUNG NGÀNH CNTT ----------
+- intent: ask_major_info
+  examples: |
+    - ngành CNTT là gì?
+    - cho tôi biết thông tin chung về ngành CNTT
+    - CNTT gồm những gì?
+    - tóm tắt về ngành CNTT
+    - thông tin về ngành công nghệ thông tin
+    - cntt là ngành nào?
+    - CNTT (công nghệ thông tin) ra sao?
+    - CNTT là gì?
+
+- intent: ask_major_info_not_found
+  examples: |
+    - tôi không tìm thấy thông tin ngành đó
+    - không có thông tin về ngành này
+    - info về ngành này không có đâu
+    - không biết về ngành này
+    - không có data cho ngành này
+
+# ---------- CHỈ TIÊU TUYỂN SINH CHUNG ----------
+- intent: ask_enrollment_quota
+  examples: |
+    - tổng chỉ tiêu tuyển sinh CNTT là bao nhiêu?
+    - chỉ tiêu tuyển sinh CNTT
+    - cntt có bao nhiêu chỗ?
+    - chỉ tiêu của ngành CNTT là gì?
+    - tuyển sinh CNTT có bao nhiêu?
+    - tổng số chỗ CNTT
+    - quota ngành CNTT là bao nhiêu?
+
+- intent: ask_enrollment_quota_uni
+  examples: |
+    - tổng chỉ tiêu tuyển sinh của trường là bao nhiêu?
+    - chỉ tiêu tuyển sinh năm 2025
+    - chỉ tiêu tuyển sinh
+    - chỉ tiêu tuyển sinh bách khoa
+    - bách khoa tuyển bao nhiêu sinh viên
+    - năm nay tuyển bao nhiêu sinh viên
+
+# ---------- NHÓM CNTT ĐẶC THÙ – HỢP TÁC DOANH NGHIỆP ----------
+- intent: ask_major_dthtdn_info
+  examples: |
+    - ngành CNTT đặc thù là gì?
+    - cho tôi biết về CNTT đặc thù
+    - CNTT đặc thù hợp tác doanh nghiệp là gì?
+    - cntt dthtdn là gì?
+    - info CNTT đặc thù
+    - cntt DTHTDN ra sao?
+    - đt hợp tác doanh nghiệp CNTT là gì?
+    - ngành công nghệ thông tin đặc thù hợp tác doanh nghiệp
+    - công nghệ thông tin đặc thù hợp tác doanh nghiệp đào tạo như thế nào?
+    - thông tin về công nghệ thông tin đặc thù hợp tác doanh nghiệp
+
+- intent: ask_enrollment_quota_major_dthtdn
+  examples: |
+    - chỉ tiêu CNTT đặc thù là bao nhiêu?
+    - tuyển sinh CNTT đặc thù có bao nhiêu?
+    - chỉ tiêu CNTT dthtdn là bao nhiêu?
+    - CNTT đặc thù có bao nhiêu chỗ?
+    - chỉ tiêu tuyển sinh công nghệ thông tin đặc thù hợp tác doanh nghiệp là bao nhiêu?
+    - chỉ tiêu công nghệ thông tin đặc thù hợp tác doanh nghiệp
+
+- intent: ask_training_program_major_dthtdn
+  examples: |
+    - chương trình đào tạo CNTT đặc thù là gì?
+    - cntt dthtdn học như thế nào?
+    - chương trình CNTT đặc thù
+    - học CNTT đặc thù hợp tác doanh nghiệp ra sao?
+    - dthtdn đào tạo thế nào?
+    - đào tạo CNTT DTHTDN ra sao?
+    - chương trình đào tạo công nghệ thông tin đặc thù
+    - chương trình đào tạo công nghệ thông tin đặc thù hợp tác doanh nghiệp
+
+- intent: ask_standard_output_language_major_dthtdn
+  examples: |
+    - chuẩn ngoại ngữ CNTT đặc thù là gì?
+    - yêu cầu ngoại ngữ CNTT đặc thù?
+    - chuẩn đầu ra ngoại ngữ của CNTT đặc thù
+    - cntt dthtdn ngoại ngữ ra sao?
+    - chuẩn ngoại ngữ DTHTDN là gì?
+    - chuẩn ngoại ngữ của công nghệ thông tin đặc thù hợp tác doanh nghiệp
+    - chuẩn ngoại ngữ của công nghệ thông tin đặc thù
+    - yêu cầu ngoại ngữ của công nghệ thông tin đặc thù hợp tác doanh nghiệp
+    - yêu cầu ngoại ngữ của công nghệ thông tin đặc thù
+
+# ---------- NHÓM CNTT NGOẠI NGỮ NHẬT ----------
+- intent: ask_major_nnn_info
+  examples: |
+    - ngành CNTT ngoại ngữ nhật là gì?
+    - cho tôi biết về CNTT ngoại ngữ nhật
+    - cntt nnn là gì?
+    - CNTT ngoại ngữ nhật ra sao?
+    - cntt NNN là ngành nào?
+    - ngành công nghệ thông tin ngoại ngữ nhật đào tạo như thế nào?
+    - ngành công nghệ thông tin ngoại ngữ nhật là gì?
+    - ngành công nghệ thông tin ngoại ngữ nhật
+
+
+- intent: ask_enrollment_quota_major_nnn
+  examples: |
+    - chỉ tiêu CNTT ngoại ngữ nhật là bao nhiêu?
+    - tuyển sinh CNTT ngoại ngữ nhật có bao nhiêu chỗ?
+    - cntt nnn có bao nhiêu chỉ tiêu?
+    - chỉ tiêu CNTT NNN là bao nhiêu?
+    - chỉ tiêu tuyển sinh công nghệ thông tin ngoại ngữ nhật
+    - chỉ tiêu công nghệ thông tin ngoại ngữ nhật
+    - chỉ tiêu cntt ngoại ngữ nhật
+
+- intent: ask_training_program_major_nnn
+  examples: |
+    - chương trình đào tạo CNTT ngoại ngữ nhật là gì?
+    - đào tạo CNTT ngoại ngữ nhật ra sao?
+    - cntt NNN học ra sao?
+    - chương trình đào tạo CNTT NNN?
+    - chương trình đào tạo công nghệ thông tin ngoại ngữ nhật
+    - chương trình đào tạo cntt ngoại ngữ nhật
+
+- intent: ask_standard_output_language_major_nnn
+  examples: |
+    - chuẩn ngoại ngữ cntt nnn
+    - yêu cầu ngoại ngữ cntt nnn
+    - chuẩn ngoại ngữ CNTT ngoại ngữ nhật
+    - chuẩn ngoại ngữ công nghệ thông tin ngoại ngữ nhật
+    - yêu cầu ngoại ngữ công nghệ thông tin ngoại ngữ nhật
+    - yêu cầu ngoại ngữ cntt ngoại ngữ nhật
+
+# ---------- NHÓM CNTT CHUYÊN NGÀNH KHOA HỌC DỮ LIỆU & TTNT ----------
+- intent: ask_major_khdl_ttnt_info
+  examples: |
+    - ngành CNTT TTNT là gì?
+    - cho tôi biết về CNTT chuyên ngành TTNT
+    - CNTT TTNT ra sao?
+    - info CNTT TTNT
+    - cntt TTNT là ngành nào?
+    - CNTT chuyên ngành khoa học dữ liệu & ttnt là gì?
+    - cntt ttnt là gì?
+    - ngành công nghệ thông tin khoa học dữ liệu & ttnt đào tạo như thế nào?
+    - ngành công nghệ thông tin khoa học dữ liệu & ttnt là gì?
+    - ngành cntt ai là gì?
+    - ngành công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu trí tuệ nhân tạon là gì?
+    - ngành công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu trí tuệ nhân tạo
+    - ngành cntt khdl ttnt
+    - ngành cntt khoa học dữ liệu
+    - ngành cntt trí tuệ nhân tạo
+
+- intent: ask_enrollment_quota_major_khdl_ttnt
+  examples: |
+    - chỉ tiêu CNTT TTNT là bao nhiêu?
+    - tuyển sinh CNTT TTNT có bao nhiêu chỗ?
+    - quota CNTT TTNT là bao nhiêu?
+    - cntt TTNT chỉ tiêu?
+    - chỉ tiêu tuyển sinh công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo
+    - chỉ tiêu công nghệ thông tin chuyên ngành khoa học dữ liệu trí tuệ nhân tạo
+    - chỉ tiêu cntt khoa học dữ liệu trí tuệ nhân tạo
+    - chỉ tiêu cntt khdl ttnt
+    - chỉ tiêu cntt ai
+    - chỉ tiêu cntt khoa học dữ liệu
+    - chỉ tiêu cntt trí tuệ nhân tạo
+
+- intent: ask_training_program_major_khdl_ttnt
+  examples: |
+    - chương trình đào tạo cntt khdl ttnt
+    - đào tạo CNTT TTNT ra sao?
+    - học CNTT TTNT như thế nào?
+    - chương trình đào tạo CNTT TTNT?
+    - chương trình đào tạo công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo
+    - chương trình đào tạo cntt khoa học dữ liệu trí tuệ nhân tạo
+    - chương trình đào tạo cntt trí tuệ nhân tạo
+    - chương trình đào tạo cntt khoa học dữ liệu
+    
+
+- intent: ask_standard_output_language_major_khdl_ttnt
+  examples: |
+    - chuẩn ngoại ngữ CNTT TTNT là gì?
+    - yêu cầu ngoại ngữ đầu ra cntt ttnt
+    - chuẩn ngoại ngữ công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo
+    - chuẩn ngoại ngữ cntt khoa học dữ liệu trí tuệ nhân tạo
+    - chuẩn ngoại ngữ cntt trí tuệ nhân tạo
+    - yêu cầu ngoại ngữ cntt khdl ttnt
+    - yêu cầu ngoại ngữ cntt ai
+    - yêu cầu ngoại ngữ cntt khoa học dữ liệu
+    - yêu cầu ngoại ngữ cntt trí tuệ nhân tạo
+
+# ---------- PHƯƠNG THỨC XÉT TUYỂN & TỔ HỢP THI CHUNG ----------
+- intent: ask_admission_methods
+  examples: |
+    - các phương thức xét tuyển CNTT là gì?
+    - các phương thức xét tuyển vào công nghệ thông tin ?
+    - phương thức tuyển sinh CNTT
+    - phương thức xét tuyển CNTT
+    - phương thức tuyển sinh công nghệ thông tin
+    - xét tuyển CNTT theo cách nào?
+    - có những hình thức xét tuyển CNTT nào?
+    - xét tuyển CNTT như thế nào?
+
+- intent: ask_admission_method_uni
+  examples: |
+    - các phương thức xét tuyển trường đại học bách khoa?
+    - các phương thức xét tuyển
+    - phương thức tuyển sinh đại học bách khoa
+    - phương thức tuyển sinh bách khoa
+    - phương thức xét tuyển bách khoa
+    - phương thức xét tuyển
+    - phương thức tuyển sinh
+    - tuyển sinh năm 2025 ra sao
+    - tuyển sinh năm 2025
+    - tuyển sinh năm nay
+
+- intent: ask_direct_admission_detail
+  examples: |
+    - chi tiết xét tuyển thẳng CNTT
+    - xét tuyển thẳng CNTT như thế nào?
+    - điều kiện xét tuyển thẳng CNTT là gì?
+    - yêu cầu xét tuyển thẳng CNTT
+    - yêu cầu xét tuyển thẳng công nghệ thông tin
+    - chi tiết xét tuyển thẳng công nghệ thông tin
+    - phương thức xét tuyển thẳng công nghệ thông tin
+    - phương thức xét tuyển thẳng cntt
+
+- intent: ask_xet_tuyen_rieng_detail
+  examples: |
+    - chi tiết xét tuyển riêng CNTT là gì?
+    - chi tiết xét tuyển riêng CNTT
+    - chi tiết xét tuyển riêng công nghệ thông tin
+    - phương thức xét tuyển riêng cntt
+    - phương thức xét tuyển riêng công nghệ thông tin
+    - xét tuyển riêng CNTT như thế nào?
+    - xét tuyển riêng công nghệ thông tin như thế nào?
+    - điều kiện xét tuyển riêng CNTT
+    - điều kiện xét tuyển riêng công nghệ thông tin
+    - yêu cầu xét tuyển riêng CNTT
+    - yêu cầu xét tuyển riêng công nghệ thông tin
+
+- intent: ask_diem_thi_TN_THPT
+  examples: |
+    - phương thức xét tuyển bằng điểm thi tốt nghiệp thpt
+    - phương thức xét tuyển bằng điểm thi TN THPT
+    - xét tuyển bằng điểm thi tn thpt
+    - xét tuyển điểm thi tn thpt
+    - xét điểm thi tốt nghiệp thpt
+    - xét điểm thi tốt nghiệp trung học phổ thông
+    - xét tuyển bằng điểm thi tốt nghiệp trung học phổ thông
+
+- intent: ask_TNTHPT_DT
+  examples: |
+    - tổ hợp xét tuyển công nghệ thông tin đặc thù hợp tác doanh nghiệp là gì ?
+    - tổ hợp xét tuyển CNTT đặc thù hợp tác doanh nghiệp
+    - tổ hợp xét tuyển cntt đthtdn
+    - tổ hợp xét tuyển công nghệ thông tin đặc thù hợp tác doanh nghiệp
+    - tổ hợp xét tuyển cntt đặc thù
+    - tổ hợp xét tuyển cntt đặc thù hợp tác doanh nghiệp
+    - tổ hợp thi CNTT đặc thù hợp tác doanh nghiệp là gì?
+    - tổ hợp thi CNTT đặc thù hợp tác doanh nghiệp
+    - tổ hợp thi cntt đthtdn
+    - tổ hợp thi công nghệ thông tin đặc thù hợp tác doanh nghiệp
+- intent: ask_TNTHPT_NNN
+  examples: |
+    - tổ hợp xét tuyển công nghệ thông tin ngoại ngữ nhật là gì ?
+    - tổ hợp xét tuyển CNTT ngoại ngữ nhật
+    - tổ hợp xét tuyển cntt nnn
+    - tổ hợp xét tuyển công nghệ thông tin ngoại ngữ nhật
+    - tổ hợp xét tuyển cntt ngoại ngữ nhật
+    - tổ hợp thi CNTT ngoại ngữ nhật là gì?
+    - tổ hợp thi CNTT đngoại ngữ nhật
+    - tổ hợp thi cntt nnn
+    - tổ hợp thi công nghệ thông tin ngoại ngữ nhật
+    - tổ hợp thi chương trình cntt ngoại ngữ nhật
+
+- intent: ask_TNTHPT_KHDL
+  examples: |
+    - tổ hợp xét tuyển công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo là gì ?
+    - tổ hợp xét tuyển CNTT khoa học dữ liệu & trí tuệ nhân tạo
+    - tổ hợp xét tuyển cntt khdl ttnt
+    - tổ hợp xét tuyển công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu & trí tuệ nhân tạo
+    - tổ hợp xét tuyển cntt khoa học dữ liệu & trí tuệ nhân tạo
+    - tổ hợp thi CNTT khoa học dữ liệu & trí tuệ nhân tạo là gì?
+    - tổ hợp thi CNTT khoa học dữ liệu trí tuệ nhân tạo
+    - tổ hợp thi cntt khdl ttnt
+    - tổ hợp thi công nghệ thông tin khoa học dữ liệu trí tuệ nhân tạo
+    - tổ hợp thi cntt ai
+    - tổ hợp thi cntt khoa học dữ liệu
+    - tổ hợp thi cntt trí tuệ nhân tạo
+
+- intent: ask_admission_process
+  examples: |
+    - quy trình xét tuyển CNTT như thế nào?
+    - cách thức xét tuyển CNTT ra sao?
+    - quy trình tuyển sinh CNTT
+    - quá trình xét tuyển CNTT là gì?
+    - cách thức xét tuyển
+    - quy trình xét tuyển công nghệ thông tin
+    - cách thức xét tuyển công nghệ thông tin
+
+- intent: ask_dgnl
+  examples: |
+    - phương thức xét điểm đánh giá năng lực
+    - xét điểm đánh giá năng lực
+    - cách xét tuyển bằng điểm đánh giá năng lực
+    - xét tuyển bằng điểm đánh giá năng lực
+    - xét tuyển bằng điểm thi đánh giá năng lực
+    - xét tuyển bằng điểm thi đánh giá năng lực của đại học quốc gia
+    - xét tuyển bằng điểm thi đánh giá năng lực của đại học quốc gia tp.hcm
+    - xét điểm bằng điểm thi đánh giá năng lực
+    - xét điểm bằng điểm thi dgnl
+    - điểm thi đánh giá năng lực
+    - điểm thi dgnl
+    - điểm thi vact
+    - điểm thi dgnl của đại học quốc gia
+    - điểm thi dgnl của đại học quốc gia tp.hcm
+    - điểm thi vact của đại học quốc gia
+    - điểm thi vact của đại học quốc gia tp.hcm
+    - điểm thi vact của đại học quốc gia tp.hcm năm 2025
+
+- intent: ask_dgtd
+  examples: |
+    - phương thức xét điểm thi đánh giá tư duy
+    - xét điểm thi đánh giá tư duy
+    - cách xét tuyển bằng điểm thi đánh giá tư duy
+    - xét tuyển bằng điểm thi đánh giá tư duy
+    - xét tuyển bằng điểm thi đánh giá tư duy của đại học bách khoa hà nội
+    - xét tuyển bằng điểm thi đánh giá tư duy của đại học bách khoa hà nội năm 2025
+    - điểm thi đánh giá tư duy
+    - điểm thi đánh giá tư duy của đại học bách khoa hà nội
+    - điểm thi dgtd
+    - xét điểm thi dgtd
+    - xét điểm thi tsa
+    - phương thức xét điểm thi tsa
+    - phương thức xét điểm thi dgtd
+
+- intent: ask_cntt_luu_y
+  examples: |
+    - năm nay công nghệ thông tin có gì mới không?
+    - có gì mới trong năm nay không?
+    - có gì khác biệt trong năm nay không?
+    - có gì thay đổi trong năm nay không?
+    - ngành công nghệ thông tin có xét học bạ không?
+    - ngành công nghệ thông tin có xét điểm đánh giá năng lực không?
+    - ngành công nghệ thông tin có xét điểm thi đánh giá tư duy không?
+    - ngành cntt có xét học bạ không?
+    - ngành cntt có xét điểm đánh giá năng lực không?
+    - ngành cntt có xét điểm thi đánh giá tư duy không?
+    - ngành cntt có xét điểm thi dgtd không?
+    - ngành cntt có xét điểm thi dgnl không?
+    - ngành cntt có xét điểm thi tsa không?
+    - ngành cntt có xét điểm thi vact không?
+    - điểm mới trong năm nay là gì?
+    - có gì mới trong năm nay?
+
+- intent: ask_cntt_dacthu
+  examples: |
+    - cntt đthtdn
+    - cntt đt
+    - cntt đặc thù hợp tác doanh nghiệp
+    - ngành cntt đặc thù hợp tác doanh nghiệp
+    - công nghệ thông tin đặc thù hợp tác doanh nghiệp
+    - cntt đặc thù
+    - công nghệ thông tin đặc thù
+
+- intent: ask_cntt_ai
+  examples: |
+    - cntt trí tuệ nhân tạo
+    - cntt khdl ttnt
+    - cntt khoa học dữ liệu
+    - cntt trí tuệ nhân tạo
+    - cntt khdl ttnt
+    - cntt khoa học dữ liệu
+    - cntt trí tuệ nhân tạo
+    - cntt khoa học dữ liệu trí tuệ nhân tạo
+    - cntt ai
+    - công nghệ thông tin khoa học dữ liệu trí tuệ nhân tạo
+    - ngành công nghệ thông tin khoa học dữ liệu trí tuệ nhân tạo
+
+- intent: ask_cntt_nnn
+  examples: |
+    - công nghệ thông tin nnn
+    - cntt nnn
+    - cntt ngoại ngữ nhật
+    - ngành cntt ngoại ngữ nhật
+    - công nghệ thông tin ngoại ngữ nhật
+    - cntt nnn
+    - cntt ngoại ngữ nhật
+    - công nghệ thông tin ngoại ngữ nhật
+
+# ---------- ĐIỂM CHUẨN TUYỂN SINH ----------
+- intent: ask_cutoff_score_dthtdn_2years_rieng
+  examples: |
+    - điểm chuẩn xét tuyển riêng cntt đặc thù 2 năm qua là bao nhiêu ?
+    - điểm chuẩn xét tuyển riêng CNTT đặc thù 2 năm qua
+    - điểm chuẩn xét tuyển riêng CNTT đặc thù 2 năm gần nhất
+    - điểm chuẩn xét tuyển riêng CNTT đặc thù 2 năm gần đây
+    - điểm chuẩn xét tuyển riêng CNTT đặc thù 2 năm qua
+    - điểm chuẩn xét tuyển riêng công nghệ thông tin đặc thù 2 năm gần nhất
+    - điểm chuẩn xét tuyển riêng công nghệ thông tin đặc thù 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt đthtdn 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt đặc thù hợp tác doanh nghiệp 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt đặc thù hợp tác doanh nghiệp 2 năm gần nhất
+    - điểm chuẩn xét tuyển riêng cntt đặc thù hợp tác doanh nghiệp 2 năm gần đây
+    - điểm chuẩn xét tuyển riêng công nghệ thông tin đặc thù hợp tác doanh nghiệp 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt đặc thù các năm qua
+
+- intent: ask_cutoff_score_nnn_2years_rieng
+  examples: |
+    - điểm chuẩn xét tuyển riêng cntt ngoại ngữ nhật 2 năm qua là bao nhiêu ?
+    - điểm chuẩn xét tuyển riêng CNTT ngoại ngữ nhật 2 năm qua
+    - điểm chuẩn xét tuyển riêng CNTT ngoại ngữ nhật 2 năm gần nhất
+    - điểm chuẩn xét tuyển riêng CNTT ngoại ngữ nhật 2 năm gần đây
+    - điểm chuẩn xét tuyển riêng công nghệ thông tin ngoại ngữ nhật 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt nnn 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt ngoại ngữ nhật 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt ngoại ngữ nhật 2 năm gần nhất
+    - điểm chuẩn xét tuyển riêng cntt ngoại ngữ nhật 2 năm gần đây
+    - điểm chuẩn xét tuyển riêng cntt ngoại ngữ nhật các năm qua
+- intent: ask_cutoff_score_ttnt_2years_rieng
+  examples: |
+    - điểm chuẩn xét tuyển riêng công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo 2 năm qua là bao nhiêu ?
+    - điểm chuẩn xét tuyển riêng CNTT TTNT 2 năm qua
+    - điểm chuẩn xét tuyển riêng CNTT TTNT 2 năm gần nhất
+    - điểm chuẩn xét tuyển riêng CNTT TTNT 2 năm gần đây
+    - điểm chuẩn xét tuyển riêng CNTT TTNT 2 năm qua
+    - điểm chuẩn xét tuyển riêng công nghệ thông tin khoa học dữ liệu và trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt ttnt 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt ttnt 2 năm gần nhất
+    - điểm chuẩn xét tuyển riêng cntt ttnt 2 năm gần đây
+    - điểm chuẩn xét tuyển riêng cntt ai 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt khoa học dữ liệu và trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt khdl ttnt 2 năm qua
+    - điểm chuẩn xét tuyển riêng cntt khoa học dữ liệu các năm qua ?
+
+- intent: ask_cutoff_score_dthtdn_2years_thpt
+  examples: |
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt đặc thù 2 năm qua là bao nhiêu ?
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt đặc thù 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt đặc thù 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp trung học phổ thông CNTT đặc thù 2 năm gần đây
+    - điểm chuẩn xét tuyển điểm thi tn thpt CNTT đặc thù 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt công nghệ thông tin đặc thù 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt công nghệ thông tin đặc thù 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt đthtdn 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt đặc thù hợp tác doanh nghiệp 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt đặc thù hợp tác doanh nghiệp 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tn thpt cntt đặc thù hợp tác doanh nghiệp 2 năm gần đây
+    - điểm chuẩn điểm thi tốt nghiệp thpt công nghệ thông tin đặc thù hợp tác doanh nghiệp 2 năm qua
+    - điểm chuẩn điểm thi tốt nghiệp thpt cntt đặc thù các năm qua
+- intent: ask_cutoff_score_nnn_2years_thpt
+  examples: |
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt ngoại ngữ nhật 2 năm qua là bao nhiêu ?
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt ngoại ngữ nhật 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt công nghệ thông tin ngoại ngữ nhật 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp trung học phổ thông CNTT ngoại ngữ nhật 2 năm gần đây
+    - điểm chuẩn xét tuyển điểm thi tn thpt CNTT nnn 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt công nghệ thông tin ngoại ngữ nhật 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt công nghệ thông tin nnn 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt nnn 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt ngoại ngữ nhật 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt nnn 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tn thpt cntt ngoại ngữ nhật 2 năm gần đây
+    - điểm chuẩn điểm thi tốt nghiệp thpt công nghệ thông tin nnn 2 năm qua
+    - điểm chuẩn điểm thi tốt nghiệp thpt cntt nnn các năm qua
+
+- intent: ask_cutoff_score_ttnt_2years_thpt
+  examples: |
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo 2 năm qua là bao nhiêu ?
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt khoa học dữ liệu trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt khoa học dữ liệu 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp trung học phổ thông CNTT đặc thù khoa học dữ liệu và trí tuệ nhân tạo 2 năm gần đây
+    - điểm chuẩn xét tuyển điểm thi tn thpt CNTT đthtdn khdl ttnt 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt công nghệ thông tin đặc thù hợp tác doanh nghiệp khdl ttnt 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt khdl ttnt 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt cntt ai 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt khoa học dữ liệu 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi tn thpt cntt trí tuệ nhân tạo hợp tác doanh nghiệp 2 năm gần đây
+    - điểm chuẩn điểm thi tốt nghiệp thpt cntt đặc thù hợp tác doanh nghiệp khoa học dữ liệu trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn điểm thi tốt nghiệp thpt cntt khdl ttnt các năm qua
+
+- intent: ask_cutoff_score_all_2years_rieng
+  examples: |
+    - điểm chuẩn xét tuyển riêng của các ngành công nghệ thông tin 2 năm qua là bao nhiêu?
+    - điểm chuẩn xét tuyển riêng 2 năm qua
+    - điểm chuẩn xét tuyển riêng của các ngành cntt 2 năm qua
+    - điểm chuẩn xét tuyển riêng của ngành CNTT 2 năm qua
+    - điểm chuẩn xét tuyển riêng công nghệ thông tin 2 năm qua
+    - điểm chuẩn xét tuyển riêng của ngành CNTT 2 năm gần đây
+    - điểm chuẩn xét tuyển riêng của ngành công nghệ thông tin 2 năm gần nhất
+    - điểm chuẩn xét tuyển riêng các năm qua
+    - điểm chuẩn xét tuyển riêng của ngành công nghệ thông tin các năm qua
+    - điểm chuẩn xét tuyển riêng của ngành CNTT các năm qua
+
+- intent: ask_cutoff_score_all_2years_thpt
+  examples: |
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp trung học phổ thông của các ngành công nghệ thông tin 2 năm qua là bao nhiêu?
+    - điểm chuẩn xét tuyển điểm thi tn thpt 2 năm qua
+    - điểm chuẩn xét tuyển điểm thpt của các ngành cntt 2 năm qua
+    - điểm chuẩn xét tuyển điểm thi trung học phổ thông của ngành CNTT 2 năm qua
+    - điểm chuẩn xét tuyển điểm thpt công nghệ thông tin 2 năm qua
+    - điểm chuẩn xét tuyển tốt nghiệp thpt của ngành CNTT 2 năm gần đây
+    - điểm chuẩn xét tuyển điểm thi thpt của ngành công nghệ thông tin 2 năm gần nhất
+    - điểm chuẩn xét tuyển điểm thi trung học phổ thông các năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp thpt của ngành công nghệ thông tin các năm qua
+    - điểm chuẩn xét tuyển điểm thi tốt nghiệp trung học phổ thông của ngành CNTT các năm qua
+
+- intent: ask_cutoff_score_dthtdn_2years_all
+  examples: |
+    - điểm chuẩn xét tuyển cntt đặc thù 2 năm qua ở các phương thức là bao nhiêu ?
+    - điểm chuẩn xét tuyển CNTT đặc thù 2 năm qua ở các phương thức
+    - điểm chuẩn xét tuyển CNTT đặc thù 2 năm gần nhất
+    - điểm chuẩn xét tuyển CNTT đặc thù 2 năm gần đây
+    - điểm chuẩn xét tuyển CNTT đặc thù 2 năm qua
+    - điểm chuẩn xét tuyển công nghệ thông tin đặc thù 2 năm gần nhất
+    - điểm chuẩn xét tuyển công nghệ thông tin đặc thù 2 năm qua
+    - điểm chuẩn xét tuyển cntt đthtdn 2 năm qua
+    - điểm chuẩn xét tuyển cntt đặc thù hợp tác doanh nghiệp 2 năm qua
+    - điểm chuẩn xét tuyển cntt đặc thù hợp tác doanh nghiệp 2 năm gần nhất
+    - điểm chuẩn xét tuyển cntt đặc thù hợp tác doanh nghiệp 2 năm gần đây
+    - điểm chuẩn xét tuyển công nghệ thông tin đặc thù hợp tác doanh nghiệp 2 năm qua
+    - điểm chuẩn xét tuyển cntt đặc thù các năm qua
+
+- intent: ask_cutoff_score_nnn_2years_all
+  examples: |
+    - điểm chuẩn xét tuyển cntt ngoại ngữ nhật 2 năm qua ở các phương thức là bao nhiêu ?
+    - điểm chuẩn xét tuyển CNTT ngoại ngữ nhật 2 năm qua
+    - điểm chuẩn xét tuyển CNTT ngoại ngữ nhật 2 năm gần nhất
+    - điểm chuẩn xét tuyển CNTT ngoại ngữ nhật 2 năm gần đây
+    - điểm chuẩn xét tuyển công nghệ thông tin ngoại ngữ nhật 2 năm qua
+    - điểm chuẩn xét tuyển cntt nnn 2 năm qua ở các phương thức
+    - điểm chuẩn xét tuyển cntt ngoại ngữ nhật 2 năm qua
+    - điểm chuẩn xét tuyển cntt ngoại ngữ nhật 2 năm gần nhất
+    - điểm chuẩn xét tuyển cntt ngoại ngữ nhật 2 năm gần đây
+    - điểm chuẩn xét tuyển cntt ngoại ngữ nhật các năm qua
+
+- intent: ask_cutoff_score_ttnt_2years_all
+  examples: |
+    - điểm chuẩn xét tuyển công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo 2 năm qua ở các phương thức là bao nhiêu ?
+    - điểm chuẩn xét tuyển CNTT TTNT 2 năm qua
+    - điểm chuẩn xét tuyển CNTT TTNT 2 năm gần nhất
+    - điểm chuẩn xét tuyển CNTT TTNT 2 năm gần đây
+    - điểm chuẩn xét tuyển CNTT TTNT 2 năm qua ở các phương thức
+    - điểm chuẩn xét tuyển công nghệ thông tin khoa học dữ liệu và trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn xét tuyển cntt ttnt 2 năm qua
+    - điểm chuẩn xét tuyển cntt ttnt 2 năm gần nhất
+    - điểm chuẩn xét tuyển công nghệ thông tin ttnt 2 năm gần đây
+    - điểm chuẩn xét tuyển cntt ai 2 năm qua
+    - điểm chuẩn xét tuyển cntt khoa học dữ liệu và trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn xét tuyển cntt trí tuệ nhân tạo 2 năm qua
+    - điểm chuẩn xét tuyển cntt khdl ttnt 2 năm qua
+    - điểm chuẩn xét tuyển cntt khoa học dữ liệu các năm qua ?
+
+- intent: ask_cutoff_score_all_2years_both
+  examples: |
+    - điểm chuẩn xét tuyển của các ngành công nghệ thông tin 2 năm qua ở các phương thức là bao nhiêu?
+    - điểm chuẩn xét tuyển 2 năm qua ở các phương thức
+    - điểm chuẩn xét tuyển của các ngành cntt 2 năm qua ở các phương thức
+    - điểm chuẩn xét tuyển của ngành CNTT 2 năm qua ở các phương thức
+    - điểm chuẩn xét tuyển công nghệ thông tin 2 năm qua ở các phương thức
+    - điểm chuẩn xét tuyển của ngành CNTT 2 năm gần đây
+    - điểm chuẩn xét tuyển của ngành công nghệ thông tin 2 năm gần nhất ở các phương thức
+    - điểm chuẩn xét tuyển các năm qua ở các phương thức
+    - điểm chuẩn xét tuyển của ngành công nghệ thông tin các năm qua
+    - điểm chuẩn xét tuyển ở các năm qua
+    - điểm chuẩn xét tuyển công nghệ thông tin qua các năm
+    - điểm chuẩn xét tuyển cntt qua các năm ở các phương thức
+
+
+# ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
+- intent: ask_training_program
+  examples: |
+    - chương trình đào tạo CNTT ra sao?
+    - học CNTT như thế nào?
+    - chương trình CNTT là gì?
+    - đào tạo CNTT có gì đặc biệt?
+    - dt cntt, chuan trinh la gi?
+
+# ---------- CHUẨN ĐẦU RA NGOẠI NGỮ ----------
+- intent: ask_standard_output_language
+  examples: |
+    - chuẩn ngoại ngữ CNTT là gì?
+    - yêu cầu ngoại ngữ cho CNTT là gì?
+    - cntt cần ngoại ngữ gì?
+    - tiêu chuẩn ngoại ngữ CNTT?
+    - ngoai ngu cntt, yeu cau la gi?
+
+# ---------- FAQ VIỆC LÀM & CHỨNG CHỈ NGOẠI NGỮ ----------
+- intent: ask_faq_job_opportunities
+  examples: |
+    - sau khi học CNTT làm được gì?
+    - cơ hội việc làm CNTT là gì?
+    - nghề CNTT có gì?
+    - việc làm CNTT ra sao?
+    - co hoi viec lam sau khi hoc cntt?
+    - sau khi học công nghệ thông tin làm được gì?
+    - việc làm công nghệ thông tin ra sao
+    - nghề công nghệ thông tin
+
+- intent: ask_faq_detail_specialized
+  examples: |
+    - CNTT có mấy chuyên ngành?
+    - chuyên ngành CNTT gồm những gì?
+    - danh sách chuyên ngành CNTT là gì?
+    - cntt co nhieu chuyen nganh khong?
+    - specialized ngành CNTT?
+    - các chuyên ngành công nghệ thông tin
+    - chuyên ngành công nghệ thông tin gồm những gì?
+    - công nghệ thông tin có bao nhiêu chuyên ngành >
+
+- intent: ask_faq_attt
+  examples: |
+    - việc làm chuyên ngành An Toàn Thông Tin là gì?
+    - cơ hội nghề nghiệp An Toàn Thông Tin?
+    - an toàn thông tin, viec lam ra sao?
+    - CNTT ATTT co viec lam gi?
+    - học an toàn thông tin làm gì?
+    - việc làm chuyên ngành An Toàn Thông Tin?
+    - cơ hội nghề nghiệp An Toàn Thông Tin?
+    - an toàn thông tin, viec lam ra sao?
+
+- intent: ask_faq_httt
+  examples: |
+    - việc làm chuyên ngành Hệ Thống Thông Tin là gì?
+    - cơ hội nghề nghiệp Hệ Thống Thông Tin?
+    - Hệ Thống Thông Tin, viec lam ra sao?
+    - CNTT HTTT co viec lam gi?
+    - học hệ thống thông tin làm gì?
+    - việc làm chuyên ngành Hệ Thống Thông Tin?
+    - cơ hội nghề nghiệp Hệ Thống Thông Tin?
+    - hệ thống thông tin, viec lam ra sao?
+    - học hệ thống thông tin làm gì?
+
+- intent: ask_faq_cnpm
+  examples: |
+    - việc làm chuyên ngành CNPM là gì?
+    - cơ hội nghề nghiệp CNPM?
+    - CNPM, viec lam ra sao?
+    - CNTT CNPM co viec lam gi?
+    - học công nghệ phần mềm làm gì?
+    - việc làm chuyên ngành Công Nghệ Phần Mềm?
+    - cơ hội nghề nghiệp Công Nghệ Phần Mềm?
+    - công nghệ phần mềm, viec lam ra sao?
+
+- intent: ask_faq_htn
+  examples: |
+    - việc làm chuyên ngành Hệ Thống Nhúng là gì?
+    - cơ hội nghề nghiệp Hệ Thống Nhúng?
+    - HTN, viec lam ra sao?
+    - cntt htn co viec lam gi?
+    - học hệ thống nhúng làm gì?
+    - việc làm chuyên ngành Hệ Thống Nhúng?
+    - cơ hội nghề nghiệp Hệ Thống Nhúng?
+    - cơ hội nghề nghiệp chuyên ngành IOT
+    - học IOT làm gì?
+
+- intent: ask_faq_khdl
+  examples: |
+    - việc làm chuyên ngành Khoa Học Dữ Liệu là gì?
+    - cơ hội nghề nghiệp CNTT TTNT là gì?
+    - KHDL, viec lam ra sao?
+    - cntt khdl co viec lam gi?
+    - học khoa học dữ liệu làm gì?
+    - việc làm chuyên ngành Khoa Học Dữ Liệu?
+    - cơ hội nghề nghiệp Khoa Học Dữ Liệu?
+    - cơ hội nghề nghiệp khoa học dữ liệu trí tuệ nhân tạo
+    - học khoa học dữ liệu trí tuệ nhân tạo làm gì?
+    - việc làm chuyên ngành trí tuệ nhân tạo
+    - học ds làm được gì
+    - học AI làm được gì
+    - học data science làm được gì
+    - học artificial intelligence làm được gì
+    - cơ hội nghề nghiệp chuyên ngành ai
+    - việc làm chuyên ngành trí tuệ nhân tạo
+
+- intent: ask_faq_mtt
+  examples: |
+    - việc làm chuyên ngành Mạng & Truyền Thông là gì?
+    - cơ hội nghề nghiệp Mạng & Truyền Thông?
+    - MTT, viec lam ra sao?
+    - cntt mtt co viec lam gi?
+    - học mạng và truyền thông làm gì?
+    - việc làm chuyên ngành Mạng & Truyền Thông?
+    - cơ hội nghề nghiệp chuyên ngành về mạng
+    - học mạng máy tính làm được gì ?
+    - học truyền thông mạng máy tính làm được gì ?
+    - cơ hội nghề nghiệp chuyên ngành mạng máy tính
+
+- intent: ask_faq_certificate_usage
+  examples: |
+    - chứng chỉ ngoại ngữ có được quy đổi điểm không?
+    - IELTS, TOEIC có quy đổi điểm không?
+    - dùng chứng chỉ ngoại ngữ có miễn thi tiếng Anh không?
+    - ckt ngoại ngữ, quy doi diem?
+    - chứng chỉ ngoại ngữ có lợi thế gì không?
+    - có quy đổi điểm chứng chỉ ngoại ngữ không?
+    - có phương thức xét tuyển nào dùng chứng chỉ ngoại ngữ không
+    - ccnn có được quy đổi không
+    - Em có IELTS thì có quy đổi được không
+    - Em có TOEIC thì có lợi thế gì không
+    - chứng chỉ ngoại ngữ có lợi thế gì không
+
+# ---------- THÔNG TIN LIÊN HỆ TUYỂN SINH ----------
+- intent: ask_contact_info
+  examples: |
+    - liên hệ tuyển sinh CNTT ở đâu?
+    - thông tin liên hệ CNTT là gì?
+    - số điện thoại tuyển sinh CNTT
+    - website tuyển sinh CNTT là gì?
+    - contact cntt?
+    - liên hệ tuyển sinh ở đâu?
+    - liên hệ nhà trường ở đâu ?
+
+# ---------- INTENT NGOÀI PHẠM VI ----------
+- intent: out_of_scope
+  examples: |
+    - câu hỏi lạ
+    - tôi không hiểu
+    - không liên quan đến CNTT
+    - không biết nói về gì
+    - không biết hỏi gì
+    - tôi không chắc chắn
+    - không biết nói gì
+

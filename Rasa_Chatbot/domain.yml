@@ -1,0 +1,404 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - ask_major_info
+  - ask_major_info_not_found
+  - ask_enrollment_quota
+  - ask_enrollment_quota_uni
+  - ask_major_dthtdn_info
+  - ask_enrollment_quota_major_dthtdn
+  - ask_training_program_major_dthtdn
+  - ask_standard_output_language_major_dthtdn
+  - ask_major_nnn_info
+  - ask_enrollment_quota_major_nnn
+  - ask_training_program_major_nnn
+  - ask_standard_output_language_major_nnn
+  - ask_major_khdl_ttnt_info
+  - ask_enrollment_quota_major_khdl_ttnt
+  - ask_training_program_major_khdl_ttnt
+  - ask_standard_output_language_major_khdl_ttnt
+  - ask_admission_methods
+  - ask_admission_method_uni
+  - ask_direct_admission_detail
+  - ask_xet_tuyen_rieng_detail
+  - ask_diem_thi_TN_THPT
+  - ask_cntt_dacthu
+  - ask_cntt_ai
+  - ask_cntt_nnn
+  - ask_TNTHPT_DT
+  - ask_TNTHPT_NNN
+  - ask_TNTHPT_KHDL
+  - ask_admission_process
+  - ask_cutoff_score_dthtdn_2years_rieng
+  - ask_cutoff_score_nnn_2years_rieng
+  - ask_cutoff_score_ttnt_2years_rieng
+  - ask_cutoff_score_dthtdn_2years_thpt
+  - ask_cutoff_score_nnn_2years_thpt
+  - ask_cutoff_score_ttnt_2years_thpt
+  - ask_cutoff_score_all_2years_rieng
+  - ask_cutoff_score_all_2years_thpt
+  - ask_cutoff_score_dthtdn_2years_all
+  - ask_cutoff_score_nnn_2years_all
+  - ask_cutoff_score_ttnt_2years_all
+  - ask_cutoff_score_all_2years_both
+  - ask_training_program
+  - ask_standard_output_language
+  - ask_faq_job_opportunities
+  - ask_faq_detail_specialized
+  - ask_faq_attt
+  - ask_faq_httt
+  - ask_faq_cnpm
+  - ask_faq_htn
+  - ask_faq_khdl
+  - ask_faq_mtt
+  - ask_faq_certificate_usage
+  - ask_contact_info
+  - out_of_scope
+  - iamabot
+  - thank
+  - ask_dgnl
+  - ask_dgtd
+  - ask_cntt_luu_y
+
+responses:
+
+  ## CHÀO HỎI & KẾT THÚC
+  utter_greet:
+    - text: "xin chào! tôi là chatbot tư vấn tuyển sinh khoa cntt. tôi có thể giúp gì cho bạn?"
+    - text: "chào bạn! chatbot tư vấn tuyển sinh sẵn sàng hỗ trợ. bạn cần thông tin gì?"
+  utter_goodbye:
+    - text: "tạm biệt! nếu có thêm thắc mắc, hãy quay lại nhé."
+    - text: "chào tạm biệt và hẹn gặp lại!"
+
+  ## THÔNG TIN CHUNG NGÀNH CNTT
+  utter_major_info:
+    - text: "Ngành Công nghệ thông tin đào tạo kiến thức từ cơ bản đến chuyên sâu, bao gồm các chuyên ngành: An Toàn Thông Tin, Hệ Thống Thông Tin, Công Nghệ Phần Mềm, Hệ Thống Nhúng, Khoa Học Dữ Liệu & TTNT, và Mạng & Truyền Thông."
+  utter_major_info_not_found:
+    - text: "rất tiếc, tôi không tìm thấy thông tin chi tiết về ngành bạn yêu cầu."
+
+  ## CHỈ TIÊU TUYỂN SINH CHUNG
+  utter_enrollment_quota:
+    - text: "Tổng chỉ tiêu tuyển sinh ngành Công nghệ thông tin là 380, chi tiết mỗi ngành như sau:\n- Công nghệ thông tin (Đặc thù – Hợp tác doanh nghiệp): 210\n- Công nghệ thông tin (Ngoại ngữ Nhật): 110\n- Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo: 60."
+  utter_enrollment_quota_uni:
+    - text: "Tổng chỉ tiêu tuyển sinh của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng năm 2025 dự kiến là 3900 Sinh Viên"
+
+  ## NHÓM CNTT ĐẶC THÙ – HỢP TÁC DOANH NGHIỆP
+  utter_major_info_dthtdn:
+    - text: "Ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp) tập trung đào tạo những kiến thức chuyên sâu với định hướng hợp tác doanh nghiệp."
+  utter_enrollment_quota_major_dthtdn:
+    - text: "Công nghệ thông tin (Đặc thù – Hợp tác doanh nghiệp) có chỉ tiêu tuyển sinh là 210."
+  utter_training_program_major_dthtdn:
+    - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Đặc thù – Hợp tác doanh nghiệp):\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanDT\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuDT"
+  utter_standard_output_language_major_dthtdn:
+    - text: "Chuẩn ngoại ngữ cho ngành CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: Yêu cầu Tiếng Anh đạt Bậc 3 cho Cử nhân và Bậc 4 cho Kỹ sư. Tham khảo tại: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view"
+
+  ## NHÓM CNTT NGOẠI NGỮ NHẬT
+  utter_major_info_nnn:
+    - text: "Ngành Công nghệ thông tin (Ngoại ngữ Nhật) là chương trình đào tạo CNTT với định hướng thị trường Nhật Bản; sinh viên học chung chương trình không phân chuyên ngành."
+  utter_enrollment_quota_major_nnn:
+    - text: "Ngành Công nghệ thông tin (Ngoại ngữ Nhật) có chỉ tiêu tuyển sinh là 110."
+  utter_training_program_major_nnn:
+    - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Ngoại ngữ Nhật):\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanNNN\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuNNN"
+  utter_standard_output_language_major_nnn:
+    - text: "Chuẩn ngoại ngữ cho ngành Công nghệ thông tin (Ngoại ngữ Nhật): Đạt JLPT N3 cho Cử nhân và JLPT N2 cho Kỹ sư."
+
+  ## NHÓM CNTT CHUYÊN NGÀNH KHOA HỌC DỮ LIỆU & TTNT
+  utter_major_info_khdl_ttnt:
+    - text: "Ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo đào tạo sinh viên từ căn bản đến nâng cao về Trí Tuệ Nhân Tạo, xử lý dữ liệu lớn và ứng dụng AI."
+  utter_enrollment_quota_major_khdl_ttnt:
+    - text: "Ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo có chỉ tiêu tuyển sinh là 60."
+  utter_training_program_major_khdl_ttnt:
+    - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo:\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanKHDL\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuKHDL"
+  utter_standard_output_language_major_khdl_ttnt:
+    - text: "Chuẩn ngoại ngữ cho ngành CNTT (Đặc Thù - Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo: Yêu cầu Tiếng Anh đạt Bậc 3 cho Cử nhân và Bậc 4 cho Kỹ sư. Tham khảo tại: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view"
+
+  ## PHƯƠNG THỨC XÉT TUYỂN & TỔ HỢP THI CHUNG
+  utter_admission_methods_uni:
+    - text: "Các phương thức xét tuyển của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng: \n
+          - Xét tuyển thẳng (Theo quy chế của Bộ Giáo Dục Và Đào Tạo)\n
+          - Xét tuyển theo phương thức xét tuyển riêng\n
+          - Xét tuyển theo kết quả thi tốt nghiệp Trung Học Phổ Thông\n
+          - Xét tuyển theo kết quả học tập cấp Trung Học Phổ Thông\n
+          - Xét tuyển theo kết quả thi đánh giá năng lực do Đại Học Quốc Gia Thành Phố Hồ Chí Minh tổ chức\n
+          - Xét tuyển theo kết quả thi đánh giá tư duy do Đại Học Bách Khoa Hà Nội tổ chức
+      "
+  utter_admission_methods:
+    - text: "Các phương thức xét tuyển ngành Công nghệ Thông Tin bao gồm: \n
+        - Xét tuyển thẳng (theo quy chế của Bộ GD&ĐT)\n
+        - Xét tuyển theo phương thức xét tuyển riêng\n
+        - Xét tuyển qua kết quả thi tốt nghiệp Trung Học Phổ Thông \n
+        Thay đổi từ năm 2025: Không sử dụng hình thức đánh giá năng lực của Đại học Quốc Gia TPHCM và điểm đánh giá Tư Duy của Đại Học Bách Khoa Hà Nội."
+  utter_direct_admission_detail:
+    - text: "Thí sinh đạt một trong ba điều kiện sau sẽ được xét tuyển thẳng:\n 
+          a) Anh hùng Lao Động, Anh hùng Lực Lượng Vũ Trang Nhân Dân, Chiến sĩ Thi Đua Toàn Quốc.\n 
+          b) Đạt giải Nhất, Nhì, Ba trong kỳ thi chọn Học Sinh Giỏi Quốc Gia/Quốc Tế (Toán, Vật Lý, Hóa Học, Sinh Học, Tin Học) do Bộ GD&ĐT tổ chức; thời gian không quá 3 năm.\n 
+          c) Đạt giải Nhất, Nhì, Ba trong kỳ thi Khoa Học Kỹ Thuật cấp Quốc Gia/Quốc Tế do Bộ GD&ĐT tổ chức; thời gian không quá 3 năm.
+          Thông tin chi tiết về việc đăng kí xét tuyển thí sinh tham khảo tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh"
+  utter_xet_tuyen_rieng_detail:
+    - text: "Thí sinh đạt một trong ba nhóm sau sẽ được đăng kí xét tuyển riêng theo đề án tuyển sinh của Trường Đại Học Bách Khoa:\n
+          • Nhóm 1: Giải Khuyến Khích HSG cấp Quốc Gia (Toán, Vật Lý, Hóa Học, Sinh Học, Tin Học); thời gian không quá 3 năm.\n
+          • Nhóm 2: Giải Nhất, Nhì, Ba, Khuyến Khích (Giải Tư) HSG cấp Tỉnh/Thành phố trực thuộc Trung Ương; thời gian không quá 3 năm.\n
+          • Nhóm 3: Giải Nhất, Nhì, Ba, Khuyến Khích (Giải Tư) cuộc thi Khoa Học Kỹ Thuật cấp Tỉnh/Thành phố; thời gian không quá 3 năm.\n
+          Lưu ý: Ở các giải HSG cấp Quốc Gia/Tỉnh, cần đạt giải Toán, Vật Lý, Tin Học để nộp đơn vào các ngành công nghệ thông tin. Với giải khoa học kỹ thuật thì cần đạt giải ở nhóm lĩnh vực về phần mềm hệ thống để nộp đơn vào công nghệ thông tin\n
+          ** Điểm xét tuyển bao gồm điểm xét tuyển quy đổi + điểm ưu tiên\n
+          ** Điểm xét tuyển quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh"
+  utter_diem_thi_TN_THPT:
+    - text: "Thí sinh đăng ký xét tuyển vào ngành CNTT sẽ dựa vào kết quả thi Tốt Nghiệp THPT theo tổ hợp được công bố trên trang web tuyển sinh của trường. Vui lòng lựa chọn ngành để xem chi tiết: \n
+        - Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp)\n
+        - Công nghệ Thông Tin (Ngoại Ngữ Nhật)\n
+        - Công nghệ Thông Tin (Đặc Thù - Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo"
+  utter_TNTHPT_DT:
+    - text: "Thí sinh đăng ký xét tuyển vào ngành CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp) sử dụng điểm của tổ hợp:\n• Toán, Vật Lý, Hóa học\n• Toán, Vật Lý, Tiếng Anh\n• Toán, Tin Học, Tiếng Anh\n• Toán, Vật Lý, Tin Học"
+  utter_TNTHPT_NNN:
+    - text: "Thí sinh đăng ký xét tuyển vào ngành CNTT (Ngoại Ngữ Nhật) sử dụng điểm của tổ hợp:\n• Toán, Vật Lý, Hóa học\n• Toán, Vật Lý, Tiếng Anh\n• Toán, Tin Học, Tiếng Anh\n• Toán, Vật Lý, Tin Học\n• Toán, Vật Lý, Tiếng Nhật\n• Toán, Tin Học, Tiếng Nhật"
+  utter_TNTHPT_KHDL:
+    - text: "Thí sinh đăng ký xét tuyển vào ngành CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo sử dụng điểm của tổ hợp:\n• Toán, Vật Lý, Hóa học\n• Toán, Vật Lý, Tiếng Anh\n• Toán, Tin Học, Tiếng Anh\n• Toán, Vật Lý, Tin Học"
+  utter_dgnl:
+    - text: "Thí sinh sử dụng kết quả thi đánh giá năng lực (V-ACT) của Đại Học Quốc Gia thành phố Hồ Chí Minh tổ chức năm 2025 để đăng kí xét tuyển \n
+          - Điểm xét tuyển bằng điểm thi đánh giá năng lực quy đổi + điểm ưu tiên \n
+          - Thang điểm quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh. \n
+          **Đặc biệt: Năm nay nhóm ngành Công nghệ thông tin không còn xét tuyển bằng điểm thi đánh giá năng lực**
+          "
+  utter_dgtd:
+    - text: "Thí sinh sử dụng kết quả thi đánh giá tư duy (TSA) của Đại Học Bách Khoa Hà Nội tổ chức năm 2024, 2025 để đăng kí xét tuyển \n
+          - Điểm xét tuyển bằng điểm thi đánh giá tư duy quy đổi + điểm ưu tiên \n
+          - Thang điểm quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh. \n
+          **Đặc biệt: Năm nay nhóm ngành Công nghệ thông tin không còn xét tuyển bằng điểm thi đánh giá tư duy**
+          "
+  utter_cntt_luu_y:
+    - text: "Năm 2025, Một số điểm lưu ý khi đăng kí vào ngành công nghệ thông tin: \n
+          - Không sử dụng hình thức đánh giá năng lực của Đại học Quốc Gia TPHCM và điểm đánh giá Tư Duy của Đại Học Bách Khoa Hà Nội.\n
+          - Không sử dụng hình thức xét tuyển học bạ trung học phổ thông.\n
+          - Không sử dụng hình thức xét tuyển bằng chứng chỉ quốc tế.\n
+          - Ngoài những tổ hợp xét tuyển truyền thống ở các năm trước thì năm nay ngành công nghệ thông tin có thêm tổ hợp xét tuyển mới, đây là danh sách tổ hợp xét tuyển của ngành Công nghệ thông tin: \n
+          • Toán, Vật Lý, Hóa học\n
+          • Toán, Vật Lý, Tiếng Anh\n
+          • Toán, Tin Học, Tiếng Anh\n
+          • Toán, Vật Lý, Tin Học\n
+          • Toán, Vật Lý, Tiếng Nhật (Chỉ dùng cho ngành Công nghệ thông tin (Ngoại ngữ nhật))\n
+          • Toán, Tin Học, Tiếng Nhật (Chỉ dùng cho ngành Công nghệ thông tin (Ngoại ngữ nhật))\n
+          "
+  utter_admission_process:
+    - text: "Năm 2025, các phương thức xét tuyển (ngoại trừ phương thức xét tuyển thẳng) thì sẽ đều xét tuyển trong cùng một đợt, chung một thang điểm, không còn phân chia chỉ tiêu theo từng phương thức. Một số điểm cần lưu ý như sau: \n
+          - Điểm xét tuyển sẽ được quy đổi về thang điểm 30 (Bao gồm điểm xét tuyển quy đổi + điểm ưu tiên theo quy định của Bộ GD&ĐT) \n
+          - Điểm quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh \n
+          - Ở phương thức xét tuyển riêng thì thí sinh cần đăng kí xét tuyển tại đường dẫn: https://tuyensinh.dut.udn.vn, thí sinh cần lưu ý các thành tích mình hiện có sẽ đăng kí được ở ngành nào. \n
+          - Thí sinh sẽ không cần đăng kí phương thức xét tuyển mà chỉ cần đăng kí thứ tự nguyện vọng + Trường + Ngành xét tuyển trên cổng đăng kí xét tuyển chung, tất cả dữ liệu thí sinh có và dùng được ở mỗi ngành sẽ đều được quy đổi về một thang điểm chung để xét tuyển \n
+          - Điểm quy đổi của phương thức xét tuyển nào cao nhất thì sẽ được sử dụng để xét tuyển \n
+          - Thí sinh sẽ được đăng kí không giới hạn số nguyện vọng"
+
+  ## ĐIỂM CHUẨN TUYỂN SINH
+  utter_cutoff_score_dthtdn_2years_rieng:
+    - text: |
+        **Điểm chuẩn xét tuyển riêng** ngành Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp) trong 2 năm gần nhất (Thang điểm 300):
+        • Năm 2023: 289.4
+        • Năm 2024: 288.6
+  utter_cutoff_score_nnn_2years_rieng:
+    - text: |
+        **Điểm chuẩn xét tuyển riêng** ngành Công nghệ Thông Tin (Ngoại Ngữ Nhật) trong 2 năm gần nhất (Thang điểm 300):
+        • Năm 2023: 280.0
+        • Năm 2024: 229.3
+  utter_cutoff_score_ttnt_2years_rieng:
+    - text: |
+        **Điểm chuẩn xét tuyển riêng** ngành Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo trong 2 năm gần nhất (Thang điểm 300):
+        • Năm 2023: 298.6
+        • Năm 2024: 298.9
+  utter_cutoff_score_dthtdn_2years_thpt:
+    - text: |
+        **Điểm chuẩn xét tuyển bằng điểm Tốt Nghiệp THPT** ngành Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp) trong 2 năm gần nhất (Thang điểm 30):
+        • Năm 2023: 25.86
+        • Năm 2024: 26.1
+  utter_cutoff_score_nnn_2years_thpt:
+    - text: |
+        **Điểm chuẩn xét tuyển bằng điểm Tốt Nghiệp THPT** ngành Công nghệ Thông Tin (Ngoại Ngữ Nhật) trong 2 năm gần nhất (Thang điểm 30):
+        • Năm 2023: 25.00
+        • Năm 2024: 25.55
+  utter_cutoff_score_ttnt_2years_thpt:
+    - text: |
+        **Điểm chuẩn xét tuyển bằng điểm Tốt Nghiệp THPT** ngành Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo trong 2 năm gần nhất (Thang điểm 30):
+        • Năm 2023: 26.45
+        • Năm 2024: 27.11
+
+  utter_cutoff_score_all_2years_rieng:
+    - text: |
+        **Điểm chuẩn xét tuyển riêng** của cả 3 ngành trong 2 năm gần nhất:
+        1. **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp)**
+           • Năm 2023: 289.4
+           • Năm 2024: 288.6
+        2. **CNTT (Ngoại Ngữ Nhật)**
+           • Năm 2023: 280.0
+           • Năm 2024: 229.3
+        3. **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo**
+           • Năm 2023: 298.6
+           • Năm 2024: 298.9
+  utter_cutoff_score_all_2years_thpt:
+    - text: |
+        **Điểm chuẩn xét tuyển bằng điểm Tốt Nghiệp THPT** của cả 3 ngành trong 2 năm gần nhất:
+        1. **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp)**
+           • Năm 2023: 25.86
+           • Năm 2024: 26.1
+        2. **CNTT (Ngoại Ngữ Nhật)**
+           • Năm 2023: 25.00
+           • Năm 2024: 25.55
+        3. **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo**
+           • Năm 2023: 26.45
+           • Năm 2024: 27.11
+
+  utter_cutoff_score_dthtdn_2years_all:
+    - text: |
+        **Điểm chuẩn 2 năm gần nhất của ngành CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp) ở cả 2 phương thức:**
+        **Xét tuyển riêng:**
+        • Năm 2023: 289.4  
+        • Năm 2024: 288.6
+        **Điểm Tốt Nghiệp THPT:**
+        • Năm 2023: 25.86  
+        • Năm 2024: 26.1
+  utter_cutoff_score_nnn_2years_all:
+    - text: |
+        **Điểm chuẩn 2 năm gần nhất của ngành CNTT (Ngoại Ngữ Nhật) ở cả 2 phương thức:**
+        **Xét tuyển riêng:**
+        • Năm 2023: 280.0  
+        • Năm 2024: 229.3
+        **Điểm Tốt Nghiệp THPT:**
+        • Năm 2023: 25.00  
+        • Năm 2024: 25.55
+  utter_cutoff_score_ttnt_2years_all:
+    - text: |
+        **Điểm chuẩn 2 năm gần nhất của ngành CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo ở cả 2 phương thức:**
+        **Xét tuyển riêng:**
+        • Năm 2023: 298.6  
+        • Năm 2024: 298.9
+        **Điểm Tốt Nghiệp THPT:**
+        • Năm 2023: 26.45  
+        • Năm 2024: 27.11
+  utter_cutoff_score_all_2years_both:
+    - text: |
+        **📊 Điểm chuẩn 2 năm gần nhất của tất cả ngành theo từng phương thức**:
+        | NGÀNH                                                                       | 2023 (Riêng) | 2024 (Riêng) | 2023 (THPT) | 2024 (THPT) |
+        |:----------------------------------------------------------------------------|:------------:|:------------:|:-----------:|:-----------:|
+        | **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp)**                                   | 289.4        | 288.6        | 25.86       | 26.1        |
+        | **CNTT (Ngoại Ngữ Nhật)**                                                   | 280.0        | 229.3        | 25.00       | 25.55       |
+        | **CNTT (Đặc Thù – HTDN), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo** | 298.6        | 298.9        | 26.45       | 27.11       |
+        *📝 “Riêng” là xét tuyển riêng, “THPT” là xét tuyển qua điểm Tốt Nghiệp THPT.*
+
+  ## CHƯƠNG TRÌNH ĐÀO TẠO CHUNG
+  utter_training_program:
+    - text: "Chương trình đào tạo CNTT gồm hai hình thức:\n- Cử nhân: 4 năm, 130 tín chỉ (Bằng Cử nhân, Bậc 6)\n- Kỹ sư: 5 năm, 180 tín chỉ (Có cơ hội học Thạc sĩ 6 tháng đến 1 năm)."
+
+  ## CHUẨN ĐẦU RA NGOẠI NGỮ
+  utter_standard_output_language:
+    - text: |
+        **📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO NGÀNH CNTT**
+        | NGÀNH                                                                   | CỬ NHÂN                  | KỸ SƯ                    |
+        |:-----------------------------------------------------------------------:|:------------------------:|:------------------------:|
+        | CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp)                                   | Tiếng Anh (Bậc 3)        | Tiếng Anh (Bậc 4)        |
+        | CNTT (Ngoại Ngữ Nhật)                                                   | Tiếng Nhật (JLPT N3)     | Tiếng Nhật (JLPT N2)     |
+        | CNTT (Đặc Thù – HTDN), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo | Tiếng Anh (Bậc 3)        | Tiếng Anh (Bậc 4)        |
+
+  ## FAQ VIỆC LÀM & CHỨNG CHỈ NGOẠI NGỮ
+  utter_faq_job_opportunities:
+    - text: "Sinh viên sau khi tốt nghiệp có thể tham mưu, thực hiện công việc lập trình, phân tích thiết kế hệ thống, phát triển ứng dụng,... Ngoài ra, còn có cơ hội làm việc tại các công ty CNTT, phòng chức năng CNTT của các tổ chức và giảng dạy, nghiên cứu tại các trường ĐH, CĐ."
+  utter_faq_detail_specialized:
+    - text: "Ngành Công nghệ Thông Tin gồm 6 chuyên ngành: \n
+        - An Toàn Thông Tin\n
+        - Hệ Thống Thông Tin\n
+        - Công Nghệ Phần Mềm\n
+        - Hệ Thống Nhúng\n
+        - Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo\n
+        - Mạng & Truyền Thông"
+  utter_faq_attt:
+    - text: "Chuyên ngành An Toàn Thông Tin trang bị kiến thức cơ bản và chuyên sâu về an toàn mạng, thiết kế, duy trì và quản lý hệ thống an toàn; có cơ hội làm việc như Chuyên Gia An Ninh Mạng, Kiểm Tra An Toàn, Phát Triển Ứng Dụng An Toàn."
+  utter_faq_httt:
+    - text: "Chuyên ngành Hệ Thống Thông Tin đào tạo chuyên sâu về hệ thống thông tin doanh nghiệp, quản trị cơ sở dữ liệu, phân tích, thiết kế và phát triển ứng dụng. Sinh viên có thể làm Quản Trị Hệ Thống, Chuyên Viên Phân Tích hay Tư Vấn Hệ Thống."
+  utter_faq_cnpm:
+    - text: "Chuyên ngành Công Nghệ Phần Mềm giúp sinh viên nắm vững kỹ thuật, công nghệ phân tích, thiết kế, phát triển và bảo trì phần mềm ứng dụng."
+  utter_faq_htn:
+    - text: "Chuyên ngành Hệ Thống Nhúng tập trung vào phần cứng, hệ thống nhúng và các ứng dụng di động, nhà thông minh, smart city. Cơ hội việc làm bao gồm Phát Triển IoT, Hệ Thống Nhúng và các dự án tích hợp."
+  utter_faq_khdl:
+    - text: "Chuyên ngành Khoa Học Dữ Liệu & TTNT đào tạo từ căn bản đến nâng cao về AI, xử lý dữ liệu lớn và ứng dụng trí tuệ nhân tạo, với cơ hội làm việc như Kỹ Sư AI, Chuyên Gia Dữ Liệu hay Nhà Phân Tích."
+  utter_faq_mtt:
+    - text: "Chuyên ngành Mạng & Truyền Thông giúp sinh viên nghiên cứu, thiết kế, phát triển ứng dụng và dịch vụ trên Internet, quản lý mạng và triển khai các giải pháp bảo mật."
+  utter_faq_certificate_usage:
+    - text: "Chứng chỉ ngoại ngữ (IELTS, TOEIC) không được quy đổi điểm; chỉ dùng để miễn thi Tiếng Anh đầu vào và công nhận chuẩn đầu ra sau khi trúng tuyển."
+
+  ## THÔNG TIN LIÊN HỆ TUYỂN SINH
+  utter_contact_info:
+    - text: "Thông tin liên hệ:\n- Địa chỉ Trường Đại Học Bách Khoa - Đại Học Đà Nẵng: 54 Nguyễn Lương Bằng, Phường Hòa Khánh Bắc, Quận Liên Chiểu, Thành Phố Đà Nẵng\n- Website: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh\n- Email: tuyensinhbkdn@dut.udn.vn\n- Fanpage tư vấn tuyển sinh: https://www.facebook.com/DUTpage\n- Fanpage khoa CNTT: https://www.facebook.com/dut.itf\n- Group Zalo TVTS CNTT: https://zalo.me/g/zjyfnf316"
+
+  ## INTENT NGOÀI PHẠM VI
+  utter_out_of_scope:
+    - text: "xin lỗi, tôi không hiểu câu hỏi. vui lòng hỏi lại về tuyển sinh Công nghệ thông tin."
+  
+  ## BOT GIỚI THIỆU BẢN THÂN
+  utter_iamabot:
+    - text: "tôi là chatbot tư vấn tuyển sinh của Khoa Công nghệ thông tin - Trường Đại Học Bách Khoa - Đại Học Đà Nẵng. bạn cần tôi giúp gì?"
+  
+  ## PHẢN HỒI CẢM ƠN
+  utter_thank:
+    - text: "cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi!"
+
+actions:
+  - utter_greet
+  - utter_goodbye
+  - utter_major_info
+  - utter_major_info_not_found
+  - utter_enrollment_quota
+  - utter_enrollment_quota_uni
+  - utter_major_info_dthtdn
+  - utter_enrollment_quota_major_dthtdn
+  - utter_training_program_major_dthtdn
+  - utter_standard_output_language_major_dthtdn
+  - utter_major_info_nnn
+  - utter_enrollment_quota_major_nnn
+  - utter_training_program_major_nnn
+  - utter_standard_output_language_major_nnn
+  - utter_major_info_khdl_ttnt
+  - utter_enrollment_quota_major_khdl_ttnt
+  - utter_training_program_major_khdl_ttnt
+  - utter_standard_output_language_major_khdl_ttnt
+  - utter_admission_methods_uni
+  - utter_admission_methods
+  - utter_direct_admission_detail
+  - utter_xet_tuyen_rieng_detail
+  - utter_diem_thi_TN_THPT
+  - utter_TNTHPT_DT
+  - utter_TNTHPT_NNN
+  - utter_TNTHPT_KHDL
+  - utter_admission_process
+  - utter_cutoff_score_dthtdn_2years_rieng
+  - utter_cutoff_score_nnn_2years_rieng
+  - utter_cutoff_score_ttnt_2years_rieng
+  - utter_cutoff_score_dthtdn_2years_thpt
+  - utter_cutoff_score_nnn_2years_thpt
+  - utter_cutoff_score_ttnt_2years_thpt
+  - utter_cutoff_score_all_2years_rieng
+  - utter_cutoff_score_all_2years_thpt
+  - utter_cutoff_score_dthtdn_2years_all
+  - utter_cutoff_score_nnn_2years_all
+  - utter_cutoff_score_ttnt_2years_all
+  - utter_cutoff_score_all_2years_both
+  - utter_training_program
+  - utter_standard_output_language
+  - utter_faq_job_opportunities
+  - utter_faq_detail_specialized
+  - utter_faq_attt
+  - utter_faq_httt
+  - utter_faq_cnpm
+  - utter_faq_htn
+  - utter_faq_khdl
+  - utter_faq_mtt
+  - utter_faq_certificate_usage
+  - utter_contact_info
+  - utter_out_of_scope
+  - utter_iamabot
+  - utter_thank
+  - utter_dgnl
+  - utter_dgtd
+  - utter_cntt_luu_y
+
+
+session_config:
+  carry_over_slots_to_new_session: true
+  inactivity_timeout: 60

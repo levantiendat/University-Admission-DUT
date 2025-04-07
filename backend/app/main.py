@@ -1,0 +1,59 @@
+from fastapi import FastAPI
+from app.api import auth, users
+from app.models.user import Base, User
+from app.db.session import engine, SessionLocal
+from app.core.security import get_password_hash
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
+
+app = FastAPI(
+    title="FastAPI Backend University admission application",
+    description="Application to support admissions consulting for candidates applying to universities",
+    version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+app.add_middleware(SessionMiddleware, secret_key="a7c8ad017c96e24e27523c40173e677181ed7a8094defdfb65493261ddd8e2c9")
+# Tạo bảng nếu chưa có
+Base.metadata.create_all(bind=engine)
+
+# Hàm tạo admin user nếu chưa tồn tại
+def create_admin_user():
+    db = SessionLocal()
+    try:
+        admin = db.query(User).filter(User.email == "admin@gmail.com").first()
+        if not admin:
+            admin = User(
+                username="admin",
+                email="admin@gmail.com",
+                role="admin",
+                hashed_password=get_password_hash("admin123"),
+                phone_number="0000000000"
+            )
+            db.add(admin)
+            db.commit()
+            db.refresh(admin)
+            print("Đã tạo tài khoản admin: admin@gmail.com / admin123")
+        else:
+            print("Tài khoản admin đã tồn tại")
+    finally:
+        db.close()
+
+# Chạy hàm tạo admin khi khởi động ứng dụng
+@app.on_event("startup")
+def startup_event():
+    create_admin_user()
+
+# Include các router
+app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
+app.include_router(users.router, prefix="/api/users", tags=["Users"])
+
+@app.get("/")
+def root():
+    return {"msg": "FastAPI Backend University admission application, Swagger UI at /docs"}

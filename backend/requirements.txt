@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+sqlalchemy
+pymysql
+python-jose
+passlib[bcrypt]
+python-dotenv
+requests
+authlib
+pydantic[email]
+python-dotenv
+python-multipart
+mysql-connector-python
+httpx
+itsdangerous

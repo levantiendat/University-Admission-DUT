@@ -1,0 +1,352 @@
+#### This file contains tests to evaluate that your bot behaves as expected.
+#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+
+stories:
+- story: happy path 1
+  steps:
+  - user: |
+      hello there!
+    intent: greet
+  - action: utter_greet
+  - user: |
+      amazing
+    intent: mood_great
+  - action: utter_happy
+
+- story: happy path 2
+  steps:
+  - user: |
+      hello there!
+    intent: greet
+  - action: utter_greet
+  - user: |
+      amazing
+    intent: mood_great
+  - action: utter_happy
+  - user: |
+      bye-bye!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: sad path 1
+  steps:
+  - user: |
+      hello
+    intent: greet
+  - action: utter_greet
+  - user: |
+      not good
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - user: |
+      yes
+    intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - user: |
+      hello
+    intent: greet
+  - action: utter_greet
+  - user: |
+      not good
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - user: |
+      not really
+    intent: deny
+  - action: utter_goodbye
+
+- story: sad path 3
+  steps:
+  - user: |
+      hi
+    intent: greet
+  - action: utter_greet
+  - user: |
+      very terrible
+    intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - user: |
+      no
+    intent: deny
+  - action: utter_goodbye
+
+- story: say goodbye
+  steps:
+  - user: |
+      bye-bye!
+    intent: goodbye
+  - action: utter_goodbye
+
+- story: bot challenge
+  steps:
+  - user: |
+      are you a bot?
+    intent: bot_challenge
+  - action: utter_iamabot
+
+# 1. Thông tin chung ngành CNTT
+- story: "Test 1: Thông tin chung ngành CNTT"
+  steps:
+  - user: "xin chào"
+    intent: greet
+  - action: utter_greet
+  - user: "ngành CNTT là gì?"
+    intent: ask_major_info
+  - action: utter_major_info
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 2. Không tìm thấy thông tin ngành
+- story: "Test 2: Không tìm thấy thông tin ngành"
+  steps:
+  - user: "chào bạn"
+    intent: greet
+  - action: utter_greet
+  - user: "không có thông tin về ngành này"
+    intent: ask_major_info_not_found
+  - action: utter_major_info_not_found
+  - user: "bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 3. Chỉ tiêu tuyển sinh chung CNTT
+- story: "Test 3: Chỉ tiêu tuyển sinh chung CNTT"
+  steps:
+  - user: "hello"
+    intent: greet
+  - action: utter_greet
+  - user: "tổng chỉ tiêu tuyển sinh CNTT là bao nhiêu?"
+    intent: ask_enrollment_quota
+  - action: utter_enrollment_quota
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 4. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: Thông tin ngành
+- story: "Test 4: CNTT Đặc Thù - Thông tin ngành"
+  steps:
+  - user: "xin chào"
+    intent: greet
+  - action: utter_greet
+  - user: "CNTT đặc thù là gì?"
+    intent: ask_major_dthtdn_info
+  - action: utter_major_info_dthtdn
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 5. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: Chỉ tiêu tuyển sinh
+- story: "Test 5: CNTT Đặc Thù - Chỉ tiêu tuyển sinh"
+  steps:
+  - user: "chào bạn"
+    intent: greet
+  - action: utter_greet
+  - user: "chỉ tiêu CNTT đặc thù là bao nhiêu?"
+    intent: ask_enrollment_quota_major_dthtdn
+  - action: utter_enrollment_quota_major_dthtdn
+  - user: "bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 6. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: Chương trình đào tạo
+- story: "Test 6: CNTT Đặc Thù - Chương trình đào tạo"
+  steps:
+  - user: "hi"
+    intent: greet
+  - action: utter_greet
+  - user: "chương trình đào tạo CNTT đặc thù là gì?"
+    intent: ask_training_program_major_dthtdn
+  - action: utter_training_program_major_dthtdn
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 7. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: Chuẩn ngoại ngữ
+- story: "Test 7: CNTT Đặc Thù - Chuẩn ngoại ngữ"
+  steps:
+  - user: "xin chào"
+    intent: greet
+  - action: utter_greet
+  - user: "chuẩn ngoại ngữ của CNTT đặc thù là gì?"
+    intent: ask_standard_output_language_major_dthtdn
+  - action: utter_standard_output_language_major_dthtdn
+  - user: "bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 8. CNTT Ngoại Ngữ Nhật: Thông tin ngành
+- story: "Test 8: CNTT Ngoại Ngữ Nhật - Thông tin ngành"
+  steps:
+  - user: "chào"
+    intent: greet
+  - action: utter_greet
+  - user: "CNTT ngoại ngữ nhật là gì?"
+    intent: ask_major_nnn_info
+  - action: utter_major_info_nnn
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 9. CNTT Ngoại Ngữ Nhật: Chỉ tiêu tuyển sinh
+- story: "Test 9: CNTT Ngoại Ngữ Nhật - Chỉ tiêu tuyển sinh"
+  steps:
+  - user: "hello"
+    intent: greet
+  - action: utter_greet
+  - user: "chỉ tiêu CNTT ngoại ngữ nhật là bao nhiêu?"
+    intent: ask_enrollment_quota_major_nnn
+  - action: utter_enrollment_quota_major_nnn
+  - user: "bye bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 10. CNTT Ngoại Ngữ Nhật: Chương trình đào tạo
+- story: "Test 10: CNTT Ngoại Ngữ Nhật - Chương trình đào tạo"
+  steps:
+  - user: "xin chào"
+    intent: greet
+  - action: utter_greet
+  - user: "học CNTT ngoại ngữ nhật như thế nào?"
+    intent: ask_training_program_major_nnn
+  - action: utter_training_program_major_nnn
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 11. CNTT Ngoại Ngữ Nhật: Chuẩn ngoại ngữ
+- story: "Test 11: CNTT Ngoại Ngữ Nhật - Chuẩn ngoại ngữ"
+  steps:
+  - user: "hi there"
+    intent: greet
+  - action: utter_greet
+  - user: "chuẩn ngoại ngữ cho CNTT ngoại ngữ nhật là gì?"
+    intent: ask_standard_output_language_major_nnn
+  - action: utter_standard_output_language_major_nnn
+  - user: "bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 12. CNTT TTNT (KHDL & TTNT): Thông tin ngành
+- story: "Test 12: CNTT TTNT - Thông tin ngành"
+  steps:
+  - user: "chào"
+    intent: greet
+  - action: utter_greet
+  - user: "CNTT TTNT ra sao?"
+    intent: ask_major_khdl_ttnt_info
+  - action: utter_major_info_khdl_ttnt
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 13. CNTT TTNT (KHDL & TTNT): Chỉ tiêu tuyển sinh
+- story: "Test 13: CNTT TTNT - Chỉ tiêu tuyển sinh"
+  steps:
+  - user: "xin chào"
+    intent: greet
+  - action: utter_greet
+  - user: "chỉ tiêu CNTT TTNT là bao nhiêu?"
+    intent: ask_enrollment_quota_major_khdl_ttnt
+  - action: utter_enrollment_quota_major_khdl_ttnt
+  - user: "bye bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 14. CNTT TTNT (KHDL & TTNT): Chương trình đào tạo
+- story: "Test 14: CNTT TTNT - Chương trình đào tạo"
+  steps:
+  - user: "hello"
+    intent: greet
+  - action: utter_greet
+  - user: "học CNTT TTNT như thế nào?"
+    intent: ask_training_program_major_khdl_ttnt
+  - action: utter_training_program_major_khdl_ttnt
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 15. CNTT TTNT (KHDL & TTNT): Chuẩn ngoại ngữ
+- story: "Test 15: CNTT TTNT - Chuẩn ngoại ngữ"
+  steps:
+  - user: "hi"
+    intent: greet
+  - action: utter_greet
+  - user: "chuẩn ngoại ngữ của CNTT TTNT là gì?"
+    intent: ask_standard_output_language_major_khdl_ttnt
+  - action: utter_standard_output_language_major_khdl_ttnt
+  - user: "bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 16. Phương thức xét tuyển chung
+- story: "Test 16: Phương thức xét tuyển chung CNTT"
+  steps:
+  - user: "xin chào"
+    intent: greet
+  - action: utter_greet
+  - user: "các phương thức xét tuyển CNTT là gì?"
+    intent: ask_admission_methods
+  - action: utter_admission_methods
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 17. Xét tuyển thẳng (chi tiết)
+- story: "Test 17: Xét tuyển thẳng CNTT"
+  steps:
+  - user: "chào bạn"
+    intent: greet
+  - action: utter_greet
+  - user: "yêu cầu xét tuyển thẳng CNTT là gì?"
+    intent: ask_direct_admission_detail
+  - action: utter_direct_admission_detail
+  - user: "bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 18. Xét tuyển riêng (chi tiết)
+- story: "Test 18: Xét tuyển riêng CNTT"
+  steps:
+  - user: "hello"
+    intent: greet
+  - action: utter_greet
+  - user: "chi tiết xét tuyển riêng CNTT là gì?"
+    intent: ask_xet_tuyen_rieng_detail
+  - action: utter_xet_tuyen_rieng_detail
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 19. Quy trình xét tuyển chung
+- story: "Test 19: Quy trình xét tuyển CNTT"
+  steps:
+  - user: "xin chào"
+    intent: greet
+  - action: utter_greet
+  - user: "quy trình xét tuyển CNTT như thế nào?"
+    intent: ask_admission_process
+  - action: utter_admission_process
+  - user: "bye"
+    intent: goodbye
+  - action: utter_goodbye
+
+# 20. Bot Challenge và cảm ơn
+- story: "Test 20: Bot challenge và Cảm ơn"
+  steps:
+  - user: "bạn là ai?"
+    intent: iamabot
+  - action: utter_iamabot
+  - user: "cảm ơn bạn"
+    intent: thank
+  - action: utter_thank
+  - user: "tạm biệt"
+    intent: goodbye
+  - action: utter_goodbye
+
