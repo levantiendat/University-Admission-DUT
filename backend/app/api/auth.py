@@ -10,6 +10,7 @@ from app.core.security import verify_access_token, get_password_hash
 from app.core.security import create_access_token
 from authlib.integrations.starlette_client import OAuth, OAuthError
 from app.core.config import settings
+from urllib.parse import urlparse
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
@@ -71,10 +72,19 @@ oauth.register(
 )
 
 # Endpoint chuyển hướng người dùng đến trang đăng nhập Google
+
+
 @router.get("/google")
 async def google_auth(request: Request):
     redirect_uri = request.url_for("google_callback")
+
+    parsed_url = urlparse(str(request.base_url))
+    if parsed_url.hostname != "localhost":
+        # Chuyển redirect_uri sang https nếu không phải localhost
+        redirect_uri = redirect_uri.replace("http://", "https://")
+
     return await oauth.google.authorize_redirect(request, redirect_uri)
+
 
 # Endpoint xử lý callback từ Google OAuth2
 @router.get("/google/callback")
@@ -99,4 +109,4 @@ async def google_callback(request: Request, db: Session = Depends(get_db)):
     # Tạo JWT token cho người dùng
     access_token = create_access_token(data={"sub": user_email})
     # Chuyển hướng về frontend callback (ví dụ: localhost:8080/callback) kèm token
-    return RedirectResponse(url=f"http://localhost:8080/callback?token={access_token}")
+    return RedirectResponse(url=f"{settings.FRONTEND_URL}/callback?token={access_token}")

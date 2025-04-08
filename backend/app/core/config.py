@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     DB_SSL_CA: str | None = None  # Hỗ trợ cả None
     GOOGLE_CLIENT_ID: str
     GOOGLE_CLIENT_SECRET: str
+    FRONTEND_URL: str = "http://localhost:8080"  # URL của frontend ứng dụng
 
     class Config:
         env_file = ".env"
