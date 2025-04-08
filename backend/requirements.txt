@@ -13,3 +13,4 @@ python-multipart
 mysql-connector-python
 httpx
 itsdangerous
+pytz
