@@ -81,7 +81,7 @@ async def google_auth(request: Request):
     parsed_url = urlparse(str(request.base_url))
     if parsed_url.hostname != "localhost":
         # Chuyển redirect_uri sang https nếu không phải localhost
-        redirect_uri = redirect_uri.replace("http://", "https://")
+        redirect_uri = str(redirect_uri).replace("http://", "https://")
 
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
