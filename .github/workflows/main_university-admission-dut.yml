@@ -16,6 +16,10 @@ jobs:
     permissions:
       contents: read #This is required for actions/checkout
 
+    defaults:
+      run:
+        working-directory: backend
+
     steps:
       - uses: actions/checkout@v4
 
@@ -42,7 +46,7 @@ jobs:
         with:
           name: python-app
           path: |
-            release.zip
+            backend/release.zip
             !venv/
 
   deploy:
