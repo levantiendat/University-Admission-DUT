@@ -46,7 +46,7 @@ def admin_create_user(
     token = create_access_token(data={"sub": user_obj.email})
     return {"access_token": token, "token_type": "bearer", "role": user_obj.role}
 
-@router.post("/update", response_model=UserOut)
+@router.put("/update", response_model=UserOut)
 def update_user_data(
     user_update: UserUpdate,
     token: str = Depends(oauth2_scheme),
@@ -67,7 +67,7 @@ def update_user_data(
     
     return user
 
-@router.post("/admin/update-user/{user_id}", response_model=UserOut)
+@router.put("/admin/update-user/{user_id}", response_model=UserOut)
 def admin_update_user_data(
     user_id: int,
     user_update: UserUpdate,
@@ -95,7 +95,7 @@ def admin_update_user_data(
     
     return user
 
-@router.post("/admin/update-user-by-email", response_model=UserOut)
+@router.put("/admin/update-user-by-email", response_model=UserOut)
 def admin_update_user_by_email(
     email: str,
     user_update: UserUpdate,
@@ -123,7 +123,7 @@ def admin_update_user_by_email(
     
     return user
 
-@router.post("/admin/update-user-role/{user_id}", response_model=UserOut)
+@router.put("/admin/update-user-role/{user_id}", response_model=UserOut)
 def admin_update_user_role(
     user_id: int,
     role: str = Header(..., description="Header role, ví dụ: user hoặc instructor"),

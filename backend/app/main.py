@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import auth, users
+from app.api import auth, users, school_priority
 from app.models.user import Base, User
 from app.db.session import engine, SessionLocal
 from app.core.security import get_password_hash
@@ -53,6 +53,7 @@ def startup_event():
 # Include các router
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(users.router, prefix="/api/users", tags=["Users"])
+app.include_router(school_priority.router, prefix="/api/priority", tags=["School Priority"])
 
 @app.get("/")
 def root():
