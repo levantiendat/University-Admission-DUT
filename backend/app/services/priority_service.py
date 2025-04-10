@@ -257,3 +257,14 @@ def get_search_results(db: Session, search: str) -> dict:
         "wards": [{"id": w.id, "name": w.name} for w in results_ward],
         "cities": [{"id": c.id, "name": c.name} for c in results_city],
     }
+
+def get_school_by_city(db: Session, city_id: int) -> list[School]:
+    districts = db.query(District).filter(District.city_id == city_id).all()
+    if not districts:
+        raise NotFoundException(detail="No districts found for this city")
+    schools = []
+    for district in districts:
+        schools.extend(db.query(School).filter(School.district_id == district.id).all())
+    if not schools:
+        raise NotFoundException(detail="No schools found for this city")
+    return schools

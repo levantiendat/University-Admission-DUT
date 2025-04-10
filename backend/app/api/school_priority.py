@@ -12,7 +12,7 @@ from app.services.priority_service import get_cities, get_districts, get_wards, 
 from app.services.priority_service import get_city_by_code, get_district_by_code, get_ward_by_code, get_school_by_code
 from app.services.priority_service import get_city_by_name, get_district_by_name, get_ward_by_name, get_school_by_name, get_search_results
 from app.services.priority_service import delete_city, delete_district, delete_ward, delete_school
-from app.services.priority_service import get_districts_by_city, get_wards_by_district, get_schools_by_district
+from app.services.priority_service import get_districts_by_city, get_wards_by_district, get_schools_by_district, get_school_by_city
 from app.db.session import get_db
 from app.core.security import verify_access_token, create_access_token
 from fastapi.security import OAuth2PasswordBearer
@@ -302,9 +302,18 @@ def create_school_endpoint(
 
 @router.get("/schools", response_model=list[SchoolOut])
 def get_schools_endpoint(
+    page: int = 1,  # Số trang, mặc định là 1
     db: Session = Depends(get_db)
 ):
-    return get_schools(db=db)
+    """
+    API để lấy danh sách trường học với phân trang.
+    Mỗi trang chứa tối đa 200 phần tử.
+    """
+    page_size = 200  # Số lượng phần tử mỗi trang
+    offset = (page - 1) * page_size  # Tính vị trí bắt đầu
+
+    schools = db.query(School).offset(offset).limit(page_size).all()
+    return schools
 
 @router.get("/schools/{school_id}", response_model=SchoolOut)
 def get_school_endpoint(
@@ -370,7 +379,7 @@ def search_endpoint(
     q: str,
     db: Session = Depends(get_db)
 ):
-    return get_search_results(db=db, model=City, query=q)
+    return get_search_results(db=db, search=q)
 
 @router.get("/cities/{city_id}/districts", response_model=list[DistrictOut])
 def get_districts_by_city_endpoint(
@@ -403,3 +412,13 @@ def get_schools_by_district_endpoint(
     API để lấy danh sách trường học theo district_id.
     """
     return get_schools_by_district(db=db, district_id=district_id)
+
+@router.get("/cities/{city_id}/schools", response_model=list[SchoolOut])
+def get_schools_by_city_endpoint(
+    city_id: int,
+    db: Session = Depends(get_db)
+):
+    """
+    API để lấy danh sách trường học theo city_id.
+    """
+    return get_school_by_city(db=db, city_id=city_id)
