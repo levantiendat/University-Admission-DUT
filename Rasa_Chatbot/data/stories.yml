@@ -231,126 +231,6 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 23. Điểm chuẩn tuyển sinh riêng CNTT Đặc Thù (2 năm)
-  - story: "Pair - Điểm chuẩn riêng CNTT Đặc Thù (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_dthtdn_2years_rieng
-      - action: utter_cutoff_score_dthtdn_2years_rieng
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 24. Điểm chuẩn tuyển sinh riêng CNTT Ngoại Ngữ Nhật (2 năm)
-  - story: "Pair - Điểm chuẩn riêng CNTT Ngoại Ngữ Nhật (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_nnn_2years_rieng
-      - action: utter_cutoff_score_nnn_2years_rieng
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 25. Điểm chuẩn tuyển sinh riêng CNTT TTNT (2 năm)
-  - story: "Pair - Điểm chuẩn riêng CNTT TTNT (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_ttnt_2years_rieng
-      - action: utter_cutoff_score_ttnt_2years_rieng
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 26. Điểm chuẩn tuyển sinh THPT CNTT Đặc Thù (2 năm)
-  - story: "Pair - Điểm chuẩn THPT CNTT Đặc Thù (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_dthtdn_2years_thpt
-      - action: utter_cutoff_score_dthtdn_2years_thpt
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 27. Điểm chuẩn tuyển sinh THPT CNTT Ngoại Ngữ Nhật (2 năm)
-  - story: "Pair - Điểm chuẩn THPT CNTT Ngoại Ngữ Nhật (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_nnn_2years_thpt
-      - action: utter_cutoff_score_nnn_2years_thpt
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 28. Điểm chuẩn tuyển sinh THPT CNTT TTNT (2 năm)
-  - story: "Pair - Điểm chuẩn THPT CNTT TTNT (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_ttnt_2years_thpt
-      - action: utter_cutoff_score_ttnt_2years_thpt
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 29. Tổng hợp điểm chuẩn riêng của tất cả ngành CNTT (2 năm)
-  - story: "Pair - Tổng hợp điểm chuẩn riêng CNTT (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_all_2years_rieng
-      - action: utter_cutoff_score_all_2years_rieng
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 30. Tổng hợp điểm chuẩn THPT của tất cả ngành CNTT (2 năm)
-  - story: "Pair - Tổng hợp điểm chuẩn THPT CNTT (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_all_2years_thpt
-      - action: utter_cutoff_score_all_2years_thpt
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 31. Điểm chuẩn CNTT Đặc Thù tổng hợp (2 năm, cả 2 phương thức)
-  - story: "Pair - Điểm chuẩn CNTT Đặc Thù tổng hợp (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_dthtdn_2years_all
-      - action: utter_cutoff_score_dthtdn_2years_all
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 32. Điểm chuẩn CNTT Ngoại Ngữ Nhật tổng hợp (2 năm, cả 2 phương thức)
-  - story: "Pair - Điểm chuẩn CNTT Ngoại Ngữ Nhật tổng hợp (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_nnn_2years_all
-      - action: utter_cutoff_score_nnn_2years_all
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 33. Điểm chuẩn CNTT TTNT tổng hợp (2 năm, cả 2 phương thức)
-  - story: "Pair - Điểm chuẩn CNTT TTNT tổng hợp (2 năm)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_ttnt_2years_all
-      - action: utter_cutoff_score_ttnt_2years_all
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 34. Tổng hợp điểm chuẩn của tất cả ngành CNTT theo từng phương thức (bảng)
-  - story: "Pair - Bảng tổng hợp điểm chuẩn CNTT 2 năm (riêng & THPT)"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_cutoff_score_all_2years_both
-      - action: utter_cutoff_score_all_2years_both
-      - intent: goodbye
-      - action: utter_goodbye
-
   # 35. Chương trình đào tạo chung CNTT
   - story: "Pair - Chương trình đào tạo chung CNTT"
     steps:
@@ -607,65 +487,6 @@ stories:
       - intent: ask_TNTHPT_KHDL
       - action: utter_TNTHPT_KHDL
 
-  - story: "Direct Pair - Điểm chuẩn riêng CNTT Đặc Thù (2 năm)"
-    steps:
-      - intent: ask_cutoff_score_dthtdn_2years_rieng
-      - action: utter_cutoff_score_dthtdn_2years_rieng
-
-  - story: "Direct Pair - Điểm chuẩn riêng CNTT Ngoại Ngữ Nhật (2 năm)"
-    steps:
-      - intent: ask_cutoff_score_nnn_2years_rieng
-      - action: utter_cutoff_score_nnn_2years_rieng
-
-  - story: "Direct Pair - Điểm chuẩn riêng CNTT TTNT (2 năm)"
-    steps:
-      - intent: ask_cutoff_score_ttnt_2years_rieng
-      - action: utter_cutoff_score_ttnt_2years_rieng
-
-  - story: "Direct Pair - Điểm chuẩn THPT CNTT Đặc Thù (2 năm)"
-    steps:
-      - intent: ask_cutoff_score_dthtdn_2years_thpt
-      - action: utter_cutoff_score_dthtdn_2years_thpt
-
-  - story: "Direct Pair - Điểm chuẩn THPT CNTT Ngoại Ngữ Nhật (2 năm)"
-    steps:
-      - intent: ask_cutoff_score_nnn_2years_thpt
-      - action: utter_cutoff_score_nnn_2years_thpt
-
-  - story: "Direct Pair - Điểm chuẩn THPT CNTT TTNT (2 năm)"
-    steps:
-      - intent: ask_cutoff_score_ttnt_2years_thpt
-      - action: utter_cutoff_score_ttnt_2years_thpt
-
-  - story: "Direct Pair - Tổng hợp điểm chuẩn riêng (2 năm)"
-    steps:
-      - intent: ask_cutoff_score_all_2years_rieng
-      - action: utter_cutoff_score_all_2years_rieng
-
-  - story: "Direct Pair - Tổng hợp điểm chuẩn THPT (2 năm)"
-    steps:
-      - intent: ask_cutoff_score_all_2years_thpt
-      - action: utter_cutoff_score_all_2years_thpt
-
-  - story: "Direct Pair - Tổng hợp điểm chuẩn CNTT Đặc Thù (2 năm, cả 2 phương thức)"
-    steps:
-      - intent: ask_cutoff_score_dthtdn_2years_all
-      - action: utter_cutoff_score_dthtdn_2years_all
-
-  - story: "Direct Pair - Tổng hợp điểm chuẩn CNTT Ngoại Ngữ Nhật (2 năm, cả 2 phương thức)"
-    steps:
-      - intent: ask_cutoff_score_nnn_2years_all
-      - action: utter_cutoff_score_nnn_2years_all
-
-  - story: "Direct Pair - Tổng hợp điểm chuẩn CNTT TTNT (2 năm, cả 2 phương thức)"
-    steps:
-      - intent: ask_cutoff_score_ttnt_2years_all
-      - action: utter_cutoff_score_ttnt_2years_all
-
-  - story: "Direct Pair - Bảng tổng hợp điểm chuẩn CNTT 2 năm (riêng & THPT)"
-    steps:
-      - intent: ask_cutoff_score_all_2years_both
-      - action: utter_cutoff_score_all_2years_both
 
   - story: "Direct Pair - Chương trình đào tạo chung CNTT"
     steps:
@@ -879,3 +700,198 @@ stories:
       - intent: ask_cntt_ai
       - action: utter_TNTHPT_KHDL
 
+  - story: Trả lời điểm chuẩn theo slot
+    steps:
+      - intent: ask_cutoff_score
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm chuẩn có đủ slot
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin htdn"
+          - method: "tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  # ==== Đủ cả major + method (10 stories) ====
+
+  - story: Điểm chuẩn CNTT AI theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin ai"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT Nhật theo THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin nhật"
+          - method: "thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT đặc thù theo điểm tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin đặc thù"
+          - method: "điểm tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT hợp tác doanh nghiệp theo xét điểm tốt nghiệp
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin htdn"
+          - method: "xét điểm tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn ngành CNTT ngôn ngữ nhật theo điểm thi tốt nghiệp
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin ngoại ngữ nhật"
+          - method: "điểm thi tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT AI theo điểm thi tốt nghiệp
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ai"
+          - method: "điểm thi tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn ngành CNTT riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm ngành CNTT AI xét điểm tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ai"
+          - method: "xét điểm tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT Nhật theo điểm tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin nhật"
+          - method: "điểm tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT ngoại ngữ Nhật theo xét điểm thi
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin ngoại ngữ nhật"
+          - method: "xét điểm thi tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  # ==== Thiếu method (5 stories) ====
+
+  - story: Hỏi điểm chuẩn chỉ có ngành CNTT AI
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin ai"
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm chuẩn CNTT Nhật không có method
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt nhật"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT đặc thù thiếu phương thức
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt đặc thù"
+      - action: action_cutoff_score
+
+  - story: Chỉ có ngành CNTT ngôn ngữ nhật
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ngoại ngữ nhật"
+      - action: action_cutoff_score
+
+  - story: Điểm ngành CNTT HTDN không có method
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin htdn"
+      - action: action_cutoff_score
+
+  # ==== Thiếu major (5 stories) ====
+
+  - story: Hỏi điểm chuẩn theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm chuẩn theo điểm thi THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "điểm thi tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn theo tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  - story: Điểm xét tuyển riêng ngành nào cũng được
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm chuẩn theo xét điểm tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "xét điểm tốt nghiệp thpt"
+      - action: action_cutoff_score
+
+  # ==== Thiếu cả major và method (5 stories) ====
+
+  - story: Hỏi điểm chuẩn chung
+    steps:
+      - intent: ask_cutoff_score
+      - action: action_cutoff_score
+
+  - story: Cho mình biết điểm chuẩn
+    steps:
+      - intent: ask_cutoff_score
+      - action: action_cutoff_score
+
+  - story: Trả lời giúp điểm chuẩn các ngành
+    steps:
+      - intent: ask_cutoff_score
+      - action: action_cutoff_score
+
+  - story: Muốn biết điểm chuẩn xét tuyển
+    steps:
+      - intent: ask_cutoff_score
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm ngành
+    steps:
+      - intent: ask_cutoff_score
+      - action: action_cutoff_score

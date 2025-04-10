@@ -31,18 +31,6 @@ intents:
   - ask_TNTHPT_NNN
   - ask_TNTHPT_KHDL
   - ask_admission_process
-  - ask_cutoff_score_dthtdn_2years_rieng
-  - ask_cutoff_score_nnn_2years_rieng
-  - ask_cutoff_score_ttnt_2years_rieng
-  - ask_cutoff_score_dthtdn_2years_thpt
-  - ask_cutoff_score_nnn_2years_thpt
-  - ask_cutoff_score_ttnt_2years_thpt
-  - ask_cutoff_score_all_2years_rieng
-  - ask_cutoff_score_all_2years_thpt
-  - ask_cutoff_score_dthtdn_2years_all
-  - ask_cutoff_score_nnn_2years_all
-  - ask_cutoff_score_ttnt_2years_all
-  - ask_cutoff_score_all_2years_both
   - ask_training_program
   - ask_standard_output_language
   - ask_faq_job_opportunities
@@ -61,6 +49,25 @@ intents:
   - ask_dgnl
   - ask_dgtd
   - ask_cntt_luu_y
+  - ask_cutoff_score
+
+entities:
+  - major
+  - method
+
+slots:
+  major:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: major
+
+  method:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: method
+
 
 responses:
 
@@ -189,99 +196,6 @@ responses:
           - Điểm quy đổi của phương thức xét tuyển nào cao nhất thì sẽ được sử dụng để xét tuyển \n
           - Thí sinh sẽ được đăng kí không giới hạn số nguyện vọng"
 
-  ## ĐIỂM CHUẨN TUYỂN SINH
-  utter_cutoff_score_dthtdn_2years_rieng:
-    - text: |
-        **Điểm chuẩn xét tuyển riêng** ngành Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp) trong 2 năm gần nhất (Thang điểm 300):
-        • Năm 2023: 289.4
-        • Năm 2024: 288.6
-  utter_cutoff_score_nnn_2years_rieng:
-    - text: |
-        **Điểm chuẩn xét tuyển riêng** ngành Công nghệ Thông Tin (Ngoại Ngữ Nhật) trong 2 năm gần nhất (Thang điểm 300):
-        • Năm 2023: 280.0
-        • Năm 2024: 229.3
-  utter_cutoff_score_ttnt_2years_rieng:
-    - text: |
-        **Điểm chuẩn xét tuyển riêng** ngành Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo trong 2 năm gần nhất (Thang điểm 300):
-        • Năm 2023: 298.6
-        • Năm 2024: 298.9
-  utter_cutoff_score_dthtdn_2years_thpt:
-    - text: |
-        **Điểm chuẩn xét tuyển bằng điểm Tốt Nghiệp THPT** ngành Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp) trong 2 năm gần nhất (Thang điểm 30):
-        • Năm 2023: 25.86
-        • Năm 2024: 26.1
-  utter_cutoff_score_nnn_2years_thpt:
-    - text: |
-        **Điểm chuẩn xét tuyển bằng điểm Tốt Nghiệp THPT** ngành Công nghệ Thông Tin (Ngoại Ngữ Nhật) trong 2 năm gần nhất (Thang điểm 30):
-        • Năm 2023: 25.00
-        • Năm 2024: 25.55
-  utter_cutoff_score_ttnt_2years_thpt:
-    - text: |
-        **Điểm chuẩn xét tuyển bằng điểm Tốt Nghiệp THPT** ngành Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo trong 2 năm gần nhất (Thang điểm 30):
-        • Năm 2023: 26.45
-        • Năm 2024: 27.11
-
-  utter_cutoff_score_all_2years_rieng:
-    - text: |
-        **Điểm chuẩn xét tuyển riêng** của cả 3 ngành trong 2 năm gần nhất:
-        1. **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp)**
-           • Năm 2023: 289.4
-           • Năm 2024: 288.6
-        2. **CNTT (Ngoại Ngữ Nhật)**
-           • Năm 2023: 280.0
-           • Năm 2024: 229.3
-        3. **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo**
-           • Năm 2023: 298.6
-           • Năm 2024: 298.9
-  utter_cutoff_score_all_2years_thpt:
-    - text: |
-        **Điểm chuẩn xét tuyển bằng điểm Tốt Nghiệp THPT** của cả 3 ngành trong 2 năm gần nhất:
-        1. **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp)**
-           • Năm 2023: 25.86
-           • Năm 2024: 26.1
-        2. **CNTT (Ngoại Ngữ Nhật)**
-           • Năm 2023: 25.00
-           • Năm 2024: 25.55
-        3. **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo**
-           • Năm 2023: 26.45
-           • Năm 2024: 27.11
-
-  utter_cutoff_score_dthtdn_2years_all:
-    - text: |
-        **Điểm chuẩn 2 năm gần nhất của ngành CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp) ở cả 2 phương thức:**
-        **Xét tuyển riêng:**
-        • Năm 2023: 289.4  
-        • Năm 2024: 288.6
-        **Điểm Tốt Nghiệp THPT:**
-        • Năm 2023: 25.86  
-        • Năm 2024: 26.1
-  utter_cutoff_score_nnn_2years_all:
-    - text: |
-        **Điểm chuẩn 2 năm gần nhất của ngành CNTT (Ngoại Ngữ Nhật) ở cả 2 phương thức:**
-        **Xét tuyển riêng:**
-        • Năm 2023: 280.0  
-        • Năm 2024: 229.3
-        **Điểm Tốt Nghiệp THPT:**
-        • Năm 2023: 25.00  
-        • Năm 2024: 25.55
-  utter_cutoff_score_ttnt_2years_all:
-    - text: |
-        **Điểm chuẩn 2 năm gần nhất của ngành CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo ở cả 2 phương thức:**
-        **Xét tuyển riêng:**
-        • Năm 2023: 298.6  
-        • Năm 2024: 298.9
-        **Điểm Tốt Nghiệp THPT:**
-        • Năm 2023: 26.45  
-        • Năm 2024: 27.11
-  utter_cutoff_score_all_2years_both:
-    - text: |
-        **📊 Điểm chuẩn 2 năm gần nhất của tất cả ngành theo từng phương thức**:
-        | NGÀNH                                                                       | 2023 (Riêng) | 2024 (Riêng) | 2023 (THPT) | 2024 (THPT) |
-        |:----------------------------------------------------------------------------|:------------:|:------------:|:-----------:|:-----------:|
-        | **CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp)**                                   | 289.4        | 288.6        | 25.86       | 26.1        |
-        | **CNTT (Ngoại Ngữ Nhật)**                                                   | 280.0        | 229.3        | 25.00       | 25.55       |
-        | **CNTT (Đặc Thù – HTDN), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo** | 298.6        | 298.9        | 26.45       | 27.11       |
-        *📝 “Riêng” là xét tuyển riêng, “THPT” là xét tuyển qua điểm Tốt Nghiệp THPT.*
 
   ## CHƯƠNG TRÌNH ĐÀO TẠO CHUNG
   utter_training_program:
@@ -367,18 +281,6 @@ actions:
   - utter_TNTHPT_NNN
   - utter_TNTHPT_KHDL
   - utter_admission_process
-  - utter_cutoff_score_dthtdn_2years_rieng
-  - utter_cutoff_score_nnn_2years_rieng
-  - utter_cutoff_score_ttnt_2years_rieng
-  - utter_cutoff_score_dthtdn_2years_thpt
-  - utter_cutoff_score_nnn_2years_thpt
-  - utter_cutoff_score_ttnt_2years_thpt
-  - utter_cutoff_score_all_2years_rieng
-  - utter_cutoff_score_all_2years_thpt
-  - utter_cutoff_score_dthtdn_2years_all
-  - utter_cutoff_score_nnn_2years_all
-  - utter_cutoff_score_ttnt_2years_all
-  - utter_cutoff_score_all_2years_both
   - utter_training_program
   - utter_standard_output_language
   - utter_faq_job_opportunities
@@ -397,6 +299,7 @@ actions:
   - utter_dgnl
   - utter_dgtd
   - utter_cntt_luu_y
+  - action_cutoff_score
 
 
 session_config:
