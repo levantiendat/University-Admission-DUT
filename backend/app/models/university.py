@@ -6,7 +6,7 @@ from app.models.base import Base  # Dùng Base chung
 
 # Thiết lập timezone GMT+7 (Asia/Bangkok)
 tz = pytz.timezone("Asia/Bangkok")  
-
+# Bảng về Khoa
 class Faculty(Base):
     __tablename__ = "faculties"
     id = Column(Integer, primary_key=True, index=True)
@@ -30,7 +30,7 @@ class Faculty(Base):
         passive_deletes=True
     )
 
-
+#Bảng về Ngành đào tạo
 class Major(Base):
     __tablename__ = "majors"
     id = Column(Integer, primary_key=True, index=True)
@@ -69,7 +69,7 @@ class Major(Base):
         passive_deletes=True
     )
 
-
+#Bảng về phương thức xét tuyển
 class AdmissionMethod(Base):
     __tablename__ = "admission_methods"
     id = Column(Integer, primary_key=True, index=True)
@@ -106,7 +106,7 @@ class AdmissionMethod(Base):
         passive_deletes=True
     )
 
-
+#Bảng về phương thức xét tuyển theo ngành
 class AdmissionMethodMajor(Base):
     __tablename__ = "admission_method_majors"
     id = Column(Integer, primary_key=True, index=True)
@@ -131,7 +131,7 @@ class AdmissionMethodMajor(Base):
         passive_deletes=True
     )
 
-
+# Bảng về môn học xét tuyển theo học bạ - Điểm THPT
 class Subject(Base):
     __tablename__ = "subjects"
     id = Column(Integer, primary_key=True, index=True)
@@ -153,7 +153,7 @@ class Subject(Base):
         passive_deletes=True
     )
 
-
+# Bảng về nhóm môn học xét tuyển theo học bạ - Điểm THPT
 class SubjectScoreMethodGroup(Base):
     __tablename__ = "subject_score_method_group"
     id = Column(Integer, primary_key=True, index=True)
@@ -177,7 +177,7 @@ class SubjectScoreMethodGroup(Base):
         passive_deletes=True
     )
 
-
+# Bảng về chi tiết nhóm môn học xét tuyển theo học bạ - Điểm THPT
 class SubjectGroupDetail(Base):
     __tablename__ = "subject_group_details"
     id = Column(Integer, primary_key=True, index=True)
@@ -197,7 +197,7 @@ class SubjectGroupDetail(Base):
     group = relationship("SubjectScoreMethodGroup", back_populates="subject_group_details")
     subject = relationship("Subject", back_populates="subject_group_details")
 
-
+# Bảng về điểm chuyển đổi các phương thức xét tuyển
 class ConvertPoint(Base):
     __tablename__ = "convert_points"
     id = Column(Integer, primary_key=True, index=True)
@@ -223,7 +223,7 @@ class ConvertPoint(Base):
         passive_deletes=True
     )
 
-
+# Bảng về điểm chuẩn các phương thức xét tuyển trong quá khứ
 class PreviousAdmission(Base):
     __tablename__ = "previous_admissions"
     id = Column(Integer, primary_key=True, index=True)
@@ -244,7 +244,7 @@ class PreviousAdmission(Base):
     major = relationship("Major", back_populates="previous_admissions")
     admission_method = relationship("AdmissionMethod", back_populates="previous_admissions")
 
-
+# Bảng về các lớp học phần - CTĐT
 class Course(Base):
     __tablename__ = "courses"
     id = Column(Integer, primary_key=True, index=True)
@@ -268,7 +268,7 @@ class Course(Base):
         passive_deletes=True
     )
 
-
+# Bảng về các khung CTĐT - Theo năm
 class MajorCourse(Base):
     __tablename__ = "major_courses"
     id = Column(Integer, primary_key=True, index=True)
@@ -292,7 +292,7 @@ class MajorCourse(Base):
         passive_deletes=True
     )
 
-
+# Bảng về chi tiết môn học trong khung CTĐT - Theo học phần
 class MajorCourseDetail(Base):
     __tablename__ = "major_course_details"
     id = Column(Integer, primary_key=True, index=True)

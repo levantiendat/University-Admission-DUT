@@ -78,6 +78,12 @@ def delete_major(db: Session, major_id: int) -> Major:
     db.commit()
     return db_major
 
+def get_major_by_faculty(db: Session, faculty_id: int) -> list[Major]:
+    db_faculty = db.query(Faculty).filter(Faculty.id == faculty_id).first()
+    if not db_faculty:
+        raise NotFoundException("Faculty not found")
+    return db.query(Major).filter(Major.faculty_id == faculty_id).all()
+
 def create_admission_method(db: Session, admission_method: AdmissionMethodCreate) -> AdmissionMethod:
     db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.name == admission_method.name).first()
     if db_admission_method:
@@ -146,6 +152,18 @@ def delete_admission_method_major(db: Session, admission_method_major_id: int) -
     db.delete(db_admission_method_major)
     db.commit()
     return db_admission_method_major
+
+def get_admission_method_major_by_major(db: Session, major_id: int) -> list[AdmissionMethodMajor]:
+    db_major = db.query(Major).filter(Major.id == major_id).first()
+    if not db_major:
+        raise NotFoundException("Major not found")
+    return db.query(AdmissionMethodMajor).filter(AdmissionMethodMajor.major_id == major_id).all()
+
+def get_major_by_admission_method(db: Session, admission_method_id: int) -> list[Major]:
+    db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
+    if not db_admission_method:
+        raise NotFoundException("Admission method not found")
+    return db.query(Major).join(AdmissionMethodMajor).filter(AdmissionMethodMajor.admission_methods_id == admission_method_id).all()
 
 def create_subject(db: Session, subject: SubjectCreate) -> Subject:
     db_subject = db.query(Subject).filter(Subject.name == subject.name).first()
@@ -216,6 +234,12 @@ def delete_subject_score_method_group(db: Session, subject_score_method_group_id
     db.commit()
     return db_subject_score_method_group
 
+def get_subject_score_method_group_by_admission_method_major(db: Session, admission_method_major_id: int) -> list[SubjectScoreMethodGroup]:
+    db_admission_method_major = db.query(AdmissionMethodMajor).filter(AdmissionMethodMajor.id == admission_method_major_id).first()
+    if not db_admission_method_major:
+        raise NotFoundException("Admission method major not found")
+    return db.query(SubjectScoreMethodGroup).filter(SubjectScoreMethodGroup.admission_method_major_id == admission_method_major_id).all()
+
 def create_subject_group_detail(db: Session, subject_group_detail: SubjectGroupDetailCreate) -> SubjectGroupDetail:
     db_subject_group_detail = db.query(SubjectGroupDetail).filter(
         SubjectGroupDetail.group_id == subject_group_detail.group_id,
@@ -251,6 +275,59 @@ def delete_subject_group_detail(db: Session, subject_group_detail_id: int) -> Su
     db.delete(db_subject_group_detail)
     db.commit()
     return db_subject_group_detail
+
+def get_subject_group_detail_by_group(db: Session, group_id: int) -> list[SubjectGroupDetail]:
+    db_subject_group = db.query(SubjectGroupDetail).filter(SubjectGroupDetail.group_id == group_id).all()
+    if not db_subject_group:
+        raise NotFoundException("Subject group detail not found")
+    return db_subject_group
+
+def get_subject_group_detail_by_admission_method_major(db: Session, admission_method_major_id: int) -> list[dict]:
+    # Lấy thông tin AdmissionMethodMajor
+    db_admission_method_major = db.query(AdmissionMethodMajor).filter(
+        AdmissionMethodMajor.id == admission_method_major_id
+    ).first()
+    if not db_admission_method_major:
+        raise NotFoundException("Admission method major not found")
+
+    # Lấy danh sách tổ hợp môn (SubjectScoreMethodGroup)
+    db_subject_groups = db.query(SubjectScoreMethodGroup).filter(
+        SubjectScoreMethodGroup.admission_method_major_id == admission_method_major_id
+    ).all()
+    if not db_subject_groups:
+        raise NotFoundException("Subject group details not found")
+
+    # Kết quả cuối cùng
+    result = []
+
+    # Duyệt qua từng tổ hợp môn
+    for subject_group in db_subject_groups:
+        # Lấy danh sách môn học của từng tổ hợp môn
+        subjects = db.query(SubjectGroupDetail).filter(
+            SubjectGroupDetail.group_id == subject_group.id
+        ).all()
+
+        # Tạo dictionary chứa thông tin tổ hợp môn và danh sách môn học
+        group_detail = {
+            "id": subject_group.id,
+            "name": subject_group.name,
+            "admission_method_major_id": subject_group.admission_method_major_id,
+            "subjects": [
+                {
+                    "id": subject.id,
+                    "group_id": subject.group_id,
+                    "subject_id": subject.subject_id,
+                    "created_at": subject.created_at,
+                    "updated_at": subject.updated_at,
+                }
+                for subject in subjects
+            ],
+        }
+
+        # Thêm vào kết quả
+        result.append(group_detail)
+
+    return result
 
 def create_convert_point(db: Session, convert_point: ConvertPointCreate) -> ConvertPoint:
     db_convert_point = db.query(ConvertPoint).filter(
@@ -289,6 +366,12 @@ def delete_convert_point(db: Session, convert_point_id: int) -> ConvertPoint:
     db.commit()
     return db_convert_point
 
+def get_convert_point_by_admission_method(db: Session, admission_method_id: int) -> list[ConvertPoint]:
+    db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
+    if not db_admission_method:
+        raise NotFoundException("Admission method not found")
+    return db.query(ConvertPoint).filter(ConvertPoint.admission_methods_id == admission_method_id).all()
+
 def create_previous_admission(db: Session, previous_admission: PreviousAdmissionCreate) -> PreviousAdmission:
     db_previous_admission = db.query(PreviousAdmission).filter(
         PreviousAdmission.major_id == previous_admission.major_id,
@@ -325,4 +408,31 @@ def delete_previous_admission(db: Session, previous_admission_id: int) -> Previo
     db.delete(db_previous_admission)
     db.commit()
     return db_previous_admission
+
+def get_previous_admission_by_major(db: Session, major_id: int) -> list[PreviousAdmission]:
+    db_major = db.query(Major).filter(Major.id == major_id).first()
+    if not db_major:
+        raise NotFoundException("Major not found")
+    return db.query(PreviousAdmission).filter(PreviousAdmission.major_id == major_id).all()
+
+def get_previous_admission_by_admission_method(db: Session, admission_method_id: int) -> list[PreviousAdmission]:
+    db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
+    if not db_admission_method:
+        raise NotFoundException("Admission method not found")
+    return db.query(PreviousAdmission).filter(PreviousAdmission.admission_methods_id == admission_method_id).all()
+
+def get_previous_admission_by_major_and_admission_method(db: Session, major_id: int, admission_method_id: int) -> list[PreviousAdmission]:
+    db_major = db.query(Major).filter(Major.id == major_id).first()
+    if not db_major:
+        raise NotFoundException("Major not found")
+    db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
+    if not db_admission_method:
+        raise NotFoundException("Admission method not found")
+    return db.query(PreviousAdmission).filter(
+        PreviousAdmission.major_id == major_id,
+        PreviousAdmission.admission_methods_id == admission_method_id
+    ).all()
+
+def get_previous_admission_by_year(db: Session, year: int) -> list[PreviousAdmission]:
+    return db.query(PreviousAdmission).filter(PreviousAdmission.year == year).all()
 
