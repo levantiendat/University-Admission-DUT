@@ -895,3 +895,158 @@ stories:
     steps:
       - intent: ask_cutoff_score
       - action: action_cutoff_score
+
+  - story: Điểm CNTT AI theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ai"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT đặc thù theo dgtd
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt đặc thù"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT hợp tác doanh nghiệp theo TSA
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin htdn"
+          - method: "tsa"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT AI xét theo VACT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ai"
+          - method: "vact"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT Nhật theo APT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin nhật"
+          - method: "apt"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT ngoại ngữ nhật theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ngoại ngữ nhật"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT AI xét đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin ai"
+          - method: "dgnl"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT Nhật theo apt
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt nhật"
+          - method: "apt"
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm CNTT đặc thù theo vact
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt đặc thù"
+          - method: "vact"
+      - action: action_cutoff_score
+
+  - story: Điểm ngành CNTT HTDN theo tsa
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt htdn"
+          - method: "tsa"
+      - action: action_cutoff_score
+
+# ==== Thiếu method ====
+
+  - story: Hỏi điểm CNTT AI chỉ nêu tên ngành
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ai"
+      - action: action_cutoff_score
+
+  - story: Điểm ngành CNTT Nhật không nêu phương thức
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin nhật"
+      - action: action_cutoff_score
+
+  - story: Điểm chuẩn CNTT HTDN chưa rõ method
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt hợp tác doanh nghiệp"
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm CNTT ngoại ngữ nhật không nêu method
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ngoại ngữ nhật"
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm CNTT đặc thù thiếu method
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin đặc thù"
+      - action: action_cutoff_score
+
+# ==== Thiếu major ====
+
+  - story: Điểm theo phương thức dgtd
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm tuyển sinh bằng apt
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "apt"
+      - action: action_cutoff_score
+
+  - story: Điểm phương thức tsa
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "tsa"
+      - action: action_cutoff_score
+
+  - story: Điểm phương thức dgnl
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Hỏi điểm bằng phương thức vact
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - method: "vact"
+      - action: action_cutoff_score
+

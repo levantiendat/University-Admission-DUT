@@ -425,52 +425,35 @@ nlu:
 # ---------- ĐIỂM CHUẨN TUYỂN SINH ----------
 - intent: ask_cutoff_score
   examples: |
-    - Điểm chuẩn ngành [CNTT HTDN](major) theo phương thức [xét tuyển riêng](method) là bao nhiêu?
-    - Cho điểm ngành [CNTT AI](major) bằng [điểm tốt nghiệp THPT](method)
-    - Điểm chuẩn của [CNTT Nhật](major) lấy theo [điểm thi THPT](method) như thế nào?
-    - Cho mình điểm [CNTT Đặc Thù – Hợp Tác Doanh Nghiệp](major) [xét tuyển riêng](method)
-    - Điểm xét tuyển [CNTT Ngoại Ngữ Nhật](major) theo [xét tuyển riêng](method)
-    - Điểm chuẩn ngành [CNTT Đặc Thù – Hợp Tác Doanh Nghiệp](major) theo [điểm thi THPT](method)
-    - Điểm chuẩn ngành [CNTT Khoa Học Dữ Liệu](major) theo [điểm thi THPT](method)
-    - Điểm chuẩn ngành [CNTT Trí Tuệ Nhân Tạo](major) theo [điểm thi THPT](method)
-    - Điểm chuẩn ngành [CNTT Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo](major) theo [điểm thi THPT](method)
-    - Điểm chuẩn ngành [CNTT Khoa Học Dữ Liệu](major) theo [điểm tốt nghiệp THPT](method)
-    - Điểm chuẩn ngành [CNTT Trí Tuệ Nhân Tạo](major) theo [xét tuyển riêng](method)
-    - Điểm chuẩn ngành [CNTT Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo](major) theo [xét tuyển riêng](method)
-    - Điểm chuẩn ngành [CNTT Khoa Học Dữ Liệu](major) theo [xét tuyển riêng](method)
-    - Tôi muốn biết điểm chuẩn xét tuyển [CNTT HTDN](major) theo [THPT](method)
-    - Điểm tuyển của [CNTT AI](major) theo [điểm tốt nghiệp THPT](method)
-    - Cho tôi biết điểm ngành [CNTT Nhật](major) theo [xét tuyển riêng](method)
-    - Điểm chuẩn xét tuyển ngành [CNTT Đặc Thù – Hợp Tác Doanh Nghiệp](major) là bao nhiêu?
-    - Điểm chuẩn xét tuyển ngành [Công nghệ thông tin AI](major) theo phương thức [xét tuyển riêng](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin ngoại ngữ Nhật](major) theo phương thức [xét tuyển riêng](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin Đặc Thù – Hợp Tác Doanh Nghiệp](major) theo [xét tuyển riêng](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin Đặc Thù – Hợp Tác Doanh Nghiệp](major) theo [THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin khoa học dữ liệu](major) theo [điểm thi THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin trí tuệ nhân tạo](major) theo [điểm thi THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo](major) theo [điểm thi THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin khoa học dữ liệu](major) theo [điểm tốt nghiệp THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin trí tuệ nhân tạo](major) theo [điểm tốt nghiệp THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin AI](major) theo [THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin Nhật](major) theo [THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin Đặc Thù – Hợp Tác Doanh Nghiệp](major) theo [điểm tốt nghiệp THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin khoa học dữ liệu](major) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin trí tuệ nhân tạo](major) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo](major) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin Nhật](major) là bao nhiêu?
-    - Điểm chuẩn ngành [Công nghệ thông tin Đặc Thù – Hợp Tác Doanh Nghiệp](major) là bao nhiêu?
-    - Điểm chuẩn ngành [CNTT HTDN](major) là bao nhiêu?
-    - Điểm chuẩn theo [xét tuyển riêng](method) là bao nhiêu?
-    - Điểm chuẩn theo [điểm thi THPT](method) là bao nhiêu?
-    - Điểm chuẩn theo [điểm tốt nghiệp THPT](method) là bao nhiêu?
-    - Điểm chuẩn ngành [CNTT đặc thù](major) theo phương thức [xét điểm tốt nghiệp THPT](method)
-    - Cho mình biết điểm ngành [Công nghệ thông tin đặc thù](major) theo [xét điểm thi tốt nghiệp THPT](method)
-    - Điểm của ngành [CNTT HTDN](major) theo [điểm thi tốt nghiệp THPT](method) là bao nhiêu?
-    - Ngành [CNTT AI](major) lấy điểm theo [xét điểm thi tốt nghiệp THPT](method) đúng không?
-    - [Công nghệ thông tin Nhật](major) theo [điểm thi tốt nghiệp THPT](method) lấy bao nhiêu điểm?
-    - Mình muốn hỏi điểm chuẩn ngành [CNTT Đặc Thù](major) theo [xét điểm tốt nghiệp THPT](method)
-    - Điểm chuẩn ngành [CNTT AI](major) xét theo [điểm thi tốt nghiệp THPT](method) là bao nhiêu?
-
+    - Điểm chuẩn ngành [CNTT HTDN](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Cho điểm ngành [CNTT AI](major) bằng [điểm tốt nghiệp THPT](method).
+    - Điểm của [CNTT Nhật](major) theo [điểm thi THPT](method) là bao nhiêu?
+    - Mình muốn biết điểm xét tuyển [CNTT Ngoại Ngữ Nhật](major) qua [xét tuyển riêng](method).
+    - Điểm chuẩn ngành [CNTT Đặc Thù – Hợp Tác Doanh Nghiệp](major) theo [điểm thi TSA](method) là bao nhiêu?
+    - Cho mình điểm ngành [CNTT Khoa Học Dữ Liệu](major) theo [điểm tốt nghiệp THPT](method).
+    - Điểm chuẩn xét tuyển [CNTT Trí Tuệ Nhân Tạo](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Điểm của [Công nghệ thông tin ngoại ngữ Nhật](major) theo [điểm thi THPT](method) là bao nhiêu?
+    - Cho điểm chuẩn của [CNTT AI](major) theo [THPT](method) là bao nhiêu?
+    - Điểm của [CNTT Đặc thù hợp tác doanh nghiệp](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT Đặc thù hợp tác doanh nghiệp](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT Đặc thù hợp tác doanh nghiệp](major) theo [điểm thi đánh giá tư duy](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT Đặc thù hợp tác doanh nghiệp](major) theo [đánh giá tư duy](method) là bao nhiêu?
+    - Điểm chuẩn ngành [công nghệ thông tin Ngoại ngữ nhật](major) theo [điểm thi TSA](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT khoa học dữ liệu](major) theo [điểm thi TSA](method) là bao nhiêu?
+    - Điểm chuẩn ngành [công nghệ thông tin trí tuệ nhân tạo](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT khoa học dữ liệu](major) theo [tốt nghiệp thpt](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT khoa học dữ liệu](major) theo [điểm thi TSA](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT đặc thù](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT đặc thù](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT ngoại ngữ nhật](major) theo [điểm thi TSA](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT ngoại ngữ nhật](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT ngoại ngữ nhật](major) theo [điểm thi đánh giá tư duy](method) là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT ngoại ngữ nhật](major) theo [điểm thi TSA](method) là bao nhiêu?
+    - Điểm chuẩn ngành [công nghệ thông tin ngoại ngữ nhật](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
+    - Điểm chuẩn ngành [công nghệ thông tin ngoại ngữ nhật](major) theo [điểm thi tốt nghiệp thpt](method) là bao nhiêu?
+    - Điểm chuẩn ngành [công nghệ thông tin ngoại ngữ nhật](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Điểm chuẩn ngành [cntt ngoại ngữ nhật](major) theo [điểm thi TSA](method) là bao nhiêu?
+    - Điểm chuẩn ngành [cntt ngoại ngữ nhật](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
 
 
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
