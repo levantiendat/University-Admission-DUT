@@ -74,7 +74,7 @@ class AdmissionMethod(Base):
     __tablename__ = "admission_methods"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255))
-    description = Column(String(255))
+    description = Column(String(2000))
     min_score = Column(Float)
     max_score = Column(Float)
     created_at = Column(

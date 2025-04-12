@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Header
 from sqlalchemy.orm import Session
 from app.schemas.school_priority import CityCreate, DistrictCreate, WardCreate, SchoolCreate
 from app.schemas.school_priority import CityUpdate, DistrictUpdate, WardUpdate, SchoolUpdate
-from app.schemas.school_priority import CityOut, DistrictOut, WardOut, SchoolOut
+from app.schemas.school_priority import CityOut, DistrictOut, WardOut, SchoolOut, SchoolOut_Full
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.school_priority import City, District, Ward, School
 from app.services.priority_service import create_city, create_district, create_ward, create_school
@@ -134,7 +134,7 @@ def get_districts_endpoint(
 ):
     return get_districts(db=db)
 
-@router.get("/districts/{district_id}", response_model=DistrictOut)
+@router.get("/districts/{district_id}", response_model=dict)
 def get_district_endpoint(
     district_id: int,
     db: Session = Depends(get_db)
@@ -315,7 +315,7 @@ def get_schools_endpoint(
     schools = db.query(School).offset(offset).limit(page_size).all()
     return schools
 
-@router.get("/schools/{school_id}", response_model=SchoolOut)
+@router.get("/schools/{school_id}", response_model=dict)
 def get_school_endpoint(
     school_id: int,
     db: Session = Depends(get_db)
@@ -374,7 +374,7 @@ def delete_school_endpoint(
 
     return {"detail": "School deleted successfully"}
 
-@router.get("/search", response_model=list[CityOut])
+@router.get("/search", response_model=dict)
 def search_endpoint(
     q: str,
     db: Session = Depends(get_db)

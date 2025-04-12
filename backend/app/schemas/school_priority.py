@@ -87,3 +87,13 @@ class SchoolUpdate(BaseModel):
     address: Optional[str] = None
     district_id: Optional[int] = None
     priority_area: Optional[str] = None  # Khu vực ưu tiên
+
+class SchoolOut_Full(SchoolBase):
+    id: int
+    created_at: datetime
+    updated_at: datetime
+    district: DistrictOut
+    city: CityOut
+
+    class Config:
+        orm_mode = True

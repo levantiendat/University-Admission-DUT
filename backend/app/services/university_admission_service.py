@@ -163,7 +163,15 @@ def get_major_by_admission_method(db: Session, admission_method_id: int) -> list
     db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
     if not db_admission_method:
         raise NotFoundException("Admission method not found")
-    return db.query(Major).join(AdmissionMethodMajor).filter(AdmissionMethodMajor.admission_methods_id == admission_method_id).all()
+
+    majors = (
+        db.query(Major)
+        .join(AdmissionMethodMajor)
+        .filter(AdmissionMethodMajor.admission_methods_id == admission_method_id)
+        .all()
+    )
+
+    return majors
 
 def create_subject(db: Session, subject: SubjectCreate) -> Subject:
     db_subject = db.query(Subject).filter(Subject.name == subject.name).first()
@@ -317,8 +325,8 @@ def get_subject_group_detail_by_admission_method_major(db: Session, admission_me
                     "id": subject.id,
                     "group_id": subject.group_id,
                     "subject_id": subject.subject_id,
-                    "created_at": subject.created_at,
-                    "updated_at": subject.updated_at,
+                    "subject_name": db.query(Subject.name).filter(Subject.id == subject.subject_id).scalar(),  # Lấy Subject.name
+                    "coefficient": subject.coefficient,
                 }
                 for subject in subjects
             ],

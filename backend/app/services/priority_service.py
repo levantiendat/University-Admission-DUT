@@ -144,11 +144,18 @@ def get_city_by_id(db: Session, city_id: int) -> City:
         raise NotFoundException(detail="City not found")
     return city
 
-def get_district_by_id(db: Session, district_id: int) -> District:
+def get_district_by_id(db: Session, district_id: int) -> dict:
     district = db.query(District).filter(District.id == district_id).first()
     if not district:
         raise NotFoundException(detail="District not found")
-    return district
+    db_city = db.query(City).filter(City.id == district.city_id).first()
+    return {
+        "id": district.id,
+        "name": district.name,
+        "district_code": district.district_code,
+        "city_id": district.city_id,
+        "city_name": db_city.name,
+    }
 
 def get_ward_by_id(db: Session, ward_id: int) -> Ward:
     ward = db.query(Ward).filter(Ward.id == ward_id).first()
@@ -156,11 +163,24 @@ def get_ward_by_id(db: Session, ward_id: int) -> Ward:
         raise NotFoundException(detail="Ward not found")
     return ward
 
-def get_school_by_id(db: Session, school_id: int) -> School:
+def get_school_by_id(db: Session, school_id: int) -> dict:
     school = db.query(School).filter(School.id == school_id).first()
     if not school:
         raise NotFoundException(detail="School not found")
-    return school
+    db_district = db.query(District).filter(District.id == school.district_id).first()
+    db_city = db.query(City).filter(City.id == db_district.city_id).first()
+
+    return {
+        "id": school.id,
+        "name": school.name,
+        "address": school.address,
+        "priority_area": school.priority_area,
+        "school_code": school.school_code,
+        "district_id": school.district_id,
+        "district_name": db_district.name,
+        "city_id": db_city.id,
+        "city_name": db_city.name,
+    }
 
 def get_districts_by_city(db: Session, city_id: int) -> list[District]:
     districts = db.query(District).filter(District.city_id == city_id).all()
@@ -255,7 +275,7 @@ def get_search_results(db: Session, search: str) -> dict:
         "schools": [{"id": s.id, "name": s.name} for s in results_school],
         "districts": [{"id": d.id, "name": d.name} for d in results_district],
         "wards": [{"id": w.id, "name": w.name} for w in results_ward],
-        "cities": [{"id": c.id, "name": c.name} for c in results_city],
+        "cities": [{"id": c.id, "name": c.name} for c in results_city]
     }
 
 def get_school_by_city(db: Session, city_id: int) -> list[School]:
