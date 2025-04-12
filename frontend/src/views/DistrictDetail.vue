@@ -52,7 +52,7 @@
     },
     computed: {
       filteredSchools() {
-        return this.schools.filter(s => s.school_name.toLowerCase().includes(this.query.toLowerCase()))
+        return this.schools.filter(s => s.name.toLowerCase().includes(this.query.toLowerCase()))
       }
     },
     mounted() {

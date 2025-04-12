@@ -54,7 +54,7 @@
     },
     mounted() {
       const cityId = this.$route.params.city_id
-      axios.get(`${BASE_API_URL}/priorities/cities/{city_id}/${cityId}`)
+      axios.get(`${BASE_API_URL}/priorities/cities/${cityId}`)
         .then(res => {
           this.city = res.data
         })

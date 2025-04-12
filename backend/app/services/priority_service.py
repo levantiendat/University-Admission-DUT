@@ -263,19 +263,46 @@ def get_school_by_name(db: Session, school_name: str) -> School:
     return school
 
 def get_search_results(db: Session, search: str) -> dict:
-    results_school = db.query(School).filter(School.name.ilike(f"%{search}%")).all()
-    results_district = db.query(District).filter(District.name.ilike(f"%{search}%")).all()
-    results_ward = db.query(Ward).filter(Ward.name.ilike(f"%{search}%")).all()
-    results_city = db.query(City).filter(City.name.ilike(f"%{search}%")).all()
+    results_school = db.query(School).filter(School.name.ilike(f"%{search}%")).limit(10).all()
+    results_district = db.query(District).filter(District.name.ilike(f"%{search}%")).limit(10).all()
+    results_ward = db.query(Ward).filter(Ward.name.ilike(f"%{search}%")).limit(10).all()
+    results_city = db.query(City).filter(City.name.ilike(f"%{search}%")).limit(10).all()
 
     if not any([results_school, results_district, results_ward, results_city]):
         raise NotFoundException(detail="No results found")
 
+    # Với school: hiển thị dạng "school - district.name, city.name"
+    schools_data = []
+    for s in results_school:
+        district = db.query(District).filter(District.id == s.district_id).first()
+        if district:
+            city = db.query(City).filter(City.id == district.city_id).first()
+            if city:
+                display_name = f"{s.name} - {district.name}, {city.name}"
+            else:
+                display_name = f"{s.name} - {district.name}"
+        else:
+            display_name = s.name
+        schools_data.append({"id": s.id, "name": display_name})
+
+    # Với district: hiển thị dạng "district - city.name"
+    districts_data = []
+    for d in results_district:
+        city = db.query(City).filter(City.id == d.city_id).first()
+        if city:
+            display_name = f"{d.name} - {city.name}"
+        else:
+            display_name = d.name
+        districts_data.append({"id": d.id, "name": display_name})
+
+    wards_data = [{"id": w.id, "name": w.name} for w in results_ward]
+    cities_data = [{"id": c.id, "name": c.name} for c in results_city]
+
     return {
-        "schools": [{"id": s.id, "name": s.name} for s in results_school],
-        "districts": [{"id": d.id, "name": d.name} for d in results_district],
-        "wards": [{"id": w.id, "name": w.name} for w in results_ward],
-        "cities": [{"id": c.id, "name": c.name} for c in results_city]
+        "schools": schools_data,
+        "districts": districts_data,
+        "wards": wards_data,
+        "cities": cities_data
     }
 
 def get_school_by_city(db: Session, city_id: int) -> list[School]:

@@ -6,12 +6,12 @@
           to="/" 
           class="d-flex align-items-center text-decoration-none text-dark"
         >
-          <img src="/dut_logo.jpg" alt="DUT Logo" class="header-logo me-3" />
+          <img src="/dut_logo.png" alt="DUT Logo" class="header-logo me-3" />
           <div class="header-info">
             <div class="fw-bold" style="color: #4da0ff;">ĐẠI HỌC ĐÀ NẴNG</div>
             <div class="fw-bold text-danger">TRƯỜNG ĐẠI HỌC BÁCH KHOA</div>
             <hr class="hr-custom my-1" />
-            <div class="fw-bold" style="color:#0B2942;">
+            <div class="fw-bold header-info-eng" style="color:#0B2942;">
               UNIVERSITY OF SCIENCE AND TECHNOLOGY - UD
             </div>
           </div>
@@ -158,7 +158,7 @@ export default {
 
 <style scoped>
 .custom-header {
-  background-color: #f0f0f0 !important;
+  background-color: #efeff38f !important;
   position: sticky;
   top: 0;
   z-index: 1050;
@@ -190,6 +190,10 @@ export default {
   flex-direction: column;
   line-height: 1.1;
   font-size: 0.9rem;
+}
+
+.header-info-eng {
+  font-size: 0.7rem;
 }
 
 .hr-custom {
