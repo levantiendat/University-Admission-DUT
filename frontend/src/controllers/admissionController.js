@@ -7,11 +7,12 @@ const AdmissionController = {
    */
   async getAdmissionData() {
     try {
-      // Lấy dữ liệu từ cả 3 API
-      const [majors, admissionMethods, admissionMethodMajors] = await Promise.all([
+      // Lấy dữ liệu từ cả 4 API
+      const [majors, admissionMethods, admissionMethodMajors, faculties] = await Promise.all([
         admissionService.getMajors(),
         admissionService.getAdmissionMethods(),
-        admissionService.getAdmissionMethodMajors()
+        admissionService.getAdmissionMethodMajors(),
+        admissionService.getFaculties()
       ])
 
       // Xử lý dữ liệu để tạo bảng thông tin
@@ -27,18 +28,30 @@ const AdmissionController = {
           methodStatus[`method_${method.id}`] = methodsForMajor.includes(method.id)
         })
 
-        // Trả về thông tin ngành kèm trạng thái phương thức
+        // Tìm thông tin khoa của ngành
+        const faculty = faculties.find(faculty => faculty.id === major.faculty_id) || {
+          name: 'Chưa xác định',
+          id: 0,
+          faculty_code: 'N/A'
+        }
+
+        // Trả về thông tin ngành kèm trạng thái phương thức và thông tin khoa
         return {
           major_code: major.major_code,
           name: major.name,
           seats: major.seats,
+          faculty_id: major.faculty_id,
+          faculty_name: faculty.name,
+          faculty_code: faculty.faculty_code,
+          description: major.description,
           ...methodStatus
         }
       })
 
       return {
         majors: processedData,
-        admissionMethods: admissionMethods
+        admissionMethods: admissionMethods,
+        faculties: faculties
       }
     } catch (error) {
       console.error('Lỗi khi xử lý dữ liệu tuyển sinh:', error)

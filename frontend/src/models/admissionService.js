@@ -41,6 +41,19 @@ const admissionService = {
         console.error('Lỗi khi lấy thông tin phương thức tuyển sinh của ngành:', error)
         throw error
       })
+  },
+
+  /**
+   * Lấy danh sách khoa
+   * @returns {Promise<Array>} - Danh sách khoa
+   */
+  getFaculties() {
+    return axios.get(`${BASE_API_URL}/university-admissions/faculties`)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Lỗi khi lấy danh sách khoa:', error)
+        throw error
+      })
   }
 }
 
