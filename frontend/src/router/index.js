@@ -13,6 +13,7 @@ import QACreate from '@/views/QACreate.vue'
 import SchoolDetail from '@/views/SchoolDetail.vue'
 import Upload from '@/views/Upload.vue'
 import SchoolPriority from '@/views/SchoolPriority.vue'
+import Admission from '@/views/AdmissionView.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Homepage - ITF Help Student 2025' } },
@@ -29,6 +30,7 @@ const routes = [
   { path: '/school/:school_id', name: 'SchoolDetail', component: SchoolDetail,  meta: { title: 'School Detail' } },
   { path: '/upload', name: 'Upload', component: Upload, meta: { requiresAuth: true } },
   { path: '/school-priority', name: 'SchoolPriority', component: SchoolPriority, meta: { title: 'School Priority - ITF Help Student 2025' } },
+  { path: '/university-admission', name: 'University Admission', component: Admission, meta: {title: 'Thông tin tuyển sinh năm 2025'}}
 ]
 
 const router = createRouter({

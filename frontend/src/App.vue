@@ -43,6 +43,14 @@
             </li>
             <li class="nav-item dropdown menu-item">
               <a class="nav-link dropdown-toggle custom-dropdown" href="#" role="button">
+                <i class="bi bi-mortarboard-fill me-1"></i> Tuyển sinh năm 2025
+              </a>
+              <ul class="custom-dropdown-menu">
+                <li><router-link class="dropdown-item" to="/university-admission">Thông tin tuyển sinh chung</router-link></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown menu-item">
+              <a class="nav-link dropdown-toggle custom-dropdown" href="#" role="button">
                 <i class="bi bi-house-fill me-1"></i> School Priority
               </a>
               <ul class="custom-dropdown-menu">

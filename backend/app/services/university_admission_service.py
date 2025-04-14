@@ -136,7 +136,7 @@ def get_admission_method_major(db: Session, admission_method_major_id: int) -> A
         raise NotFoundException("Admission method major not found")
     return db_admission_method_major
 
-def get_admission_method_majors(db: Session, skip: int = 0, limit: int = 100) -> list[AdmissionMethodMajor]:
+def get_admission_method_majors(db: Session, skip: int = 0, limit: int = 1000) -> list[AdmissionMethodMajor]:
     return db.query(AdmissionMethodMajor).offset(skip).limit(limit).all()
 
 def update_admission_method_major(db: Session, admission_method_major_id: int, admission_method_major: AdmissionMethodMajorUpdate) -> AdmissionMethodMajor:
