@@ -126,7 +126,6 @@ class SubjectUpdate(BaseModel):
 # SubjectScoreMethodGroup Schemas
 # ---------------------------
 class SubjectScoreMethodGroupBase(BaseModel):
-    admission_method_major_id: int
     name: str
 
 class SubjectScoreMethodGroupCreate(SubjectScoreMethodGroupBase):
@@ -141,7 +140,6 @@ class SubjectScoreMethodGroupOut(SubjectScoreMethodGroupBase):
         orm_mode = True
 
 class SubjectScoreMethodGroupUpdate(BaseModel):
-    admission_method_major_id: Optional[int] = None
     name: Optional[str] = None
 
 # ---------------------------
@@ -167,6 +165,29 @@ class SubjectGroupDetailUpdate(BaseModel):
     group_id: Optional[int] = None
     subject_id: Optional[int] = None
     coefficient: Optional[float] = None
+
+# ---------------------------
+# SubjectScoreMethodMajor Schemas
+# ---------------------------
+
+class SubjectScoreMethodMajorBase(BaseModel):
+    group_id: int
+    admission_method_major_id: int
+
+class SubjectScoreMethodMajorCreate(SubjectScoreMethodMajorBase):
+    pass
+
+class SubjectScoreMethodMajorOut(SubjectScoreMethodMajorBase):
+    id: int
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        orm_mode = True
+
+class SubjectScoreMethodMajorUpdate(BaseModel):
+    group_id: Optional[int] = None
+    admission_method_major_id: Optional[int] = None
 
 # ---------------------------
 # ConvertPoint Schemas

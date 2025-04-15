@@ -1,5 +1,5 @@
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
-from app.models.university import Subject, SubjectScoreMethodGroup, SubjectGroupDetail, ConvertPoint, PreviousAdmission
+from app.models.university import Subject, SubjectScoreMethodGroup, SubjectGroupDetail, ConvertPoint, PreviousAdmission, SubjectScoreMethodMajor
 from app.models.university import Course, MajorCourse, MajorCourseDetail, CoursePriorCourse, CoursePrerequisite, CourseCorequisite
 from sqlalchemy.orm import Session
 from app.core.exceptions import NotFoundException, AlreadyExistsException
@@ -10,6 +10,7 @@ from app.schemas.university import AdmissionMethodMajorCreate, AdmissionMethodMa
 from app.schemas.university import SubjectScoreMethodGroupCreate, SubjectScoreMethodGroupUpdate
 from app.schemas.university import SubjectGroupDetailCreate, SubjectGroupDetailUpdate, ConvertPointCreate, ConvertPointUpdate
 from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate
+from app.schemas.university import SubjectScoreMethodMajorCreate, SubjectScoreMethodMajorUpdate
 
 
 def create_faculty(db: Session, faculty: FacultyCreate) -> Faculty:
@@ -208,7 +209,6 @@ def delete_subject(db: Session, subject_id: int) -> Subject:
 
 def create_subject_score_method_group(db: Session, subject_score_method_group: SubjectScoreMethodGroupCreate) -> SubjectScoreMethodGroup:
     db_subject_score_method_group = db.query(SubjectScoreMethodGroup).filter(
-        SubjectScoreMethodGroup.admission_method_major_id == subject_score_method_group.admission_method_major_id,
         SubjectScoreMethodGroup.name == subject_score_method_group.name
     ).first()
     if db_subject_score_method_group:
@@ -242,11 +242,6 @@ def delete_subject_score_method_group(db: Session, subject_score_method_group_id
     db.commit()
     return db_subject_score_method_group
 
-def get_subject_score_method_group_by_admission_method_major(db: Session, admission_method_major_id: int) -> list[SubjectScoreMethodGroup]:
-    db_admission_method_major = db.query(AdmissionMethodMajor).filter(AdmissionMethodMajor.id == admission_method_major_id).first()
-    if not db_admission_method_major:
-        raise NotFoundException("Admission method major not found")
-    return db.query(SubjectScoreMethodGroup).filter(SubjectScoreMethodGroup.admission_method_major_id == admission_method_major_id).all()
 
 def create_subject_group_detail(db: Session, subject_group_detail: SubjectGroupDetailCreate) -> SubjectGroupDetail:
     db_subject_group_detail = db.query(SubjectGroupDetail).filter(
@@ -267,7 +262,7 @@ def get_subject_group_detail(db: Session, subject_group_detail_id: int) -> Subje
         raise NotFoundException("Subject group detail not found")
     return db_subject_group_detail
 
-def get_subject_group_details(db: Session, skip: int = 0, limit: int = 100) -> list[SubjectGroupDetail]:
+def get_subject_group_details(db: Session, skip: int = 0, limit: int = 1000) -> list[SubjectGroupDetail]:
     return db.query(SubjectGroupDetail).offset(skip).limit(limit).all()
 
 def update_subject_group_detail(db: Session, subject_group_detail_id: int, subject_group_detail: SubjectGroupDetailUpdate) -> SubjectGroupDetail:
@@ -290,52 +285,41 @@ def get_subject_group_detail_by_group(db: Session, group_id: int) -> list[Subjec
         raise NotFoundException("Subject group detail not found")
     return db_subject_group
 
-def get_subject_group_detail_by_admission_method_major(db: Session, admission_method_major_id: int) -> list[dict]:
-    # Lấy thông tin AdmissionMethodMajor
-    db_admission_method_major = db.query(AdmissionMethodMajor).filter(
-        AdmissionMethodMajor.id == admission_method_major_id
+def create_subject_score_method_major(db: Session, subject_score_method_major: SubjectScoreMethodMajorCreate) -> SubjectScoreMethodMajor:
+    db_subject_score_method_major = db.query(SubjectScoreMethodMajor).filter(
+        SubjectScoreMethodMajor.group_id == subject_score_method_major.group_id,
+        SubjectGroupDetail.admission_method_major_id == subject_score_method_major.admission_method_major_id
     ).first()
-    if not db_admission_method_major:
-        raise NotFoundException("Admission method major not found")
+    if db_subject_score_method_major:
+        raise AlreadyExistsException("Subject group detail already exists")
+    db_subject_score_method_major = SubjectGroupDetail(**subject_score_method_major.dict())
+    db.add(db_subject_score_method_major)
+    db.commit()
+    db.refresh(db_subject_score_method_major)
+    return db_subject_score_method_major
 
-    # Lấy danh sách tổ hợp môn (SubjectScoreMethodGroup)
-    db_subject_groups = db.query(SubjectScoreMethodGroup).filter(
-        SubjectScoreMethodGroup.admission_method_major_id == admission_method_major_id
-    ).all()
-    if not db_subject_groups:
-        raise NotFoundException("Subject group details not found")
+def get_subject_score_method_majors(db: Session, skip: int = 0, limit: int = 1000) -> list[SubjectScoreMethodMajor]:
+    return db.query(SubjectScoreMethodMajor).offset(skip).limit(limit).all()
 
-    # Kết quả cuối cùng
-    result = []
+def get_subject_score_method_major(db: Session, subject_score_method_major_id: int) -> SubjectScoreMethodMajor:
+    db_subject_score_method_major = db.query(SubjectScoreMethodMajor).filter(SubjectScoreMethodMajor.id == subject_score_method_major_id).first()
+    if not db_subject_score_method_major:
+        raise NotFoundException("Subject group detail not found")
+    return db_subject_score_method_major
 
-    # Duyệt qua từng tổ hợp môn
-    for subject_group in db_subject_groups:
-        # Lấy danh sách môn học của từng tổ hợp môn
-        subjects = db.query(SubjectGroupDetail).filter(
-            SubjectGroupDetail.group_id == subject_group.id
-        ).all()
+def update_subject_score_method_major(db: Session, subject_score_method_major_id: int, subject_score_method_major: SubjectScoreMethodMajorUpdate) -> SubjectScoreMethodMajor:
+    db_subject_score_method_major = get_subject_score_method_major(db, subject_score_method_major_id)
+    for key, value in subject_score_method_major.dict(exclude_unset=True).items():
+        setattr(db_subject_score_method_major, key, value)
+    db.commit()
+    db.refresh(db_subject_score_method_major)
+    return db_subject_score_method_major
 
-        # Tạo dictionary chứa thông tin tổ hợp môn và danh sách môn học
-        group_detail = {
-            "id": subject_group.id,
-            "name": subject_group.name,
-            "admission_method_major_id": subject_group.admission_method_major_id,
-            "subjects": [
-                {
-                    "id": subject.id,
-                    "group_id": subject.group_id,
-                    "subject_id": subject.subject_id,
-                    "subject_name": db.query(Subject.name).filter(Subject.id == subject.subject_id).scalar(),  # Lấy Subject.name
-                    "coefficient": subject.coefficient,
-                }
-                for subject in subjects
-            ],
-        }
-
-        # Thêm vào kết quả
-        result.append(group_detail)
-
-    return result
+def delete_subject_score_method_major(db: Session, subject_score_method_major_id: int) -> SubjectScoreMethodMajor:
+    db_subject_score_method_major = get_subject_score_method_major(db, subject_score_method_major_id)
+    db.delete(db_subject_score_method_major)
+    db.commit()
+    return db_subject_score_method_major
 
 def create_convert_point(db: Session, convert_point: ConvertPointCreate) -> ConvertPoint:
     db_convert_point = db.query(ConvertPoint).filter(

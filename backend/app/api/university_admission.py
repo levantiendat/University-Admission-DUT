@@ -9,6 +9,7 @@ from app.schemas.university import AdmissionMethodOut, MajorOut, FacultyOut
 from app.schemas.university import AdmissionMethodMajorCreate, AdmissionMethodMajorUpdate, SubjectCreate, SubjectUpdate, AdmissionMethodMajorOut, SubjectOut
 from app.schemas.university import SubjectScoreMethodGroupCreate, SubjectScoreMethodGroupUpdate, SubjectScoreMethodGroupOut
 from app.schemas.university import SubjectGroupDetailCreate, SubjectGroupDetailUpdate, ConvertPointCreate, ConvertPointUpdate, SubjectGroupDetailOut, ConvertPointOut
+from app.schemas.university import SubjectScoreMethodMajorCreate, SubjectScoreMethodMajorUpdate, SubjectScoreMethodMajorOut
 from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate, PreviousAdmissionOut
 
 from app.services.university_admission_service import create_faculty, get_faculty, update_faculty, delete_faculty, get_faculties
@@ -16,8 +17,9 @@ from app.services.university_admission_service import create_major, get_major, u
 from app.services.university_admission_service import create_admission_method, get_admission_method, update_admission_method, delete_admission_method, get_admission_methods
 from app.services.university_admission_service import create_admission_method_major, get_admission_method_major, update_admission_method_major, delete_admission_method_major, get_admission_method_major_by_major, get_major_by_admission_method, get_admission_method_majors
 from app.services.university_admission_service import create_subject, get_subject, update_subject, delete_subject, get_subjects
-from app.services.university_admission_service import create_subject_score_method_group, get_subject_score_method_group, update_subject_score_method_group, delete_subject_score_method_group, get_subject_score_method_group_by_admission_method_major, get_subject_score_method_groups
-from app.services.university_admission_service import create_subject_group_detail, get_subject_group_detail, update_subject_group_detail, delete_subject_group_detail, get_subject_group_detail_by_group, get_subject_group_detail_by_admission_method_major, get_subject_group_details
+from app.services.university_admission_service import create_subject_score_method_group, get_subject_score_method_group, update_subject_score_method_group, delete_subject_score_method_group, get_subject_score_method_groups
+from app.services.university_admission_service import create_subject_group_detail, get_subject_group_detail, update_subject_group_detail, delete_subject_group_detail, get_subject_group_detail_by_group, get_subject_group_details
+from app.services.university_admission_service import create_subject_score_method_major, get_subject_score_method_majors, get_subject_score_method_major, update_subject_score_method_major, delete_subject_score_method_major
 from app.services.university_admission_service import create_convert_point, get_convert_point, update_convert_point, delete_convert_point, get_convert_point_by_admission_method, get_convert_points
 from app.services.university_admission_service import create_previous_admission, get_previous_admission, update_previous_admission, delete_previous_admission, get_previous_admission_by_major, get_previous_admission_by_admission_method,get_previous_admission_by_major_and_admission_method, get_previous_admission_by_year, get_previous_admissions 
 
@@ -522,13 +524,6 @@ async def get_subject_score_method_group_endpoint(subject_score_method_group_id:
         raise NotFoundException(detail="Subject score method group not found")
     return subject_score_method_group
 
-@router.get("/subject-score-method-groups/admission-method-major/{admission_method_major_id}", response_model=list[SubjectScoreMethodGroupOut])
-async def get_subject_score_method_group_by_admission_method_majors(admission_method_major_id: int, db: Session = Depends(get_db)):
-    """
-    API để lấy danh sách các nhóm tổ hợp của một phương thức tính điểm theo một ngành
-    """
-    subject_score_method_groups = get_subject_score_method_group_by_admission_method_major(db, admission_method_major_id)
-    return subject_score_method_groups
 
 @router.get("/subject-group-details", response_model=list[SubjectGroupDetailOut])
 async def get_subject_group_details_endpoint(db: Session = Depends(get_db)):
@@ -616,14 +611,99 @@ async def get_subject_group_detail_by_group_endpoint(group_id: int, db: Session 
     subject_group_details = get_subject_group_detail_by_group(db, group_id)
     return subject_group_details
 
-@router.get("/subject-group-details/admission-method-major/{admission_method_major_id}", response_model=list[dict])
-async def get_subject_group_detail_by_admission_method_majors(admission_method_major_id: int, db: Session = Depends(get_db)):
+@router.get("/subject-score-method-majors", response_model=list[SubjectScoreMethodMajorOut])
+async def get_subject_score_method_majors_endpoint(db: Session = Depends(get_db)):
     """
-    API để lấy danh sách các môn trong tổ hợp theo phương thức tuyển sinh theo ngành
+    API lấy danh sách các subject score method majors
     """
-    
-    subject_group_details = get_subject_group_detail_by_admission_method_major(db, admission_method_major_id)
-    return subject_group_details
+    subject_score_method_majors = get_subject_score_method_majors(db)
+    return subject_score_method_majors
+
+@router.post("/subject-score-method-majors", response_model=SubjectScoreMethodMajorOut)
+async def create_subject_score_method_major_endpoint(
+    subject_score_method_major: SubjectScoreMethodMajorCreate,
+    db: Session = Depends(get_db),
+    token: str = Depends(oauth2_scheme)
+):
+    """
+    API tạo mới subject score method major
+    """
+    # Kiểm tra token và quyền admin
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    email = verify_access_token(token, credentials_exception)
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise credentials_exception
+    if user.role != "admin":
+        raise ForbiddenException(detail="You do not have permission to perform this action")
+
+    subject_score_method_major_db = create_subject_score_method_major(db, subject_score_method_major)
+    return subject_score_method_major_db
+
+@router.get("/subject-score-method-majors/{subject_score_method_major_id}", response_model=SubjectScoreMethodMajorOut)
+async def get_subject_score_method_major_endpoint(subject_score_method_major_id: int, db: Session = Depends(get_db)):
+    """
+    API lấy thông tin một subject score method major theo id
+    """
+    subject_score_method_major_db = get_subject_score_method_major(db, subject_score_method_major_id)
+    if not subject_score_method_major_db:
+        raise NotFoundException(detail="Subject score method major not found")
+    return subject_score_method_major_db
+
+@router.put("/subject-score-method-majors/{subject_score_method_major_id}", response_model=SubjectScoreMethodMajorOut)
+async def update_subject_score_method_major_endpoint(
+    subject_score_method_major_id: int,
+    subject_score_method_major: SubjectScoreMethodMajorUpdate,
+    db: Session = Depends(get_db),
+    token: str = Depends(oauth2_scheme)
+):
+    """
+    API cập nhật thông tin subject score method major
+    """
+    # Kiểm tra token và quyền admin
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    email = verify_access_token(token, credentials_exception)
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise credentials_exception
+    if user.role != "admin":
+        raise ForbiddenException(detail="You do not have permission to perform this action")
+
+    updated_subject_score_method_major = update_subject_score_method_major(db, subject_score_method_major_id, subject_score_method_major)
+    return updated_subject_score_method_major
+
+@router.delete("/subject-score-method-majors/{subject_score_method_major_id}", response_model=SubjectScoreMethodMajorOut)
+async def delete_subject_score_method_major_endpoint(
+    subject_score_method_major_id: int,
+    db: Session = Depends(get_db),
+    token: str = Depends(oauth2_scheme)
+):
+    """
+    API xóa subject score method major
+    """
+    # Kiểm tra token và quyền admin
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    email = verify_access_token(token, credentials_exception)
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise credentials_exception
+    if user.role != "admin":
+        raise ForbiddenException(detail="You do not have permission to perform this action")
+
+    deleted_subject_score_method_major = delete_subject_score_method_major(db, subject_score_method_major_id)
+    return deleted_subject_score_method_major
 
 @router.get("/convert-points", response_model=list[ConvertPointOut])
 async def get_convert_points_endpoint(db: Session = Depends(get_db)):

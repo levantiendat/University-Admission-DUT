@@ -124,8 +124,8 @@ class AdmissionMethodMajor(Base):
 
     major = relationship("Major", back_populates="admission_method_majors")
     admission_method = relationship("AdmissionMethod", back_populates="admission_method_majors")
-    subject_score_method_groups = relationship(
-        "SubjectScoreMethodGroup",
+    subject_score_method_majors = relationship(
+        "SubjectScoreMethodMajor",
         back_populates="admission_method_major",
         cascade="all, delete-orphan",
         passive_deletes=True
@@ -157,7 +157,6 @@ class Subject(Base):
 class SubjectScoreMethodGroup(Base):
     __tablename__ = "subject_score_method_group"
     id = Column(Integer, primary_key=True, index=True)
-    admission_method_major_id = Column(Integer, ForeignKey("admission_method_majors.id", ondelete="CASCADE"))
     name = Column(String(255))
     created_at = Column(
         TIMESTAMP(timezone=True),
@@ -169,9 +168,15 @@ class SubjectScoreMethodGroup(Base):
         onupdate=lambda: datetime.now(tz)
     )
 
-    admission_method_major = relationship("AdmissionMethodMajor", back_populates="subject_score_method_groups")
+    #admission_method_major = relationship("AdmissionMethodMajor", back_populates="subject_score_method_groups")
     subject_group_details = relationship(
         "SubjectGroupDetail",
+        back_populates="group",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+    subject_score_method_majors = relationship(
+        "SubjectScoreMethodMajor",
         back_populates="group",
         cascade="all, delete-orphan",
         passive_deletes=True
@@ -196,6 +201,25 @@ class SubjectGroupDetail(Base):
 
     group = relationship("SubjectScoreMethodGroup", back_populates="subject_group_details")
     subject = relationship("Subject", back_populates="subject_group_details")
+
+class SubjectScoreMethodMajor(Base):
+    __tablename__ = "subject_score_method_majors"
+    id = Column(Integer, primary_key=True, index=True)
+    group_id = Column(Integer, ForeignKey("subject_score_method_group.id", ondelete="CASCADE"))
+    admission_method_major_id = Column(Integer, ForeignKey("admission_method_majors.id", ondelete="CASCADE"))
+    created_at = Column(
+        TIMESTAMP(timezone=True),
+        default=lambda: datetime.now(tz)
+    )
+    updated_at = Column(
+        TIMESTAMP(timezone=True),
+        default=lambda: datetime.now(tz),
+        onupdate=lambda: datetime.now(tz)
+    )
+    group = relationship("SubjectScoreMethodGroup", back_populates="subject_score_method_majors")
+    admission_method_major = relationship("AdmissionMethodMajor", back_populates="subject_score_method_majors")
+
+
 
 # Bảng về điểm chuyển đổi các phương thức xét tuyển
 class ConvertPoint(Base):
