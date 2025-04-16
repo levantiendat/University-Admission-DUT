@@ -1,22 +1,30 @@
 from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 import pytz
-
-Base = declarative_base()
+from app.models.base import Base
+from .admitted_student import AdmittedStudent
 tz = pytz.timezone("Asia/Bangkok")  # GMT+7
 
 class City(Base):
     __tablename__ = "cities"
+    
     id = Column(Integer, primary_key=True, index=True)
     city_code = Column(String(255), unique=True, index=True, nullable=False)
     name = Column(String(255), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), default=lambda: datetime.now(tz))
     updated_at = Column(TIMESTAMP(timezone=True), default=lambda: datetime.now(tz), onupdate=lambda: datetime.now(tz))
-
+    
     districts = relationship(
         "District",
+        back_populates="city",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+    
+    # Cascade delete: khi City bị xóa, AdmittedStudent liên quan sẽ bị xóa theo
+    admitted_students = relationship(
+        "AdmittedStudent",
         back_populates="city",
         cascade="all, delete-orphan",
         passive_deletes=True

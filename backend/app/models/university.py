@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 import pytz
 from app.models.base import Base  # Dùng Base chung
+from .admitted_student import AdmittedStudent
 
 # Thiết lập timezone GMT+7 (Asia/Bangkok)
 tz = pytz.timezone("Asia/Bangkok")  
@@ -69,6 +70,13 @@ class Major(Base):
         passive_deletes=True
     )
 
+    admitted_students = relationship(
+        "AdmittedStudent",
+        back_populates="major",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+
 #Bảng về phương thức xét tuyển
 class AdmissionMethod(Base):
     __tablename__ = "admission_methods"
@@ -101,6 +109,13 @@ class AdmissionMethod(Base):
     )
     previous_admissions = relationship(
         "PreviousAdmission",
+        back_populates="admission_method",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+
+    admitted_students = relationship(
+        "AdmittedStudent",
         back_populates="admission_method",
         cascade="all, delete-orphan",
         passive_deletes=True
@@ -155,7 +170,7 @@ class Subject(Base):
 
 # Bảng về nhóm môn học xét tuyển theo học bạ - Điểm THPT
 class SubjectScoreMethodGroup(Base):
-    __tablename__ = "subject_score_method_group"
+    __tablename__ = "subject_score_method_groups"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255))
     created_at = Column(
@@ -171,13 +186,20 @@ class SubjectScoreMethodGroup(Base):
     #admission_method_major = relationship("AdmissionMethodMajor", back_populates="subject_score_method_groups")
     subject_group_details = relationship(
         "SubjectGroupDetail",
-        back_populates="group",
+        back_populates="subject_score_method_group",
         cascade="all, delete-orphan",
         passive_deletes=True
     )
     subject_score_method_majors = relationship(
         "SubjectScoreMethodMajor",
-        back_populates="group",
+        back_populates="subject_score_method_group",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+
+    admitted_students = relationship(
+        "AdmittedStudent",
+        back_populates="subject_score_method_group",
         cascade="all, delete-orphan",
         passive_deletes=True
     )
@@ -186,7 +208,7 @@ class SubjectScoreMethodGroup(Base):
 class SubjectGroupDetail(Base):
     __tablename__ = "subject_group_details"
     id = Column(Integer, primary_key=True, index=True)
-    group_id = Column(Integer, ForeignKey("subject_score_method_group.id", ondelete="CASCADE"))
+    group_id = Column(Integer, ForeignKey("subject_score_method_groups.id", ondelete="CASCADE"))
     subject_id = Column(Integer, ForeignKey("subjects.id", ondelete="CASCADE"))
     coefficient = Column(Float)
     created_at = Column(
@@ -199,13 +221,13 @@ class SubjectGroupDetail(Base):
         onupdate=lambda: datetime.now(tz)
     )
 
-    group = relationship("SubjectScoreMethodGroup", back_populates="subject_group_details")
+    subject_score_method_group = relationship("SubjectScoreMethodGroup", back_populates="subject_group_details")
     subject = relationship("Subject", back_populates="subject_group_details")
 
 class SubjectScoreMethodMajor(Base):
     __tablename__ = "subject_score_method_majors"
     id = Column(Integer, primary_key=True, index=True)
-    group_id = Column(Integer, ForeignKey("subject_score_method_group.id", ondelete="CASCADE"))
+    group_id = Column(Integer, ForeignKey("subject_score_method_groups.id", ondelete="CASCADE"))
     admission_method_major_id = Column(Integer, ForeignKey("admission_method_majors.id", ondelete="CASCADE"))
     created_at = Column(
         TIMESTAMP(timezone=True),
@@ -216,7 +238,7 @@ class SubjectScoreMethodMajor(Base):
         default=lambda: datetime.now(tz),
         onupdate=lambda: datetime.now(tz)
     )
-    group = relationship("SubjectScoreMethodGroup", back_populates="subject_score_method_majors")
+    subject_score_method_group = relationship("SubjectScoreMethodGroup", back_populates="subject_score_method_majors")
     admission_method_major = relationship("AdmissionMethodMajor", back_populates="subject_score_method_majors")
 
 

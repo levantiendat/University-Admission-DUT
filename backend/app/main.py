@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import auth, users, school_priority, qna, university_admission, university_education
+from app.api import auth, users, school_priority, qna, university_admission, university_education, admitted_student
 from app.models.user import Base, User
 from app.db.session import engine, SessionLocal
 from app.core.security import get_password_hash
@@ -57,6 +57,7 @@ app.include_router(school_priority.router, prefix="/api/priorities", tags=["Scho
 app.include_router(qna.router, prefix="/api/qna", tags=["Question & Answer"])
 app.include_router(university_admission.router, prefix="/api/university-admissions", tags=["University Admission"])
 app.include_router(university_education.router, prefix="/api/university-educations", tags=["University Education"])
+app.include_router(admitted_student.router, prefix="/api/admitted_students", tags=["Admitted Student"])
 
 @app.get("/")
 def root():
