@@ -273,6 +273,7 @@ class CourseUpdate(BaseModel):
 class MajorCourseBase(BaseModel):
     major_id: int
     year: int
+    type: str
 
 class MajorCourseCreate(MajorCourseBase):
     pass
@@ -288,6 +289,7 @@ class MajorCourseOut(MajorCourseBase):
 class MajorCourseUpdate(BaseModel):
     major_id: Optional[int] = None
     year: Optional[int] = None
+    type: Optional[str] = None
 
 # ---------------------------
 # MajorCourseDetail Schemas

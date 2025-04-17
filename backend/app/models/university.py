@@ -320,6 +320,7 @@ class MajorCourse(Base):
     id = Column(Integer, primary_key=True, index=True)
     major_id = Column(Integer, ForeignKey("majors.id", ondelete="CASCADE"))
     year = Column(Integer)
+    type = Column(String(255))  # Loại CTĐT: Cử nhân, Kỹ sư
     created_at = Column(
         TIMESTAMP(timezone=True),
         default=lambda: datetime.now(tz)
