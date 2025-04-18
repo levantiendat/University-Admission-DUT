@@ -48,6 +48,7 @@
               <ul class="custom-dropdown-menu">
                 <li><router-link class="dropdown-item" to="/university-admission">Thông tin tuyển sinh chung</router-link></li>
                 <li><router-link class="dropdown-item" to="/university-admission/TN_THPT">Xét tuyển theo điểm thi tốt nghiệp THPT</router-link></li>
+                <li><router-link class="dropdown-item" to="/university-admission/HB_THPT">Xét tuyển theo điểm học tập cấp THPT</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item">

@@ -1,13 +1,13 @@
 <template>
-    <div class="thpt-container bg-light">
+    <div class="hocba-container bg-light">
       <div class="container-fluid py-5">
         <div class="card main-card shadow">
           <div class="card-header bg-primary text-white">
             <div class="d-flex justify-content-center align-items-center">
               <div class="header-icon me-3">
-                <i class="bi bi-file-earmark-text"></i>
+                <i class="bi bi-journal-check"></i>
               </div>
-              <h2 class="mb-0">PHƯƠNG THỨC XÉT ĐIỂM THI TỐT NGHIỆP THPT</h2>
+              <h2 class="mb-0">XÉT TUYỂN THEO KẾT QUẢ HỌC TẬP CẤP THPT</h2>
             </div>
           </div>
           
@@ -16,7 +16,7 @@
               <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Đang tải...</span>
               </div>
-              <p class="mt-3">Đang tải dữ liệu phương thức xét tuyển...</p>
+              <p class="mt-3">Đang tải dữ liệu xét tuyển học bạ...</p>
             </div>
             
             <div v-else-if="error" class="alert alert-danger" role="alert">
@@ -59,7 +59,7 @@
               </div>
               
               <!-- Bảng thông tin tuyển sinh -->
-              <div class="table-responsive thpt-table custom-scroll">
+              <div class="table-responsive hocba-table custom-scroll">
                 <table class="table table-hover border">
                   <thead>
                     <tr class="bg-primary text-white">
@@ -67,7 +67,7 @@
                       <th scope="col" style="width: 10%">Mã ngành</th>
                       <th scope="col" style="width: 25%">Tên ngành</th>
                       <th scope="col" class="text-center" style="width: 10%">Chỉ tiêu</th>
-                      <th scope="col" class="text-center" style="width: 50%">Tổ hợp môn xét tuyển</th>
+                      <th scope="col" class="text-center" style="width: 50%">Tổ hợp môn học bạ xét tuyển</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -87,6 +87,8 @@
                               class="badge subject-combo"
                               :class="getSubjectBadgeClass(sIndex)"
                               v-show="sIndex < 6"
+                              data-bs-toggle="tooltip"
+                              :title="getSubjectDescription(subject)"
                             >
                               {{ subject.name }}
                             </span>
@@ -164,19 +166,27 @@
                 </div>
               </div>
               
-              <!-- Thông tin thêm về phương thức -->
+              <!-- Hướng dẫn xét học bạ -->
               <div class="info-section mt-4">
                 <div class="card bg-light">
                   <div class="card-body">
                     <h5 class="card-title">
                       <i class="bi bi-info-circle me-2"></i>
-                      Thông tin về phương thức xét điểm thi tốt nghiệp THPT
+                      Thông tin về xét tuyển theo kết quả học tập cấp THPT
                     </h5>
                     <div class="mt-3">
-                      <p><strong>Phương thức xét tuyển:</strong> Xét kết quả thi tốt nghiệp Trung Học Phổ Thông</p>
-                      <p><strong>Mã phương thức:</strong> 100</p>
-                      <p><strong>Mô tả:</strong> Điểm xét tuyển là tổng điểm các bài thi/môn thi theo thang điểm 10 đối với từng bài thi/môn thi của từng tổ hợp xét tuyển và được làm tròn đến hai chữ số thập phân. Điểm ưu tiên (nếu có) được cộng để xét trúng tuyển.</p>
-                      <p><strong>Điều kiện:</strong> Thí sinh có kết quả thi tốt nghiệp THPT năm 2025 và đạt ngưỡng đảm bảo chất lượng đầu vào theo quy định của Trường.</p>
+                      <p><strong>Phương thức xét tuyển:</strong> Xét kết quả học tập cấp THPT (học bạ)</p>
+                      <p><strong>Mã phương thức:</strong> 200</p>
+                      <p><strong>Mô tả:</strong> Điểm xét tuyển dựa trên kết quả học tập trong học bạ THPT, tính theo tổng điểm trung bình các môn học trong tổ hợp xét tuyển nhân với hệ số tương ứng nếu có, quy đổi về thang điểm 30.</p>
+                      
+                      
+                      <div class="mt-3">
+                        <h6><i class="bi bi-check-circle me-2"></i>Điều kiện:</h6>
+                        <ul>
+                          <li>Thí sinh thi tốt nghiệp THPT năm 2025 hoặc thí sinh đã tốt nghiệp THPT các năm trước.</li>
+                          <li>Điểm trung bình các môn học trong tổ hợp xét tuyển phải đạt điểm sàn đầu vào.</li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -190,10 +200,10 @@
   </template>
   
   <script>
-  import TNTHPTController from '@/controllers/tnTHPTController'
+  import hbController from '@/controllers/hbTHPTController'
   
   export default {
-    name: 'TNTHPTView',
+    name: 'HocBaView',
     data() {
       return {
         majors: [],
@@ -240,8 +250,8 @@
     },
     async mounted() {
       try {
-        const data = await TNTHPTController.getTNTHPTData()
-        this.majors = data.testTHPT
+        const data = await hbController.getHocBaData()
+        this.majors = data.hocba
         
         // Tạo danh sách các khoa duy nhất
         const uniqueFaculties = {}
@@ -258,7 +268,7 @@
         
         this.initializeTooltips()
       } catch (error) {
-        this.error = 'Đã xảy ra lỗi khi tải dữ liệu phương thức xét tuyển. Vui lòng thử lại sau.'
+        this.error = 'Đã xảy ra lỗi khi tải dữ liệu xét tuyển học bạ. Vui lòng thử lại sau.'
         console.error(error)
       } finally {
         this.loading = false
@@ -280,6 +290,11 @@
       getSubjectBadgeClass(index) {
         return this.subjectBadgeClasses[index % this.subjectBadgeClasses.length]
       },
+      
+      getSubjectDescription(subject) {
+        // Mô tả chi tiết về các môn học trong tổ hợp
+        return `Tổ hợp: ${subject.name} - Điểm trung bình của các môn học này sẽ được sử dụng để tính điểm xét tuyển`
+      },
   
       resetFilters() {
         this.searchQuery = ''
@@ -290,7 +305,7 @@
   </script>
   
   <style scoped>
-  .thpt-container {
+  .hocba-container {
     min-height: 100vh;
     background-color: #f5f5f5;
     margin: 0 5vw;
@@ -324,7 +339,7 @@
     box-shadow: 0 0 0 0.25rem rgba(13, 71, 161, 0.25);
   }
   
-  .thpt-table {
+  .hocba-table {
     border-radius: 10px;
     overflow: hidden;
   }
@@ -360,6 +375,7 @@
     padding: 0.35rem 0.65rem;
     border-radius: 8px;
     font-weight: 500;
+    cursor: help;
   }
   
   .bg-purple {
@@ -393,6 +409,11 @@
     border: none;
     border-radius: 10px;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+  
+  .calculation-section .card {
+    background-color: #f8f9fa;
+    border-left: 4px solid #0d47a1;
   }
   
   .no-results {

@@ -1,22 +1,22 @@
-import tnTHPTService from '@/models/tnTHPTService'
+import hbTHPTService from '@/models/hbTHPTService'
 
 const TNTHPTController = {
   /**
    * Lấy và xử lý dữ liệu tuyển sinh để hiển thị
    * @returns {Promise<Object>} - Dữ liệu đã được xử lý
    */
-  async getTNTHPTData() {
+  async getHocBaData() {
     try {
       // Gọi trực tiếp các hàm async (không cần Promise.all nếu không phải mảng promises)
-      const testTHPT = await tnTHPTService.getTestTHPTs();
-      const majors = await tnTHPTService.getMajors();
+      const hocba = await hbTHPTService.getTestTHPTs();
+      const majors = await hbTHPTService.getMajors();
 
-      console.log('testTHPT', testTHPT);
+      console.log('hocba', hocba);
       console.log('majors', majors);
       
       return {
-        majors,
-        testTHPT
+        hocba,
+        majors
       };
     } catch (error) {
       console.error('Lỗi khi xử lý dữ liệu tuyển sinh:', error);

@@ -3,7 +3,7 @@ import config from '@/config/apiConfig'  // nếu bạn đã tách riêng file c
 
 const BASE_API_URL = config?.BASE_API_URL || 'https://university-admission-dut-hzdahmckevehhpdf.southeastasia-01.azurewebsites.net/api'
 // const BASE_API_URL = 'http://127.0.0.1:8000/api'
-const TNTHPTService = {
+const HBTHPTService = {
     /**
    * Lấy danh sách ngành tuyển sinh
    * @returns {Promise<Array>} - Danh sách ngành
@@ -21,7 +21,7 @@ const TNTHPTService = {
    * @returns {Promise<Array>} - Danh sách ngành
    */
   getTestTHPTs() {
-    return axios.get(`${BASE_API_URL}/university-admissions/admission-method-majors/admission-method/6`)
+    return axios.get(`${BASE_API_URL}/university-admissions/admission-method-majors/admission-method/3`)
       .then(response => response.data)
       .catch(error => {
         console.error('Lỗi khi lấy danh sách tổ hợp xét tuyển:', error)
@@ -31,4 +31,4 @@ const TNTHPTService = {
 
 }
 
-export default TNTHPTService
+export default HBTHPTService

@@ -4,7 +4,6 @@
       <header class="hero-section py-5 text-center text-white">
         <div class="container">
           <h1 class="display-4 fw-bold">Tính Điểm Xét Tuyển</h1>
-          <p class="lead">Giải pháp tối ưu cho môi trường giáo dục hiện đại kết hợp công nghệ IT và phong cách du lịch</p>
         </div>
       </header>
   
