@@ -50,6 +50,7 @@ intents:
   - ask_dgtd
   - ask_cntt_luu_y
   - ask_cutoff_score
+  - ask_list_major_by_method
 
 entities:
   - major
@@ -300,6 +301,7 @@ actions:
   - utter_dgtd
   - utter_cntt_luu_y
   - action_cutoff_score
+  - action_major_by_method
 
 
 session_config:

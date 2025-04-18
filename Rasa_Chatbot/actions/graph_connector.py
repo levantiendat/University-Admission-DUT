@@ -40,3 +40,13 @@ class GraphConnector:
         with self.driver.session() as session:
             result = session.run(query, {"method": method_keyword})
             return list(result)
+    
+    def get_major_by_method(self, method_keyword: str):
+        query = """
+        MATCH (m:Major)-[r:HAS_METHOD_2025]->(c:Method)
+        WHERE c.id CONTAINS $method
+        RETURN DISTINCT m.name AS major
+        """
+        with self.driver.session() as session:
+            result = session.run(query, {"method": method_keyword})
+            return list(result)

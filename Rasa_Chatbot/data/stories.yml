@@ -1050,3 +1050,51 @@ stories:
           - method: "vact"
       - action: action_cutoff_score
 
+  - story: Các ngành xét tuyển bằng tuyển sinh riêng
+    steps:
+      - intent: ask_list_major_by_method
+        entities:
+          - method: "tuyển sinh riêng"
+      - action: action_major_by_method
+  
+  - story: Các ngành xét tuyển bằng đánh giá năng lực
+    steps:
+      - intent: ask_list_major_by_method
+        entities:
+          - method: "đánh giá năng lực"
+      - action: action_major_by_method
+
+  - story: Các ngành xét tuyển bằng đánh giá tư duy
+    steps:
+      - intent: ask_list_major_by_method
+        entities:
+          - method: "đánh giá tư duy"
+      - action: action_major_by_method
+
+  - story: Các ngành xét tuyển bằng điểm thi tốt nghiệp
+    steps:
+      - intent: ask_list_major_by_method
+        entities:
+          - method: "điểm thi tốt nghiệp"
+      - action: action_major_by_method
+
+  - story: Các ngành xét tuyển bằng điểm tốt nghiệp
+    steps:
+      - intent: ask_list_major_by_method
+        entities:
+          - method: "điểm tốt nghiệp"
+      - action: action_major_by_method
+  - story: Các ngành xét tuyển bằng xét tuyển thẳng
+    steps:
+      - intent: ask_list_major_by_method
+        entities:
+          - method: "xét tuyển thẳng"
+      - action: action_major_by_method
+
+  - story: Các ngành xét tuyển bằng học bạ
+    steps:
+      - intent: ask_list_major_by_method
+        entities:
+          - method: "học bạ"
+      - action: action_major_by_method
+

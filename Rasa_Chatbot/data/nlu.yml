@@ -455,38 +455,62 @@ nlu:
     - Điểm chuẩn ngành [cntt ngoại ngữ nhật](major) theo [điểm thi TSA](method) là bao nhiêu?
     - Điểm chuẩn ngành [cntt ngoại ngữ nhật](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
     - Điểm chuẩn ngành [cntt ngoại ngữ nhật](major) theo phương thức [xét điểm thi đánh giá năng lực](method) là bao nhiêu ?
-    - Điểm chuẩn ngành [công nghệ thông tin đặc thù](major) theo phương thức [xét tuyển riêng] (method) là bao nhiêu?
-    - Điểm chuẩn ngành [cntt ai](major) theo phương thức [xét điểm thi đánh giá tư duy] (method) là bao nhiêu ?
-    - Điểm chuẩn theo phương thức [xét tuyển riêng] (method) của ngành [cntt ngoại ngữ nhật] (major)
-    - Điểm chuẩn theo phương thức [xét điểm thi đánh giá năng lực] (method) của ngành [cntt ai] (major)
-    - Điểm chuẩn theo phương thức [xét điểm thi đánh giá tư duy] (method) của ngành [cntt đặc thù] (major)
+    - Điểm chuẩn ngành [công nghệ thông tin đặc thù](major) theo phương thức [xét tuyển riêng](method) là bao nhiêu?
+    - Điểm chuẩn ngành [cntt ai](major) theo phương thức [xét điểm thi đánh giá tư duy](method) là bao nhiêu ?
+    - Điểm chuẩn theo phương thức [xét tuyển riêng](method) của ngành [cntt ngoại ngữ nhật] (major)
+    - Điểm chuẩn theo phương thức [xét điểm thi đánh giá năng lực](method) của ngành [cntt ai](major)
+    - Điểm chuẩn theo phương thức [xét điểm thi đánh giá tư duy](method) của ngành [cntt đặc thù](major)
+    - Điểm chuẩn của ngành [công nghệ thông tin ngoại ngữ nhật](major) bằng phương thức [xét tuyển riêng](method)
+    - Điểm chuẩn của ngành [công nghệ thông tin đặc thù](major) bằng phương thức [xét điểm thi đánh giá năng lực](method)
+    - Điểm chuẩn của ngành [công nghệ thông tin đặc thù](major) bằng phương thức [xét điểm thi đánh giá tư duy](method)
+    - Điểm chuẩn của ngành [công nghệ thông tin đặc thù](major) bằng phương thức [xét tuyển riêng](method)
+    - Điểm chuẩn của ngành [công nghệ thông tin khoa học dữ liệu](major) bằng phương thức [điểm thi tốt nghiệp](method)
+    - Điểm chuẩn của ngành [công nghệ thông tin khoa học dữ liệu](major) bằng phương thức [điểm thi TSA](method)
+    - Điểm chuẩn của ngành [công nghệ thông tin ngoại ngữ nhật](major) bằng phương thức [điểm thi đánh giá năng lực](method)
 
 - intent: ask_list_major_by_method
   examples: |
-    - những ngành nào xét tuyển bằng [điểm thi tốt nghiệp THPT] (method)?
-    - những ngành nào xét tuyển bằng [điểm thi đánh giá năng lực] (method)?
-    - những ngành nào xét tuyển bằng [điểm thi đánh giá tư duy] (method)?
-    - những ngành nào xét tuyển bằng [xét tuyển riêng] (method)?
-    - những ngành nào xét tuyển bằng [điểm thi TSA] (method)?
-    - những ngành nào xét tuyển bằng [điểm thi vact] (method)?
-    - những ngành nào xét tuyển bằng [điểm thi dgnl] (method)?
-    - những ngành nào xét tuyển bằng [điểm thi dgtd] (method)?
-    - những ngành nào xét tuyển bằng [điểm học bạ] (method)?
-    - những ngành nào xét bằng [xét tuyển thẳng] (method)?
-    - những ngành nào xét tuyển bằng [xét tuyển riêng] (method)?
-    - những ngành nào xét tuyển bằng [điểm thi tốt nghiệp] (method)?
-    - ngành nào xét tuyển bằng [điểm thi tốt nghiệp THPT] (method)?
-    - ngành nào xét tuyển bằng [điểm thi đánh giá năng lực] (method)?
-    - ngành nào xét tuyển bằng [điểm thi đánh giá tư duy] (method)?
-    - ngành nào xét tuyển bằng [xét tuyển riêng] (method)?
-    - em có [điểm thi tốt nghiệp thpt] (method), em có thể xét tuyển vào ngành nào?
-    - em có [điểm thi đánh giá năng lực] (method), em có thể xét tuyển vào ngành nào?
-    - em có [điểm thi đánh giá tư duy] (method), em có thể xét tuyển vào ngành nào?
-    - em có [điểm thi TSA] (method), em có thể xét tuyển vào ngành nào?
-    - em có [điểm thi vact] (method), em có thể xét tuyển vào ngành nào?
-    - em có [điểm thi dgnl] (method), em có thể xét tuyển vào ngành nào?
-    - em có [điểm thi dgtd] (method), em có thể xét tuyển vào ngành nào?
-    - em có [điểm học bạ] (method), em có thể xét tuyển vào ngành nào?
+    - những ngành nào xét tuyển bằng [điểm thi tốt nghiệp THPT](method)?
+    - những ngành nào xét tuyển bằng [điểm thi đánh giá năng lực](method)?
+    - những ngành nào xét tuyển bằng [điểm thi đánh giá tư duy](method)?
+    - những ngành nào xét tuyển bằng [xét tuyển riêng](method)?
+    - những ngành nào xét tuyển bằng [điểm thi TSA](method)?
+    - những ngành nào xét tuyển bằng [điểm thi vact](method)?
+    - những ngành nào xét tuyển bằng [điểm thi dgnl](method)?
+    - những ngành nào xét tuyển bằng [điểm thi dgtd](method)?
+    - những ngành nào xét tuyển bằng [điểm học bạ](method)?
+    - những ngành nào xét tuyển bằng [xét tuyển thẳng](method)?
+    - những ngành nào xét tuyển bằng [học bạ thpt](method)?
+    - những ngành nào xét tuyển bằng [học bạ](method)?
+    - những ngành nào xét bằng [xét tuyển thẳng](method)?
+    - những ngành nào xét tuyển bằng [xét tuyển riêng](method)?
+    - những ngành nào xét tuyển bằng [điểm thi tốt nghiệp](method)?
+    - ngành nào xét tuyển bằng [điểm thi tốt nghiệp THPT](method)?
+    - ngành nào xét tuyển bằng [điểm thi đánh giá năng lực](method)?
+    - ngành nào xét tuyển bằng [điểm thi đánh giá tư duy](method)?
+    - ngành nào xét tuyển bằng [xét tuyển riêng](method)?
+    - ngành nào xét tuyển bằng [TSA](method)?
+    - ngành nào xét tuyển bằng [vact](method)?
+    - ngành nào xét tuyển bằng [dgnl](method)?
+    - ngành nào xét tuyển bằng [dgtd](method)?
+    - ngành nào xét tuyển bằng [học bạ](method)?
+    - ngành nào xét tuyển bằng [học bạ thpt](method)?
+    - ngành nào xét tuyển bằng [xét tuyển thẳng](method)?
+    - ngành nào xét tuyển bằng [xét tuyển riêng](method)?
+    - ngành nào xét tuyển bằng [điểm thi tốt nghiệp](method)?
+    - ngành nào xét tuyển bằng [điểm thi tốt nghiệp thpt](method)?
+    - ngành nào xét tuyển bằng [điểm thi đánh giá năng lực](method)?
+    - ngành nào xét tuyển bằng [điểm thi đánh giá tư duy](method)?
+    - ngành nào xét tuyển bằng [đánh giá tư duy](method)?
+    - ngành nào xét tuyển bằng [đánh giá năng lực](method)?
+    - em có [điểm thi tốt nghiệp thpt](method), em có thể xét tuyển vào ngành nào?
+    - em có [điểm thi đánh giá năng lực](method), em có thể xét tuyển vào ngành nào?
+    - em có [điểm thi đánh giá tư duy](method), em có thể xét tuyển vào ngành nào?
+    - em có [điểm thi TSA](method), em có thể xét tuyển vào ngành nào?
+    - em có [điểm thi vact](method), em có thể xét tuyển vào ngành nào?
+    - em có [điểm thi dgnl](method), em có thể xét tuyển vào ngành nào?
+    - em có [điểm thi dgtd](method), em có thể xét tuyển vào ngành nào?
+    - em có [điểm học bạ](method), em có thể xét tuyển vào ngành nào?
 
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program

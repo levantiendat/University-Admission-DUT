@@ -92,3 +92,57 @@ class ActionCutoffScore(Action):
 
         dispatcher.utter_message(text=message)
         return []
+
+class ActionMajorByMethod(Action):
+    def name(self) -> str:
+        return "action_major_by_method"
+
+    def __init__(self):
+        self.db = GraphConnector()
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        method_mapping = {
+            "riêng": "xtr",
+            "xét tuyển riêng": "xtr",
+            "tốt nghiệp thpt": "tn_thpt",
+            "tốt nghiệp": "tn_thpt",
+            "tn": "tn_thpt",
+            "đánh giá năng lực": "dgnl",
+            "dgnl": "dgtd",
+            "vact": "dgnl",
+            "apt": "dgnl",
+            "đánh giá tư duy": "dgtd",
+            "tsa": "dgtd",
+            "dgtd": "dgtd",
+            "học bạ": "hb_thpt",
+            "học bạ thpt": "hb_thpt",
+            "tuyển thẳng": "xtt",
+            "xtt": "xtt",
+            "xét tuyển thẳng": "xtt",
+        }
+
+        def normalize_method(text: Optional[str]) -> Optional[str]:
+            if not text:
+                return None
+            text = text.lower()
+            for key, value in method_mapping.items():
+                if key in text:
+                    return value
+            return None
+        method_keyword = normalize_method(tracker.get_slot("method"))
+
+        if method_keyword:
+            rows = self.db.get_major_by_method(method_keyword)
+            if rows:
+                message = f"📌 **Các ngành có xét tuyển bằng phương thức {method_keyword}**:\n"
+                for row in rows:
+                    message += f"- {row['major']}\n"
+            else:
+                message = "❌ Không tìm thấy ngành nào có phương thức tuyển sinh này."
+        else:
+            message = "❗ Vui lòng cung cấp tên phương thức xét tuyển."
+
+        dispatcher.utter_message(text=message)
+        return []
