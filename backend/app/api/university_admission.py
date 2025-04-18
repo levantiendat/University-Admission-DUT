@@ -360,7 +360,7 @@ async def get_admission_method_major_by_major_endpoint(major_id: int, db: Sessio
     admission_method_majors = get_admission_method_major_by_major(db, major_id)
     return admission_method_majors
 
-@router.get("/admission-method-majors/admission-method/{admission_method_id}", response_model=list[MajorOut])
+@router.get("/admission-method-majors/admission-method/{admission_method_id}", response_model=list[dict])
 async def get_major_by_admission_method_endpoint(admission_method_id: int, db: Session = Depends(get_db)):
     """
     API để lấy danh sách các ngành đào tạo theo phương thức tuyển sinh

@@ -160,19 +160,43 @@ def get_admission_method_major_by_major(db: Session, major_id: int) -> list[Admi
         raise NotFoundException("Major not found")
     return db.query(AdmissionMethodMajor).filter(AdmissionMethodMajor.major_id == major_id).all()
 
-def get_major_by_admission_method(db: Session, admission_method_id: int) -> list[Major]:
+def get_major_by_admission_method(db: Session, admission_method_id: int) -> list[dict]:
     db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
     if not db_admission_method:
         raise NotFoundException("Admission method not found")
+    admission_method_majors_list = db.query(AdmissionMethodMajor).filter(AdmissionMethodMajor.admission_methods_id == admission_method_id).all()
+    db_subject_score_method_group = db.query(SubjectScoreMethodGroup).all()
+    admision_major_list = []
+    for admission_method_major in admission_method_majors_list:
+        subject_score_method_majors = db.query(SubjectScoreMethodMajor).filter(SubjectScoreMethodMajor.admission_method_major_id == admission_method_major.id).all()
+        subject_score_method_majors_list = []
+        for subject_score_method_major in subject_score_method_majors:
+            subject_score_method_group = next((group for group in db_subject_score_method_group if group.id == subject_score_method_major.group_id), None)
+            if not subject_score_method_group:
+                raise NotFoundException("Subject score method group not found")
+            result = {
+                "id": subject_score_method_group.id,
+                "name": subject_score_method_group.name,
+            }
+            subject_score_method_majors_list.append(result)
+        result = {
+            "id": admission_method_major.id,
+            "major_id": admission_method_major.major_id,
+            "admission_methods_id": admission_method_major.admission_methods_id,
+            "major_code": admission_method_major.major.major_code,
+            "major_name": admission_method_major.major.name,
+            "seats": admission_method_major.major.seats,
+            "falculty_id": admission_method_major.major.faculty_id,
+            "faculty_code": admission_method_major.major.faculty.faculty_code,
+            "faculty_name": admission_method_major.major.faculty.name,
+            "subject_score_method_majors": subject_score_method_majors_list,
+        }
+        admision_major_list.append(result)
 
-    majors = (
-        db.query(Major)
-        .join(AdmissionMethodMajor)
-        .filter(AdmissionMethodMajor.admission_methods_id == admission_method_id)
-        .all()
-    )
 
-    return majors
+    
+
+    return admision_major_list
 
 def create_subject(db: Session, subject: SubjectCreate) -> Subject:
     db_subject = db.query(Subject).filter(Subject.name == subject.name).first()
@@ -288,11 +312,11 @@ def get_subject_group_detail_by_group(db: Session, group_id: int) -> list[Subjec
 def create_subject_score_method_major(db: Session, subject_score_method_major: SubjectScoreMethodMajorCreate) -> SubjectScoreMethodMajor:
     db_subject_score_method_major = db.query(SubjectScoreMethodMajor).filter(
         SubjectScoreMethodMajor.group_id == subject_score_method_major.group_id,
-        SubjectGroupDetail.admission_method_major_id == subject_score_method_major.admission_method_major_id
+        SubjectScoreMethodMajor.admission_method_major_id == subject_score_method_major.admission_method_major_id
     ).first()
     if db_subject_score_method_major:
         raise AlreadyExistsException("Subject group detail already exists")
-    db_subject_score_method_major = SubjectGroupDetail(**subject_score_method_major.dict())
+    db_subject_score_method_major = SubjectScoreMethodMajor(**subject_score_method_major.dict())
     db.add(db_subject_score_method_major)
     db.commit()
     db.refresh(db_subject_score_method_major)
