@@ -77,6 +77,13 @@ class Major(Base):
         passive_deletes=True
     )
 
+    admission_descriptions = relationship(
+        "AdmissionDescription",
+        back_populates="major",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+
 #Bảng về phương thức xét tuyển
 class AdmissionMethod(Base):
     __tablename__ = "admission_methods"
@@ -437,3 +444,19 @@ class CourseCorequisite(Base):
         back_populates="corequisites"
     )
     # Nếu cần, có thể thêm relationship cho corequisite_major_course_detail_id
+
+class AdmissionDescription(Base):
+    __tablename__ = "admission_descriptions"
+    id = Column(Integer, primary_key=True, index=True)
+    major_id = Column(Integer, ForeignKey("majors.id", ondelete="CASCADE"))
+    field_or_subject_name = Column(String(255))
+    major = relationship("Major", back_populates="admission_descriptions")
+    created_at = Column(
+        TIMESTAMP(timezone=True),
+        default=lambda: datetime.now(tz)
+    )
+    updated_at = Column(
+        TIMESTAMP(timezone=True),
+        default=lambda: datetime.now(tz),
+        onupdate=lambda: datetime.now(tz)
+    )

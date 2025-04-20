@@ -380,3 +380,26 @@ class CourseCorequisiteOut(CourseCorequisiteBase):
 class CourseCorequisiteUpdate(BaseModel):
     major_course_detail_id: Optional[int] = None
     corequisite_major_course_detail_id: Optional[int] = None
+
+# ---------------------------
+# Admission Description Schemas
+# ---------------------------
+class AdmissionDescriptionBase(BaseModel):
+    major_id: int
+    field_or_subject_name: str
+
+class AdmissionDescriptionCreate(AdmissionDescriptionBase):
+    pass
+
+class AdmissionDescriptionOut(AdmissionDescriptionBase):
+    id: int
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        orm_mode = True
+
+class AdmissionDescriptionUpdate(BaseModel):
+    major_id: Optional[int] = None
+    field_or_subject_name: Optional[str] = None
+

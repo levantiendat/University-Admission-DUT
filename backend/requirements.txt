@@ -7,12 +7,10 @@ passlib[bcrypt]
 python-dotenv
 requests
 authlib
-pydantic[email]
-python-dotenv
+pydantic[email]>=2.0
+pydantic-settings>=2.0
 python-multipart
 mysql-connector-python
 httpx
 itsdangerous
 pytz
-pydantic-settings>=2.0
-pydantic>=2.0

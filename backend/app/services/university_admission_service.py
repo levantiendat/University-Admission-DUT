@@ -1,6 +1,6 @@
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
 from app.models.university import Subject, SubjectScoreMethodGroup, SubjectGroupDetail, ConvertPoint, PreviousAdmission, SubjectScoreMethodMajor
-from app.models.university import Course, MajorCourse, MajorCourseDetail, CoursePriorCourse, CoursePrerequisite, CourseCorequisite
+from app.models.university import Course, MajorCourse, MajorCourseDetail, CoursePriorCourse, CoursePrerequisite, CourseCorequisite, AdmissionDescription
 from sqlalchemy.orm import Session
 from app.core.exceptions import NotFoundException, AlreadyExistsException
 from app.core.exceptions import ForbiddenException
@@ -11,6 +11,7 @@ from app.schemas.university import SubjectScoreMethodGroupCreate, SubjectScoreMe
 from app.schemas.university import SubjectGroupDetailCreate, SubjectGroupDetailUpdate, ConvertPointCreate, ConvertPointUpdate
 from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate
 from app.schemas.university import SubjectScoreMethodMajorCreate, SubjectScoreMethodMajorUpdate
+from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate
 
 
 def create_faculty(db: Session, faculty: FacultyCreate) -> Faculty:
@@ -164,21 +165,13 @@ def get_major_by_admission_method(db: Session, admission_method_id: int) -> list
     db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
     if not db_admission_method:
         raise NotFoundException("Admission method not found")
+        
     admission_method_majors_list = db.query(AdmissionMethodMajor).filter(AdmissionMethodMajor.admission_methods_id == admission_method_id).all()
-    db_subject_score_method_group = db.query(SubjectScoreMethodGroup).all()
     admision_major_list = []
+    db_subject_score_method_group = db.query(SubjectScoreMethodGroup).all()
+    admission_descriptions = db.query(AdmissionDescription).all()
+    
     for admission_method_major in admission_method_majors_list:
-        subject_score_method_majors = db.query(SubjectScoreMethodMajor).filter(SubjectScoreMethodMajor.admission_method_major_id == admission_method_major.id).all()
-        subject_score_method_majors_list = []
-        for subject_score_method_major in subject_score_method_majors:
-            subject_score_method_group = next((group for group in db_subject_score_method_group if group.id == subject_score_method_major.group_id), None)
-            if not subject_score_method_group:
-                raise NotFoundException("Subject score method group not found")
-            result = {
-                "id": subject_score_method_group.id,
-                "name": subject_score_method_group.name,
-            }
-            subject_score_method_majors_list.append(result)
         result = {
             "id": admission_method_major.id,
             "major_id": admission_method_major.major_id,
@@ -189,12 +182,51 @@ def get_major_by_admission_method(db: Session, admission_method_id: int) -> list
             "falculty_id": admission_method_major.major.faculty_id,
             "faculty_code": admission_method_major.major.faculty.faculty_code,
             "faculty_name": admission_method_major.major.faculty.name,
-            "subject_score_method_majors": subject_score_method_majors_list,
         }
+        
+        # For admission methods 3 and 6, get subject_score_method_majors
+        if admission_method_id in [3, 6]:
+            
+            subject_score_method_majors = db.query(SubjectScoreMethodMajor).filter(
+                SubjectScoreMethodMajor.admission_method_major_id == admission_method_major.id
+            ).all()
+            
+            subject_score_method_majors_list = []
+            for subject_score_method_major in subject_score_method_majors:
+                subject_score_method_group = next(
+                    (group for group in db_subject_score_method_group if group.id == subject_score_method_major.group_id), 
+                    None
+                )
+                if not subject_score_method_group:
+                    raise NotFoundException("Subject score method group not found")
+                    
+                group_result = {
+                    "id": subject_score_method_group.id,
+                    "name": subject_score_method_group.name,
+                }
+                subject_score_method_majors_list.append(group_result)
+                
+            result["subject_score_method_majors"] = subject_score_method_majors_list
+            
+        # For admission methods 1 and 2, get AdmissionDescription fields
+        elif admission_method_id in [1, 2]:
+            
+            fields_list = []
+            
+            # Filter descriptions that match the current major_id
+            for description in admission_descriptions:
+                if description.major_id == admission_method_major.major_id:
+                    field_info = {
+                        "id": description.id,
+                        "field_or_subject_name": description.field_or_subject_name, 
+                    }
+                    fields_list.append(field_info)
+                    
+            result["admission_fields"] = fields_list
+            
+        # For other admission method IDs, don't add any additional information
+        
         admision_major_list.append(result)
-
-
-    
 
     return admision_major_list
 
@@ -451,4 +483,40 @@ def get_previous_admission_by_major_and_admission_method(db: Session, major_id: 
 
 def get_previous_admission_by_year(db: Session, year: int) -> list[PreviousAdmission]:
     return db.query(PreviousAdmission).filter(PreviousAdmission.year == year).all()
+
+def create_admission_description(db: Session, admission_description: AdmissionDescriptionCreate) -> AdmissionDescription:
+    db_admission_description = db.query(AdmissionDescription).filter(
+        AdmissionDescription.major_id == admission_description.major_id,
+        AdmissionDescription.field_or_subject_name == admission_description.field_or_subject_name
+    ).first()
+    if db_admission_description:
+        raise AlreadyExistsException("Admission description already exists")
+    db_admission_description = AdmissionDescription(**admission_description.dict())
+    db.add(db_admission_description)
+    db.commit()
+    db.refresh(db_admission_description)
+    return db_admission_description
+
+def get_admission_description(db: Session, admission_description_id: int) -> AdmissionDescription:
+    db_admission_description = db.query(AdmissionDescription).filter(AdmissionDescription.id == admission_description_id).first()
+    if not db_admission_description:
+        raise NotFoundException("Admission description not found")
+    return db_admission_description
+
+def get_admission_descriptions(db: Session, skip: int = 0, limit: int = 500) -> list[AdmissionDescription]:
+    return db.query(AdmissionDescription).offset(skip).limit(limit).all()
+
+def update_admission_description(db: Session, admission_description_id: int, admission_description: AdmissionDescriptionUpdate) -> AdmissionDescription:
+    db_admission_description = get_admission_description(db, admission_description_id)
+    for key, value in admission_description.dict(exclude_unset=True).items():
+        setattr(db_admission_description, key, value)
+    db.commit()
+    db.refresh(db_admission_description)
+    return db_admission_description
+
+def delete_admission_description(db: Session, admission_description_id: int) -> AdmissionDescription:
+    db_admission_description = get_admission_description(db, admission_description_id)
+    db.delete(db_admission_description)
+    db.commit()
+    return db_admission_description
 

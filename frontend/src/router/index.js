@@ -16,6 +16,7 @@ import SchoolPriority from '@/views/SchoolPriority.vue'
 import Admission from '@/views/AdmissionView.vue'
 import Admission_THPT from '@/views/TnTHPTView.vue'
 import Admission_HB from '@/views/HBTHPTView.vue'
+import Admission_XTT from '@/views/XTTView.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Homepage - ITF Help Student 2025' } },
@@ -34,7 +35,8 @@ const routes = [
   { path: '/school-priority', name: 'SchoolPriority', component: SchoolPriority, meta: { title: 'School Priority - ITF Help Student 2025' } },
   { path: '/university-admission', name: 'University Admission', component: Admission, meta: {title: 'Thông tin tuyển sinh năm 2025'}},
   { path: '/university-admission/TN_THPT', name: 'University Admission - TN THPT', component: Admission_THPT, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm tốt nghiệp THPT'}},
-  { path: '/university-admission/HB_THPT', name: 'University Admission - HB THPT', component: Admission_HB, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm học tập cấp THPT'}}
+  { path: '/university-admission/HB_THPT', name: 'University Admission - HB THPT', component: Admission_HB, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm học tập cấp THPT'}},
+  { path: '/university-admission/XTT', name: 'University Admission - XTT', component: Admission_XTT, meta: {title: 'Thông tin tuyển sinh năm 2025 - Xét tuyển thẳng'}},
 ]
 
 const router = createRouter({

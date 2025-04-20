@@ -11,6 +11,7 @@ from app.schemas.university import SubjectScoreMethodGroupCreate, SubjectScoreMe
 from app.schemas.university import SubjectGroupDetailCreate, SubjectGroupDetailUpdate, ConvertPointCreate, ConvertPointUpdate, SubjectGroupDetailOut, ConvertPointOut
 from app.schemas.university import SubjectScoreMethodMajorCreate, SubjectScoreMethodMajorUpdate, SubjectScoreMethodMajorOut
 from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate, PreviousAdmissionOut
+from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut
 
 from app.services.university_admission_service import create_faculty, get_faculty, update_faculty, delete_faculty, get_faculties
 from app.services.university_admission_service import create_major, get_major, update_major, delete_major, get_major_by_faculty, get_majors
@@ -22,6 +23,7 @@ from app.services.university_admission_service import create_subject_group_detai
 from app.services.university_admission_service import create_subject_score_method_major, get_subject_score_method_majors, get_subject_score_method_major, update_subject_score_method_major, delete_subject_score_method_major
 from app.services.university_admission_service import create_convert_point, get_convert_point, update_convert_point, delete_convert_point, get_convert_point_by_admission_method, get_convert_points
 from app.services.university_admission_service import create_previous_admission, get_previous_admission, update_previous_admission, delete_previous_admission, get_previous_admission_by_major, get_previous_admission_by_admission_method,get_previous_admission_by_major_and_admission_method, get_previous_admission_by_year, get_previous_admissions 
+from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions
 
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
@@ -900,3 +902,81 @@ async def get_previous_admission_by_years(year: int, db: Session = Depends(get_d
     """
     previous_admissions = get_previous_admission_by_year(db, year)
     return previous_admissions
+
+@router.get("/admission-descriptions", response_model=list[AdmissionDescriptionOut])
+async def get_admission_descriptions_endpoint(db: Session = Depends(get_db)):
+    """
+    API để lấy danh sách các mô tả các lĩnh vực / môn học ở tuyển thẳng và tuyển sinh riêng
+    """
+    admission_descriptions = get_admission_descriptions(db)
+    return admission_descriptions
+
+@router.post("/admission-descriptions", response_model=AdmissionDescriptionOut)
+async def create_admission_description_endpoint(admission_description: AdmissionDescriptionCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    """
+    API để tạo mới một mô tả lĩnh vực / môn học ở tuyển thẳng và tuyển sinh riêng
+    """
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    email = verify_access_token(token, credentials_exception)
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise credentials_exception
+
+    if user.role != "admin":
+        raise ForbiddenException(detail="You do not have permission to perform this action")
+    admission_description = create_admission_description(db, admission_description)
+    return admission_description
+
+@router.put("/admission-descriptions/{admission_description_id}", response_model=AdmissionDescriptionOut)
+async def update_admission_description_endpoint(admission_description_id: int, admission_description: AdmissionDescriptionUpdate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    """
+    API để cập nhật thông tin một mô tả lĩnh vực / môn học ở tuyển thẳng và tuyển sinh riêng
+    """
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    email = verify_access_token(token, credentials_exception)
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise credentials_exception
+
+    if user.role != "admin":
+        raise ForbiddenException(detail="You do not have permission to perform this action")
+    admission_description = update_admission_description(db, admission_description_id, admission_description)
+    return admission_description
+
+@router.delete("/admission-descriptions/{admission_description_id}", response_model=AdmissionDescriptionOut)
+async def delete_admission_description_endpoint(admission_description_id: int, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    """
+    API để xóa một mô tả lĩnh vực / môn học ở tuyển thẳng và tuyển sinh riêng
+    """
+    credentials_exception = HTTPException(
+        status_code=401,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    email = verify_access_token(token, credentials_exception)
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise credentials_exception
+
+    if user.role != "admin":
+        raise ForbiddenException(detail="You do not have permission to perform this action")
+    admission_description = delete_admission_description(db, admission_description_id)
+    return admission_description
+
+@router.get("/admission-descriptions/{admission_description_id}", response_model=AdmissionDescriptionOut)
+async def get_admission_description_endpoint(admission_description_id: int, db: Session = Depends(get_db)):
+    """
+    API để lấy thông tin một mô tả lĩnh vực / môn học ở tuyển thẳng và tuyển sinh riêng
+    """
+    admission_description = get_admission_description(db, admission_description_id)
+    if not admission_description:
+        raise NotFoundException(detail="Admission description not found")
+    return admission_description
