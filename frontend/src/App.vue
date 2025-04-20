@@ -48,8 +48,11 @@
               <ul class="custom-dropdown-menu">
                 <li><router-link class="dropdown-item" to="/university-admission">Thông tin tuyển sinh chung</router-link></li>
                 <li><router-link class="dropdown-item" to="/university-admission/XTT">Xét tuyển thẳng theo quy chế của Bộ Giáo dục và đào tạo</router-link></li>
+                <li><router-link class="dropdown-item" to="/university-admission/XTR">Xét tuyển riêng theo đề án tuyển sinh</router-link></li>
                 <li><router-link class="dropdown-item" to="/university-admission/TN_THPT">Xét tuyển theo điểm thi tốt nghiệp THPT</router-link></li>
                 <li><router-link class="dropdown-item" to="/university-admission/HB_THPT">Xét tuyển theo điểm học tập cấp THPT</router-link></li>
+                <li><router-link class="dropdown-item" to="/university-admission/DGNL">Xét tuyển theo kết quả kỳ thi Đánh Giá Năng Lực của ĐHQG TPHCM</router-link></li>
+                <li><router-link class="dropdown-item" to="/university-admission/DGTD">Xét tuyển theo điểm thi kỳ thi Đánh Giá Tư Duy của ĐHBK Hà Nội</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item">

@@ -7,7 +7,7 @@
               <div class="header-icon me-3">
                 <i class="bi bi-journal-check"></i>
               </div>
-              <h2 class="mb-0">XÉT TUYỂN THẲNG THEO QUY ĐỊNH CỦA BỘ GIÁO DỤC VÀ ĐÀO TẠO</h2>
+              <h2 class="mb-0">XÉT TUYỂN THEO ĐIỂM THI ĐÁNH GIÁ TƯ DUY CỦA ĐẠI HỌC BÁCH KHOA HÀ NỘI</h2>
             </div>
           </div>
           
@@ -16,7 +16,7 @@
               <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Đang tải...</span>
               </div>
-              <p class="mt-3">Đang tải dữ liệu xét tuyển thẳng...</p>
+              <p class="mt-3">Đang tải dữ liệu xét tuyển...</p>
             </div>
             
             <div v-else-if="error" class="alert alert-danger" role="alert">
@@ -67,7 +67,6 @@
                       <th scope="col" style="width: 10%">Mã ngành</th>
                       <th scope="col" style="width: 25%">Tên ngành</th>
                       <th scope="col" class="text-center" style="width: 10%">Chỉ tiêu</th>
-                      <th scope="col" class="text-center" style="width: 50%">Môn học hoặc Lĩnh vực Khoa học kỹ thuật đạt giải</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -78,21 +77,6 @@
                         <td>{{ major.major_name }}</td>
                         <td class="text-center">
                           <span class="badge bg-info text-dark">{{ major.seats }}</span>
-                        </td>
-                        <td>
-                          <div class="d-flex flex-wrap gap-2">
-                            <span 
-                              v-for="(subject, sIndex) in major.admission_fields" 
-                              :key="sIndex"
-                              class="badge subject-combo"
-                              :class="getSubjectBadgeClass(sIndex)"
-                              v-show="sIndex < 20"
-                              data-bs-toggle="tooltip"
-                              :title="getSubjectDescription(subject)"
-                            >
-                              {{ subject.field_or_subject_name }}
-                            </span>
-                          </div>
                         </td>
                       </tr>
                     </template>
@@ -172,19 +156,18 @@
                   <div class="card-body">
                     <h5 class="card-title">
                       <i class="bi bi-info-circle me-2"></i>
-                      Thông tin về xét tuyển thẳng theo quy chế của Bộ Giáo dục và Đào tạo
+                      Thông tin về xét tuyển theo điểm thi đánh giá tư duy của Đại Học Bách Khoa Hà Nội
                     </h5>
                     <div class="mt-3">
-                      <p><strong>Phương thức xét tuyển:</strong> Xét tuyển thẳng theo quy chế của Bộ Giáo dục và Đào tạo</p>
-                      <p><strong>Mã phương thức:</strong> 301</p>
-                      <p><strong>Mô tả:</strong> Thí sinh đạt giải Nhất, Nhì, Ba giải học sinh giỏi cấp quốc gia hoặc kỳ thi khoa học kỹ thuật cấp quốc gia do Bộ Giáo dục và đào tạo tổ chức. Thời gian đạt giải không quá 3 năm</p>
+                      <p><strong>Phương thức xét tuyển:</strong> Xét tuyển theo điểm thi đánh giá tư duy của Đại Học Bách Khoa Hà Nội</p>
+                      <p><strong>Mã phương thức:</strong> 402</p>
                       
                       
                       <div class="mt-3">
-                        <h6><i class="bi bi-check-circle me-2"></i>Điều kiện:</h6>
+                        <h6><i class="bi bi-check-circle me-2"></i>Mô tả về điều kiện xét tuyển:</h6>
                         <ul>
-                          <li>Thí sinh đạt giải Nhất, Nhì, Ba giải học sinh giỏi cấp quốc gia hoặc kỳ thi khoa học kỹ thuật cấp quốc gia do Bộ Giáo dục và đào tạo tổ chức. Thời gian đạt giải không quá 3 năm</li>
-                          <li>Lĩnh vực / Môn học đạt giải phù hợp với ngành đăng kí xét tuyển.</li>
+                          <li> Thí sinh tham dự kỳ thi đánh giá tư duy của Đại Học Bách Khoa Hà Nội tổ chức năm 2024, 2025</li>
+                          <li> Thí sinh có điểm thi đánh giá năng lực đạt điểm sàn theo quy định</li>
                         </ul>
                       </div>
                     </div>
@@ -200,10 +183,10 @@
   </template>
   
   <script>
-  import xttController from '@/controllers/xtThangController'
+  import dgtdController from '@/controllers/DGTDController'
   
   export default {
-    name: 'XTTView',
+    name: 'DGTDView',
     data() {
       return {
         majors: [],
@@ -250,8 +233,8 @@
     },
     async mounted() {
       try {
-        const data = await xttController.getXTTData()
-        this.majors = data.xtt
+        const data = await dgtdController.getDGTDData()
+        this.majors = data.dgtd
         
         // Tạo danh sách các khoa duy nhất
         const uniqueFaculties = {}
@@ -268,7 +251,7 @@
         
         this.initializeTooltips()
       } catch (error) {
-        this.error = 'Đã xảy ra lỗi khi tải dữ liệu xét tuyển thẳng. Vui lòng thử lại sau.'
+        this.error = 'Đã xảy ra lỗi khi tải dữ liệu xét tuyển đánh giá tư duy. Vui lòng thử lại sau.'
         console.error(error)
       } finally {
         this.loading = false
@@ -285,15 +268,6 @@
             })
           })
         })
-      },
-  
-      getSubjectBadgeClass(index) {
-        return this.subjectBadgeClasses[index % this.subjectBadgeClasses.length]
-      },
-      
-      getSubjectDescription(subject) {
-        // Mô tả chi tiết về các môn học trong tổ hợp
-        return `Giải HSG / Lĩnh vực khoa học kỹ thuật: ${subject.field_or_subject_name}`
       },
   
       resetFilters() {

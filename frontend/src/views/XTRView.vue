@@ -7,7 +7,7 @@
               <div class="header-icon me-3">
                 <i class="bi bi-journal-check"></i>
               </div>
-              <h2 class="mb-0">XÉT TUYỂN THẲNG THEO QUY ĐỊNH CỦA BỘ GIÁO DỤC VÀ ĐÀO TẠO</h2>
+              <h2 class="mb-0">XÉT TUYỂN RIÊNG THEO ĐỀ ÁN TUYỂN SINH</h2>
             </div>
           </div>
           
@@ -16,7 +16,7 @@
               <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Đang tải...</span>
               </div>
-              <p class="mt-3">Đang tải dữ liệu xét tuyển thẳng...</p>
+              <p class="mt-3">Đang tải dữ liệu xét tuyển RIÊNG...</p>
             </div>
             
             <div v-else-if="error" class="alert alert-danger" role="alert">
@@ -172,18 +172,19 @@
                   <div class="card-body">
                     <h5 class="card-title">
                       <i class="bi bi-info-circle me-2"></i>
-                      Thông tin về xét tuyển thẳng theo quy chế của Bộ Giáo dục và Đào tạo
+                      Thông tin về xét tuyển riêng theo đề án tuyển sinh
                     </h5>
                     <div class="mt-3">
-                      <p><strong>Phương thức xét tuyển:</strong> Xét tuyển thẳng theo quy chế của Bộ Giáo dục và Đào tạo</p>
-                      <p><strong>Mã phương thức:</strong> 301</p>
-                      <p><strong>Mô tả:</strong> Thí sinh đạt giải Nhất, Nhì, Ba giải học sinh giỏi cấp quốc gia hoặc kỳ thi khoa học kỹ thuật cấp quốc gia do Bộ Giáo dục và đào tạo tổ chức. Thời gian đạt giải không quá 3 năm</p>
+                      <p><strong>Phương thức xét tuyển:</strong> Xét tuyển riêng theo đề án tuyển sinh</p>
+                      <p><strong>Mã phương thức:</strong> 500</p>
                       
                       
                       <div class="mt-3">
-                        <h6><i class="bi bi-check-circle me-2"></i>Điều kiện:</h6>
+                        <h6><i class="bi bi-check-circle me-2"></i>Mô tả về điều kiện xét tuyển:</h6>
                         <ul>
-                          <li>Thí sinh đạt giải Nhất, Nhì, Ba giải học sinh giỏi cấp quốc gia hoặc kỳ thi khoa học kỹ thuật cấp quốc gia do Bộ Giáo dục và đào tạo tổ chức. Thời gian đạt giải không quá 3 năm</li>
+                          <li> Thí sinh đạt giải Khuyến khích cuộc thi học sinh giỏi cấp quốc gia các môn Toán, Vật lý, Hóa học, Sinh học, Tin học; giải Khuyến khích cuộc thi khoa học, kỹ thuật cấp quốc gia. Thời gian đạt giải không quá 3 năm tính tới thời điểm xét tuyển.</li>
+                          <li> Thí sinh đạt giải Nhất, Nhì, Ba, Khuyến khích (Giải Tư) tại cuộc thi học sinh giỏi các môn Toán, Vật lý, Hoá học, Sinh học, Tin học cấp tỉnh, thành phố trực thuộc trung ương. Thời gian đạt giải không quá 3 năm tính tới thời điểm xét tuyển.</li>
+                          <li> Thí sinh đạt giải Nhất, Nhì, Ba, Khuyến khích (Giải Tư) tại cuộc thi khoa học, kỹ thuật cấp tỉnh, thành phố trực thuộc trung ương. Thời gian đạt giải không quá 3 năm tính tới thời điểm xét tuyển.</li>
                           <li>Lĩnh vực / Môn học đạt giải phù hợp với ngành đăng kí xét tuyển.</li>
                         </ul>
                       </div>
@@ -200,10 +201,10 @@
   </template>
   
   <script>
-  import xttController from '@/controllers/xtThangController'
+  import xtrController from '@/controllers/xtRiengController'
   
   export default {
-    name: 'XTTView',
+    name: 'XTRView',
     data() {
       return {
         majors: [],
@@ -250,8 +251,8 @@
     },
     async mounted() {
       try {
-        const data = await xttController.getXTTData()
-        this.majors = data.xtt
+        const data = await xtrController.getXTRData()
+        this.majors = data.xtr
         
         // Tạo danh sách các khoa duy nhất
         const uniqueFaculties = {}
@@ -268,7 +269,7 @@
         
         this.initializeTooltips()
       } catch (error) {
-        this.error = 'Đã xảy ra lỗi khi tải dữ liệu xét tuyển thẳng. Vui lòng thử lại sau.'
+        this.error = 'Đã xảy ra lỗi khi tải dữ liệu xét tuyển riêng. Vui lòng thử lại sau.'
         console.error(error)
       } finally {
         this.loading = false

@@ -17,6 +17,9 @@ import Admission from '@/views/AdmissionView.vue'
 import Admission_THPT from '@/views/TnTHPTView.vue'
 import Admission_HB from '@/views/HBTHPTView.vue'
 import Admission_XTT from '@/views/XTTView.vue'
+import Admission_XTR from '@/views/XTRView.vue'
+import Admission_DGNL from '@/views/DGNLView.vue'
+import Admission_DGTD from '@/views/DGTDView.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Homepage - ITF Help Student 2025' } },
@@ -37,6 +40,9 @@ const routes = [
   { path: '/university-admission/TN_THPT', name: 'University Admission - TN THPT', component: Admission_THPT, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm tốt nghiệp THPT'}},
   { path: '/university-admission/HB_THPT', name: 'University Admission - HB THPT', component: Admission_HB, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm học tập cấp THPT'}},
   { path: '/university-admission/XTT', name: 'University Admission - XTT', component: Admission_XTT, meta: {title: 'Thông tin tuyển sinh năm 2025 - Xét tuyển thẳng'}},
+  { path: '/university-admission/XTR', name: 'University Admission - XTR', component: Admission_XTR, meta: {title: 'Thông tin tuyển sinh năm 2025 - Xét tuyển riêng'}},
+  { path: '/university-admission/DGNL', name: 'University Admission - DGNL', component: Admission_DGNL, meta: {title: 'Thông tin tuyển sinh năm 2025 - Đánh giá năng lực'}},
+  { path: '/university-admission/DGTD', name: 'University Admission - DGTD', component: Admission_DGTD, meta: {title: 'Thông tin tuyển sinh năm 2025 - Đánh giá tư duy'}},
 ]
 
 const router = createRouter({

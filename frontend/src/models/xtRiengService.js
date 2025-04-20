@@ -3,7 +3,7 @@ import config from '@/config/apiConfig'  // nếu bạn đã tách riêng file c
 
 const BASE_API_URL = config?.BASE_API_URL || 'https://university-admission-dut-hzdahmckevehhpdf.southeastasia-01.azurewebsites.net/api'
 // const BASE_API_URL = 'http://127.0.0.1:8000/api'
-const XTTService = {
+const XTRService = {
     /**
    * Lấy danh sách ngành tuyển sinh
    * @returns {Promise<Array>} - Danh sách ngành
@@ -20,8 +20,8 @@ const XTTService = {
    * Lấy danh sách tổ hợp xét tuyển
    * @returns {Promise<Array>} - Danh sách ngành
    */
-  getXTTs() {
-    return axios.get(`${BASE_API_URL}/university-admissions/admission-method-majors/admission-method/1`)
+  getXTRs() {
+    return axios.get(`${BASE_API_URL}/university-admissions/admission-method-majors/admission-method/2`)
       .then(response => response.data)
       .catch(error => {
         console.error('Lỗi khi lấy danh sách tổ hợp xét tuyển:', error)
@@ -31,4 +31,4 @@ const XTTService = {
 
 }
 
-export default XTTService
+export default XTRService
