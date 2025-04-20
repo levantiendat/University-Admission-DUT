@@ -57,18 +57,19 @@
             </li>
             <li class="nav-item dropdown menu-item">
               <a class="nav-link dropdown-toggle custom-dropdown" href="#" role="button">
-                <i class="bi bi-house-fill me-1"></i> School Priority
+                <i class="bi bi-house-fill me-1"></i> Công cụ hỗ trợ
               </a>
               <ul class="custom-dropdown-menu">
                 <li><router-link class="dropdown-item" to="/school-priority">Tra cứu điểm ưu tiên khu vực</router-link></li>
+                <li><router-link class="dropdown-item" to="/point-count">Tính điểm phương thức xét tuyển riêng</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item">
               <a class="nav-link dropdown-toggle custom-dropdown" href="#" role="button">
-                <i class="bi bi-calculator-fill me-1"></i> Point Count
+                <i class="bi bi-calculator-fill me-1"></i> Thống kê
               </a>
               <ul class="custom-dropdown-menu">
-                <li><router-link class="dropdown-item" to="/point-count">Tính điểm phương thức xét tuyển riêng</router-link></li>
+                <li><router-link class="dropdown-item" to="/statistics/previous-admission">Điểm chuẩn các năm trước</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item">

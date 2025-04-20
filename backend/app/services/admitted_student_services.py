@@ -4,6 +4,7 @@ from app.models.university import Major, AdmissionMethod, SubjectScoreMethodGrou
 from sqlalchemy.orm import Session
 from app.core.exceptions import NotFoundException, AlreadyExistsException
 from app.core.exceptions import ForbiddenException
+from sqlalchemy import func
 
 from app.schemas.admitted_student import AdmittedStudentCreate,  AdmittedStudentUpdate
 
@@ -39,3 +40,116 @@ def delete_admitted_student(db: Session, admitted_student_id: int) -> AdmittedSt
     db.delete(db_admmited_student)
     db.commit()
     return db_admmited_student
+
+def stats_by_gender(db: Session) -> list[dict]:
+    """
+    Thống kê số lượng sinh viên Nam/Nữ theo từng năm và từng ngành.
+    (Giá trị AdmittedStudent.gender: 1 cho Nam, 0 cho Nữ)
+    """
+    results = (
+        db.query(
+            AdmittedStudent.year,
+            AdmittedStudent.major_id,
+            AdmittedStudent.gender,
+            func.count(AdmittedStudent.id).label("total")
+        )
+        .group_by(AdmittedStudent.year, AdmittedStudent.major_id, AdmittedStudent.gender)
+        .order_by(AdmittedStudent.major_id)
+        .all()
+    )
+    return [
+        {
+            "year": r.year,
+            "major_id": r.major_id,
+            "gender": r.gender,
+            "total": r.total
+        }
+        for r in results
+    ]
+
+def stats_by_city(db: Session) -> list[dict]:
+    """
+    Thống kê số lượng sinh viên theo tỉnh/thành (city_id) theo từng năm và từng ngành.
+    """
+    results = (
+        db.query(
+            AdmittedStudent.year,
+            AdmittedStudent.major_id,
+            AdmittedStudent.city_id,
+            func.count(AdmittedStudent.id).label("total")
+        )
+        .group_by(AdmittedStudent.year, AdmittedStudent.major_id, AdmittedStudent.city_id)
+        .order_by(AdmittedStudent.major_id)
+        .all()
+    )
+    return [
+        {
+            "year": r.year,
+            "major_id": r.major_id,
+            "city_id": r.city_id,
+            "total": r.total
+        }
+        for r in results
+    ]
+
+def stats_by_admission_method(db: Session) -> list[dict]:
+    """
+    Thống kê số lượng sinh viên theo phương thức tuyển sinh (admission_method_id)
+    theo từng năm và từng ngành.
+    """
+    results = (
+        db.query(
+            AdmittedStudent.year,
+            AdmittedStudent.major_id,
+            AdmittedStudent.admission_method_id,
+            func.count(AdmittedStudent.id).label("total")
+        )
+        .group_by(AdmittedStudent.year, AdmittedStudent.major_id, AdmittedStudent.admission_method_id)
+        .order_by(AdmittedStudent.major_id)
+        .all()
+    )
+    return [
+        {
+            "year": r.year,
+            "major_id": r.major_id,
+            "admission_method_id": r.admission_method_id,
+            "total": r.total
+        }
+        for r in results
+    ]
+
+def stats_by_score_range(db: Session) -> list[dict]:
+    """
+    Thống kê số lượng sinh viên theo khoảng điểm (total_score):
+    Nhóm theo các khoảng: 15-16, 16-17, …, 29-30.
+    Chỉ tính các sinh viên có total_score từ 15 đến thấp hơn 30,
+    và sắp xếp theo major_id.
+    """
+    results = (
+        db.query(
+            AdmittedStudent.year,
+            AdmittedStudent.major_id,
+            func.floor(AdmittedStudent.total_score).label("score_bucket"),
+            func.count(AdmittedStudent.id).label("total")
+        )
+        .filter(
+            AdmittedStudent.total_score != None,
+            AdmittedStudent.total_score >= 15,
+            AdmittedStudent.total_score < 30
+        )
+        .group_by(AdmittedStudent.year, AdmittedStudent.major_id, func.floor(AdmittedStudent.total_score))
+        .order_by(AdmittedStudent.major_id)
+        .all()
+    )
+
+    stats = []
+    for r in results:
+        bucket = int(r.score_bucket)
+        score_range = f"{bucket}-{bucket+1}"
+        stats.append({
+            "year": r.year,
+            "major_id": r.major_id,
+            "score_range": score_range,
+            "total": r.total
+        })
+    return stats
