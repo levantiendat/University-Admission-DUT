@@ -440,7 +440,7 @@ def get_previous_admission(db: Session, previous_admission_id: int) -> PreviousA
         raise NotFoundException("Previous admission not found")
     return db_previous_admission
 
-def get_previous_admissions(db: Session, skip: int = 0, limit: int = 100) -> list[PreviousAdmission]:
+def get_previous_admissions(db: Session, skip: int = 0, limit: int = 1000) -> list[PreviousAdmission]:
     return db.query(PreviousAdmission).offset(skip).limit(limit).all()
 
 def update_previous_admission(db: Session, previous_admission_id: int, previous_admission: PreviousAdmissionUpdate) -> PreviousAdmission:
