@@ -27,9 +27,6 @@ intents:
   - ask_cntt_dacthu
   - ask_cntt_ai
   - ask_cntt_nnn
-  - ask_TNTHPT_DT
-  - ask_TNTHPT_NNN
-  - ask_TNTHPT_KHDL
   - ask_admission_process
   - ask_training_program
   - ask_standard_output_language
@@ -51,6 +48,7 @@ intents:
   - ask_cntt_luu_y
   - ask_cutoff_score
   - ask_list_major_by_method
+  - ask_combination_major
 
 entities:
   - major
@@ -157,12 +155,6 @@ responses:
         - Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp)\n
         - Công nghệ Thông Tin (Ngoại Ngữ Nhật)\n
         - Công nghệ Thông Tin (Đặc Thù - Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo"
-  utter_TNTHPT_DT:
-    - text: "Thí sinh đăng ký xét tuyển vào ngành CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp) sử dụng điểm của tổ hợp:\n• Toán, Vật Lý, Hóa học\n• Toán, Vật Lý, Tiếng Anh\n• Toán, Tin Học, Tiếng Anh\n• Toán, Vật Lý, Tin Học"
-  utter_TNTHPT_NNN:
-    - text: "Thí sinh đăng ký xét tuyển vào ngành CNTT (Ngoại Ngữ Nhật) sử dụng điểm của tổ hợp:\n• Toán, Vật Lý, Hóa học\n• Toán, Vật Lý, Tiếng Anh\n• Toán, Tin Học, Tiếng Anh\n• Toán, Vật Lý, Tin Học\n• Toán, Vật Lý, Tiếng Nhật\n• Toán, Tin Học, Tiếng Nhật"
-  utter_TNTHPT_KHDL:
-    - text: "Thí sinh đăng ký xét tuyển vào ngành CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo sử dụng điểm của tổ hợp:\n• Toán, Vật Lý, Hóa học\n• Toán, Vật Lý, Tiếng Anh\n• Toán, Tin Học, Tiếng Anh\n• Toán, Vật Lý, Tin Học"
   utter_dgnl:
     - text: "Thí sinh sử dụng kết quả thi đánh giá năng lực (V-ACT) của Đại Học Quốc Gia thành phố Hồ Chí Minh tổ chức năm 2025 để đăng kí xét tuyển \n
           - Điểm xét tuyển bằng điểm thi đánh giá năng lực quy đổi + điểm ưu tiên \n
@@ -278,9 +270,6 @@ actions:
   - utter_direct_admission_detail
   - utter_xet_tuyen_rieng_detail
   - utter_diem_thi_TN_THPT
-  - utter_TNTHPT_DT
-  - utter_TNTHPT_NNN
-  - utter_TNTHPT_KHDL
   - utter_admission_process
   - utter_training_program
   - utter_standard_output_language
@@ -302,6 +291,7 @@ actions:
   - utter_cntt_luu_y
   - action_cutoff_score
   - action_major_by_method
+  - action_combination_major
 
 
 session_config:

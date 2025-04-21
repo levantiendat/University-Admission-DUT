@@ -50,3 +50,14 @@ class GraphConnector:
         with self.driver.session() as session:
             result = session.run(query, {"method": method_keyword})
             return list(result)
+    
+    def get_combination_subjects(self, major_keyword: str):
+        query = """
+        MATCH (m:Major)
+        WHERE toLower(m.name) = toLower($major)
+        MATCH (m)-[:USES_COMBINATION]->(sc:SubjectCombination)
+        RETURN sc.name AS subject_combination
+        """
+        with self.driver.session() as session:
+            result = session.run(query, {"major": major_keyword})
+            return list(result)

@@ -195,41 +195,7 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 20. Tổ hợp thi – CNTT Đặc Thù (DT)
-  - story: "Pair - Tổ hợp thi CNTT Đặc Thù"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_TNTHPT_DT
-      - action: utter_TNTHPT_DT
-      - intent: goodbye
-      - action: utter_goodbye
 
-  # 21. Tổ hợp thi – CNTT Ngoại Ngữ Nhật (NNN)
-  - story: "Pair - Tổ hợp thi CNTT Ngoại Ngữ Nhật"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_TNTHPT_NNN
-      - action: utter_TNTHPT_NNN
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 22. Tổ hợp thi – CNTT TTNT (KHDL)
-  - story: "Pair - Tổ hợp thi CNTT TTNT"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_TNTHPT_KHDL
-      - action: utter_TNTHPT_KHDL
-      - intent: goodbye
-      - action: utter_goodbye
 
   # 35. Chương trình đào tạo chung CNTT
   - story: "Pair - Chương trình đào tạo chung CNTT"
@@ -472,21 +438,6 @@ stories:
       - intent: ask_admission_process
       - action: utter_admission_process
 
-  - story: "Direct Pair - Tổ hợp thi - CNTT Đặc Thù"
-    steps:
-      - intent: ask_TNTHPT_DT
-      - action: utter_TNTHPT_DT
-
-  - story: "Direct Pair - Tổ hợp thi - CNTT Ngoại Ngữ Nhật"
-    steps:
-      - intent: ask_TNTHPT_NNN
-      - action: utter_TNTHPT_NNN
-
-  - story: "Direct Pair - Tổ hợp thi - CNTT TTNT"
-    steps:
-      - intent: ask_TNTHPT_KHDL
-      - action: utter_TNTHPT_KHDL
-
 
   - story: "Direct Pair - Chương trình đào tạo chung CNTT"
     steps:
@@ -588,26 +539,6 @@ stories:
       - intent: ask_admission_process
       - action: utter_admission_process
 
-  - story: "Pair - Phương thức: Tổ hợp thi - Đặc Thù"
-    steps:
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_TNTHPT_DT
-      - action: utter_TNTHPT_DT
-
-  - story: "Pair - Phương thức: Tổ hợp thi - Ngoại Ngữ Nhật"
-    steps:
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_TNTHPT_NNN
-      - action: utter_TNTHPT_NNN
-
-  - story: "Pair - Phương thức: Tổ hợp thi - TTNT"
-    steps:
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_TNTHPT_KHDL
-      - action: utter_TNTHPT_KHDL
 
   # ----------------------------
   # Nhóm Đào Tạo Chuyên Ngành (Buttons)
@@ -679,26 +610,6 @@ stories:
       - intent: ask_cntt_luu_y
       - action: utter_cntt_luu_y
 
-  - story: "Điểm TN THPT - Đặc thù"
-    steps:
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_cntt_dacthu
-      - action: utter_TNTHPT_DT
-
-  - story: "Điểm TN THPT - NNN"
-    steps:
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_cntt_nnn
-      - action: utter_TNTHPT_NNN
-
-  - story: "Điểm TN THPT - AI"
-    steps:
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
-      - intent: ask_cntt_ai
-      - action: utter_TNTHPT_KHDL
 
   - story: Trả lời điểm chuẩn theo slot
     steps:
@@ -1097,4 +1008,286 @@ stories:
         entities:
           - method: "học bạ"
       - action: action_major_by_method
+
+  - story: Tổ hợp môn xét tuyển ngành CNTT
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CNTT"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành CNTT Đặc thù
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CNTT Đặc thù"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành CNTT Nhật
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CNTT Nhật"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành CNTT AI
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CNTT AI"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Kỹ thuật máy tính
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật máy tính"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành KTMT
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTMT"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Công nghệ sinh học
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Công nghệ sinh học"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành CNSH
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CNSH"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành CNSH Y Dược
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CNSH Y Dược"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành CNKT VLXD
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CNKT VLXD"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Công nghệ chế tạo máy
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Công nghệ chế tạo máy"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành CNCTM
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CNCTM"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Quản lý công nghiệp
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Quản lý công nghiệp"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành QLCN
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "QLCN"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Công nghệ dầu khí
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Công nghệ dầu khí"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành PFIEV
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "PFIEV"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Kỹ thuật Cơ khí động lực
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật Cơ khí động lực"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành KTCK CKHK
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTCK CKHK"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Kỹ thuật Cơ điện tử
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật Cơ điện tử"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành KTCĐT
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTCĐT"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Kỹ thuật nhiệt
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật nhiệt"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành KTN QLNL
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTN QLNL"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Kỹ thuật Tàu thủy
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật Tàu thủy"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành Kỹ thuật Điện
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật Điện"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành KTĐ
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTĐ"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành KTĐT-VT
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTĐT-VT"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành KT điều khiển và tự động hóa
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật Điều khiển và Tự động hóa"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành Kỹ thuật hóa học
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật hóa học"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành KTHH
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTHH"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành Kỹ thuật môi trường
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kỹ thuật môi trường"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành KTHTCN
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTHTCN"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành CTTT KTĐTVT
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CTTT KTĐTVT"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành CTTT HTN&IoT
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "CTTT HTN&IoT"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành Công nghệ thực phẩm
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Công nghệ thực phẩm"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành Kiến trúc
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kiến trúc"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành KTXD XDDD&CN
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTXD XDDD&CN"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành KTXD THXD
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTXD THXD"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành KTXD ĐTTM
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTXD ĐTTM"
+      - action: action_combination_major
+
+  - story: Tổ hợp xét tuyển ngành KTXD MHTT&TTNT
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "KTXD MHTT&TTNT"
+      - action: action_combination_major
+
+  - story: Tổ hợp môn xét tuyển ngành Kinh tế xây dựng
+    steps:
+      - intent: ask_combination_major
+        entities:
+          - major: "Kinh tế xây dựng"
+      - action: action_combination_major
+  
+  
 
