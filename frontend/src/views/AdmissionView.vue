@@ -11,12 +11,22 @@
           </div>
         </div>
         
+        <div class="description-section bg-light p-3 border-bottom">
+          <div class="container">
+            <p class="description-text mb-0">
+              <i class="bi bi-info-circle me-2"></i>
+              Thông tin về các phương thức xét tuyển của trường Đại học Bách khoa - Đại học Đà Nẵng năm 2025. 
+              Thí sinh có thể tìm hiểu chi tiết về từng phương thức xét tuyển và các ngành đào tạo.
+            </p>
+          </div>
+        </div>
+        
         <div class="card-body">
           <div v-if="loading" class="text-center py-5">
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Đang tải...</span>
             </div>
-            <p class="mt-3">Đang tải dữ liệu tuyển sinh...</p>
+            <p class="mt-3 fs-5">Đang tải dữ liệu tuyển sinh...</p>
           </div>
           
           <div v-else-if="error" class="alert alert-danger" role="alert">
@@ -35,7 +45,7 @@
                     </span>
                     <input 
                       type="text" 
-                      class="form-control" 
+                      class="form-control form-control-lg" 
                       placeholder="Tìm kiếm ngành học..." 
                       v-model="searchQuery"
                     >
@@ -47,7 +57,7 @@
                     <span class="input-group-text bg-primary text-white">
                       <i class="bi bi-filter"></i>
                     </span>
-                    <select class="form-select" v-model="selectedFaculty">
+                    <select class="form-select form-select-lg" v-model="selectedFaculty">
                       <option value="all">Tất cả các khoa</option>
                       <option v-for="faculty in faculties" :key="faculty.id" :value="faculty.id">
                         {{ faculty.faculty_code }} - {{ faculty.name }}
@@ -82,9 +92,9 @@
                     <tr>
                       <td class="text-center">{{ index + 1 }}</td>
                       <td>{{ major.major_code }}</td>
-                      <td>{{ major.name }}</td>
-                      <td class="text-center">
-                        <span class="badge bg-info text-dark">{{ major.seats }}</span>
+                      <td class="fw-medium">{{ major.name }}</td>
+                      <td class="text-center fw-bold fs-5">
+                        {{ major.seats }}
                       </td>
                       <template v-for="method in admissionMethods" :key="method.id">
                         <td class="text-center">
@@ -108,8 +118,8 @@
                     <td colspan="100%" class="text-center py-5">
                       <div class="no-results">
                         <i class="bi bi-search fs-1 text-muted"></i>
-                        <p class="mt-3">Không tìm thấy ngành phù hợp với tiêu chí tìm kiếm.</p>
-                        <button class="btn btn-outline-primary mt-2" @click="resetFilters">
+                        <p class="mt-3 fs-5">Không tìm thấy ngành phù hợp với tiêu chí tìm kiếm.</p>
+                        <button class="btn btn-outline-primary mt-2 btn-lg" @click="resetFilters">
                           <i class="bi bi-arrow-counterclockwise me-2"></i>
                           Đặt lại bộ lọc
                         </button>
@@ -177,20 +187,20 @@
             <div class="legend-section mt-4">
               <div class="card bg-light">
                 <div class="card-body">
-                  <h5 class="card-title">
+                  <h5 class="card-title fs-4">
                     <i class="bi bi-info-circle me-2"></i>
                     Chú thích phương thức tuyển sinh:
                   </h5>
                   <div class="row">
                     <div class="col-md-6">
-                      <ul class="legend-list">
+                      <ul class="legend-list fs-5">
                         <li v-for="(method, index) in admissionMethods.slice(0, Math.ceil(admissionMethods.length/2))" :key="method.id">
                           <strong>{{ getShortMethodName(method.name) }}:</strong> {{ method.name }}
                         </li>
                       </ul>
                     </div>
                     <div class="col-md-6">
-                      <ul class="legend-list">
+                      <ul class="legend-list fs-5">
                         <li v-for="method in admissionMethods.slice(Math.ceil(admissionMethods.length/2))" :key="method.id">
                           <strong>{{ getShortMethodName(method.name) }}:</strong> {{ method.name }}
                         </li>
@@ -199,8 +209,8 @@
                   </div>
                   
                   <div class="mt-3">
-                    <h6>Trạng thái phương thức:</h6>
-                    <div class="d-flex flex-wrap">
+                    <h6 class="fs-5">Trạng thái phương thức:</h6>
+                    <div class="d-flex flex-wrap fs-5">
                       <div class="me-4 mb-2">
                         <span class="status-indicator available me-2">
                           <i class="bi bi-check-circle-fill"></i>
@@ -343,7 +353,18 @@ export default {
 }
 
 .header-icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
+}
+
+.description-section {
+  background-color: #e8f1ff !important;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.description-text {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #495057;
 }
 
 .filter-section {
@@ -374,13 +395,15 @@ export default {
 .table th {
   vertical-align: middle;
   white-space: normal; /* Cho phép xuống dòng */
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   padding: 0.75rem;
 }
 
-/* Giảm kích thước chữ cho dữ liệu bảng */
+/* Tăng kích thước chữ cho dữ liệu bảng */
 .table td {
-  font-size: 0.85rem;
+  font-size: 1rem;
+  vertical-align: middle;
+  padding: 0.75rem;
 }
 
 /* Cho tiêu đề của phương thức tuyển sinh xuống dòng khi cần */
@@ -388,6 +411,7 @@ export default {
   cursor: help;
   white-space: normal;
   line-height: 1.2;
+  font-size: 1rem;
 }
 
 /* Hiệu ứng hover cho các dòng */
@@ -399,19 +423,19 @@ export default {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .status-indicator.available {
-  background-color: rgba(40, 167, 69, 0.15);
+  background-color: rgba(40, 167, 69, 0.1);
   color: #28a745;
 }
 
 .status-indicator.not-available {
-  background-color: rgba(220, 53, 69, 0.15);
+  background-color: rgba(220, 53, 69, 0.1);
   color: #dc3545;
 }
 
@@ -434,9 +458,9 @@ export default {
 }
 
 .stat-icon {
-  font-size: 2rem;
-  width: 50px;
-  height: 50px;
+  font-size: 2.5rem;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -456,7 +480,7 @@ export default {
 }
 
 .legend-list li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .no-results {
@@ -470,17 +494,38 @@ export default {
   }
   
   .header-icon {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
   
   .stats-section .card {
     margin-bottom: 1rem;
   }
   
-  /* Giảm kích thước chữ cho bảng trên màn hình nhỏ */
+  /* Giảm kích thước chữ cho bảng trên màn hình nhỏ nhưng vẫn đảm bảo đủ lớn để đọc */
   .table th, .table td {
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .description-text {
+    font-size: 0.95rem;
+  }
+  
+  .card-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .table th, .table td {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+  
+  .status-indicator {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
   }
 }
 </style>
