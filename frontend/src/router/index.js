@@ -21,6 +21,7 @@ import Admission_XTR from '@/views/XTRView.vue'
 import Admission_DGNL from '@/views/DGNLView.vue'
 import Admission_DGTD from '@/views/DGTDView.vue'
 import preAdmission from '@/views/preAdmission.vue'
+import preAdmittedStudent from '@/views/preAdmittedStudent.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Homepage - ITF Help Student 2025' } },
@@ -45,6 +46,7 @@ const routes = [
   { path: '/university-admission/DGNL', name: 'University Admission - DGNL', component: Admission_DGNL, meta: {title: 'Thông tin tuyển sinh năm 2025 - Đánh giá năng lực'}},
   { path: '/university-admission/DGTD', name: 'University Admission - DGTD', component: Admission_DGTD, meta: {title: 'Thông tin tuyển sinh năm 2025 - Đánh giá tư duy'}},
   { path: '/statistics/previous-admission', name: 'PreAdmission', component: preAdmission, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm chuẩn các năm trước'}},
+  { path: '/statistics/pre-admitted-student', name: 'PreAdmittedStudent', component: preAdmittedStudent, meta: {title: 'Thông tin tuyển sinh năm 2025 - Thống kê sinh viên các năm trước'}},
 ]
 
 const router = createRouter({

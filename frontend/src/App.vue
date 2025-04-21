@@ -70,6 +70,7 @@
               </a>
               <ul class="custom-dropdown-menu">
                 <li><router-link class="dropdown-item" to="/statistics/previous-admission">Điểm chuẩn các năm trước</router-link></li>
+                <li><router-link class="dropdown-item" to="/statistics/pre-admitted-student">Thống kê sinh viên nhập học các năm trước</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item">
