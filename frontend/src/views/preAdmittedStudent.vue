@@ -305,7 +305,10 @@
         chart: null,
         
         // Dữ liệu biểu đồ
-        currentChartData: null
+        currentChartData: null,
+        
+        // Kích thước biểu đồ
+        chartHeight: '60vh'
       }
     },
     computed: {
@@ -445,8 +448,29 @@
     },
     async mounted() {
       await this.fetchData();
+      // Đăng ký event listener để điều chỉnh kích thước biểu đồ khi resize cửa sổ
+      window.addEventListener('resize', this.adjustChartSize);
+      // Thiết lập kích thước ban đầu
+      this.adjustChartSize();
+    },
+    beforeDestroy() {
+      // Loại bỏ event listener khi component bị hủy
+      window.removeEventListener('resize', this.adjustChartSize);
     },
     methods: {
+      // Điều chỉnh kích thước biểu đồ
+      adjustChartSize() {
+        // Thiết lập chiều cao cho container chứa biểu đồ là 60% chiều cao của viewport
+        if (this.$refs.chartContainer) {
+          this.$refs.chartContainer.style.height = '60vh';
+          
+          // Nếu biểu đồ đã được tạo, cập nhật kích thước
+          if (this.chart) {
+            this.chart.resize();
+          }
+        }
+      },
+      
       // Thay đổi loại thống kê
       changeStatType(statType) {
         // Hủy chart hiện tại trước khi đổi loại
@@ -573,6 +597,8 @@
           // Render biểu đồ hiện tại sau khi dữ liệu đã được cập nhật
           this.$nextTick(() => {
             this.renderChart();
+            // Áp dụng kích thước mới sau khi render
+            this.adjustChartSize();
           });
         } catch (error) {
           console.error('Error updating chart data:', error);
@@ -592,7 +618,7 @@
         return `rgba(${r}, ${g}, ${b}, 0.8)`;
       },
       
-      // Render biểu đồ với kích thước lớn hơn
+      // Render biểu đồ với kích thước 60% của giao diện
       renderChart() {
         // Không render chart nếu là khoảng điểm (đã dùng bảng và biểu đồ thanh tùy chỉnh)
         if (this.selectedStatType === 'scoreRange' || !this.hasChartData) {
@@ -625,7 +651,7 @@
             // Tạo deep copy của dữ liệu để tránh tham chiếu
             const chartData = JSON.parse(JSON.stringify(this.currentChartData));
             
-            // Cấu hình cho biểu đồ với kích thước lớn hơn
+            // Cấu hình cho biểu đồ với kích thước tương ứng 60% giao diện
             const options = {
               responsive: true,
               maintainAspectRatio: false, // Quan trọng để điều chỉnh kích thước
@@ -658,6 +684,32 @@
                       return `${context.label || ''}: ${value} (${percentage}%)`;
                     }
                   }
+                }
+              },
+              // Thêm kích thước cho biểu đồ
+              layout: {
+                padding: {
+                  top: 10,
+                  right: 10,
+                  bottom: 10,
+                  left: 10
+                }
+              },
+              // Sự kiện resize để đảm bảo biểu đồ có kích thước phù hợp
+              onResize: (chart, size) => {
+                // Đảm bảo chiều cao tối đa là 60% chiều cao của viewport
+                const containerHeight = window.innerHeight * 0.6;
+                chart.canvas.parentNode.style.height = `${containerHeight}px`;
+                
+                // Với biểu đồ tròn, điều chỉnh chiều rộng để tránh bị kéo dãn
+                if (chartType === 'pie') {
+                  // Chiều rộng đảm bảo tỷ lệ 4:3 cho biểu đồ tròn
+                  const desiredWidth = Math.min(containerHeight * 1.33, window.innerWidth * 0.8);
+                  chart.canvas.parentNode.style.width = `${desiredWidth}px`;
+                  canvas.parentNode.style.margin = '0 auto';
+                } else {
+                  // Chiều rộng 100% cho biểu đồ cột
+                  chart.canvas.parentNode.style.width = '100%';
                 }
               }
             };
@@ -749,6 +801,21 @@
               data: chartData,
               options: options
             });
+            
+            // Áp dụng kích thước ngay sau khi tạo biểu đồ
+            const containerHeight = window.innerHeight * 0.6;
+            if (canvas.parentNode) {
+              canvas.parentNode.style.height = `${containerHeight}px`;
+              
+              // Với biểu đồ tròn, điều chỉnh chiều rộng để tránh bị kéo dãn
+              if (chartType === 'pie') {
+                const desiredWidth = Math.min(containerHeight * 1.33, window.innerWidth * 0.8);
+                canvas.parentNode.style.width = `${desiredWidth}px`;
+              } else {
+                // Chiều rộng 100% cho biểu đồ cột
+                canvas.parentNode.style.width = '100%';
+              }
+            }
           } catch (error) {
             console.error('Error rendering chart:', error);
           }
@@ -756,7 +823,7 @@
       }
     }
   }
-  </script>
+</script>
   
   <style scoped>
   .pre-admitted-container {

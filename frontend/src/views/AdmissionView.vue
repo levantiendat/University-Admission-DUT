@@ -349,7 +349,7 @@ export default {
 
 .card-header {
   background-color: #0d47a1 !important;
-  padding: 1.5rem;
+  padding: 1.0rem;
 }
 
 .header-icon {
@@ -490,7 +490,7 @@ export default {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.0rem;
   }
   
   .header-icon {
@@ -503,7 +503,7 @@ export default {
   
   /* Giảm kích thước chữ cho bảng trên màn hình nhỏ nhưng vẫn đảm bảo đủ lớn để đọc */
   .table th, .table td {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     padding: 0.5rem;
   }
 }
@@ -514,11 +514,11 @@ export default {
   }
   
   .card-header h2 {
-    font-size: 1.3rem;
+    font-size: 0.8rem;
   }
   
   .table th, .table td {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
     padding: 0.4rem;
   }
   

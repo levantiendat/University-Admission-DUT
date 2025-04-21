@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand-lg custom-header">
-      <div class="container-fluid px-7vw d-flex align-items-center">
+      <div class="container-fluid px-5vw d-flex align-items-center">
         <router-link 
           to="/" 
           class="d-flex align-items-center text-decoration-none text-dark"
@@ -46,13 +46,13 @@
                 <i class="bi bi-mortarboard-fill me-1"></i> Tuyển sinh năm 2025
               </a>
               <ul class="custom-dropdown-menu">
-                <li><router-link class="dropdown-item" to="/university-admission">Thông tin tuyển sinh chung</router-link></li>
-                <li><router-link class="dropdown-item" to="/university-admission/XTT">Xét tuyển thẳng theo quy chế của Bộ Giáo dục và đào tạo</router-link></li>
-                <li><router-link class="dropdown-item" to="/university-admission/XTR">Xét tuyển riêng theo đề án tuyển sinh</router-link></li>
-                <li><router-link class="dropdown-item" to="/university-admission/TN_THPT">Xét tuyển theo điểm thi tốt nghiệp THPT</router-link></li>
-                <li><router-link class="dropdown-item" to="/university-admission/HB_THPT">Xét tuyển theo điểm học tập cấp THPT</router-link></li>
-                <li><router-link class="dropdown-item" to="/university-admission/DGNL">Xét tuyển theo kết quả kỳ thi Đánh Giá Năng Lực của ĐHQG TPHCM</router-link></li>
-                <li><router-link class="dropdown-item" to="/university-admission/DGTD">Xét tuyển theo điểm thi kỳ thi Đánh Giá Tư Duy của ĐHBK Hà Nội</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission">Thông tin tuyển sinh chung</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission/xettuyenthang">Xét tuyển thẳng theo quy chế của Bộ Giáo dục và đào tạo</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission/xettuyenrieng">Xét tuyển riêng theo đề án tuyển sinh</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission/totnghiep_thpt">Xét tuyển theo điểm thi tốt nghiệp THPT</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission/hocba_thpt">Xét tuyển theo điểm học tập cấp THPT</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission/danhgianangluc">Xét tuyển theo kết quả kỳ thi Đánh Giá Năng Lực của ĐHQG TPHCM</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission/danhgiatuduy">Xét tuyển theo điểm thi kỳ thi Đánh Giá Tư Duy của ĐHBK Hà Nội</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item">
@@ -191,9 +191,9 @@ export default {
   margin-right: 3%;
 }
 
-.px-7vw {
-  padding-left: 7vw !important;
-  padding-right: 7vw !important;
+.px-5vw {
+  padding-left: 5vw !important;
+  padding-right: 5vw !important;
 }
 
 .header-logo {
@@ -205,11 +205,11 @@ export default {
   display: flex;
   flex-direction: column;
   line-height: 1.1;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 }
 
 .header-info-eng {
-  font-size: 0.7rem;
+  font-size: 0.5rem;
 }
 
 .hr-custom {

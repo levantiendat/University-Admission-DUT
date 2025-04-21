@@ -474,7 +474,8 @@ export default {
       showAllYears: false, // New flag for showing all years
       charts: {},
       currentUser: 'levantiendatcode',
-      currentDate: '2025-04-20 23:44:11'
+      currentDate: '2025-04-20 23:44:11',
+      chartHeight: '60vh' // Stored chart height value
     }
   },
   computed: {
@@ -537,6 +538,13 @@ export default {
     if (this.faculties.length > 0) {
       this.selectedFacultyForChart = this.faculties[0].id
     }
+    
+    // Add resize event listener
+    window.addEventListener('resize', this.adjustChartSizes)
+  },
+  beforeDestroy() {
+    // Cleanup resize listener when component is destroyed
+    window.removeEventListener('resize', this.adjustChartSizes)
   },
   watch: {
     viewMode() {
@@ -544,6 +552,7 @@ export default {
       if (this.viewMode === 'chart') {
         this.$nextTick(() => {
           this.renderCharts()
+          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -552,6 +561,7 @@ export default {
       if (this.viewMode === 'chart') {
         this.$nextTick(() => {
           this.renderCharts()
+          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -560,6 +570,7 @@ export default {
       if (this.viewMode === 'chart' && this.chartViewType === 'major') {
         this.$nextTick(() => {
           this.renderMajorChart()
+          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -568,6 +579,7 @@ export default {
       if (this.viewMode === 'chart' && this.chartViewType === 'faculty') {
         this.$nextTick(() => {
           this.renderFacultyChart()
+          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -580,6 +592,7 @@ export default {
           } else {
             this.renderUniversityChart()
           }
+          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -594,6 +607,7 @@ export default {
           } else {
             this.renderUniversityChart()
           }
+          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -608,11 +622,40 @@ export default {
           } else {
             this.renderUniversityChart()
           }
+          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     }
   },
   methods: {
+    // Adjust chart sizes to ensure they don't exceed 60% of viewport height
+    adjustChartSizes() {
+      this.$nextTick(() => {
+        // Calculate the maximum height (60% of viewport height)
+        const maxHeight = window.innerHeight * 0.6
+        
+        // Get all chart containers
+        const chartContainers = document.querySelectorAll('.chart-container')
+        
+        chartContainers.forEach(container => {
+          // Set height to 60% of viewport height
+          container.style.height = `${maxHeight}px`
+          container.style.maxHeight = '60vh'
+          
+          // For single method charts, ensure they have proper width
+          if (container.classList.contains('single-method-chart')) {
+            container.style.width = '100%'
+          }
+          
+          // Force chart resize if it exists
+          const chartId = container.getAttribute('data-chart-id')
+          if (chartId && this.charts[chartId]) {
+            this.charts[chartId].resize()
+          }
+        })
+      })
+    },
+    
     async fetchData() {
       this.loading = true
       this.error = null
@@ -806,11 +849,21 @@ export default {
       const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
       
       if (ctx) {
+        // Add chart container class and data attribute
+        const chartContainer = ctx.canvas.parentNode
+        chartContainer.classList.add('chart-container')
+        if (isSingleMethod) {
+          chartContainer.classList.add('single-method-chart')
+        }
+        chartContainer.setAttribute('data-chart-id', refName)
+        
+        // Create chart with responsive and maintainAspectRatio: false
         this.charts[refName] = new Chart(ctx, {
           type: 'bar',
           data: chartData,
           options: {
             responsive: true,
+            maintainAspectRatio: false, // Essential for controlling size
             scales: {
               y: {
                 beginAtZero: true,
@@ -852,9 +905,19 @@ export default {
                   }
                 }
               }
+            },
+            // Add onResize callback to ensure chart fits within 60% of viewport height
+            onResize: (chart, size) => {
+              const maxHeight = window.innerHeight * 0.6
+              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
+        
+        // Set initial height for the chart container
+        const maxHeight = window.innerHeight * 0.6
+        chartContainer.style.height = `${maxHeight}px`
+        chartContainer.style.maxHeight = '60vh'
       }
     },
     renderSingleMethodMajorChart(majorData, method, isSingleMethod = false) {
@@ -890,11 +953,20 @@ export default {
       const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
       
       if (ctx) {
+        // Add chart container class and data attribute
+        const chartContainer = ctx.canvas.parentNode
+        chartContainer.classList.add('chart-container')
+        if (isSingleMethod) {
+          chartContainer.classList.add('single-method-chart')
+        }
+        chartContainer.setAttribute('data-chart-id', refName)
+        
         this.charts[refName] = new Chart(ctx, {
           type: 'bar',
           data: chartData,
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true,
@@ -932,9 +1004,19 @@ export default {
                   }
                 }
               }
+            },
+            // Add onResize callback to ensure chart fits within 60% of viewport height
+            onResize: (chart, size) => {
+              const maxHeight = window.innerHeight * 0.6
+              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
+        
+        // Set initial height for the chart container
+        const maxHeight = window.innerHeight * 0.6
+        chartContainer.style.height = `${maxHeight}px`
+        chartContainer.style.maxHeight = '60vh'
       }
     },
     renderFacultyChart() {
@@ -1022,11 +1104,20 @@ export default {
       const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
       
       if (ctx) {
+        // Add chart container class and data attribute
+        const chartContainer = ctx.canvas.parentNode
+        chartContainer.classList.add('chart-container')
+        if (isSingleMethod) {
+          chartContainer.classList.add('single-method-chart')
+        }
+        chartContainer.setAttribute('data-chart-id', refName)
+        
         this.charts[refName] = new Chart(ctx, {
           type: 'bar',
           data: chartData,
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true,
@@ -1070,9 +1161,19 @@ export default {
                   }
                 }
               }
+            },
+            // Add onResize callback to ensure chart fits within 60% of viewport height
+            onResize: (chart, size) => {
+              const maxHeight = window.innerHeight * 0.6
+              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
+        
+        // Set initial height for the chart container
+        const maxHeight = window.innerHeight * 0.6
+        chartContainer.style.height = `${maxHeight}px`
+        chartContainer.style.maxHeight = '60vh'
       }
     },
     renderSingleMethodFacultyChart(majors, faculty, method, isSingleMethod = false) {
@@ -1105,11 +1206,20 @@ export default {
       const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
       
       if (ctx) {
+        // Add chart container class and data attribute
+        const chartContainer = ctx.canvas.parentNode
+        chartContainer.classList.add('chart-container')
+        if (isSingleMethod) {
+          chartContainer.classList.add('single-method-chart')
+        }
+        chartContainer.setAttribute('data-chart-id', refName)
+        
         this.charts[refName] = new Chart(ctx, {
           type: 'bar',
           data: chartData,
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true,
@@ -1152,9 +1262,19 @@ export default {
                   }
                 }
               }
+            },
+            // Add onResize callback to ensure chart fits within 60% of viewport height
+            onResize: (chart, size) => {
+              const maxHeight = window.innerHeight * 0.6
+              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
+        
+        // Set initial height for the chart container
+        const maxHeight = window.innerHeight * 0.6
+        chartContainer.style.height = `${maxHeight}px`
+        chartContainer.style.maxHeight = '60vh'
       }
     },
     renderUniversityChart() {
@@ -1232,11 +1352,20 @@ export default {
       const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
       
       if (ctx) {
+        // Add chart container class and data attribute
+        const chartContainer = ctx.canvas.parentNode
+        chartContainer.classList.add('chart-container')
+        if (isSingleMethod) {
+          chartContainer.classList.add('single-method-chart')
+        }
+        chartContainer.setAttribute('data-chart-id', refName)
+        
         this.charts[refName] = new Chart(ctx, {
           type: 'bar',
           data: chartData,
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true,
@@ -1280,9 +1409,19 @@ export default {
                   }
                 }
               }
+            },
+            // Add onResize callback to ensure chart fits within 60% of viewport height
+            onResize: (chart, size) => {
+              const maxHeight = window.innerHeight * 0.6
+              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
+        
+        // Set initial height for the chart container
+        const maxHeight = window.innerHeight * 0.6
+        chartContainer.style.height = `${maxHeight}px`
+        chartContainer.style.maxHeight = '60vh'
       }
     },
     renderSingleMethodUniversityChart(method, isSingleMethod = false) {
@@ -1317,11 +1456,20 @@ export default {
       const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
       
       if (ctx) {
+        // Add chart container class and data attribute
+        const chartContainer = ctx.canvas.parentNode
+        chartContainer.classList.add('chart-container')
+        if (isSingleMethod) {
+          chartContainer.classList.add('single-method-chart')
+        }
+        chartContainer.setAttribute('data-chart-id', refName)
+        
         this.charts[refName] = new Chart(ctx, {
           type: 'bar',
           data: chartData,
           options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true,
@@ -1364,9 +1512,19 @@ export default {
                   }
                 }
               }
+            },
+            // Add onResize callback to ensure chart fits within 60% of viewport height
+            onResize: (chart, size) => {
+              const maxHeight = window.innerHeight * 0.6
+              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
+        
+        // Set initial height for the chart container
+        const maxHeight = window.innerHeight * 0.6
+        chartContainer.style.height = `${maxHeight}px`
+        chartContainer.style.maxHeight = '60vh'
       }
     }
   }
