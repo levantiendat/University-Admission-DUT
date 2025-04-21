@@ -231,57 +231,80 @@ export default {
   
   // Tổng hợp dữ liệu thống kê theo khoảng điểm - ĐÃ SỬA LỖI
   prepareScoreRangeStatsData(stats, conditions) {
-    // Lọc dữ liệu theo điều kiện
-    const filteredStats = this.filterStatsByCondition(stats, conditions)
-    
-    if (filteredStats.length === 0) return null
-    
-    // Tổng hợp dữ liệu theo khoảng điểm
-    const scoreRangeData = {}
-    
-    filteredStats.forEach(stat => {
-      // Đảm bảo score_range có giá trị và không phải undefined/null
-      if (stat.score_range && !scoreRangeData[stat.score_range]) {
-        scoreRangeData[stat.score_range] = 0
+    try {
+      // Lọc dữ liệu theo điều kiện
+      const filteredStats = this.filterStatsByCondition(stats, conditions)
+      
+      if (!filteredStats || filteredStats.length === 0) {
+        console.log('No data available for score range chart');
+        return null;
       }
       
-      if (stat.score_range) {
-        scoreRangeData[stat.score_range] += stat.total
+      // Tổng hợp dữ liệu theo khoảng điểm
+      const scoreRangeData = {};
+      
+      filteredStats.forEach(stat => {
+        // Đảm bảo score_range có giá trị và không phải undefined/null
+        if (stat.score_range && typeof stat.score_range === 'string') {
+          if (!scoreRangeData[stat.score_range]) {
+            scoreRangeData[stat.score_range] = 0;
+          }
+          
+          scoreRangeData[stat.score_range] += stat.total;
+        }
+      });
+      
+      // Nếu không có dữ liệu khoảng điểm hợp lệ
+      if (Object.keys(scoreRangeData).length === 0) {
+        console.log('No valid score ranges found');
+        return null;
       }
-    })
-    
-    // Sắp xếp khoảng điểm theo thứ tự tăng dần của điểm bắt đầu
-    const sortedScoreRanges = Object.keys(scoreRangeData).sort((a, b) => {
-      // Trích xuất giá trị đầu của khoảng điểm trong format "X-Y"
-      const aLower = parseFloat(a.split('-')[0] || 0)
-      const bLower = parseFloat(b.split('-')[0] || 0)
-      return aLower - bLower
-    })
-    
-    // Chuẩn bị dữ liệu cho biểu đồ
-    const labels = sortedScoreRanges
-    const data = sortedScoreRanges.map(range => scoreRangeData[range])
-    
-    // Màu gradient cho biểu đồ khoảng điểm (từ xanh lá đến đỏ)
-    const colors = this.generateGradientColors(labels.length, 
-      [75, 192, 192],  // Start color (xanh lá nhạt)
-      [255, 99, 132]   // End color (đỏ hồng)
-    )
-    
-    return {
-      labels,
-      datasets: [{
-        label: 'Số lượng sinh viên',
-        data,
-        backgroundColor: colors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.8)`),
-        borderColor: colors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`),
-        borderWidth: 2
-      }]
+      
+      // Sắp xếp khoảng điểm theo thứ tự tăng dần của điểm bắt đầu
+      const sortedScoreRanges = Object.keys(scoreRangeData).sort((a, b) => {
+        // Trích xuất giá trị đầu của khoảng điểm trong format "X-Y"
+        const aLower = parseFloat(a.split('-')[0] || 0);
+        const bLower = parseFloat(b.split('-')[0] || 0);
+        return aLower - bLower;
+      });
+      
+      // Chuẩn bị dữ liệu cho biểu đồ
+      const labels = sortedScoreRanges;
+      const data = sortedScoreRanges.map(range => scoreRangeData[range]);
+      
+      // Kiểm tra kết quả
+      if (labels.length === 0 || data.length === 0) {
+        console.log('Empty labels or data arrays');
+        return null;
+      }
+      
+      // Màu gradient cho biểu đồ khoảng điểm (từ xanh lá đến đỏ)
+      const colors = this.generateGradientColors(labels.length, 
+        [75, 192, 192],  // Start color (xanh lá nhạt)
+        [255, 99, 132]   // End color (đỏ hồng)
+      );
+      
+      // Trả về dữ liệu chuẩn để render
+      return {
+        labels,
+        datasets: [{
+          label: 'Số lượng sinh viên',
+          data,
+          backgroundColor: colors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.8)`),
+          borderColor: colors.map(color => `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`),
+          borderWidth: 1
+        }]
+      };
+    } catch (error) {
+      console.error('Error in prepareScoreRangeStatsData:', error);
+      return null;
     }
   },
   
   // Tạo ra một mảng màu ngẫu nhiên
   generateColors(count, opacity = 1) {
+    if (!count || count <= 0) return []; // Bảo vệ khỏi đầu vào không hợp lệ
+    
     const baseColors = [
       `rgba(255, 99, 132, ${opacity})`,   // Đỏ hồng
       `rgba(54, 162, 235, ${opacity})`,   // Xanh dương
@@ -314,6 +337,8 @@ export default {
   
   // Tạo gradient màu từ màu bắt đầu đến màu kết thúc - HÀM MỚI
   generateGradientColors(count, startColor, endColor) {
+    if (!count || count <= 0) return []; // Bảo vệ khỏi đầu vào không hợp lệ
+    
     const colors = []
     for (let i = 0; i < count; i++) {
       // Tính toán màu dựa trên vị trí tương đối
@@ -328,6 +353,8 @@ export default {
   
   // Lấy danh sách ID ngành thuộc khoa
   getMajorIdsByFaculty(majors, facultyId) {
+    if (!majors || !facultyId) return [];
+    
     return majors
       .filter(major => major.faculty_id === facultyId)
       .map(major => major.id)
