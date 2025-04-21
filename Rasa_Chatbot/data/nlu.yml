@@ -347,40 +347,6 @@ nlu:
     - điểm mới trong năm nay là gì?
     - có gì mới trong năm nay?
 
-- intent: ask_cntt_dacthu
-  examples: |
-    - cntt đthtdn
-    - cntt đt
-    - cntt đặc thù hợp tác doanh nghiệp
-    - ngành cntt đặc thù hợp tác doanh nghiệp
-    - công nghệ thông tin đặc thù hợp tác doanh nghiệp
-    - cntt đặc thù
-    - công nghệ thông tin đặc thù
-
-- intent: ask_cntt_ai
-  examples: |
-    - cntt trí tuệ nhân tạo
-    - cntt khdl ttnt
-    - cntt khoa học dữ liệu
-    - cntt trí tuệ nhân tạo
-    - cntt khdl ttnt
-    - cntt khoa học dữ liệu
-    - cntt trí tuệ nhân tạo
-    - cntt khoa học dữ liệu trí tuệ nhân tạo
-    - cntt ai
-    - công nghệ thông tin khoa học dữ liệu trí tuệ nhân tạo
-    - ngành công nghệ thông tin khoa học dữ liệu trí tuệ nhân tạo
-
-- intent: ask_cntt_nnn
-  examples: |
-    - công nghệ thông tin nnn
-    - cntt nnn
-    - cntt ngoại ngữ nhật
-    - ngành cntt ngoại ngữ nhật
-    - công nghệ thông tin ngoại ngữ nhật
-    - cntt nnn
-    - cntt ngoại ngữ nhật
-    - công nghệ thông tin ngoại ngữ nhật
 
 # ---------- ĐIỂM CHUẨN TUYỂN SINH ----------
 - intent: ask_cutoff_score
@@ -474,159 +440,159 @@ nlu:
 
 - intent: ask_combination_major
   examples: |
-    - Tổ hợp môn xét tuyển ngành [CNTT Đặc thù](major) là gì?
-    - [Công nghệ thông tin Đặc thù - Hợp tác doanh nghiệp](major) xét tuyển những môn nào?
-    - [CNTT HTDN](major) lấy điểm những môn gì?
-    - Để vào ngành [Công nghệ thông tin Đặc thù](major) cần thi những môn nào?
-    - Khối nào xét tuyển vào [CNTT Đặc thù HTDN](major)?
-    - [CNTT Nhật](major) xét tuyển những tổ hợp môn gì?
-    - Thi những môn nào để vào [Công nghệ thông tin ngoại ngữ Nhật](major)?
-    - Khối nào được xét tuyển vào ngành [CNTT NN Nhật](major)?
-    - [Công nghệ thông tin tiếng Nhật](major) có những tổ hợp môn nào?
-    - Ngành [CNTT Nhật](major) xét điểm những môn gì?
-    - [CNTT AI](major) xét tuyển những tổ hợp môn nào?
-    - [Công nghệ thông tin Trí tuệ nhân tạo](major) lấy điểm những môn gì?
-    - [CNTT KHDL](major) thi những môn nào?
-    - Để vào [Công nghệ thông tin Khoa học dữ liệu](major) cần thi những môn gì?
-    - Tổ hợp môn xét tuyển vào ngành [CNTT KHDL & TTNT](major) là gì?
-    - [CNTT Đặc thù KHDL](major) xét tuyển những khối nào?
-    - [KTMT](major) có những tổ hợp xét tuyển nào?
-    - Những môn nào để xét tuyển vào [Kỹ thuật máy tính](major)?
-    - Thi khối nào để vào ngành [KTMT](major)?
-    - Để học [Kỹ thuật máy tính](major) cần thi những môn gì?
-    - [CNSH](major) xét tuyển những tổ hợp môn nào?
-    - [Công nghệ sinh học](major) thi những môn gì?
-    - Tổ hợp môn xét tuyển vào [CNSH](major) là gì?
-    - Để vào [Công nghệ sinh học](major) cần thi những môn nào?
-    - [CNSH Y Dược](major) xét tuyển những khối nào?
-    - [Công nghệ sinh học Y Dược](major) lấy điểm những môn gì?
-    - Tổ hợp môn nào để vào [CNSH YD](major)?
-    - Để học [Công nghệ sinh học chuyên ngành Y Dược](major) cần thi những môn gì?
-    - [CNKT VLXD](major) xét tuyển những môn nào?
-    - [Công nghệ kỹ thuật vật liệu xây dựng](major) thi những khối nào?
-    - Tổ hợp môn nào để vào [CNKT VLXD](major)?
-    - Để học [Công nghệ kỹ thuật vật liệu xây dựng](major) thi những môn gì?
-    - [CNCTM](major) xét tổ hợp môn nào?
-    - [Công nghệ chế tạo máy](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào ngành [CNCTM](major) là gì?
-    - Để vào [Công nghệ chế tạo máy](major) cần thi những môn nào?
-    - [QLCN](major) xét tuyển những khối nào?
-    - [Quản lý công nghiệp](major) thi những môn gì?
-    - Tổ hợp môn nào để vào [QLCN](major)?
-    - Để học [Quản lý công nghiệp](major) cần thi những môn gì?
-    - [CNDK&KTD](major) xét tuyển những tổ hợp môn nào?
-    - [Công nghệ dầu khí và khai thác dầu](major) thi những môn gì?
-    - Khối nào được xét tuyển vào ngành [CNDK&KTD](major)?
-    - Để vào [Công nghệ dầu khí](major) cần thi những môn nào?
-    - [PFIEV](major) xét tuyển những tổ hợp môn gì?
-    - [Kỹ sư chất lượng cao Việt - Pháp](major) thi những môn nào?
-    - Tổ hợp môn xét tuyển vào [PFIEV](major) là gì?
-    - Để vào [CTĐT kỹ sư CLC Việt - Pháp](major) cần thi những môn nào?
-    - [KTCK CKĐL](major) xét tuyển những môn nào?
-    - [Cơ khí động lực](major) thi những khối nào?
-    - Tổ hợp môn nào để vào [KTCK chuyên ngành Cơ khí động lực](major)?
-    - Để học [Kỹ thuật Cơ khí động lực](major) cần thi những môn gì?
-    - [KTCĐT](major) xét tổ hợp môn nào?
-    - [Kỹ thuật Cơ điện tử](major) lấy điểm những môn gì?
-    - Tổ hợp xét tuyển vào [KTCĐT](major) là gì?
-    - Để học [Cơ điện tử](major) cần thi những môn nào?
-    - [KTN](major) xét tuyển những khối nào?
-    - [Kỹ thuật nhiệt](major) thi những môn gì?
-    - Tổ hợp môn nào để vào [KTN](major)?
-    - Để vào [Kỹ thuật nhiệt](major) cần thi những môn nào?
-    - [KTN QLNL](major) xét tuyển những tổ hợp môn nào?
-    - [Kỹ thuật nhiệt Quản lý năng lượng](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [KTN chuyên ngành QLNL](major) là gì?
-    - Để học [Kỹ thuật nhiệt QLNL](major) cần thi những môn nào?
-    - [KTTT](major) xét tuyển những khối nào?
-    - [Kỹ thuật Tàu thủy](major) thi những môn gì?
-    - Tổ hợp môn nào để vào [KTTT](major)?
-    - Để vào [Kỹ thuật Tàu thủy](major) cần thi những môn nào?
-    - [KTĐ](major) xét tuyển tổ hợp môn nào?
-    - [Kỹ thuật Điện](major) thi những môn gì?
-    - Khối nào được xét tuyển vào ngành [KTĐ](major)?
-    - Để học [Kỹ thuật Điện](major) cần thi những môn nào?
-    - [KTĐT-VT](major) xét tuyển những khối nào?
-    - [Kỹ thuật điện tử - viễn thông](major) thi những môn gì?
-    - Tổ hợp môn nào để vào [KTĐT viễn thông](major)?
-    - Để học [Kỹ thuật điện tử viễn thông](major) cần thi những môn nào?
-    - [KTĐK&TĐH](major) xét tuyển những tổ hợp môn nào?
-    - [Kỹ thuật Điều khiển và Tự động hóa](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [KTĐK và TĐH](major) là gì?
-    - Để học [Kỹ thuật Điều khiển Tự động hóa](major) cần thi những môn nào?
-    - [KTHH](major) xét tuyển những khối nào?
-    - [Kỹ thuật hóa học](major) thi những môn gì?
-    - Tổ hợp môn nào để vào ngành [KTHH](major)?
-    - Để vào [Kỹ thuật hóa học](major) cần thi những môn nào?
-    - [KTMT](major) xét tuyển những tổ hợp môn gì?
-    - [Kỹ thuật môi trường](major) thi những môn nào?
-    - Khối nào được xét tuyển vào ngành [KTMT](major)?
-    - Để vào [Kỹ thuật môi trường](major) cần thi những môn gì?
-    - [KTHTCN](major) xét tuyển những môn nào?
-    - [Kỹ thuật hệ thống công nghiệp](major) thi những khối nào?
-    - Tổ hợp môn nào để vào [KTHTCN](major)?
-    - Để học [Kỹ thuật hệ thống công nghiệp](major) cần thi những môn gì?
-    - [KTCK CKHK](major) xét tuyển những tổ hợp môn nào?
-    - [Kỹ thuật Cơ khí hàng không](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [Cơ khí hàng không](major) là gì?
-    - Để vào [KTCK chuyên ngành CKHK](major) cần thi những môn nào?
-    - [CTTT KTĐTVT](major) xét tuyển những khối nào?
-    - [Chương trình tiên tiến Kỹ thuật Điện tử viễn thông](major) thi những môn gì?
-    - Tổ hợp môn nào để vào [CTTT Việt-Mỹ KTĐTVT](major)?
-    - Để học [Chương trình tiên tiến KTĐTVT](major) cần thi những môn nào?
-    - [CTTT HTN&IoT](major) xét tuyển những tổ hợp môn nào?
-    - [Chương trình tiên tiến Hệ thống Nhúng và IoT](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [CTTT Việt-Mỹ HTN và IoT](major) là gì?
-    - Để học [Chương trình tiên tiến Hệ thống Nhúng](major) cần thi những môn nào?
-    - [CNTP](major) xét tuyển những môn nào?
-    - [Công nghệ thực phẩm](major) thi những khối nào?
-    - Tổ hợp môn nào để vào ngành [CNTP](major)?
-    - Để học [Công nghệ thực phẩm](major) cần thi những môn gì?
-    - [KT](major) xét tuyển những tổ hợp môn nào?
-    - [Kiến trúc](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [KT](major) là gì?
-    - Để vào ngành [Kiến trúc](major) cần thi những môn nào?
-    - [KTXD XDDD&CN](major) xét tuyển những khối nào?
-    - [Kỹ thuật xây dựng dân dụng và công nghiệp](major) thi những môn gì?
-    - Tổ hợp môn nào để vào [KTXD chuyên ngành XDDD&CN](major)?
-    - Để học [Xây dựng dân dụng và công nghiệp](major) cần thi những môn nào?
-    - [KTXD THXD](major) xét tuyển những tổ hợp môn nào?
-    - [Kỹ thuật xây dựng Tin học xây dựng](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [KTXD chuyên ngành THXD](major) là gì?
-    - Để học [Tin học xây dựng](major) cần thi những môn nào?
-    - [KTXD ĐTTM](major) xét tuyển những môn nào?
-    - [Kỹ thuật xây dựng đô thị thông minh](major) thi những khối nào?
-    - Tổ hợp môn nào để vào [KTXD QLXD ĐTTM](major)?
-    - Để học [Kỹ thuật và quản lý xây dựng đô thị thông minh](major) cần thi những môn gì?
-    - [KTXD MHTT&TTNT](major) xét tuyển những tổ hợp môn nào?
-    - [Kỹ thuật xây dựng Mô hình thông tin và TTNT](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [KTXD chuyên ngành MHTT và TTNT](major) là gì?
-    - Để học [Kỹ thuật xây dựng MHTT và TTNT](major) cần thi những môn nào?
-    - [KTXDCTT](major) xét tuyển những khối nào?
-    - [Kỹ thuật xây dựng công trình thủy](major) thi những môn gì?
-    - Tổ hợp môn nào để vào [KTXDCTT](major)?
-    - Để học [Kỹ thuật xây dựng công trình thủy](major) cần thi những môn nào?
-    - [KTXDCTGT](major) xét tuyển những tổ hợp môn nào?
-    - [Kỹ thuật xây dựng công trình giao thông](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [KTXDCTGT](major) là gì?
-    - Để học [Kỹ thuật xây dựng công trình giao thông](major) cần thi những môn nào?
-    - [KTXDCTGT ĐSTĐC](major) xét tuyển những môn nào?
-    - [Xây dựng đường sắt tốc độ cao](major) thi những khối nào?
-    - Tổ hợp môn nào để vào [KTXDCTGT chuyên ngành ĐSTĐC](major)?
-    - Để học [Xây dựng đường sắt đô thị](major) cần thi những môn gì?
-    - [KTXD](major) xét tuyển những tổ hợp môn nào?
-    - [Kinh tế xây dựng](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [KTXD](major) là gì?
-    - Để học [Kinh tế xây dựng](major) cần thi những môn nào?
-    - [KTCSHT](major) xét tuyển những khối nào?
-    - [Kỹ thuật cơ sở hạ tầng](major) thi những môn gì?
-    - Tổ hợp môn nào để vào [KTCSHT](major)?
-    - Để học [Kỹ thuật cơ sở hạ tầng](major) cần thi những môn nào?
-    - [QLTN&MT](major) xét tuyển những tổ hợp môn nào?
-    - [Quản lý tài nguyên và môi trường](major) thi những môn gì?
-    - Tổ hợp xét tuyển vào [QLTNMT](major) là gì?
-    - Để học [Quản lý tài nguyên và môi trường](major) cần thi những môn nào?
-    - [QLTN&MT](major) lấy khối thi nào?
+    - Tổ hợp môn xét tuyển ngành [công nghệ thông tin đặc thù](major) là gì?
+    - [công nghệ thông tin đặc thù - hợp tác doanh nghiệp](major) xét tuyển những môn nào?
+    - [cntt htdn](major) lấy điểm những môn gì?
+    - Để vào ngành [công nghệ thông tin đặc thù](major) cần thi những môn nào?
+    - Khối nào xét tuyển vào [cntt đặc thù htdn](major)?
+    - [cntt nhật](major) xét tuyển những tổ hợp môn gì?
+    - Thi những môn nào để vào [công nghệ thông tin ngoại ngữ nhật](major)?
+    - Khối nào được xét tuyển vào ngành [cntt nn nhật](major)?
+    - [công nghệ thông tin tiếng nhật](major) có những tổ hợp môn nào?
+    - Ngành [cntt nhật](major) xét điểm những môn gì?
+    - [cntt ai](major) xét tuyển những tổ hợp môn nào?
+    - [công nghệ thông tin trí tuệ nhân tạo](major) lấy điểm những môn gì?
+    - [cntt khdl](major) thi những môn nào?
+    - Để vào [công nghệ thông tin khoa học dữ liệu](major) cần thi những môn gì?
+    - Tổ hợp môn xét tuyển vào ngành [cntt khdl & ttnt](major) là gì?
+    - [cntt đặc thù khdl](major) xét tuyển những khối nào?
+    - [ktmt](major) có những tổ hợp xét tuyển nào?
+    - Những môn nào để xét tuyển vào [kỹ thuật máy tính](major)?
+    - Thi khối nào để vào ngành [ktmt](major)?
+    - Để học [kỹ thuật máy tính](major) cần thi những môn gì?
+    - [cnsh](major) xét tuyển những tổ hợp môn nào?
+    - [công nghệ sinh học](major) thi những môn gì?
+    - Tổ hợp môn xét tuyển vào [cnsh](major) là gì?
+    - Để vào [công nghệ sinh học](major) cần thi những môn nào?
+    - [cnsh y dược](major) xét tuyển những khối nào?
+    - [công nghệ sinh học y dược](major) lấy điểm những môn gì?
+    - Tổ hợp môn nào để vào [cnsh yd](major)?
+    - Để học [công nghệ sinh học chuyên ngành y dược](major) cần thi những môn gì?
+    - [cnkt vlxd](major) xét tuyển những môn nào?
+    - [công nghệ kỹ thuật vật liệu xây dựng](major) thi những khối nào?
+    - Tổ hợp môn nào để vào [cnkt vlxd](major)?
+    - Để học [công nghệ kỹ thuật vật liệu xây dựng](major) thi những môn gì?
+    - [cnctm](major) xét tổ hợp môn nào?
+    - [công nghệ chế tạo máy](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào ngành [cnctm](major) là gì?
+    - Để vào [công nghệ chế tạo máy](major) cần thi những môn nào?
+    - [qlcn](major) xét tuyển những khối nào?
+    - [quản lý công nghiệp](major) thi những môn gì?
+    - Tổ hợp môn nào để vào [qlcn](major)?
+    - Để học [quản lý công nghiệp](major) cần thi những môn gì?
+    - [cndk&ktd](major) xét tuyển những tổ hợp môn nào?
+    - [công nghệ dầu khí và khai thác dầu](major) thi những môn gì?
+    - Khối nào được xét tuyển vào ngành [cndk&ktd](major)?
+    - Để vào [công nghệ dầu khí](major) cần thi những môn nào?
+    - [pfiev](major) xét tuyển những tổ hợp môn gì?
+    - [kỹ sư chất lượng cao việt - pháp](major) thi những môn nào?
+    - Tổ hợp môn xét tuyển vào [pfiev](major) là gì?
+    - Để vào [ctđt kỹ sư clc việt - pháp](major) cần thi những môn nào?
+    - [ktck ckđl](major) xét tuyển những môn nào?
+    - [cơ khí động lực](major) thi những khối nào?
+    - Tổ hợp môn nào để vào [ktck chuyên ngành cơ khí động lực](major)?
+    - Để học [kỹ thuật cơ khí động lực](major) cần thi những môn gì?
+    - [ktcđt](major) xét tổ hợp môn nào?
+    - [kỹ thuật cơ điện tử](major) lấy điểm những môn gì?
+    - Tổ hợp xét tuyển vào [ktcđt](major) là gì?
+    - Để học [cơ điện tử](major) cần thi những môn nào?
+    - [ktn](major) xét tuyển những khối nào?
+    - [kỹ thuật nhiệt](major) thi những môn gì?
+    - Tổ hợp môn nào để vào [ktn](major)?
+    - Để vào [kỹ thuật nhiệt](major) cần thi những môn nào?
+    - [ktn qlnl](major) xét tuyển những tổ hợp môn nào?
+    - [kỹ thuật nhiệt quản lý năng lượng](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [ktn chuyên ngành qlnl](major) là gì?
+    - Để học [kỹ thuật nhiệt qlnl](major) cần thi những môn nào?
+    - [kttt](major) xét tuyển những khối nào?
+    - [kỹ thuật tàu thủy](major) thi những môn gì?
+    - Tổ hợp môn nào để vào [kttt](major)?
+    - Để vào [kỹ thuật tàu thủy](major) cần thi những môn nào?
+    - [ktđ](major) xét tuyển tổ hợp môn nào?
+    - [kỹ thuật điện](major) thi những môn gì?
+    - Khối nào được xét tuyển vào ngành [ktđ](major)?
+    - Để học [kỹ thuật điện](major) cần thi những môn nào?
+    - [ktđt-vt](major) xét tuyển những khối nào?
+    - [kỹ thuật điện tử - viễn thông](major) thi những môn gì?
+    - Tổ hợp môn nào để vào [ktđt viễn thông](major)?
+    - Để học [kỹ thuật điện tử viễn thông](major) cần thi những môn nào?
+    - [ktđk&tđh](major) xét tuyển những tổ hợp môn nào?
+    - [kỹ thuật điều khiển và tự động hóa](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [ktđk và tđh](major) là gì?
+    - Để học [kỹ thuật điều khiển tự động hóa](major) cần thi những môn nào?
+    - [kthh](major) xét tuyển những khối nào?
+    - [kỹ thuật hóa học](major) thi những môn gì?
+    - Tổ hợp môn nào để vào ngành [kthh](major)?
+    - Để vào [kỹ thuật hóa học](major) cần thi những môn nào?
+    - [ktmt](major) xét tuyển những tổ hợp môn gì?
+    - [kỹ thuật môi trường](major) thi những môn nào?
+    - Khối nào được xét tuyển vào ngành [ktmt](major)?
+    - Để vào [kỹ thuật môi trường](major) cần thi những môn gì?
+    - [kthtcn](major) xét tuyển những môn nào?
+    - [kỹ thuật hệ thống công nghiệp](major) thi những khối nào?
+    - Tổ hợp môn nào để vào [kthtcn](major)?
+    - Để học [kỹ thuật hệ thống công nghiệp](major) cần thi những môn gì?
+    - [ktck ckhk](major) xét tuyển những tổ hợp môn nào?
+    - [kỹ thuật cơ khí hàng không](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [cơ khí hàng không](major) là gì?
+    - Để vào [ktck chuyên ngành ckhk](major) cần thi những môn nào?
+    - [cttt ktđtvt](major) xét tuyển những khối nào?
+    - [chương trình tiên tiến kỹ thuật điện tử viễn thông](major) thi những môn gì?
+    - Tổ hợp môn nào để vào [cttt việt-mỹ ktđtvt](major)?
+    - Để học [chương trình tiên tiến ktđtvt](major) cần thi những môn nào?
+    - [cttt htn&iot](major) xét tuyển những tổ hợp môn nào?
+    - [chương trình tiên tiến hệ thống nhúng và iot](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [cttt việt-mỹ htn và iot](major) là gì?
+    - Để học [chương trình tiên tiến hệ thống nhúng](major) cần thi những môn nào?
+    - [cntp](major) xét tuyển những môn nào?
+    - [công nghệ thực phẩm](major) thi những khối nào?
+    - Tổ hợp môn nào để vào ngành [cntp](major)?
+    - Để học [công nghệ thực phẩm](major) cần thi những môn gì?
+    - [kt](major) xét tuyển những tổ hợp môn nào?
+    - [kiến trúc](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [kt](major) là gì?
+    - Để vào ngành [kiến trúc](major) cần thi những môn nào?
+    - [ktxd xddd&cn](major) xét tuyển những khối nào?
+    - [kỹ thuật xây dựng dân dụng và công nghiệp](major) thi những môn gì?
+    - Tổ hợp môn nào để vào [ktxd chuyên ngành xddd&cn](major)?
+    - Để học [xây dựng dân dụng và công nghiệp](major) cần thi những môn nào?
+    - [ktxd thxd](major) xét tuyển những tổ hợp môn nào?
+    - [kỹ thuật xây dựng tin học xây dựng](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [ktxd chuyên ngành thxd](major) là gì?
+    - Để học [tin học xây dựng](major) cần thi những môn nào?
+    - [ktxd đttm](major) xét tuyển những môn nào?
+    - [kỹ thuật xây dựng đô thị thông minh](major) thi những khối nào?
+    - Tổ hợp môn nào để vào [ktxd qlxd đttm](major)?
+    - Để học [kỹ thuật và quản lý xây dựng đô thị thông minh](major) cần thi những môn gì?
+    - [ktxd mhtt&ttnt](major) xét tuyển những tổ hợp môn nào?
+    - [kỹ thuật xây dựng mô hình thông tin và ttnt](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [ktxd chuyên ngành mhtt và ttnt](major) là gì?
+    - Để học [kỹ thuật xây dựng mhtt và ttnt](major) cần thi những môn nào?
+    - [ktxdctt](major) xét tuyển những khối nào?
+    - [kỹ thuật xây dựng công trình thủy](major) thi những môn gì?
+    - Tổ hợp môn nào để vào [ktxdctt](major)?
+    - Để học [kỹ thuật xây dựng công trình thủy](major) cần thi những môn nào?
+    - [ktxdctgt](major) xét tuyển những tổ hợp môn nào?
+    - [kỹ thuật xây dựng công trình giao thông](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [ktxdctgt](major) là gì?
+    - Để học [kỹ thuật xây dựng công trình giao thông](major) cần thi những môn nào?
+    - [ktxdctgt đstđc](major) xét tuyển những môn nào?
+    - [xây dựng đường sắt tốc độ cao](major) thi những khối nào?
+    - Tổ hợp môn nào để vào [ktxdctgt chuyên ngành đstđc](major)?
+    - Để học [xây dựng đường sắt đô thị](major) cần thi những môn gì?
+    - [ktxd](major) xét tuyển những tổ hợp môn nào?
+    - [kinh tế xây dựng](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [ktxd](major) là gì?
+    - Để học [kinh tế xây dựng](major) cần thi những môn nào?
+    - [ktcsht](major) xét tuyển những khối nào?
+    - [kỹ thuật cơ sở hạ tầng](major) thi những môn gì?
+    - Tổ hợp môn nào để vào [ktcsht](major)?
+    - Để học [kỹ thuật cơ sở hạ tầng](major) cần thi những môn nào?
+    - [qltn&mt](major) xét tuyển những tổ hợp môn nào?
+    - [quản lý tài nguyên và môi trường](major) thi những môn gì?
+    - Tổ hợp xét tuyển vào [qltnmt](major) là gì?
+    - Để học [quản lý tài nguyên và môi trường](major) cần thi những môn nào?
+    - [qltn&mt](major) lấy khối thi nào?
 
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program

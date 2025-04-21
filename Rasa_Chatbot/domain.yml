@@ -24,9 +24,6 @@ intents:
   - ask_direct_admission_detail
   - ask_xet_tuyen_rieng_detail
   - ask_diem_thi_TN_THPT
-  - ask_cntt_dacthu
-  - ask_cntt_ai
-  - ask_cntt_nnn
   - ask_admission_process
   - ask_training_program
   - ask_standard_output_language

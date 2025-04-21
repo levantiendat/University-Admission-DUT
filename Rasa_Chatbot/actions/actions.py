@@ -164,15 +164,26 @@ class ActionCombinationMajor(Action):
             "cntt đặc thù": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp)",
             "cntt htdn": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp)",
             "công nghệ thông tin đặc thù": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp)",
+            "công nghệ thông tin hợp tác doanh nghiệp": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp)",
+            "công nghệ thông tin đặc thù - hợp tác doanh nghiệp": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp)",
+            "cntt": "Công nghệ thông tin",
+            "công nghệ thông tin": "Công nghệ thông tin",
+
             "cntt nhật": "Công nghệ thông tin (ngoại ngữ Nhật)",
             "cntt tiếng nhật": "Công nghệ thông tin (ngoại ngữ Nhật)",
             "cntt nn nhật": "Công nghệ thông tin (ngoại ngữ Nhật)",
             "công nghệ thông tin ngoại ngữ nhật": "Công nghệ thông tin (ngoại ngữ Nhật)",
+            "công nghệ thông tin nhật": "Công nghệ thông tin (ngoại ngữ Nhật)",
+            "công nghệ thông tin tiếng nhật": "Công nghệ thông tin (ngoại ngữ Nhật)",
+            
             "cntt ai": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo",
             "cntt khdl": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo",
             "cntt khdl & ttnt": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo",
+            "cntt ttnt": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo",
             "công nghệ thông tin trí tuệ nhân tạo": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo",
             "công nghệ thông tin khoa học dữ liệu": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo",
+            "công nghệ thông tin khoa học dữ liệu và trí tuệ nhân tạo": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo",
+            "cntt đặc thù khdl": "Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo",
             
             # Kỹ thuật máy tính
             "ktmt": "Kỹ thuật máy tính",
@@ -184,14 +195,18 @@ class ActionCombinationMajor(Action):
             "cnsh y dược": "Công nghệ sinh học, chuyên ngành Công nghệ sinh học Y Dược",
             "cnsh yd": "Công nghệ sinh học, chuyên ngành Công nghệ sinh học Y Dược",
             "công nghệ sinh học y dược": "Công nghệ sinh học, chuyên ngành Công nghệ sinh học Y Dược",
+            "công nghệ sinh học chuyên ngành y dược": "Công nghệ sinh học, chuyên ngành Công nghệ sinh học Y Dược",
+            "sinh học y dược": "Công nghệ sinh học, chuyên ngành Công nghệ sinh học Y Dược",
             
             # Công nghệ kỹ thuật vật liệu xây dựng
             "cnkt vlxd": "Công nghệ kỹ thuật vật liệu xây dựng",
             "công nghệ kỹ thuật vật liệu xây dựng": "Công nghệ kỹ thuật vật liệu xây dựng",
+            "vật liệu xây dựng": "Công nghệ kỹ thuật vật liệu xây dựng",
             
             # Công nghệ chế tạo máy
             "cnctm": "Công nghệ chế tạo máy",
             "công nghệ chế tạo máy": "Công nghệ chế tạo máy",
+            "chế tạo máy": "Công nghệ chế tạo máy",
             
             # Quản lý công nghiệp
             "qlcn": "Quản lý công nghiệp",
@@ -199,19 +214,29 @@ class ActionCombinationMajor(Action):
             
             # Công nghệ dầu khí và khai thác dầu
             "cndk&ktd": "Công nghệ dầu khí và khai thác dầu",
+            "cndk": "Công nghệ dầu khí và khai thác dầu",
             "công nghệ dầu khí": "Công nghệ dầu khí và khai thác dầu",
             "công nghệ dầu khí và khai thác dầu": "Công nghệ dầu khí và khai thác dầu",
+            "dầu khí và khai thác dầu": "Công nghệ dầu khí và khai thác dầu",
+            "khai thác dầu": "Công nghệ dầu khí và khai thác dầu",
             
             # Chương trình đào tạo kỹ sư chất lượng cao Việt - Pháp (PFIEV)
             "pfiev": "Chương trình đào tạo kỹ sư chất lượng cao Việt - Pháp (PFIEV)",
             "kỹ sư chất lượng cao việt - pháp": "Chương trình đào tạo kỹ sư chất lượng cao Việt - Pháp (PFIEV)",
             "ctđt kỹ sư clc việt - pháp": "Chương trình đào tạo kỹ sư chất lượng cao Việt - Pháp (PFIEV)",
+            "kỹ sư việt pháp": "Chương trình đào tạo kỹ sư chất lượng cao Việt - Pháp (PFIEV)",
+            "chương trình việt pháp": "Chương trình đào tạo kỹ sư chất lượng cao Việt - Pháp (PFIEV)",
             
             # Kỹ thuật Cơ khí
+            "ktck": "Kỹ thuật Cơ khí",
+            "kỹ thuật cơ khí": "Kỹ thuật Cơ khí",
+            "cơ khí": "Kỹ thuật Cơ khí",
+            
             "ktck ckđl": "Kỹ thuật Cơ khí, chuyên ngành Cơ khí động lực",
             "cơ khí động lực": "Kỹ thuật Cơ khí, chuyên ngành Cơ khí động lực",
             "ktck chuyên ngành cơ khí động lực": "Kỹ thuật Cơ khí, chuyên ngành Cơ khí động lực",
             "kỹ thuật cơ khí động lực": "Kỹ thuật Cơ khí, chuyên ngành Cơ khí động lực",
+            
             "ktck ckhk": "Kỹ thuật Cơ khí, chuyên ngành Cơ khí hàng không",
             "kỹ thuật cơ khí hàng không": "Kỹ thuật Cơ khí, chuyên ngành Cơ khí hàng không",
             "cơ khí hàng không": "Kỹ thuật Cơ khí, chuyên ngành Cơ khí hàng không",
@@ -221,61 +246,84 @@ class ActionCombinationMajor(Action):
             "ktcđt": "Kỹ thuật Cơ điện tử",
             "kỹ thuật cơ điện tử": "Kỹ thuật Cơ điện tử",
             "cơ điện tử": "Kỹ thuật Cơ điện tử",
+            "cdt": "Kỹ thuật Cơ điện tử",
             
             # Kỹ thuật nhiệt
             "ktn": "Kỹ thuật nhiệt",
             "kỹ thuật nhiệt": "Kỹ thuật nhiệt",
+            "kỹ thuật nhiệt lạnh": "Kỹ thuật nhiệt",
+            
             "ktn qlnl": "Kỹ thuật Nhiệt, Chuyên ngành Quản lý năng lượng",
             "kỹ thuật nhiệt quản lý năng lượng": "Kỹ thuật Nhiệt, Chuyên ngành Quản lý năng lượng",
             "ktn chuyên ngành qlnl": "Kỹ thuật Nhiệt, Chuyên ngành Quản lý năng lượng",
             "kỹ thuật nhiệt qlnl": "Kỹ thuật Nhiệt, Chuyên ngành Quản lý năng lượng",
+            "quản lý năng lượng": "Kỹ thuật Nhiệt, Chuyên ngành Quản lý năng lượng",
             
             # Kỹ thuật Tàu thủy
             "kttt": "Kỹ thuật Tàu thủy",
             "kỹ thuật tàu thủy": "Kỹ thuật Tàu thủy",
+            "tàu thủy": "Kỹ thuật Tàu thủy",
             
             # Kỹ thuật Điện
             "ktđ": "Kỹ thuật Điện",
             "kỹ thuật điện": "Kỹ thuật Điện",
+            "điện": "Kỹ thuật Điện",
             
             # Kỹ thuật điện tử - viễn thông
             "ktđt-vt": "Kỹ thuật điện tử - viễn thông",
+            "ktđtvt": "Kỹ thuật điện tử - viễn thông",
             "kỹ thuật điện tử - viễn thông": "Kỹ thuật điện tử - viễn thông",
             "ktđt viễn thông": "Kỹ thuật điện tử - viễn thông",
             "kỹ thuật điện tử viễn thông": "Kỹ thuật điện tử - viễn thông",
+            "điện tử viễn thông": "Kỹ thuật điện tử - viễn thông",
+            "đtvt": "Kỹ thuật điện tử - viễn thông",
             
             # Kỹ thuật Điều khiển và Tự động hóa
             "ktđk&tđh": "Kỹ thuật Điều khiển và Tự động hóa",
+            "ktđktđh": "Kỹ thuật Điều khiển và Tự động hóa",
             "kỹ thuật điều khiển và tự động hóa": "Kỹ thuật Điều khiển và Tự động hóa",
             "ktđk và tđh": "Kỹ thuật Điều khiển và Tự động hóa",
             "kỹ thuật điều khiển tự động hóa": "Kỹ thuật Điều khiển và Tự động hóa",
+            "điều khiển tự động hóa": "Kỹ thuật Điều khiển và Tự động hóa",
+            "tự động hóa": "Kỹ thuật Điều khiển và Tự động hóa",
+            "điều khiển và tự động hóa": "Kỹ thuật Điều khiển và Tự động hóa",
             
             # Kỹ thuật hóa học
             "kthh": "Kỹ thuật hóa học",
             "kỹ thuật hóa học": "Kỹ thuật hóa học",
+            "hóa học": "Kỹ thuật hóa học",
             
             # Kỹ thuật môi trường
             "ktmt": "Kỹ thuật môi trường",
             "kỹ thuật môi trường": "Kỹ thuật môi trường",
+            "môi trường": "Kỹ thuật môi trường",
             
             # Kỹ thuật hệ thống công nghiệp
             "kthtcn": "Kỹ thuật hệ thống công nghiệp",
             "kỹ thuật hệ thống công nghiệp": "Kỹ thuật hệ thống công nghiệp",
+            "hệ thống công nghiệp": "Kỹ thuật hệ thống công nghiệp",
             
             # Chương trình tiên tiến Việt-Mỹ
             "cttt ktđtvt": "Chương trình tiên tiến Việt-Mỹ ngành Kỹ thuật Điện tử viễn thông",
             "chương trình tiên tiến kỹ thuật điện tử viễn thông": "Chương trình tiên tiến Việt-Mỹ ngành Kỹ thuật Điện tử viễn thông",
             "cttt việt-mỹ ktđtvt": "Chương trình tiên tiến Việt-Mỹ ngành Kỹ thuật Điện tử viễn thông",
             "chương trình tiên tiến ktđtvt": "Chương trình tiên tiến Việt-Mỹ ngành Kỹ thuật Điện tử viễn thông",
+            "tiên tiến điện tử viễn thông": "Chương trình tiên tiến Việt-Mỹ ngành Kỹ thuật Điện tử viễn thông",
+            "cttt đtvt": "Chương trình tiên tiến Việt-Mỹ ngành Kỹ thuật Điện tử viễn thông",
             
             "cttt htn&iot": "Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT",
             "chương trình tiên tiến hệ thống nhúng và iot": "Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT",
             "cttt việt-mỹ htn và iot": "Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT",
             "chương trình tiên tiến hệ thống nhúng": "Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT",
+            "tiên tiến hệ thống nhúng": "Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT",
+            "cttt htn": "Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT",
+            "hệ thống nhúng và iot": "Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT",
+            "hệ thống nhúng": "Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT",
             
             # Công nghệ thực phẩm
             "cntp": "Công nghệ thực phẩm",
             "công nghệ thực phẩm": "Công nghệ thực phẩm",
+            "thực phẩm": "Công nghệ thực phẩm",
             
             # Kiến trúc
             "kt": "Kiến trúc",
@@ -286,33 +334,50 @@ class ActionCombinationMajor(Action):
             "kỹ thuật xây dựng dân dụng và công nghiệp": "Kỹ thuật xây dựng, chuyên ngành Xây dựng dân dụng và công nghiệp",
             "ktxd chuyên ngành xddd&cn": "Kỹ thuật xây dựng, chuyên ngành Xây dựng dân dụng và công nghiệp",
             "xây dựng dân dụng và công nghiệp": "Kỹ thuật xây dựng, chuyên ngành Xây dựng dân dụng và công nghiệp",
+            "xd dân dụng": "Kỹ thuật xây dựng, chuyên ngành Xây dựng dân dụng và công nghiệp",
+            "xd công nghiệp": "Kỹ thuật xây dựng, chuyên ngành Xây dựng dân dụng và công nghiệp",
+            "kỹ thuật xây dựng dân dụng": "Kỹ thuật xây dựng, chuyên ngành Xây dựng dân dụng và công nghiệp",
             
             "ktxd thxd": "Kỹ thuật xây dựng, chuyên ngành Tin học xây dựng",
             "kỹ thuật xây dựng tin học xây dựng": "Kỹ thuật xây dựng, chuyên ngành Tin học xây dựng",
             "ktxd chuyên ngành thxd": "Kỹ thuật xây dựng, chuyên ngành Tin học xây dựng",
             "tin học xây dựng": "Kỹ thuật xây dựng, chuyên ngành Tin học xây dựng",
+            "thxd": "Kỹ thuật xây dựng, chuyên ngành Tin học xây dựng",
             
             "ktxd đttm": "Kỹ thuật xây dựng, chuyên ngành Kỹ thuật và quản lý xây dựng đô thị thông minh",
             "kỹ thuật xây dựng đô thị thông minh": "Kỹ thuật xây dựng, chuyên ngành Kỹ thuật và quản lý xây dựng đô thị thông minh",
             "ktxd qlxd đttm": "Kỹ thuật xây dựng, chuyên ngành Kỹ thuật và quản lý xây dựng đô thị thông minh",
             "kỹ thuật và quản lý xây dựng đô thị thông minh": "Kỹ thuật xây dựng, chuyên ngành Kỹ thuật và quản lý xây dựng đô thị thông minh",
+            "xây dựng đô thị thông minh": "Kỹ thuật xây dựng, chuyên ngành Kỹ thuật và quản lý xây dựng đô thị thông minh",
+            "đô thị thông minh": "Kỹ thuật xây dựng, chuyên ngành Kỹ thuật và quản lý xây dựng đô thị thông minh",
             
             "ktxd mhtt&ttnt": "Kỹ thuật xây dựng, chuyên ngành Mô hình thông tin và trí tuệ nhân tạo trong xây dựng",
             "kỹ thuật xây dựng mô hình thông tin và ttnt": "Kỹ thuật xây dựng, chuyên ngành Mô hình thông tin và trí tuệ nhân tạo trong xây dựng",
             "ktxd chuyên ngành mhtt và ttnt": "Kỹ thuật xây dựng, chuyên ngành Mô hình thông tin và trí tuệ nhân tạo trong xây dựng",
             "kỹ thuật xây dựng mhtt và ttnt": "Kỹ thuật xây dựng, chuyên ngành Mô hình thông tin và trí tuệ nhân tạo trong xây dựng",
+            "mô hình thông tin trong xây dựng": "Kỹ thuật xây dựng, chuyên ngành Mô hình thông tin và trí tuệ nhân tạo trong xây dựng",
+            "mhtt và ttnt trong xây dựng": "Kỹ thuật xây dựng, chuyên ngành Mô hình thông tin và trí tuệ nhân tạo trong xây dựng",
+            "trí tuệ nhân tạo trong xây dựng": "Kỹ thuật xây dựng, chuyên ngành Mô hình thông tin và trí tuệ nhân tạo trong xây dựng",
             
             # Kỹ thuật xây dựng công trình thủy
             "ktxdctt": "Kỹ thuật xây dựng công trình thủy",
             "kỹ thuật xây dựng công trình thủy": "Kỹ thuật xây dựng công trình thủy",
+            "xây dựng công trình thủy": "Kỹ thuật xây dựng công trình thủy",
+            "công trình thủy": "Kỹ thuật xây dựng công trình thủy",
             
             # Kỹ thuật xây dựng công trình giao thông
             "ktxdctgt": "Kỹ thuật xây dựng công trình giao thông",
             "kỹ thuật xây dựng công trình giao thông": "Kỹ thuật xây dựng công trình giao thông",
+            "xây dựng công trình giao thông": "Kỹ thuật xây dựng công trình giao thông",
+            "công trình giao thông": "Kỹ thuật xây dựng công trình giao thông",
+            "cầu đường": "Kỹ thuật xây dựng công trình giao thông",
+            
             "ktxdctgt đstđc": "Kỹ thuật xây dựng công trình giao thông, Chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị",
             "xây dựng đường sắt tốc độ cao": "Kỹ thuật xây dựng công trình giao thông, Chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị",
             "ktxdctgt chuyên ngành đstđc": "Kỹ thuật xây dựng công trình giao thông, Chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị",
             "xây dựng đường sắt đô thị": "Kỹ thuật xây dựng công trình giao thông, Chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị",
+            "đường sắt tốc độ cao": "Kỹ thuật xây dựng công trình giao thông, Chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị",
+            "đường sắt đô thị": "Kỹ thuật xây dựng công trình giao thông, Chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị",
             
             # Kinh tế xây dựng
             "ktxd": "Kinh tế xây dựng",
@@ -321,25 +386,111 @@ class ActionCombinationMajor(Action):
             # Kỹ thuật cơ sở hạ tầng
             "ktcsht": "Kỹ thuật cơ sở hạ tầng",
             "kỹ thuật cơ sở hạ tầng": "Kỹ thuật cơ sở hạ tầng",
+            "cơ sở hạ tầng": "Kỹ thuật cơ sở hạ tầng",
+            "hạ tầng": "Kỹ thuật cơ sở hạ tầng",
             
             # Quản lý tài nguyên và môi trường
             "qltn&mt": "Quản lý tài nguyên và môi trường",
             "quản lý tài nguyên và môi trường": "Quản lý tài nguyên và môi trường",
-            "qltnmt": "Quản lý tài nguyên và môi trường"
+            "qltnmt": "Quản lý tài nguyên và môi trường",
+            "tài nguyên và môi trường": "Quản lý tài nguyên và môi trường",
+            "tài nguyên môi trường": "Quản lý tài nguyên và môi trường"
         }
+
+        # Danh sách các từ khóa quan trọng để xác định ngành chính xác
+        major_keywords = {
+            "cntt": ["công nghệ thông tin", "cntt"],
+            "ktmt": ["kỹ thuật máy tính", "ktmt"],
+            "cnsh": ["công nghệ sinh học", "cnsh"],
+            "vlxd": ["vật liệu xây dựng", "vlxd"],
+            "ctm": ["chế tạo máy", "ctm"],
+            "qlcn": ["quản lý công nghiệp", "qlcn"],
+            "dầu khí": ["dầu khí", "khai thác dầu"],
+            "pfiev": ["pfiev", "việt pháp"],
+            "cơ khí": ["cơ khí", "ckhk", "ckđl"],
+            "cơ điện tử": ["cơ điện tử", "cđt"],
+            "nhiệt": ["nhiệt", "năng lượng"],
+            "tàu thủy": ["tàu thủy"],
+            "điện": ["điện", "ktđ"],
+            "điện tử": ["điện tử", "viễn thông", "đtvt"],
+            "tự động hóa": ["tự động hóa", "điều khiển"],
+            "hóa học": ["hóa học"],
+            "môi trường": ["môi trường"],
+            "hệ thống": ["hệ thống công nghiệp"],
+            "tiên tiến": ["tiên tiến", "việt-mỹ", "cttt"],
+            "nhúng": ["nhúng", "iot"],
+            "thực phẩm": ["thực phẩm", "cntp"],
+            "kiến trúc": ["kiến trúc"],
+            "xây dựng": ["xây dựng", "ktxd", "xd"],
+            "dân dụng": ["dân dụng", "công nghiệp"],
+            "tin học xây dựng": ["tin học xây dựng"],
+            "đô thị thông minh": ["đô thị thông minh"],
+            "công trình thủy": ["công trình thủy"],
+            "giao thông": ["giao thông", "cầu đường"],
+            "đường sắt": ["đường sắt"],
+            "kinh tế xây dựng": ["kinh tế xây dựng"],
+            "hạ tầng": ["hạ tầng", "csht"],
+            "tài nguyên": ["tài nguyên", "tnmt"]
+        }
+
+        def clean_text(text):
+            # Làm sạch văn bản và xóa các ký tự đặc biệt
+            import re
+            text = text.lower().strip()
+            text = re.sub(r'[^\w\s&-]', ' ', text)
+            text = re.sub(r'\s+', ' ', text)
+            return text
 
         def normalize_major(text: Optional[str]) -> Optional[str]:
             if not text:
                 return None
-            text = text.lower().strip()
+                
+            # Làm sạch và chuẩn hóa văn bản đầu vào
+            normalized_text = clean_text(text)
             
             # Thử tìm kiếm trực tiếp trong mapping
-            if text in major_mapping:
-                return major_mapping[text]
-                
-            # Nếu không tìm thấy trực tiếp, tìm kiếm keyword có trong text
+            if normalized_text in major_mapping:
+                return major_mapping[normalized_text]
+            
+            # Giải quyết các trường hợp đặc biệt
+            if normalized_text == "ktxd":
+                # Nếu chỉ có "ktxd" thì mặc định là "Kinh tế xây dựng"
+                return "Kinh tế xây dựng"
+            
+            if normalized_text == "ktmt":
+                # Nếu chỉ có "ktmt" có thể là "Kỹ thuật máy tính" hoặc "Kỹ thuật môi trường"
+                # Mặc định là "Kỹ thuật máy tính"
+                if "môi trường" in normalized_text:
+                    return "Kỹ thuật môi trường"
+                return "Kỹ thuật máy tính"
+            
+            # Tìm kiếm dựa trên từng từ khóa trong text và tính điểm khớp
+            match_scores = {}
             for key, value in major_mapping.items():
-                if key in text:
+                # Tính điểm dựa trên có bao nhiêu từ của key có trong text
+                key_words = key.split()
+                score = sum(1 for word in key_words if word in normalized_text)
+                
+                # Cộng điểm nếu có từ khóa đặc biệt
+                for kw_group, keywords in major_keywords.items():
+                    if any(kw in key for kw in keywords) and any(kw in normalized_text for kw in keywords):
+                        score += 2
+                
+                # Cộng điểm nếu key là một phần của text
+                if key in normalized_text:
+                    score += 3
+                    
+                # Lưu điểm và tên ngành đầy đủ
+                if score > 0:
+                    match_scores[value] = match_scores.get(value, 0) + score
+            
+            # Trả về kết quả có điểm cao nhất nếu có
+            if match_scores:
+                return max(match_scores.items(), key=lambda x: x[1])[0]
+                    
+            # Nếu không tìm thấy từ khóa, tìm kiếm keyword có trong text
+            for key, value in major_mapping.items():
+                if key in normalized_text:
                     return value
                     
             return None
