@@ -148,10 +148,8 @@ responses:
           ** Điểm xét tuyển bao gồm điểm xét tuyển quy đổi + điểm ưu tiên\n
           ** Điểm xét tuyển quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh"
   utter_diem_thi_TN_THPT:
-    - text: "Thí sinh đăng ký xét tuyển vào ngành CNTT sẽ dựa vào kết quả thi Tốt Nghiệp THPT theo tổ hợp được công bố trên trang web tuyển sinh của trường. Vui lòng lựa chọn ngành để xem chi tiết: \n
-        - Công nghệ Thông Tin (Đặc Thù – Hợp Tác Doanh Nghiệp)\n
-        - Công nghệ Thông Tin (Ngoại Ngữ Nhật)\n
-        - Công nghệ Thông Tin (Đặc Thù - Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo"
+    - text: "Thí sinh đăng ký xét tuyển dựa vào kết quả thi Tốt Nghiệp THPT theo tổ hợp được công bố trên trang web tuyển sinh của trường \n
+        -Bạn có thể đặt câu hỏi như Tổ hợp xét tuyển của ngành ... để xem tổ hợp xét tuyển của một ngành"
   utter_dgnl:
     - text: "Thí sinh sử dụng kết quả thi đánh giá năng lực (V-ACT) của Đại Học Quốc Gia thành phố Hồ Chí Minh tổ chức năm 2025 để đăng kí xét tuyển \n
           - Điểm xét tuyển bằng điểm thi đánh giá năng lực quy đổi + điểm ưu tiên \n

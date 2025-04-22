@@ -1288,6 +1288,330 @@ stories:
         entities:
           - major: "Kinh tế xây dựng"
       - action: action_combination_major
+
+  - story: Xem phương thức điểm thi THPT
+    steps:
+      - intent: ask_diem_thi_TN_THPT
+      - action: utter_diem_thi_TN_THPT
   
+  - story: Điểm CNTT ĐẶC THÙ theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt đặc thù"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT ĐẶC THÙ - HỢP TÁC DOANH NGHIỆP theo xét điểm học bạ
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt đặc thù - hợp tác doanh nghiệp"
+          - method: "xét điểm học bạ"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT HTDN theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt htdn"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT ĐẶC THÙ HTDN theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt đặc thù htdn"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT NHẬT theo điểm thi tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt nhật"
+          - method: "điểm thi tốt nghiệp THPT"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT NN NHẬT theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt nn nhật"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT NGOẠI NGỮ NHẬT theo xét điểm học bạ
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ngoại ngữ nhật"
+          - method: "xét điểm học bạ"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT AI theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt ai"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT TRÍ TUỆ NHÂN TẠO theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt trí tuệ nhân tạo"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT KHDL theo điểm thi tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt khdl"
+          - method: "điểm thi tốt nghiệp THPT"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT KHOA HỌC DỮ LIỆU theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt khoa học dữ liệu"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT KHDL & TTNT theo xét điểm học bạ
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt khdl & ttnt"
+          - method: "xét điểm học bạ"
+      - action: action_cutoff_score
+
+  - story: Điểm CNTT ĐẶC THÙ KHDL theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cntt đặc thù khdl"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm KTMT theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "ktmt"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm KỸ THUẬT MÁY TÍNH theo điểm thi tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "kỹ thuật máy tính"
+          - method: "điểm thi tốt nghiệp THPT"
+      - action: action_cutoff_score
+
+  - story: Điểm CNSH theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cnsh"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm CÔNG NGHỆ SINH HỌC theo xét điểm học bạ
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ sinh học"
+          - method: "xét điểm học bạ"
+      - action: action_cutoff_score
+
+  - story: Điểm CNSH Y DƯỢC theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cnsh y dược"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm CÔNG NGHỆ SINH HỌC Y DƯỢC theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ sinh học y dược"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm CNKT VLXD theo điểm thi tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cnkt vlxd"
+          - method: "điểm thi tốt nghiệp THPT"
+      - action: action_cutoff_score
+
+  - story: Điểm CÔNG NGHỆ KỸ THUẬT VẬT LIỆU XÂY DỰNG theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ kỹ thuật vật liệu xây dựng"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm CNCTM theo xét điểm học bạ
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cnctm"
+          - method: "xét điểm học bạ"
+      - action: action_cutoff_score
+
+  - story: Điểm CÔNG NGHỆ CHẾ TẠO MÁY theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ chế tạo máy"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm QLCN theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "qlcn"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm QUẢN LÝ CÔNG NGHIỆP theo điểm thi tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "quản lý công nghiệp"
+          - method: "điểm thi tốt nghiệp THPT"
+      - action: action_cutoff_score
+
+  - story: Điểm CNDK&KTD theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cndk&ktd"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm CÔNG NGHỆ DẦU KHÍ VÀ KHAI THÁC DẦU theo xét điểm học bạ
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ dầu khí và khai thác dầu"
+          - method: "xét điểm học bạ"
+      - action: action_cutoff_score
+
+  - story: Điểm PFIEV theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "pfiev"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm KỸ SƯ CHẤT LƯỢNG CAO VIỆT – PHÁP theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "kỹ sư chất lượng cao việt - pháp"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm CTĐT KỸ SƯ CLC VIỆT - PHÁP theo điểm thi tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "ctđt kỹ sư clc việt - pháp"
+          - method: "điểm thi tốt nghiệp THPT"
+      - action: action_cutoff_score
+
+  - story: Điểm KTCK CKĐL theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "ktck ckđl"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm CƠ KHÍ ĐỘNG LỰC theo xét điểm học bạ
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cơ khí động lực"
+          - method: "xét điểm học bạ"
+      - action: action_cutoff_score
+
+  - story: Điểm KTCĐT theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "ktcđt"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm CƠ ĐIỆN TỬ theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "cơ điện tử"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm KTN theo điểm thi tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "ktn"
+          - method: "điểm thi tốt nghiệp THPT"
+      - action: action_cutoff_score
+
+  - story: Điểm KỸ THUẬT NHIỆT theo xét tuyển riêng
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "kỹ thuật nhiệt"
+          - method: "xét tuyển riêng"
+      - action: action_cutoff_score
+
+  - story: Điểm KTN QLNL theo xét điểm học bạ
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "ktn qlnl"
+          - method: "xét điểm học bạ"
+      - action: action_cutoff_score
+
+  - story: Điểm KỸ THUẬT NHIỆT QUẢN LÝ NĂNG LƯỢNG theo đánh giá năng lực
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "kỹ thuật nhiệt quản lý năng lượng"
+          - method: "đánh giá năng lực"
+      - action: action_cutoff_score
+
+  - story: Điểm KTTT theo đánh giá tư duy
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "kttt"
+          - method: "đánh giá tư duy"
+      - action: action_cutoff_score
+
+  - story: Điểm KỸ THUẬT TÀU THỦY theo điểm thi tốt nghiệp THPT
+    steps:
+      - intent: ask_cutoff_score
+        entities:
+          - major: "kỹ thuật tàu thủy"
+          - method: "điểm thi tốt nghiệp THPT"
+      - action: action_cutoff_score
   
 

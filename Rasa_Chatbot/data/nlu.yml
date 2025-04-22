@@ -393,6 +393,30 @@ nlu:
     - Điểm chuẩn của ngành [công nghệ thông tin khoa học dữ liệu](major) bằng phương thức [điểm thi tốt nghiệp](method)
     - Điểm chuẩn của ngành [công nghệ thông tin khoa học dữ liệu](major) bằng phương thức [điểm thi TSA](method)
     - Điểm chuẩn của ngành [công nghệ thông tin ngoại ngữ nhật](major) bằng phương thức [điểm thi đánh giá năng lực](method)
+    - Điểm chuẩn ngành [CNTT HTDN](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Cho điểm chuẩn của [Kỹ thuật máy tính](major) theo [điểm thi tốt nghiệp THPT](method) là bao nhiêu?
+    - Mức điểm ngành [Công nghệ sinh học](major) theo [xét điểm học bạ](method) là bao nhiêu?
+    - Điểm chuẩn [Công nghệ sinh học Y Dược](major) qua [điểm thi TSA](method) là bao nhiêu?
+    - Cho em điểm ngành [Công nghệ kỹ thuật vật liệu xây dựng](major) theo [Đánh giá năng lực](method).
+    - Điểm của [Công nghệ chế tạo máy](major) theo [điểm thi đánh giá tư duy](method) là bao nhiêu?
+    - Điểm chuẩn ngành [Quản lý công nghiệp](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Mình muốn biết điểm ngành [Công nghệ dầu khí và khai thác dầu](major) theo [điểm thi tốt nghiệp THPT](method).
+    - Điểm chuẩn [PFIEV](major) qua [Đánh giá năng lực](method) là bao nhiêu?
+    - Cho điểm chuẩn của [Kỹ thuật Cơ khí – Cơ khí động lực](major) theo [xét điểm học bạ](method) được không?
+    - Điểm của [Kỹ thuật Cơ điện tử](major) theo [điểm thi TSA](method) là bao nhiêu?
+    - Mức điểm [Kỹ thuật nhiệt](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
+    - Điểm chuẩn ngành [Kỹ thuật tàu thủy](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Cho em biết điểm của [Kỹ thuật điều khiển và tự động hóa](major) theo [Đánh giá tư duy](method).
+    - Điểm chuẩn ngành [Kỹ thuật hóa học](major) qua [điểm thi tốt nghiệp THPT](method) là bao nhiêu?
+    - Mức điểm [Kỹ thuật môi trường](major) theo [xét điểm học bạ](method)?
+    - Điểm chuẩn ngành [Kỹ thuật hệ thống công nghiệp](major) theo [điểm thi đánh giá năng lực](method) là bao nhiêu?
+    - Cho điểm [Kỹ thuật cơ khí hàng không](major) theo [xét tuyển riêng](method).
+    - Điểm chuẩn ngành [Kỹ thuật ô tô](major) theo [Đánh giá tư duy](method) là bao nhiêu?
+    - Mình muốn biết điểm của [Chương trình tiên tiến Việt-Mỹ ngành Hệ thống Nhúng và IoT](major) qua [điểm thi TSA](method).
+    - Cho em điểm của [Công nghệ thực phẩm](major) theo [điểm thi tốt nghiệp THPT](method).
+    - Điểm chuẩn ngành [Kiến trúc](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Điểm chuẩn [Kinh tế xây dựng](major) qua [xét điểm học bạ](method) là bao nhiêu?
+    - Điểm của [Quản lý tài nguyên và môi trường](major) theo [Đánh giá tư duy](method)?
 
 - intent: ask_list_major_by_method
   examples: |

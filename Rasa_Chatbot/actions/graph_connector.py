@@ -10,7 +10,7 @@ class GraphConnector:
     def get_cutoff_by_major_and_method(self, major_keyword: str, method_keyword: str):
         query = """
         MATCH (m:Major)-[r:HAS_CUTOFF]->(c:Cutoff)
-        WHERE m.id CONTAINS $major
+        WHERE toLower(m.name) = toLower($major)
           AND r.method CONTAINS $method
         RETURN m.name AS major, r.method AS method, c.year AS year, c.score AS score
         ORDER BY c.year DESC
@@ -22,7 +22,7 @@ class GraphConnector:
     def get_all_cutoffs_by_major(self, major_keyword: str):
         query = """
         MATCH (m:Major)-[r:HAS_CUTOFF]->(c:Cutoff)
-        WHERE m.id CONTAINS $major
+        WHERE toLower(m.name) = toLower($major)
         RETURN r.method AS method, c.year AS year, c.score AS score, m.name AS major
         ORDER BY r.method, c.year DESC
         """
