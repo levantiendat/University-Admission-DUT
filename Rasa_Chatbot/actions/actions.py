@@ -26,7 +26,8 @@ class ActionCutoffScore(Action):
             "apt": "Đánh giá năng lực",
             "đánh giá tư duy": "Đánh giá tư duy",
             "tsa": "Đánh giá tư duy",
-            "dgtd": "Đánh giá tư duy"
+            "dgtd": "Đánh giá tư duy",
+            "học bạ": "Xét điểm học bạ"
         }
 
         major_mapping = {
@@ -366,19 +367,76 @@ class ActionCutoffScore(Action):
             return None
 
         def normalize_method(text: Optional[str]) -> Optional[str]:
+            """
+            Cải thiện xác định phương thức xét tuyển từ văn bản nhập vào.
+            """
             if not text:
                 return None
-            text = text.lower()
+                
+            # Làm sạch và chuẩn hóa văn bản
+            text = clean_text(text)
+            
+            # Tạo từ điển phụ cho các biến thể cách viết phương thức xét tuyển
+            method_variants = {
+                "điểm thi tốt nghiệp thpt": ["thi thpt", "điểm thi", "tốt nghiệp thpt", "thpt", "tn"],
+                "đánh giá năng lực": ["năng lực", "dgnl", "đgnl", "vact", "apt", "bài test năng lực"],
+                "đánh giá tư duy": ["tư duy", "dgtd", "tsa", "bài test tư duy"],
+                "xét điểm học bạ": ["học bạ", "xét học bạ", "điểm học bạ", "tbhb", "xhb", "học bạ thpt"],
+                "xét tuyển riêng": ["tuyển riêng", "xét riêng", "riêng", "phỏng vấn"]
+            }
+            
+            # Thử chính xác từng từ khóa trong method_mapping
             for key, value in method_mapping.items():
-                if key in text:
+                if key == text:  # Khớp chính xác
                     return value
+                elif key in text:  # Khớp một phần
+                    # Kiểm tra nếu key là một từ hoàn chỉnh trong text
+                    words = text.split()
+                    if key in words:
+                        return value
+            
+            # Sử dụng từ điển phụ để tìm kiếm khi không có kết quả trực tiếp
+            best_match = None
+            max_score = 0
+            
+            for method_name, variants in method_variants.items():
+                # Tính điểm cho mỗi phương thức dựa vào sự xuất hiện của các biến thể
+                score = 0
+                for variant in variants:
+                    if variant in text:
+                        # Từ khóa hoàn chỉnh có điểm cao hơn
+                        if variant in text.split():
+                            score += 2
+                        else:
+                            score += 1
+                        
+                # Lưu kết quả có điểm cao nhất
+                if score > max_score:
+                    max_score = score
+                    # Tìm giá trị tương ứng trong method_mapping
+                    best_match = next((v for k, v in method_mapping.items() if method_name.startswith(v)), method_name)
+                    
+            # Trả về kết quả tốt nhất nếu có
+            if best_match and max_score > 0:
+                return best_match
+                
             return None
 
+        # Lấy dữ liệu từ tracker
+        major_input = tracker.get_slot("major")
+        method_input = tracker.get_slot("method")
+        
+        # Ghi log thông tin đầu vào để debug (tùy chọn)
+        # logging.debug(f"Major input: {major_input}, Method input: {method_input}")
+        
+        # Chuẩn hóa dữ liệu
+        major_keyword = normalize_major(major_input)
+        method_keyword = normalize_method(method_input)
+        
+        # Ghi log kết quả chuẩn hóa để debug (tùy chọn)
+        # logging.debug(f"Normalized major: {major_keyword}, Normalized method: {method_keyword}")
 
-        major_keyword = normalize_major(tracker.get_slot("major"))
-        method_keyword = normalize_method(tracker.get_slot("method"))
-
-        # Truy vấn và xử lý kết quả
+        # Truy vấn và xử lý kết quả như cũ
         if major_keyword and method_keyword:
             rows = self.db.get_cutoff_by_major_and_method(major_keyword, method_keyword)
             if rows:
