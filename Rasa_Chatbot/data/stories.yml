@@ -1613,5 +1613,306 @@ stories:
           - major: "kỹ thuật tàu thủy"
           - method: "điểm thi tốt nghiệp THPT"
       - action: action_cutoff_score
+
+  - story: Phương thức xét tuyển ngành Công nghệ thông tin
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "công nghệ thông tin"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành CNTT đặc thù
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "cntt đặc thù"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành CNTT Nhật
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "công nghệ thông tin tiếng nhật"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành CNTT AI
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "cntt ai"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Kỹ thuật máy tính
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+        - major: "kỹ thuật máy tính"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Công nghệ sinh học
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "công nghệ sinh học"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Công nghệ sinh học y dược
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "cnsh y dược"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Vật liệu xây dựng
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "vật liệu xây dựng"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Công nghệ chế tạo máy
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "công nghệ chế tạo máy"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Quản lý công nghiệp
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "quản lý công nghiệp"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Dầu khí
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "công nghệ dầu khí"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành PFIEV
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "pfiev"
+      - action: action_ask_methods_for_major
+      
+  - story: Phương thức xét tuyển ngành Cơ khí động lực
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "cơ khí động lực"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Cơ điện tử
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "cơ điện tử"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Kỹ thuật nhiệt
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "kỹ thuật nhiệt"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Kỹ thuật tàu thủy
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "kỹ thuật tàu thủy"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Kỹ thuật điện
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "kỹ thuật điện"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Điện tử viễn thông
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "kỹ thuật điện tử viễn thông"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Tự động hóa
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "kỹ thuật điều khiển và tự động hóa"
+      - action: action_ask_methods_for_major
+
+  - story: Phương thức xét tuyển ngành Kỹ thuật hóa học
+    steps:
+      - intent: ask_methods_for_major
+        entities:
+          - major: "kỹ thuật hóa học"
+      - action: action_ask_methods_for_major
+
+  - story: Kiểm tra CNTT và điểm thi tốt nghiệp
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "công nghệ thông tin"
+          - method: "điểm thi tốt nghiệp thpt"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra CNTT và học bạ
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "cntt"
+          - method: "học bạ"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra CNTT Nhật và ĐGNL
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "công nghệ thông tin tiếng nhật"
+          - method: "điểm thi đánh giá năng lực"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra CNTT AI và ĐGTD
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "cntt ai"
+          - method: "điểm thi đánh giá tư duy"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra KTMT và TSA
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "kỹ thuật máy tính"
+          - method: "điểm thi tsa"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra CNSH và xét tuyển thẳng
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "công nghệ sinh học"
+          - method: "xét tuyển thẳng"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra CNSH Y Dược và VACT
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "cnsh y dược"
+          - method: "điểm thi vact"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra VLXD và DGNL
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "vật liệu xây dựng"
+          - method: "dgnl"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Chế tạo máy và DGTD
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "công nghệ chế tạo máy"
+          - method: "dgtd"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra QLCN và điểm học bạ
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "quản lý công nghiệp"
+          - method: "điểm học bạ"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Dầu khí và xét tuyển thẳng
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "công nghệ dầu khí"
+          - method: "xét tuyển thẳng"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra PFIEV và học bạ THPT
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "pfiev"
+          - method: "học bạ thpt"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Cơ khí động lực và xét tuyển riêng
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "cơ khí động lực"
+          - method: "xét tuyển riêng"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Cơ điện tử và điểm thi tốt nghiệp
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "cơ điện tử"
+          - method: "điểm thi tốt nghiệp"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Kỹ thuật nhiệt và ĐGNL
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "kỹ thuật nhiệt"
+          - method: "đánh giá năng lực"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Kỹ thuật tàu thủy và ĐGTD
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "kỹ thuật tàu thủy"
+          - method: "đánh giá tư duy"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Kỹ thuật điện và điểm thi tốt nghiệp
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "kỹ thuật điện"
+          - method: "điểm thi tốt nghiệp thpt"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra ĐTVT và điểm thi TSA
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "kỹ thuật điện tử viễn thông"
+          - method: "điểm thi tsa"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Tự động hóa và ĐGNL
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "kỹ thuật điều khiển và tự động hóa"
+          - method: "điểm thi đánh giá năng lực"
+      - action: action_ask_if_major_accepts_method
+
+  - story: Kiểm tra Kỹ thuật hóa học và ĐGTD
+    steps:
+      - intent: ask_if_major_accepts_method
+        entities:
+          - major: "kỹ thuật hóa học"
+          - method: "điểm thi đánh giá tư duy"
+      - action: action_ask_if_major_accepts_method
+
   
 

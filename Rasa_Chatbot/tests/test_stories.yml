@@ -1339,3 +1339,356 @@ stories:
     - user: "cảm ơn bot"
       intent: thank
     - action: utter_welcome
+
+- story: "Test 01: Phương thức xét tuyển ngành CNTT"
+  steps:
+    - user: "xin chào"
+      intent: greet
+    - action: utter_greet
+    - user: "ngành công nghệ thông tin xét tuyển bằng những phương thức nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "công nghệ thông tin"
+    - action: action_ask_methods_for_major
+    - user: "cảm ơn bot"
+      intent: thank
+    - action: utter_welcome
+
+- story: "Test 02: Phương thức xét tuyển ngành CNTT Đặc thù"
+  steps:
+    - user: "công nghệ thông tin đặc thù xét tuyển theo những hình thức nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "công nghệ thông tin đặc thù"
+    - action: action_ask_methods_for_major
+
+- story: "Test 03: Phương thức xét tuyển ngành CNTT Nhật"
+  steps:
+    - user: "cntt nhật có những phương thức xét tuyển nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "cntt nhật"
+    - action: action_ask_methods_for_major
+
+- story: "Test 04: Phương thức xét tuyển ngành CNTT AI"
+  steps:
+    - user: "ngành cntt ai xét tuyển bằng những phương thức gì?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "cntt ai"
+    - action: action_ask_methods_for_major
+
+- story: "Test 05: Phương thức xét tuyển ngành Kỹ thuật máy tính"
+  steps:
+    - user: "ngành ktmt xét bằng phương thức nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "ktmt"
+    - action: action_ask_methods_for_major
+
+- story: "Test 06: Phương thức xét tuyển ngành Công nghệ sinh học"
+  steps:
+    - user: "ngành công nghệ sinh học có những cách xét tuyển nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "công nghệ sinh học"
+    - action: action_ask_methods_for_major
+
+- story: "Test 07: Phương thức xét tuyển ngành CNSH Y Dược"
+  steps:
+    - user: "cnsh y dược có các phương thức xét tuyển nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "cnsh y dược"
+    - action: action_ask_methods_for_major
+
+- story: "Test 08: Phương thức xét tuyển ngành Vật liệu xây dựng"
+  steps:
+    - user: "hình thức xét tuyển của ngành vật liệu xây dựng là gì?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "vật liệu xây dựng"
+    - action: action_ask_methods_for_major
+
+- story: "Test 09: Phương thức xét tuyển ngành Chế tạo máy"
+  steps:
+    - user: "phương thức xét tuyển vào công nghệ chế tạo máy là những phương thức nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "công nghệ chế tạo máy"
+    - action: action_ask_methods_for_major
+
+- story: "Test 10: Phương thức xét tuyển ngành QLCN"
+  steps:
+    - user: "quản lý công nghiệp có những hình thức tuyển sinh nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "quản lý công nghiệp"
+    - action: action_ask_methods_for_major
+
+- story: "Test 11: Phương thức xét tuyển ngành Dầu khí"
+  steps:
+    - user: "công nghệ dầu khí được xét tuyển theo những phương thức nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "công nghệ dầu khí"
+    - action: action_ask_methods_for_major
+
+- story: "Test 12: Phương thức xét tuyển ngành PFIEV"
+  steps:
+    - user: "để vào pfiev có thể xét tuyển bằng những cách nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "pfiev"
+    - action: action_ask_methods_for_major
+
+- story: "Test 13: Phương thức xét tuyển ngành Cơ khí động lực"
+  steps:
+    - user: "cơ khí động lực tuyển sinh theo những phương thức gì?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "cơ khí động lực"
+    - action: action_ask_methods_for_major
+
+- story: "Test 14: Phương thức xét tuyển ngành Cơ điện tử"
+  steps:
+    - user: "ktcđt có xét tuyển theo những hình thức nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "ktcđt"
+    - action: action_ask_methods_for_major
+
+- story: "Test 15: Phương thức xét tuyển ngành Kỹ thuật nhiệt"
+  steps:
+    - user: "ngành kỹ thuật nhiệt xét tuyển theo phương thức nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "kỹ thuật nhiệt"
+    - action: action_ask_methods_for_major
+
+- story: "Test 16: Phương thức xét tuyển ngành Tàu thủy"
+  steps:
+    - user: "kỹ thuật tàu thủy tuyển sinh bằng cách nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "kỹ thuật tàu thủy"
+    - action: action_ask_methods_for_major
+
+- story: "Test 17: Phương thức xét tuyển ngành Kỹ thuật điện"
+  steps:
+    - user: "để học kỹ thuật điện có thể xét tuyển theo những hình thức gì?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "kỹ thuật điện"
+    - action: action_ask_methods_for_major
+
+- story: "Test 18: Phương thức xét tuyển ngành Tự động hóa"
+  steps:
+    - user: "em muốn học ktđk&tđh, em có thể xét tuyển bằng cách nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "ktđk&tđh"
+    - action: action_ask_methods_for_major
+
+- story: "Test 19: Phương thức xét tuyển ngành Kỹ thuật hóa học"
+  steps:
+    - user: "kthh tôi có thể xét tuyển bằng phương thức nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "kthh"
+    - action: action_ask_methods_for_major
+
+- story: "Test 20: Phương thức xét tuyển ngành Kinh tế xây dựng"
+  steps:
+    - user: "ngành kinh tế xây dựng có những hình thức tuyển sinh nào?"
+      intent: ask_methods_for_major
+      entities:
+        - major: "kinh tế xây dựng"
+    - action: action_ask_methods_for_major
+
+# Tests for ask_if_major_accepts_method
+- story: "Test 21: Kiểm tra CNTT và điểm thi tốt nghiệp THPT"
+  steps:
+    - user: "xin chào"
+      intent: greet
+    - action: utter_greet
+    - user: "ngành công nghệ thông tin có xét tuyển bằng điểm thi tốt nghiệp thpt không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "công nghệ thông tin"
+        - method: "điểm thi tốt nghiệp thpt"
+    - action: action_ask_if_major_accepts_method
+    - user: "cảm ơn bot"
+      intent: thank
+    - action: utter_welcome
+
+- story: "Test 22: Kiểm tra CNTT và học bạ"
+  steps:
+    - user: "cntt htdn có xét bằng học bạ không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "cntt htdn"
+        - method: "học bạ"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 23: Kiểm tra CNTT Nhật và ĐGNL"
+  steps:
+    - user: "kỹ thuật điện có xét tuyển bằng điểm thi đánh giá năng lực không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "kỹ thuật điện"
+        - method: "điểm thi đánh giá năng lực"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 24: Kiểm tra CNTT AI và ĐGTD"
+  steps:
+    - user: "ktđt-vt có xét bằng điểm thi đánh giá tư duy không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "ktđt-vt"
+        - method: "điểm thi đánh giá tư duy"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 25: Kiểm tra KTMT và xét tuyển thẳng"
+  steps:
+    - user: "công nghệ sinh học có xét xét tuyển thẳng không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "công nghệ sinh học"
+        - method: "xét tuyển thẳng"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 26: Kiểm tra CNSH Y Dược và TSA"
+  steps:
+    - user: "ktxdctgt có tuyển bằng điểm thi tsa không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "ktxdctgt"
+        - method: "điểm thi tsa"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 27: Kiểm tra Vật liệu xây dựng và VACT"
+  steps:
+    - user: "cntt có nhận điểm thi vact không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "cntt"
+        - method: "điểm thi vact"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 28: Kiểm tra Chế tạo máy và học bạ THPT"
+  steps:
+    - user: "kỹ thuật máy tính có xét điểm học bạ thpt không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "kỹ thuật máy tính"
+        - method: "học bạ thpt"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 29: Kiểm tra QLCN và DGNL"
+  steps:
+    - user: "cntp có xét tuyển dựa vào điểm thi dgnl không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "cntp"
+        - method: "điểm thi dgnl"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 30: Kiểm tra Dầu khí và DGTD"
+  steps:
+    - user: "kinh tế xây dựng có tuyển sinh theo điểm thi dgtd không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "kinh tế xây dựng"
+        - method: "điểm thi dgtd"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 31: Kiểm tra PFIEV và xét tuyển riêng"
+  steps:
+    - user: "kỹ thuật cơ khí có tuyển bằng xét tuyển riêng không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "kỹ thuật cơ khí"
+        - method: "xét tuyển riêng"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 32: Kiểm tra Cơ khí động lực và điểm thi tốt nghiệp"
+  steps:
+    - user: "kiến trúc có xét điểm thi tốt nghiệp không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "kiến trúc"
+        - method: "điểm thi tốt nghiệp"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 33: Kiểm tra Cơ điện tử và xét tuyển thẳng"
+  steps:
+    - user: "ktxd đttm có xét theo xét tuyển thẳng không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "ktxd đttm"
+        - method: "xét tuyển thẳng"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 34: Kiểm tra Kỹ thuật nhiệt và học bạ"
+  steps:
+    - user: "ngành pfiev có xét học bạ không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "pfiev"
+        - method: "học bạ"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 35: Kiểm tra Kỹ thuật tàu thủy và ĐGNL"
+  steps:
+    - user: "công nghệ thông tin tiếng nhật có nhận đánh giá năng lực không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "công nghệ thông tin tiếng nhật"
+        - method: "đánh giá năng lực"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 36: Kiểm tra Kỹ thuật điện và ĐGTD"
+  steps:
+    - user: "kỹ thuật nhiệt có tuyển bằng đánh giá tư duy không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "kỹ thuật nhiệt"
+        - method: "đánh giá tư duy"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 37: Kiểm tra ĐTVT và điểm thi tốt nghiệp"
+  steps:
+    - user: "ktđk&tđh có nhận xét tuyển bằng điểm thi tốt nghiệp thpt không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "ktđk&tđh"
+        - method: "điểm thi tốt nghiệp thpt"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 38: Kiểm tra Tự động hóa và TSA"
+  steps:
+    - user: "ktmt có xét tuyển theo điểm thi tsa không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "ktmt"
+        - method: "điểm thi tsa"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 39: Kiểm tra Kỹ thuật hóa học và ĐGNL"
+  steps:
+    - user: "cnsh y dược có dùng điểm thi đánh giá năng lực để xét tuyển không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "cnsh y dược"
+        - method: "điểm thi đánh giá năng lực"
+    - action: action_ask_if_major_accepts_method
+
+- story: "Test 40: Kiểm tra Kinh tế xây dựng và ĐGTD"
+  steps:
+    - user: "em có điểm thi đánh giá tư duy, em có thể xét vào ngành cntt không?"
+      intent: ask_if_major_accepts_method
+      entities:
+        - major: "cntt"
+        - method: "điểm thi đánh giá tư duy"
+    - action: action_ask_if_major_accepts_method

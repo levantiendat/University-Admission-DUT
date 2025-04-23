@@ -618,6 +618,80 @@ nlu:
     - Để học [quản lý tài nguyên và môi trường](major) cần thi những môn nào?
     - [qltn&mt](major) lấy khối thi nào?
 
+- intent: ask_methods_for_major
+  examples: |
+    - [công nghệ thông tin](major) xét tuyển bằng những phương thức nào?
+    - [công nghệ thông tin đặc thù](major) xét tuyển theo những hình thức nào?
+    - [cntt htdn](major) có những phương thức xét tuyển nào?
+    - ngành [kỹ thuật điện](major) xét tuyển bằng những phương thức gì?
+    - ngành [ktđt-vt](major) xét bằng phương thức nào?
+    - ngành [công nghệ sinh học](major) có những cách xét tuyển nào?
+    - [ktxdctgt](major) có các phương thức xét tuyển nào?
+    - hình thức xét tuyển của ngành [cntt](major) là gì?
+    - phương thức xét tuyển vào [kỹ thuật máy tính](major) là những phương thức nào?
+    - [cntp](major) có những hình thức tuyển sinh nào?
+    - [kinh tế xây dựng](major) được xét tuyển theo những phương thức nào?
+    - để vào [kỹ thuật cơ khí](major) có thể xét tuyển bằng những cách nào?
+    - [kiến trúc](major) tuyển sinh theo những phương thức gì?
+    - [ktxd đttm](major) có xét tuyển theo những hình thức nào?
+    - ngành [pfiev](major) xét tuyển theo phương thức nào?
+    - [công nghệ thông tin tiếng nhật](major) tuyển sinh bằng cách nào?
+    - để học [kỹ thuật nhiệt](major) có thể xét tuyển theo những hình thức gì?
+    - em muốn học [ktđk&tđh](major), em có thể xét tuyển bằng cách nào?
+    - [ktmt](major) tôi có thể xét tuyển bằng phương thức nào?
+    - ngành [cnsh y dược](major) có những hình thức tuyển sinh nào?
+    - [kt](major) có những phương thức xét tuyển nào?
+    - em muốn thi vào [cntt ai](major), có những phương thức tuyển sinh nào?
+    - [cntt khdl](major) có những cách xét tuyển nào?
+    - ngành [cnđt](major) xét tuyển theo những phương thức gì?
+    - ngành [kỹ thuật môi trường](major) có những hình thức tuyển sinh nào?
+    - [ktck ckhk](major) tuyển sinh bằng những phương thức nào?
+    - [quản lý tài nguyên và môi trường](major) xét tuyển theo những cách nào?
+    - [công nghệ dầu khí và khai thác dầu](major) có những phương thức xét tuyển nào?
+    - em muốn xét vào [cntt đặc thù khdl](major), những phương thức nào có thể áp dụng?
+    - ngành [kỹ thuật hóa học](major) tuyển sinh bằng những phương thức gì?
+
+- intent: ask_if_major_accepts_method
+  examples: |
+    - ngành [công nghệ thông tin](major) có xét tuyển bằng [điểm thi tốt nghiệp thpt](method) không?
+    - [cntt htdn](major) có xét bằng [học bạ](method) không?
+    - [kỹ thuật điện](major) có xét tuyển bằng [điểm thi đánh giá năng lực](method) không?
+    - [ktđt-vt](major) có xét bằng [điểm thi đánh giá tư duy](method) không?
+    - [công nghệ sinh học](major) có xét [xét tuyển thẳng](method) không?
+    - [ktxdctgt](major) có tuyển bằng [điểm thi tsa](method) không?
+    - [cntt](major) có nhận [điểm thi vact](method) không?
+    - [kỹ thuật máy tính](major) có xét điểm [học bạ thpt](method) không?
+    - [cntp](major) có xét tuyển dựa vào [điểm thi dgnl](method) không?
+    - [kinh tế xây dựng](major) có tuyển sinh theo [điểm thi dgtd](method) không?
+    - [kỹ thuật cơ khí](major) có tuyển bằng [xét tuyển riêng](method) không?
+    - [kiến trúc](major) có xét [điểm thi tốt nghiệp](method) không?
+    - [ktxd đttm](major) có xét theo [xét tuyển thẳng](method) không?
+    - ngành [pfiev](major) có xét [học bạ](method) không?
+    - [công nghệ thông tin tiếng nhật](major) có nhận [đánh giá năng lực](method) không?
+    - [kỹ thuật nhiệt](major) có tuyển bằng [đánh giá tư duy](method) không?
+    - [ktđk&tđh](major) có nhận xét tuyển bằng [điểm thi tốt nghiệp thpt](method) không?
+    - [ktmt](major) có xét tuyển theo [điểm thi tsa](method) không?
+    - [cnsh y dược](major) có dùng [điểm thi đánh giá năng lực](method) để xét tuyển không?
+    - [kt](major) có sử dụng [điểm thi đánh giá tư duy](method) không?
+    - [cntt ai](major) có xét tuyển dựa trên [học bạ thpt](method) không?
+    - [cntt khdl](major) có chấp nhận [xét tuyển thẳng](method) không?
+    - [cnđt](major) có xét [xét tuyển riêng](method) không?
+    - [kỹ thuật môi trường](major) có tuyển bằng [điểm thi tốt nghiệp](method) không?
+    - [ktck ckhk](major) có xét [điểm thi vact](method) không?
+    - [quản lý tài nguyên và môi trường](major) có nhận [điểm thi dgnl](method) không?
+    - [công nghệ dầu khí và khai thác dầu](major) có xét tuyển bằng [điểm thi dgtd](method) không?
+    - [cntt đặc thù khdl](major) có chấp nhận [học bạ](method) không?
+    - ngành [kỹ thuật hóa học](major) có xét tuyển bằng [xét tuyển thẳng](method) không?
+    - em có [điểm thi tốt nghiệp thpt](method), em có thể xét vào ngành [cntt](major) không?
+    - em có [điểm thi đánh giá năng lực](method), ngành [ktmt](major) có xét không?
+    - em có [điểm thi đánh giá tư duy](method), ngành [ktđt-vt](major) có nhận không?
+    - em có [học bạ](method), ngành [cnsh](major) có xét không?
+    - em có [điểm thi tsa](method), ngành [ktxd](major) có chấp nhận không?
+    - em có [điểm thi vact](method), tôi có thể xét vào [kiến trúc](major) không?
+    - em có [điểm thi dgnl](method), ngành [qltn&mt](major) có tuyển sinh không?
+    - em có [điểm thi dgtd](method), [cntt đặc thù](major) có nhận không?
+    - em có [xét tuyển thẳng](method), ngành [ktđk&tđh](major) có xét không?
+
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program
   examples: |

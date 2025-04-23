@@ -46,6 +46,8 @@ intents:
   - ask_cutoff_score
   - ask_list_major_by_method
   - ask_combination_major
+  - ask_methods_for_major
+  - ask_if_major_accepts_method
 
 entities:
   - major
@@ -287,6 +289,8 @@ actions:
   - action_cutoff_score
   - action_major_by_method
   - action_combination_major
+  - action_ask_methods_for_major
+  - action_ask_if_major_accepts_method
 
 
 session_config:
