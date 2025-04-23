@@ -11,7 +11,9 @@ from app.schemas.university import SubjectScoreMethodGroupCreate, SubjectScoreMe
 from app.schemas.university import SubjectGroupDetailCreate, SubjectGroupDetailUpdate, ConvertPointCreate, ConvertPointUpdate, SubjectGroupDetailOut, ConvertPointOut
 from app.schemas.university import SubjectScoreMethodMajorCreate, SubjectScoreMethodMajorUpdate, SubjectScoreMethodMajorOut
 from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate, PreviousAdmissionOut
-from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut
+from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut, PointCountRequest, PointCountResponse
+
+
 
 from app.services.university_admission_service import create_faculty, get_faculty, update_faculty, delete_faculty, get_faculties
 from app.services.university_admission_service import create_major, get_major, update_major, delete_major, get_major_by_faculty, get_majors
@@ -24,7 +26,7 @@ from app.services.university_admission_service import create_subject_score_metho
 from app.services.university_admission_service import create_convert_point, get_convert_point, update_convert_point, delete_convert_point, get_convert_point_by_admission_method, get_convert_points
 from app.services.university_admission_service import create_previous_admission, get_previous_admission, update_previous_admission, delete_previous_admission, get_previous_admission_by_major, get_previous_admission_by_admission_method,get_previous_admission_by_major_and_admission_method, get_previous_admission_by_year, get_previous_admissions 
 from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions
-
+from app.services.priority_service import get_school_by_id
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
 from app.models.university import Subject, SubjectScoreMethodGroup, SubjectGroupDetail, ConvertPoint
@@ -980,3 +982,69 @@ async def get_admission_description_endpoint(admission_description_id: int, db: 
     if not admission_description:
         raise NotFoundException(detail="Admission description not found")
     return admission_description
+
+@router.post("/point-count", response_model=PointCountResponse)
+async def calculate_point_count(
+    data: PointCountRequest,
+    db: Session = Depends(get_db),
+):
+    """
+    API tính tổng điểm xét tuyển có và không ưu tiên dựa trên dữ liệu nhập vào.
+    """
+
+    # Tính điểm thành tích
+    if data.group == "1":
+        achievement_points = 30.0
+    elif data.group == "2":
+        mapping = {"I": 29, "II": 28, "III": 27, "Khuyến khích": 26}
+        achievement_points = mapping.get(data.achievement, 0.0)
+    elif data.group == "3":
+        mapping = {"I": 25, "II": 24, "III": 23, "Khuyến khích": 22}
+        achievement_points = mapping.get(data.achievement, 0.0)
+    else:
+        achievement_points = 0.0
+
+    # Tính điểm học tập
+    academic_score = 0.0
+    if data.group in ["2", "3"]:
+        try:
+            academic_score = round((data.score10 + data.score11 + data.score12) / 30, 2)
+        except:
+            academic_score = 0.0
+
+    total_non_priority = achievement_points + academic_score
+
+    # Lấy thông tin khu vực
+    area = ""
+    if data.school_id:
+        school = get_school_by_id(db=db, school_id=data.school_id)
+        area = school["priority_area"]
+    else:
+        area = data.priority_area
+
+    area_priority = {
+        "KV1": 0.75,
+        "KV2NT": 0.5,
+        "KV2": 0.25
+    }.get(area, 0.0)
+
+    # Tính điểm ưu tiên theo đối tượng
+    object_priority = 2.0 if data.priority_object in ["ĐT01", "ĐT02", "ĐT03", "ĐT04"] else \
+                      1.0 if data.priority_object in ["ĐT05", "ĐT06", "ĐT07"] else 0.0
+
+    total_priority_raw = area_priority + object_priority
+
+    if total_non_priority < 22.5:
+        converted_priority = round(total_priority_raw, 2)
+    else:
+        converted_priority = round(((30 - total_non_priority) / 7.5) * total_priority_raw, 2)
+
+    total_score = round(total_non_priority + converted_priority, 2)
+
+    return PointCountResponse(
+        group=data.group,
+        achievement_points=achievement_points,
+        academic_score=academic_score,
+        converted_priority=converted_priority,
+        total_score=total_score
+    )

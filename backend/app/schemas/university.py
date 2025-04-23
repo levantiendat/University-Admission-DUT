@@ -403,3 +403,20 @@ class AdmissionDescriptionUpdate(BaseModel):
     major_id: Optional[int] = None
     field_or_subject_name: Optional[str] = None
 
+class PointCountRequest(BaseModel):
+    group: str
+    achievement: Optional[str] = None
+    score10: Optional[float] = 0
+    score11: Optional[float] = 0
+    score12: Optional[float] = 0
+    school_id: Optional[int] = None
+    priority_area: Optional[str] = ""
+    priority_object: Optional[str] = ""
+
+class PointCountResponse(BaseModel):
+    group: str
+    achievement_points: float
+    academic_score: float
+    converted_priority: float
+    total_score: float
+
