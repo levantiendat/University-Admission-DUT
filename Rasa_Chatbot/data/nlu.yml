@@ -225,12 +225,6 @@ nlu:
 # ---------- PHƯƠNG THỨC XÉT TUYỂN & TỔ HỢP THI CHUNG ----------
 - intent: ask_admission_methods
   examples: |
-    - các phương thức xét tuyển CNTT là gì?
-    - các phương thức xét tuyển vào công nghệ thông tin ?
-    - phương thức tuyển sinh CNTT
-    - phương thức xét tuyển CNTT
-    - phương thức tuyển sinh công nghệ thông tin
-    - xét tuyển CNTT theo cách nào?
     - có những hình thức xét tuyển CNTT nào?
     - xét tuyển CNTT như thế nào?
 
@@ -333,18 +327,6 @@ nlu:
     - năm nay công nghệ thông tin có gì mới không?
     - có gì mới trong năm nay không?
     - có gì khác biệt trong năm nay không?
-    - có gì thay đổi trong năm nay không?
-    - ngành công nghệ thông tin có xét học bạ không?
-    - ngành công nghệ thông tin có xét điểm đánh giá năng lực không?
-    - ngành công nghệ thông tin có xét điểm thi đánh giá tư duy không?
-    - ngành cntt có xét học bạ không?
-    - ngành cntt có xét điểm đánh giá năng lực không?
-    - ngành cntt có xét điểm thi đánh giá tư duy không?
-    - ngành cntt có xét điểm thi dgtd không?
-    - ngành cntt có xét điểm thi dgnl không?
-    - ngành cntt có xét điểm thi tsa không?
-    - ngành cntt có xét điểm thi vact không?
-    - điểm mới trong năm nay là gì?
     - có gì mới trong năm nay?
 
 
