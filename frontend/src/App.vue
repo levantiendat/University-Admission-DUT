@@ -131,23 +131,106 @@
       </div>
     </nav>
     <router-view/>
+    <footer class="custom-footer">
+      <div class="container-fluid px-5vw py-4">
+        <div class="row">
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="d-flex align-items-center mb-3">
+              <img src="/dut_logo.png" alt="DUT Logo" class="footer-logo me-3" />
+              <div class="footer-info">
+                <div class="fw-bold" style="color: #4da0ff;">ĐẠI HỌC ĐÀ NẴNG</div>
+                <div class="fw-bold text-danger">TRƯỜNG ĐẠI HỌC BÁCH KHOA</div>
+              </div>
+            </div>
+            <p><i class="bi bi-geo-alt-fill me-2"></i> 54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</p>
+            <p><i class="bi bi-telephone-fill me-2"></i> (0236) 3842 308</p>
+            <p><i class="bi bi-envelope-fill me-2"></i> tuyensinh@dut.udn.vn</p>
+          </div>
+          
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <h5 class="footer-heading">Liên kết hữu ích</h5>
+            <ul class="footer-links">
+              <li><a href="https://dut.udn.vn/" target="_blank">Website chính thức DUT</a></li>
+              <li><a href="https://tuyensinh.dut.udn.vn/" target="_blank">Cổng thông tin tuyển sinh</a></li>
+              <li><a href="https://www.facebook.com/DUTpage/" target="_blank">Facebook tuyển sinh</a></li>
+            </ul>
+          </div>
+          
+          <div class="col-lg-4">
+            <h5 class="footer-heading">Thống kê truy cập</h5>
+            <div class="visitor-stats">
+              <p><i class="bi bi-people-fill me-2"></i> Đang truy cập: <span class="fw-bold">{{ currentVisitors }}</span></p>
+              <p><i class="bi bi-bar-chart-fill me-2"></i> Tổng lượt truy cập: <span class="fw-bold">{{ totalVisitors }}</span></p>
+            </div>
+            <div class="social-links mt-3">
+              <a href="https://www.facebook.com/bachkhoaDUT" target="_blank" class="social-icon">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="https://www.youtube.com/@DUTMedia" target="_blank" class="social-icon">
+                <i class="bi bi-youtube"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="text-center">
+          <p class="mb-0">&copy; {{ new Date().getFullYear() }} Trường Đại học Bách khoa - Đại học Đà Nẵng. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-import { computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import store from '@/store'
+import axios from 'axios'
+import config from '@/config/apiConfig'  // nếu bạn đã tách riêng file cấu hình base API
+
+const BASE_API_URL = config?.BASE_API_URL || 'https://university-admission-dut-hzdahmckevehhpdf.southeastasia-01.azurewebsites.net/api'
 
 export default {
   setup() {
     const router = useRouter()
     const isAuthenticated = computed(() => !!store.state.token)
     const userEmail = computed(() => store.state.user.email)
+    
+    // Thêm biến để lưu trữ số liệu người truy cập
+    const currentVisitors = ref(0)
+    const totalVisitors = ref(0)
+    let heartbeatInterval = null
 
     const logout = () => {
       store.clearToken()
       router.push({ name: 'Login' })
+    }
+
+    // Hàm lấy thông tin người truy cập
+    const fetchVisitorStats = async () => {
+      try {
+        const response = await axios.get(`${BASE_API_URL}/visitors/stats`, {
+          withCredentials: true // Cần thiết để gửi cookie session
+        })
+        
+        if (response.data) {
+          currentVisitors.value = response.data.current_visitors
+          totalVisitors.value = response.data.total_visitors
+        }
+      } catch (error) {
+        console.error('Error fetching visitor stats:', error)
+      }
+    }
+
+    // Hàm gửi heartbeat để duy trì session
+    const sendHeartbeat = async () => {
+      try {
+        await axios.post(`${BASE_API_URL}/visitors/heartbeat`, {}, {
+          withCredentials: true
+        })
+      } catch (error) {
+        console.error('Error sending heartbeat:', error)
+      }
     }
 
     onMounted(() => {
@@ -162,12 +245,31 @@ export default {
       window.addEventListener('scroll', handleScroll)
       handleScroll()
 
+      // Lấy thông tin người truy cập khi trang được tải
+      fetchVisitorStats()
+      
+      // Thiết lập heartbeat mỗi 5 phút để duy trì session và cập nhật số liệu
+      heartbeatInterval = setInterval(() => {
+        sendHeartbeat()
+        fetchVisitorStats()
+      }, 5 * 60 * 1000) // 5 phút
+
       onBeforeUnmount(() => {
         window.removeEventListener('scroll', handleScroll)
+        // Xóa interval khi component unmount
+        if (heartbeatInterval) {
+          clearInterval(heartbeatInterval)
+        }
       })
     })
 
-    return { isAuthenticated, userEmail, logout }
+    return { 
+      isAuthenticated, 
+      userEmail, 
+      logout,
+      currentVisitors,
+      totalVisitors
+    }
   }
 }
 </script>
@@ -303,5 +405,83 @@ export default {
   right: 0;
   left: auto;
 }
+.custom-footer {
+  background-color: #0B2942;
+  color: #fff;
+  margin-top: 2rem;
+}
 
+.footer-logo {
+  height: 50px;
+  width: auto;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  font-size: 0.7rem;
+}
+
+.footer-heading {
+  color: #4da0ff;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+  position: relative;
+}
+
+.footer-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 50px;
+  height: 2px;
+  background-color: #4da0ff;
+}
+
+.footer-links {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+  color: #e0e0e0;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #4da0ff;
+}
+
+.visitor-stats p {
+  margin-bottom: 0.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.social-icon:hover {
+  background-color: #4da0ff;
+  color: #fff;
+}
 </style>
