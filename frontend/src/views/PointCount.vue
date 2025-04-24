@@ -284,8 +284,8 @@
   <script>
 import axios from 'axios'
 import config from '@/config/apiConfig';
-// const BASE_API_URL = config?.BASE_API_URL;
-const BASE_API_URL = 'http://127.0.0.1:8000/api';
+const BASE_API_URL = config?.BASE_API_URL;
+// const BASE_API_URL = 'http://127.0.0.1:8000/api';
 
 export default {
   name: 'PointCount',
