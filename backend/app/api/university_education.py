@@ -18,13 +18,14 @@ from app.schemas.university import CoursePriorCourseCreate, CoursePriorCourseUpd
 from app.schemas.university import CoursePrerequisiteCreate, CoursePrerequisiteUpdate
 from app.schemas.university import CourseCorequisiteCreate, CourseCorequisiteUpdate
 from app.schemas.university import CoursePriorCourseOut, CoursePrerequisiteOut, CourseCorequisiteOut
+from app.schemas.university import MajorCourseDetailOut, CourseOut, MajorCourseOut, MajorCourseDetailOut
 
 from app.services.university_education_service import create_course, get_course, get_courses, update_course, delete_course
 from app.services.university_education_service import create_major_course, get_major_course, get_major_courses, update_major_course, delete_major_course
 from app.services.university_education_service import create_major_course_detail, get_major_course_detail, get_major_course_details, update_major_course_detail, delete_major_course_detail
 from app.services.university_education_service import create_course_prior_course, get_course_prior_course, get_course_prior_courses, update_course_prior_course, delete_course_prior_course
 from app.services.university_education_service import create_course_prerequisite, get_course_prerequisite, get_course_prerequisites, update_course_prerequisite, delete_course_prerequisite
-from app.services.university_education_service import create_course_corequisite, get_course_corequisite, get_course_corequisites, update_course_corequisite, delete_course_corequisite
+from app.services.university_education_service import create_course_corequisite, get_course_corequisite, get_course_corequisites, update_course_corequisite, delete_course_corequisite, get_major_course_details_by_course_id_and_major_course_id
 
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
@@ -35,7 +36,7 @@ from app.models.university import CoursePriorCourse, CoursePrerequisite, CourseC
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 router = APIRouter()
 
-@router.post("/courses", response_model=CourseCreate, status_code=201)
+@router.post("/courses", response_model=CourseOut, status_code=201)
 async def create_course_endpoint(course: CourseCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để tạo mới một học phần
@@ -54,14 +55,14 @@ async def create_course_endpoint(course: CourseCreate, db: Session = Depends(get
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return create_course(db=db, course=course)
 
-@router.get("/courses", response_model=list[CourseCreate])
+@router.get("/courses", response_model=list[CourseOut])
 async def get_courses_endpoint(db: Session = Depends(get_db)):
     """
     API để lấy danh sách tất cả học phần
     """
     return get_courses(db=db)
 
-@router.get("/courses/{course_id}", response_model=CourseCreate)
+@router.get("/courses/{course_id}", response_model=CourseOut)
 async def get_course_endpoint(course_id: int, db: Session = Depends(get_db)):
     """
     API để lấy thông tin một học phần theo ID
@@ -71,7 +72,7 @@ async def get_course_endpoint(course_id: int, db: Session = Depends(get_db)):
         raise NotFoundException(detail="Course not found")
     return course
 
-@router.put("/courses/{course_id}", response_model=CourseCreate)
+@router.put("/courses/{course_id}", response_model=CourseOut)
 async def update_course_endpoint(course_id: int, course: CourseUpdate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để cập nhật thông tin một học phần theo ID
@@ -109,7 +110,7 @@ async def delete_course_endpoint(course_id: int, db: Session = Depends(get_db), 
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return delete_course(db=db, course_id=course_id)
 
-@router.post("/major_courses", response_model=MajorCourseCreate, status_code=201)
+@router.post("/major_courses", response_model=MajorCourseOut, status_code=201)
 async def create_major_course_endpoint(major_course: MajorCourseCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để tạo mới Khung Chương trình đào tạo - Theo năm
@@ -128,14 +129,14 @@ async def create_major_course_endpoint(major_course: MajorCourseCreate, db: Sess
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return create_major_course(db=db, major_course=major_course)
 
-@router.get("/major_courses", response_model=list[MajorCourseCreate])
+@router.get("/major_courses", response_model=list[MajorCourseOut])
 async def get_major_courses_endpoint(db: Session = Depends(get_db)):
     """
     API để lấy danh sách Khung Chương trình đào tạo - Theo năm
     """
     return get_major_courses(db=db)
 
-@router.get("/major_courses/{major_course_id}", response_model=MajorCourseCreate)
+@router.get("/major_courses/{major_course_id}", response_model=MajorCourseOut)
 async def get_major_course_endpoint(major_course_id: int, db: Session = Depends(get_db)):
     """
     API để lấy thông tin Khung Chương trình đào tạo - Theo năm theo ID
@@ -145,7 +146,7 @@ async def get_major_course_endpoint(major_course_id: int, db: Session = Depends(
         raise NotFoundException(detail="Major course not found")
     return major_course
 
-@router.put("/major_courses/{major_course_id}", response_model=MajorCourseCreate)
+@router.put("/major_courses/{major_course_id}", response_model=MajorCourseOut)
 async def update_major_course_endpoint(major_course_id: int, major_course: MajorCourseUpdate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để cập nhật thông tin Khung Chương trình đào tạo - Theo năm theo ID
@@ -183,7 +184,7 @@ async def delete_major_course_endpoint(major_course_id: int, db: Session = Depen
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return delete_major_course(db=db, major_course_id=major_course_id)
 
-@router.post("/major_course_details", response_model=MajorCourseDetailCreate, status_code=201)
+@router.post("/major_course_details", response_model=MajorCourseDetailOut, status_code=201)
 async def create_major_course_detail_endpoint(major_course_detail: MajorCourseDetailCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để tạo chi tiết từng lớp học phần trong khung chương trình
@@ -202,14 +203,14 @@ async def create_major_course_detail_endpoint(major_course_detail: MajorCourseDe
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return create_major_course_detail(db=db, major_course_detail=major_course_detail)
 
-@router.get("/major_course_details", response_model=list[MajorCourseDetailCreate])
+@router.get("/major_course_details", response_model=list[MajorCourseDetailOut])
 async def get_major_course_details_endpoint(db: Session = Depends(get_db)):
     """
     API để lấy danh sách chi tiết từng lớp học phần trong khung chương trình
     """
     return get_major_course_details(db=db)
 
-@router.get("/major_course_details/{major_course_detail_id}", response_model=MajorCourseDetailCreate)
+@router.get("/major_course_details/{major_course_detail_id}", response_model=MajorCourseDetailOut)
 def get_major_course_detail_endpoint(major_course_detail_id: int, db: Session = Depends(get_db)):
     """
     API để lấy thông tin chi tiết từng lớp học phần trong khung chương trình theo ID
@@ -219,7 +220,7 @@ def get_major_course_detail_endpoint(major_course_detail_id: int, db: Session = 
         raise NotFoundException(detail="Major course detail not found")
     return major_course_detail
 
-@router.put("/major_course_details/{major_course_detail_id}", response_model=MajorCourseDetailCreate)
+@router.put("/major_course_details/{major_course_detail_id}", response_model=MajorCourseDetailOut)
 def update_major_course_detail_endpoint(major_course_detail_id: int, major_course_detail: MajorCourseDetailUpdate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để cập nhật thông tin chi tiết từng lớp học phần trong khung chương trình theo ID
@@ -257,7 +258,17 @@ def delete_major_course_detail_endpoint(major_course_detail_id: int, db: Session
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return delete_major_course_detail(db=db, major_course_detail_id=major_course_detail_id)
 
-@router.post("/course_prior_courses", response_model=CoursePriorCourseCreate, status_code=201)
+@router.get("/major_course_details_by_course_id_and_major_course_id", response_model=MajorCourseDetailOut)
+def get_major_course_details_by_course_id_and_major_course_id_endpoint(course_id: int, major_course_id: int, db: Session = Depends(get_db)):
+    """
+    API để lấy chi tiết lớp học phần trong khung chương trình theo ID học phần và ID khung chương trình
+    """
+    major_course_details = get_major_course_details_by_course_id_and_major_course_id(db=db, course_id=course_id, major_course_id=major_course_id)
+    if not major_course_details:
+        raise NotFoundException(detail="Major course details not found")
+    return major_course_details
+
+@router.post("/course_prior_courses", response_model=CoursePriorCourseOut, status_code=201)
 def create_course_prior_course_endpoint(course_prior_course: CoursePriorCourseCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để tạo mới mối quan hệ giữa học phần và các học phần học trước
@@ -331,7 +342,7 @@ def delete_course_prior_course_endpoint(course_prior_course_id: int, db: Session
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return delete_course_prior_course(db=db, course_prior_course_id=course_prior_course_id)
 
-@router.post("/course_prerequisites", response_model=CoursePrerequisiteCreate, status_code=201)
+@router.post("/course_prerequisites", response_model=CoursePrerequisiteOut, status_code=201)
 async def create_course_prerequisite_endpoint(course_prerequisite: CoursePrerequisiteCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để tạo mới mối quan hệ giữa học phần và các học phần tiên quyết
@@ -405,7 +416,7 @@ async def delete_course_prerequisite_endpoint(course_prerequisite_id: int, db: S
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return delete_course_prerequisite(db=db, course_prerequisite_id=course_prerequisite_id)
 
-@router.post("/course_corequisites", response_model=CourseCorequisiteCreate, status_code=201)
+@router.post("/course_corequisites", response_model=CourseCorequisiteOut, status_code=201)
 async def create_course_corequisite_endpoint(course_corequisite: CourseCorequisiteCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
     """
     API để tạo mới mối quan hệ giữa học phần và các học phần song hành

@@ -49,7 +49,8 @@ def delete_course(db: Session, course_id: int) -> Course:
 def create_major_course(db: Session, major_course: MajorCourseCreate) -> MajorCourse:
     db_major_course = db.query(MajorCourse).filter(
         MajorCourse.major_id == major_course.major_id,
-        MajorCourse.year == major_course.year
+        MajorCourse.year == major_course.year,
+        MajorCourse.type == major_course.type,
     ).first()
     if db_major_course:
         raise AlreadyExistsException("Major course already exists")
@@ -118,6 +119,15 @@ def delete_major_course_detail(db: Session, major_course_detail_id: int) -> Majo
     db.delete(db_major_course_detail)
     db.commit()
     return db_major_course_detail
+
+def get_major_course_details_by_course_id_and_major_course_id(db: Session, course_id: int, major_course_id: int) -> list[MajorCourseDetail]:
+    db_major_course_details = db.query(MajorCourseDetail).filter(
+        MajorCourseDetail.course_id == course_id,
+        MajorCourseDetail.major_course_id == major_course_id
+    ).first()
+    if not db_major_course_details:
+        raise NotFoundException("Major course details not found")
+    return db_major_course_details
 
 def create_course_prior_course(db: Session, course_prior_course: CoursePriorCourseCreate) -> CoursePriorCourse:
     db_course_prior_course = db.query(CoursePriorCourse).filter(
