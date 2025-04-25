@@ -30,7 +30,7 @@ const routes = [
   { path: '/callback', name: 'Callback', component: Callback },
   { path: '/district/:district_id', name: 'DistrictDetail', component: DistrictDetail , meta: { title: 'District Detail' } },
   { path: '/city/:city_id', name: 'CityDetail', component: CityDetail , meta: { title: 'City Detail' } },
-  { path: '/ctdt', name: 'CTDT', component: CTDT, meta: {title: 'IT Program'} },
+  { path: '/ctdt/:id', name: 'CTDT', component: CTDT, meta: { title: 'Program' } },
   { path: '/point-count', name: 'PointCount', component: PointCount, meta: { title: 'Point Count - ITF Help Student 2025' } },
   { path: '/qa', name: 'QAList', component: QAList, meta: { requiresAuth: true, title: 'Q&A - ITF Help Student 2025' } },
   { path: '/qa/:question_id', name: 'QADetail', component: QADetail },

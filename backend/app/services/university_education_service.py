@@ -83,6 +83,12 @@ def delete_major_course(db: Session, major_course_id: int) -> MajorCourse:
     db.commit()
     return db_major_course
 
+def get_major_course_by_major_id(db: Session, major_id: int) -> list[MajorCourse]:
+    db_major_courses = db.query(MajorCourse).filter(MajorCourse.major_id == major_id).all()
+    if not db_major_courses:
+        raise NotFoundException("Major course not found")
+    return db_major_courses
+
 def create_major_course_detail(db: Session, major_course_detail: MajorCourseDetailCreate) -> MajorCourseDetail:
     db_major_course_detail = db.query(MajorCourseDetail).filter(
         MajorCourseDetail.major_course_id == major_course_detail.major_course_id,

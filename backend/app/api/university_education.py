@@ -25,7 +25,7 @@ from app.services.university_education_service import create_major_course, get_m
 from app.services.university_education_service import create_major_course_detail, get_major_course_detail, get_major_course_details, update_major_course_detail, delete_major_course_detail
 from app.services.university_education_service import create_course_prior_course, get_course_prior_course, get_course_prior_courses, update_course_prior_course, delete_course_prior_course
 from app.services.university_education_service import create_course_prerequisite, get_course_prerequisite, get_course_prerequisites, update_course_prerequisite, delete_course_prerequisite
-from app.services.university_education_service import create_course_corequisite, get_course_corequisite, get_course_corequisites, update_course_corequisite, delete_course_corequisite, get_major_course_details_by_course_id_and_major_course_id, get_major_course_details_by_major_course_id
+from app.services.university_education_service import create_course_corequisite, get_course_corequisite, get_course_corequisites, update_course_corequisite, delete_course_corequisite, get_major_course_details_by_course_id_and_major_course_id, get_major_course_details_by_major_course_id, get_major_course_by_major_id
 
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
@@ -183,6 +183,16 @@ async def delete_major_course_endpoint(major_course_id: int, db: Session = Depen
     if user.role != "admin":
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return delete_major_course(db=db, major_course_id=major_course_id)
+
+@router.get("/major_courses_by_major_id", response_model=list[MajorCourseOut])
+async def get_major_courses_by_major_id_endpoint(major_id: int, db: Session = Depends(get_db)):
+    """
+    API để lấy danh sách Khung Chương trình đào tạo theo Id ngành
+    """
+    major_courses = get_major_course_by_major_id(db=db, major_id=major_id)
+    if not major_courses:
+        raise NotFoundException(detail="Major courses not found")
+    return major_courses
 
 @router.post("/major_course_details", response_model=MajorCourseDetailOut, status_code=201)
 async def create_major_course_detail_endpoint(major_course_detail: MajorCourseDetailCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
