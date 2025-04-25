@@ -19,13 +19,6 @@ from app.services.admitted_student_services import stats_by_gender, stats_by_cit
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 router = APIRouter()
 
-@router.get("/", response_model=list[AdmittedStudentOut])
-async def get_admitted_students_endpoint(db: Session = Depends(get_db)):
-    """
-    API Để lấy danh sách sinh viên nhập học các khóa
-    """
-    admitted_students = get_admitted_students(db)
-    return admitted_students
 
 @router.post("/", response_model=AdmittedStudentOut)
 async def create_admitted_student_endpoint(admitted_student: AdmittedStudentCreate, db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
