@@ -120,7 +120,7 @@ def delete_major_course_detail(db: Session, major_course_detail_id: int) -> Majo
     db.commit()
     return db_major_course_detail
 
-def get_major_course_details_by_course_id_and_major_course_id(db: Session, course_id: int, major_course_id: int) -> list[MajorCourseDetail]:
+def get_major_course_details_by_course_id_and_major_course_id(db: Session, course_id: int, major_course_id: int) -> MajorCourseDetail:
     db_major_course_details = db.query(MajorCourseDetail).filter(
         MajorCourseDetail.course_id == course_id,
         MajorCourseDetail.major_course_id == major_course_id
@@ -128,6 +128,57 @@ def get_major_course_details_by_course_id_and_major_course_id(db: Session, cours
     if not db_major_course_details:
         raise NotFoundException("Major course details not found")
     return db_major_course_details
+
+def get_major_course_details_by_major_course_id(db: Session, major_course_id: int) -> dict:
+    details = db.query(MajorCourseDetail).filter(
+        MajorCourseDetail.major_course_id == major_course_id
+    ).all()
+
+    if not details:
+        raise NotFoundException("Major course details not found")
+
+    course_ids = list(set(detail.course_id for detail in details))
+    courses = db.query(Course).filter(Course.id.in_(course_ids)).all()
+
+    # Tiền xử lý mapping cho hiệu suất
+    prior_map = {
+        p.major_course_detail_id: [] for p in db.query(CoursePriorCourse).filter(
+            CoursePriorCourse.major_course_detail_id.in_([d.id for d in details])
+        ).all()
+    }
+    prerequisite_map = {
+        p.major_course_detail_id: [] for p in db.query(CoursePrerequisite).filter(
+            CoursePrerequisite.major_course_detail_id.in_([d.id for d in details])
+        ).all()
+    }
+    corequisite_map = {
+        c.major_course_detail_id: [] for c in db.query(CourseCorequisite).filter(
+            CourseCorequisite.major_course_detail_id.in_([d.id for d in details])
+        ).all()
+    }
+
+    detail_list = []
+    for d in details:
+        detail_list.append({
+            "id": d.id,
+            "course_id": d.course_id,
+            "major_course_id": d.major_course_id,
+            "semester": d.semester,
+            "elective_course": d.elective_course,
+            "pre_capstone": d.pre_capstone,
+            "mandatory_capstone": d.mandatory_capstone,
+            "prior_courses": prior_map.get(d.id, []),
+            "prerequisites": prerequisite_map.get(d.id, []),
+            "corequisites": corequisite_map.get(d.id, [])
+        })
+
+    return {
+        "courses": [
+            {"id": c.id, "course_code": c.course_code, "name": c.name, "credits": c.credits}
+            for c in courses
+        ],
+        "major_course_details": detail_list
+    }
 
 def create_course_prior_course(db: Session, course_prior_course: CoursePriorCourseCreate) -> CoursePriorCourse:
     db_course_prior_course = db.query(CoursePriorCourse).filter(
@@ -165,6 +216,14 @@ def delete_course_prior_course(db: Session, course_prior_course_id: int) -> Cour
     db.commit()
     return db_course_prior_course
 
+def get_course_prior_courses_by_major_course_detail_id(db: Session, major_course_detail_id: int) -> list[CoursePriorCourseOut]:
+    db_course_prior_courses = db.query(CoursePriorCourse).filter(
+        CoursePriorCourse.major_course_detail_id == major_course_detail_id
+    ).all()
+    if not db_course_prior_courses:
+        raise NotFoundException("Course prior courses not found")
+    return db_course_prior_courses
+
 def create_course_prerequisite(db: Session, course_prerequisite: CoursePrerequisiteCreate) -> CoursePrerequisite:
     db_course_prerequisite = db.query(CoursePrerequisite).filter(
         CoursePrerequisite.major_course_detail_id == course_prerequisite.major_course_detail_id,
@@ -201,6 +260,14 @@ def delete_course_prerequisite(db: Session, course_prerequisite_id: int) -> Cour
     db.commit()
     return db_course_prerequisite
 
+def get_course_prerequisites_by_major_course_detail_id(db: Session, major_course_detail_id: int) -> list[CoursePrerequisiteOut]:
+    db_course_prerequisites = db.query(CoursePrerequisite).filter(
+        CoursePrerequisite.major_course_detail_id == major_course_detail_id
+    ).all()
+    if not db_course_prerequisites:
+        raise NotFoundException("Course prerequisites not found")
+    return db_course_prerequisites
+
 def create_course_corequisite(db: Session, course_corequisite: CourseCorequisiteCreate) -> CourseCorequisite:
     db_course_corequisite = db.query(CourseCorequisite).filter(
         CourseCorequisite.major_course_detail_id == course_corequisite.major_course_detail_id,
@@ -236,3 +303,11 @@ def delete_course_corequisite(db: Session, course_corequisite_id: int) -> Course
     db.delete(db_course_corequisite)
     db.commit()
     return db_course_corequisite
+
+def get_course_corequisites_by_major_course_detail_id(db: Session, major_course_detail_id: int) -> list[CourseCorequisiteOut]:
+    db_course_corequisites = db.query(CourseCorequisite).filter(
+        CourseCorequisite.major_course_detail_id == major_course_detail_id
+    ).all()
+    if not db_course_corequisites:
+        raise NotFoundException("Course corequisites not found")
+    return db_course_corequisites

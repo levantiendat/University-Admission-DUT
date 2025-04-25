@@ -25,7 +25,7 @@ from app.services.university_education_service import create_major_course, get_m
 from app.services.university_education_service import create_major_course_detail, get_major_course_detail, get_major_course_details, update_major_course_detail, delete_major_course_detail
 from app.services.university_education_service import create_course_prior_course, get_course_prior_course, get_course_prior_courses, update_course_prior_course, delete_course_prior_course
 from app.services.university_education_service import create_course_prerequisite, get_course_prerequisite, get_course_prerequisites, update_course_prerequisite, delete_course_prerequisite
-from app.services.university_education_service import create_course_corequisite, get_course_corequisite, get_course_corequisites, update_course_corequisite, delete_course_corequisite, get_major_course_details_by_course_id_and_major_course_id
+from app.services.university_education_service import create_course_corequisite, get_course_corequisite, get_course_corequisites, update_course_corequisite, delete_course_corequisite, get_major_course_details_by_course_id_and_major_course_id, get_major_course_details_by_major_course_id
 
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
@@ -489,3 +489,13 @@ async def delete_course_corequisite_endpoint(course_corequisite_id: int, db: Ses
     if user.role != "admin":
         raise ForbiddenException(detail="You do not have permission to perform this action")
     return delete_course_corequisite(db=db, course_corequisite_id=course_corequisite_id)
+
+@router.get("/major_course_details_by_major_course_id", response_model=dict)
+async def get_major_course_details_by_major_course_id_endpoint(major_course_id: int, db: Session = Depends(get_db)):
+    """
+    API để lấy danh sách chi tiết lớp học phần trong khung chương trình theo ID khung chương trình
+    """
+    major_course_details = get_major_course_details_by_major_course_id(db=db, major_course_id=major_course_id)
+    if not major_course_details:
+        raise NotFoundException(detail="Major course details not found")
+    return major_course_details
