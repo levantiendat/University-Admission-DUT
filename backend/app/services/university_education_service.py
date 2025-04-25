@@ -133,30 +133,38 @@ def get_major_course_details_by_major_course_id(db: Session, major_course_id: in
     details = db.query(MajorCourseDetail).filter(
         MajorCourseDetail.major_course_id == major_course_id
     ).all()
-
     if not details:
         raise NotFoundException("Major course details not found")
 
-    course_ids = list(set(detail.course_id for detail in details))
+    # Lấy courses chính
+    course_ids = {d.course_id for d in details}
     courses = db.query(Course).filter(Course.id.in_(course_ids)).all()
 
-    # Tiền xử lý mapping cho hiệu suất
-    prior_map = {
-        p.major_course_detail_id: [] for p in db.query(CoursePriorCourse).filter(
-            CoursePriorCourse.major_course_detail_id.in_([d.id for d in details])
-        ).all()
-    }
-    prerequisite_map = {
-        p.major_course_detail_id: [] for p in db.query(CoursePrerequisite).filter(
-            CoursePrerequisite.major_course_detail_id.in_([d.id for d in details])
-        ).all()
-    }
-    corequisite_map = {
-        c.major_course_detail_id: [] for c in db.query(CourseCorequisite).filter(
-            CourseCorequisite.major_course_detail_id.in_([d.id for d in details])
-        ).all()
-    }
+    # Lấy và map các điều kiện trước, tiên quyết, song hành
+    detail_ids = [d.id for d in details]
+    priors = db.query(CoursePriorCourse).filter(
+        CoursePriorCourse.major_course_detail_id.in_(detail_ids)
+    ).all()
+    prereqs = db.query(CoursePrerequisite).filter(
+        CoursePrerequisite.major_course_detail_id.in_(detail_ids)
+    ).all()
+    cores   = db.query(CourseCorequisite).filter(
+        CourseCorequisite.major_course_detail_id.in_(detail_ids)
+    ).all()
 
+    prior_map = {}
+    for p in priors:
+        prior_map.setdefault(p.major_course_detail_id, []).append(p.prior_course_detail_id)
+
+    prerequisite_map = {}
+    for p in prereqs:
+        prerequisite_map.setdefault(p.major_course_detail_id, []).append(p.prerequisite_major_course_detail_id)
+
+    corequisite_map = {}
+    for c in cores:
+        corequisite_map.setdefault(c.major_course_detail_id, []).append(c.corequisite_major_course_detail_id)
+
+    # Build kết quả
     detail_list = []
     for d in details:
         detail_list.append({
@@ -179,6 +187,7 @@ def get_major_course_details_by_major_course_id(db: Session, major_course_id: in
         ],
         "major_course_details": detail_list
     }
+
 
 def create_course_prior_course(db: Session, course_prior_course: CoursePriorCourseCreate) -> CoursePriorCourse:
     db_course_prior_course = db.query(CoursePriorCourse).filter(
