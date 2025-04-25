@@ -1914,5 +1914,185 @@ stories:
           - method: "điểm thi đánh giá tư duy"
       - action: action_ask_if_major_accepts_method
 
+  - story: Chỉ tiêu ngành Công nghệ thông tin
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "công nghệ thông tin"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật điện
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật điện"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Công nghệ sinh học
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "công nghệ sinh học"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành CNTT đặc thù
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "công nghệ thông tin đặc thù"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật máy tính
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật máy tính"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Công nghệ thực phẩm
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "công nghệ thực phẩm"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kiến trúc
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kiến trúc"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kinh tế xây dựng
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kinh tế xây dựng"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật điện tử viễn thông
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật điện tử - viễn thông"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật cơ khí
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật cơ khí"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành CNTT-AI
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "cntt ai"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Tự động hóa
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật điều khiển và tự động hóa"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật môi trường
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật môi trường"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật hóa học
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật hóa học"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Công nghệ sinh học y dược
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "cnsh y dược"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật ô tô
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật ô tô"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Công nghệ dầu khí
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "công nghệ dầu khí và khai thác dầu"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật nhiệt
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật nhiệt"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật cơ điện tử
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật cơ điện tử"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Quản lý công nghiệp
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "quản lý công nghiệp"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu CNTT ngành tiếng Nhật
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "công nghệ thông tin ngoại ngữ nhật"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật xây dựng
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật xây dựng chuyên ngành xây dựng dân dụng và công nghiệp"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành KTXD công trình giao thông
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật xây dựng công trình giao thông"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật tàu thủy
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật tàu thủy"
+      - action: action_get_major_quota
+
+  - story: Chỉ tiêu ngành Kỹ thuật điện
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật điện"
+      - action: action_get_major_quota
   
+  - story: Chỉ tiêu ngành Kỹ thuật điện tử viễn thông
+    steps:
+      - intent: ask_quotas_for_major
+        entities:
+          - major: "kỹ thuật điện tử viễn thông"
+      - action: action_get_major_quota
 

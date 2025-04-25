@@ -78,7 +78,7 @@
                 <i class="bi bi-laptop-fill me-1"></i> Chương trình đào tạo
               </a>
               <ul class="custom-dropdown-menu">
-                <li><router-link class="dropdown-item" to="/ctdt">Khoa Công nghệ thông tin</router-link></li>
+                <li><router-link class="dropdown-item" to="/ctdt/1">Khoa Công nghệ thông tin</router-link></li>
               </ul>
             </li>
 

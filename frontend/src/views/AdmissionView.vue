@@ -1,7 +1,7 @@
 <template>
   <div class="admission-container bg-light">
     <div class="container-fluid py-5">
-      <div class="card main-card shadow">
+      <div class="card main-card shadow no-copy">
         <div class="card-header bg-primary text-white">
           <div class="d-flex justify-content-center align-items-center">
             <div class="header-icon me-3">
@@ -69,7 +69,7 @@
             </div>
             
             <!-- Bảng thông tin tuyển sinh -->
-            <div class="table-responsive admission-table custom-scroll">
+            <div class="table-responsive admission-table custom-scroll ">
               <table class="table table-hover border">
                 <thead>
                   <tr class="bg-primary text-white">
@@ -487,6 +487,25 @@ export default {
   padding: 2rem 0;
 }
 
+.no-copy {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.no-copy::selection {
+  background: transparent;
+}
+
+.no-copy::-moz-selection {
+  background: transparent;
+}
+
+.no-copy td, .no-copy th {
+  -webkit-touch-callout: none;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card-header h2 {
@@ -507,6 +526,8 @@ export default {
     padding: 0.5rem;
   }
 }
+
+
 
 @media (max-width: 480px) {
   .description-text {

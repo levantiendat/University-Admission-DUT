@@ -65,7 +65,7 @@
       </div>
       
       <!-- TABLE VIEW -->
-      <div v-else-if="viewMode === 'table'" class="table-container">
+      <div v-else-if="viewMode === 'table'" class="table-container no-copy">
         <div class="filters mb-4">
           <div class="row">
             <div class="col-md-4">
@@ -1690,6 +1690,25 @@ export default {
 /* Sửa lại hiển thị xem tất cả các năm */
 .all-years-view {
   width: 100%;
+}
+
+.no-copy {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.no-copy::selection {
+  background: transparent;
+}
+
+.no-copy::-moz-selection {
+  background: transparent;
+}
+
+.no-copy td, .no-copy th {
+  -webkit-touch-callout: none;
 }
 
 @media (max-width: 768px) {

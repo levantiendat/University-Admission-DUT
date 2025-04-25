@@ -1692,3 +1692,83 @@ stories:
         - major: "cntt"
         - method: "điểm thi đánh giá tư duy"
     - action: action_ask_if_major_accepts_method
+
+- story: "Test 1: Kiểm tra chỉ tiêu ngành CNTT"
+  steps:
+    - user: "chỉ tiêu của ngành công nghệ thông tin là bao nhiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "công nghệ thông tin"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 2: Kiểm tra chỉ tiêu ngành kỹ thuật máy tính"
+  steps:
+    - user: "ngành kỹ thuật máy tính có chỉ tiêu tuyển sinh là bao nhiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "kỹ thuật máy tính"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 3: Kiểm tra chỉ tiêu sử dụng tên viết tắt"
+  steps:
+    - user: "chỉ tiêu tuyển sinh cntt năm nay là bao nhiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "cntt"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 4: Kiểm tra chỉ tiêu ngành kiến trúc"
+  steps:
+    - user: "kiến trúc có số lượng chỉ tiêu là bao nhiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "kiến trúc"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 5: Kiểm tra chỉ tiêu ngành chuyên biệt"
+  steps:
+    - user: "chỉ tiêu của công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo là bao nhiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 6: Kiểm tra chỉ tiêu ngành kỹ thuật điện"
+  steps:
+    - user: "em muốn biết chỉ tiêu ngành kỹ thuật điện?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "kỹ thuật điện"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 7: Kiểm tra chỉ tiêu ngành viết tắt phức tạp"
+  steps:
+    - user: "ktđk&tđh có chỉ tiêu tuyển sinh bao nhiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "ktđk&tđh"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 8: Kiểm tra chỉ tiêu ngành kỹ thuật ô tô"
+  steps:
+    - user: "chỉ tiêu ngành kỹ thuật ô tô năm nay là bao nhiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "kỹ thuật ô tô"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 9: Kiểm tra chỉ tiêu chương trình đặc biệt"
+  steps:
+    - user: "chương trình tiên tiến việt-mỹ ngành hệ thống nhúng và iot có bao nhiêu chỉ tiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "chương trình tiên tiến việt-mỹ ngành hệ thống nhúng và iot"
+    - action: action_ask_quotas_for_major
+
+- story: "Test 10: Kiểm tra chỉ tiêu ngành công nghệ sinh học"
+  steps:
+    - user: "chỉ tiêu vào ngành công nghệ sinh học là bao nhiêu?"
+      intent: ask_quotas_for_major
+      entities:
+        - major: "công nghệ sinh học"
+    - action: action_ask_quotas_for_major

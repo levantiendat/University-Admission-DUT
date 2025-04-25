@@ -141,3 +141,45 @@ class GraphConnector:
                 "method_id": method_id,
                 "method_name": None
             }
+        
+    def get_major_quota_and_name(self, major_id: str) -> dict:
+        """
+        Lấy thông tin về chỉ tiêu (quota) và tên của ngành học
+
+        Args:
+            major_id (str): ID của ngành học cần truy vấn
+
+        Returns:
+            dict: Dictionary chứa thông tin của ngành học
+                {
+                    "major_id": str,     # ID của ngành
+                    "name": str,         # Tên ngành 
+                    "quota": int,        # Chỉ tiêu tuyển sinh của ngành
+                    "found": bool        # True nếu tìm thấy ngành, False nếu không
+                }
+        """
+        query = """
+        MATCH (m:Major)
+        WHERE m.id = $major
+        RETURN m.id AS major_id, m.name AS name, m.quota AS quota
+        """
+    
+        with self.driver.session() as session:
+            result = session.run(query, {"major": major_id})
+            record = result.single()
+        
+            if record:
+                return {
+                    "major_id": record["major_id"],
+                    "name": record["name"],
+                    "quota": record["quota"],
+                    "found": True
+                }
+        
+            # Trả về giá trị mặc định nếu không tìm thấy ngành
+            return {
+                "major_id": major_id,
+                "name": None,
+                "quota": None,
+                "found": False
+            }

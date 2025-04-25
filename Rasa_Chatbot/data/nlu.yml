@@ -771,6 +771,110 @@ nlu:
     - [kỹ thuật xây dựng chuyên ngành tin học xây dựng](major) có xét tuyển bằng [điểm thi dgtd](method) không?
     - [kỹ thuật xây dựng chuyên ngành kỹ thuật và quản lý xây dựng đô thị thông minh](major) có chấp nhận [học bạ](method) không?
 
+- intent: ask_quotas_for_major
+  examples: |
+    - chỉ tiêu của ngành [công nghệ thông tin](major) là bao nhiêu?
+    - ngành [công nghệ thông tin đặc thù](major) có chỉ tiêu tuyển sinh là bao nhiêu?
+    - chỉ tiêu tuyển sinh [cntt htdn](major) năm nay là bao nhiêu?
+    - ngành [kỹ thuật điện](major) có chỉ tiêu bao nhiêu?
+    - chỉ tiêu tuyển sinh của ngành [ktđt-vt](major) là bao nhiêu?
+    - số lượng chỉ tiêu của ngành [công nghệ sinh học](major) là bao nhiêu?
+    - [ktxdctgt](major) có chỉ tiêu là bao nhiêu?
+    - chỉ tiêu tuyển sinh của ngành [cntt](major) năm nay là bao nhiêu?
+    - chỉ tiêu của [kỹ thuật máy tính](major) là bao nhiêu?
+    - [cntp](major) năm nay tuyển bao nhiêu sinh viên?
+    - [kinh tế xây dựng](major) có chỉ tiêu là bao nhiêu?
+    - số lượng chỉ tiêu của [kỹ thuật cơ khí](major) là bao nhiêu?
+    - ngành [kiến trúc](major) có chỉ tiêu tuyển sinh năm nay là bao nhiêu?
+    - [ktxd đttm](major) có chỉ tiêu bao nhiêu?
+    - chỉ tiêu của ngành [pfiev](major) là bao nhiêu?
+    - [công nghệ thông tin tiếng nhật](major) có chỉ tiêu tuyển bao nhiêu sinh viên?
+    - [kỹ thuật nhiệt](major) có chỉ tiêu tuyển sinh bao nhiêu?
+    - chỉ tiêu tuyển sinh của [ktđk&tđh](major) năm nay là bao nhiêu?
+    - [ktmt](major) tuyển bao nhiêu sinh viên?
+    - ngành [cnsh y dược](major) có chỉ tiêu là bao nhiêu?
+    - [kt](major) có chỉ tiêu tuyển sinh bao nhiêu?
+    - chỉ tiêu của [cntt ai](major) là bao nhiêu?
+    - số lượng chỉ tiêu của [cntt khdl](major) là bao nhiêu?
+    - ngành [cnđt](major) có chỉ tiêu tuyển sinh bao nhiêu?
+    - chỉ tiêu tuyển sinh của ngành [kỹ thuật môi trường](major) là bao nhiêu?
+    - [ktck ckhk](major) có chỉ tiêu tuyển bao nhiêu sinh viên?
+    - chỉ tiêu của ngành [quản lý tài nguyên và môi trường](major) là bao nhiêu?
+    - [công nghệ dầu khí và khai thác dầu](major) có chỉ tiêu bao nhiêu?
+    - chỉ tiêu tuyển sinh của [cntt đặc thù khdl](major) là bao nhiêu?
+    - ngành [kỹ thuật hóa học](major) có số lượng chỉ tiêu bao nhiêu?
+    - số lượng chỉ tiêu của ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp](major) là bao nhiêu?
+    - [công nghệ thông tin ngoại ngữ nhật](major) có chỉ tiêu tuyển sinh là bao nhiêu?
+    - ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo](major) có chỉ tiêu bao nhiêu?
+    - chỉ tiêu tuyển sinh vào ngành [kỹ thuật máy tính](major) là bao nhiêu?
+    - chỉ tiêu của ngành [công nghệ sinh học](major) năm nay là bao nhiêu?
+    - [công nghệ sinh học chuyên ngành công nghệ sinh học y dược](major) có chỉ tiêu tuyển sinh bao nhiêu?
+    - số lượng chỉ tiêu của ngành [công nghệ kỹ thuật vật liệu xây dựng](major) là bao nhiêu?
+    - [công nghệ chế tạo máy](major) có chỉ tiêu là bao nhiêu?
+    - ngành [quản lý công nghiệp](major) năm nay tuyển bao nhiêu sinh viên?
+    - chỉ tiêu của ngành [công nghệ dầu khí và khai thác dầu](major) là bao nhiêu?
+    - [chương trình đào tạo kỹ sư chất lượng cao việt - pháp](major) có chỉ tiêu tuyển sinh là bao nhiêu?
+    - chỉ tiêu tuyển sinh của ngành [kỹ thuật cơ khí chuyên ngành cơ khí động lực](major) là bao nhiêu?
+    - [kỹ thuật cơ điện tử](major) có chỉ tiêu bao nhiêu?
+    - ngành [kỹ thuật nhiệt](major) có số lượng chỉ tiêu là bao nhiêu?
+    - chỉ tiêu tuyển sinh của [kỹ thuật nhiệt chuyên ngành quản lý năng lượng](major) năm nay là bao nhiêu?
+    - [kỹ thuật tàu thủy](major) có chỉ tiêu tuyển bao nhiêu sinh viên?
+    - chỉ tiêu của ngành [kỹ thuật điện](major) là bao nhiêu?
+    - ngành [kỹ thuật điện tử - viễn thông](major) có chỉ tiêu tuyển sinh bao nhiêu?
+    - chỉ tiêu tuyển sinh của [kỹ thuật điện tử - viễn thông chuyên ngành vi điện tử - thiết kế vi mạch](major) là bao nhiêu?
+    - [kỹ thuật điều khiển và tự động hóa](major) có số lượng chỉ tiêu là bao nhiêu?
+    - chỉ tiêu của ngành [kỹ thuật hóa học](major) năm nay là bao nhiêu?
+    - [kỹ thuật môi trường](major) có chỉ tiêu tuyển sinh bao nhiêu?
+    - ngành [kỹ thuật hệ thống công nghiệp](major) có chỉ tiêu tuyển bao nhiêu sinh viên?
+    - chỉ tiêu tuyển sinh của [kỹ thuật cơ khí chuyên ngành cơ khí hàng không](major) là bao nhiêu?
+    - [kỹ thuật ô tô](major) có chỉ tiêu bao nhiêu?
+    - chỉ tiêu của ngành [chương trình tiên tiến việt-mỹ ngành kỹ thuật điện tử viễn thông](major) là bao nhiêu?
+    - [chương trình tiên tiến việt-mỹ ngành hệ thống nhúng và iot](major) có số lượng chỉ tiêu là bao nhiêu?
+    - ngành [công nghệ thực phẩm](major) có chỉ tiêu tuyển sinh bao nhiêu?
+    - chỉ tiêu tuyển sinh của ngành [kiến trúc](major) năm nay là bao nhiêu?
+    - [kỹ thuật xây dựng chuyên ngành xây dựng dân dụng và công nghiệp](major) có chỉ tiêu tuyển sinh là bao nhiêu?
+    - chỉ tiêu của [kỹ thuật xây dựng chuyên ngành tin học xây dựng](major) là bao nhiêu?
+    - ngành [kỹ thuật xây dựng chuyên ngành kỹ thuật và quản lý xây dựng đô thị thông minh](major) có chỉ tiêu bao nhiêu?
+    - chỉ tiêu tuyển sinh của [kỹ thuật xây dựng chuyên ngành mô hình thông tin và trí tuệ nhân tạo trong xây dựng](major) là bao nhiêu?
+    - [kỹ thuật xây dựng công trình thủy](major) có số lượng chỉ tiêu bao nhiêu?
+    - chỉ tiêu của ngành [kỹ thuật xây dựng công trình giao thông](major) năm nay là bao nhiêu?
+    - [kỹ thuật xây dựng công trình giao thông chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị](major) có chỉ tiêu tuyển sinh là bao nhiêu?
+    - ngành [kinh tế xây dựng](major) tuyển bao nhiêu sinh viên?
+    - chỉ tiêu tuyển sinh của [kỹ thuật cơ sở hạ tầng](major) là bao nhiêu?
+    - [quản lý tài nguyên và môi trường](major) có chỉ tiêu là bao nhiêu?
+    - chỉ tiêu tuyển sinh ngành [công nghệ thông tin](major) năm nay là bao nhiêu?
+    - cho em hỏi chỉ tiêu ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp](major) là bao nhiêu?
+    - số lượng tuyển sinh của ngành [công nghệ thông tin ngoại ngữ nhật](major) là bao nhiêu?
+    - chỉ tiêu tuyển sinh của ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo](major) là bao nhiêu em?
+    - năm nay ngành [kỹ thuật máy tính](major) tuyển bao nhiêu sinh viên?
+    - chỉ tiêu vào ngành [công nghệ sinh học](major) là bao nhiêu?
+    - các chỉ tiêu tuyển sinh của ngành [công nghệ sinh học chuyên ngành công nghệ sinh học y dược](major) là bao nhiêu?
+    - ngành [công nghệ kỹ thuật vật liệu xây dựng](major) có bao nhiêu chỉ tiêu?
+    - số chỉ tiêu tuyển sinh ngành [công nghệ chế tạo máy](major) là bao nhiêu?
+    - ngành [quản lý công nghiệp](major) có bao nhiêu chỉ tiêu?
+    - năm nay số lượng chỉ tiêu của ngành [công nghệ dầu khí và khai thác dầu](major) là bao nhiêu?
+    - chỉ tiêu tuyển sinh cho [chương trình đào tạo kỹ sư chất lượng cao việt - pháp](major) là bao nhiêu?
+    - cho tôi biết chỉ tiêu của ngành [kỹ thuật cơ khí chuyên ngành cơ khí động lực](major)?
+    - [kỹ thuật cơ điện tử](major) có tổng chỉ tiêu là bao nhiêu?
+    - tổng chỉ tiêu của ngành [kỹ thuật nhiệt](major) là bao nhiêu?
+    - năm nay chỉ tiêu [kỹ thuật nhiệt chuyên ngành quản lý năng lượng](major) là bao nhiêu?
+    - [kỹ thuật tàu thủy](major) có bao nhiêu chỉ tiêu?
+    - em muốn biết chỉ tiêu ngành [kỹ thuật điện](major)?
+    - chỉ tiêu của [kỹ thuật điện tử - viễn thông](major) là bao nhiêu?
+    - [kỹ thuật điện tử - viễn thông chuyên ngành vi điện tử - thiết kế vi mạch](major) có số lượng chỉ tiêu bao nhiêu?
+    - tổng chỉ tiêu ngành [kỹ thuật điều khiển và tự động hóa](major) là bao nhiêu?
+    - [kỹ thuật hóa học](major) năm nay tuyển bao nhiêu sinh viên?
+    - chỉ tiêu của [kỹ thuật môi trường](major) là bao nhiêu?
+    - tổng số chỉ tiêu của [kỹ thuật hệ thống công nghiệp](major) là bao nhiêu?
+    - [kỹ thuật cơ khí chuyên ngành cơ khí hàng không](major) có bao nhiêu chỉ tiêu tuyển sinh?
+    - chỉ tiêu ngành [kỹ thuật ô tô](major) năm nay là bao nhiêu?
+    - [chương trình tiên tiến việt-mỹ ngành kỹ thuật điện tử viễn thông](major) có bao nhiêu chỉ tiêu?
+    - tổng chỉ tiêu của [chương trình tiên tiến việt-mỹ ngành hệ thống nhúng và iot](major) là bao nhiêu?
+    - năm nay ngành [công nghệ thực phẩm](major) tuyển bao nhiêu sinh viên?
+    - [kiến trúc](major) có số lượng chỉ tiêu là bao nhiêu?
+    - chỉ tiêu tuyển sinh vào [kỹ thuật xây dựng chuyên ngành xây dựng dân dụng và công nghiệp](major) là bao nhiêu?
+    - số chỉ tiêu tuyển sinh của [kỹ thuật xây dựng chuyên ngành tin học xây dựng](major) là bao nhiêu?
+
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program
   examples: |

@@ -1,7 +1,7 @@
 <template>
   <div class="hocba-container bg-light">
     <div class="container-fluid py-5">
-      <div class="card main-card shadow">
+      <div class="card main-card shadow no-copy">
         <div class="card-header bg-primary text-white">
           <div class="d-flex justify-content-center align-items-center">
             <div class="header-icon me-3">
@@ -454,6 +454,25 @@ export default {
 
 .no-results {
   padding: 2rem 0;
+}
+
+.no-copy {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.no-copy::selection {
+  background: transparent;
+}
+
+.no-copy::-moz-selection {
+  background: transparent;
+}
+
+.no-copy td, .no-copy th {
+  -webkit-touch-callout: none;
 }
 
 /* Responsive adjustments */

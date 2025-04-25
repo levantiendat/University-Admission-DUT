@@ -1,5 +1,5 @@
 <template>
-    <div class="pre-admitted-container">
+    <div class="pre-admitted-container no-copy">
       <div class="header-section">
         <div class="container">
           <h1 class="main-title">Thống Kê Sinh Viên Trúng Tuyển</h1>
@@ -1043,6 +1043,25 @@
     text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.9);
     font-size: 1.05rem; /* Tăng kích thước chữ */
   }
+
+  .no-copy {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.no-copy::selection {
+  background: transparent;
+}
+
+.no-copy::-moz-selection {
+  background: transparent;
+}
+
+.no-copy td, .no-copy th {
+  -webkit-touch-callout: none;
+}
   
   /* Responsive adjustments */
   @media (max-width: 992px) {

@@ -48,6 +48,7 @@ intents:
   - ask_combination_major
   - ask_methods_for_major
   - ask_if_major_accepts_method
+  - ask_quotas_for_major
 
 entities:
   - major
@@ -291,6 +292,7 @@ actions:
   - action_combination_major
   - action_ask_methods_for_major
   - action_ask_if_major_accepts_method
+  - action_get_major_quota
 
 
 session_config:
