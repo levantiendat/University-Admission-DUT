@@ -49,7 +49,7 @@ def get_questions(db: Session, skip: int = 0, limit: int = 1000) -> list[dict]:
     """
     db_questions = db.query(Question).options(
         joinedload(Question.user)
-    ).offset(skip).limit(limit).all()
+    ).order_by(Question.created_at.desc()).offset(skip).limit(limit).all()
     
     results = []
     for question in db_questions:
@@ -138,7 +138,7 @@ def get_responses(db: Session, question_id: int, skip: int = 0, limit: int = 100
     db_responses = db.query(Response).options(
         joinedload(Response.user),
         joinedload(Response.question)
-    ).filter(Response.question_id == question_id).offset(skip).limit(limit).all()
+    ).filter(Response.question_id == question_id).order_by(Response.created_at.desc()).offset(skip).limit(limit).all()
     
     results = []
     for response in db_responses:

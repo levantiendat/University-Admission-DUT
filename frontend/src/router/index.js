@@ -8,9 +8,9 @@ import DistrictDetail from '@/views/DistrictDetail.vue'
 import CityDetail from '@/views/CityDetail.vue'
 import CTDT from '@/views/CTDT.vue'
 import PointCount from '@/views/PointCount.vue'
-import QAList from '@/views/QAList.vue'
-import QADetail from '@/views/QADetail.vue'
-import QACreate from '@/views/QACreate.vue'
+import QAList from '@/views/qnaListView.vue'
+import QADetail from '@/views/qnaDetailView.vue'
+import QACreate from '@/views/qnaCreateView.vue'
 import SchoolDetail from '@/views/SchoolDetail.vue'
 import Upload from '@/views/Upload.vue'
 import SchoolPriority from '@/views/SchoolPriority.vue'
@@ -33,9 +33,10 @@ const routes = [
   { path: '/city/:city_id', name: 'CityDetail', component: CityDetail , meta: { title: 'City Detail' } },
   { path: '/ctdt/:id', name: 'CTDT', component: CTDT, meta: { title: 'Program' } },
   { path: '/point-count', name: 'PointCount', component: PointCount, meta: { title: 'Point Count - ITF Help Student 2025' } },
-  { path: '/qa', name: 'QAList', component: QAList, meta: { requiresAuth: true, title: 'Q&A - ITF Help Student 2025' } },
-  { path: '/qa/:question_id', name: 'QADetail', component: QADetail },
-  { path: '/qa/create', name: 'QACreate', component: QACreate },
+  { path: '/qa', name: 'QAList', component: QAList, meta: { requiresAuth: true, title: 'Q&A' } },
+  { path: '/qa/:question_id', name: 'QADetail', component: QADetail, meta: { requiresAuth: true, title: 'Q&A - Chi tiết câu hỏi' } },
+  { path: '/qa/create', name: 'QACreate', component: QACreate , meta: { requiresAuth: true, title: 'Q&A - Tạo câu hỏi' }},
+  { path: '/qa/update/:question_id', name: 'QAUpdate', component: QACreate, meta: { requiresAuth: true, title: 'Q&A - Cập nhật câu hỏi' } },
   { path: '/school/:school_id', name: 'SchoolDetail', component: SchoolDetail,  meta: { title: 'School Detail' } },
   { path: '/upload', name: 'Upload', component: Upload, meta: { requiresAuth: true } },
   { path: '/school-priority', name: 'SchoolPriority', component: SchoolPriority, meta: { title: 'School Priority - ITF Help Student 2025' } },
