@@ -11,7 +11,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 router = APIRouter()
 
 # Dependency để lấy current user từ token
-@router.post("/me", response_model=UserOut)
+@router.get("/me", response_model=UserOut)
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=401,
