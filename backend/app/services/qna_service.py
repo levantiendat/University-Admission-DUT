@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.core.exceptions import NotFoundException, AlreadyExistsException
 from app.core.exceptions import ForbiddenException
+from sqlalchemy.orm import joinedload
 
 def create_question(db: Session, question: QuestionCreate, user_id: int) -> Question:
     db_question = Question(**question.dict(), user_id=user_id)
@@ -13,14 +14,60 @@ def create_question(db: Session, question: QuestionCreate, user_id: int) -> Ques
     db.refresh(db_question)
     return db_question
 
-def get_question(db: Session, question_id: int) -> Question:
-    db_question = db.query(Question).filter(Question.id == question_id).first()
+def get_question(db: Session, question_id: int) -> dict:
+    """
+    Lấy thông tin câu hỏi cùng với thông tin chi tiết về người đặt câu hỏi
+    """
+    # Sử dụng joinedload để tải thông tin user cùng với câu hỏi
+    db_question = db.query(Question).options(
+        joinedload(Question.user)
+    ).filter(Question.id == question_id).first()
+    
     if not db_question:
         raise NotFoundException("Question not found")
-    return db_question
+    
+    # Chuyển đổi kết quả thành dict để có thể thêm thông tin user
+    result = db_question.__dict__
+    
+    # Loại bỏ các thuộc tính private của SQLAlchemy
+    result = {k: v for k, v in result.items() if not k.startswith('_')}
+    
+    # Thêm thông tin user
+    if db_question.user:
+        result["user"] = {
+            "id": db_question.user.id,
+            "name": db_question.user.name,
+            "email": db_question.user.email,
+            "role": db_question.user.role
+        }
+    
+    return result
 
-def get_questions(db: Session, skip: int = 0, limit: int = 100) -> list[Question]:
-    return db.query(Question).offset(skip).limit(limit).all()
+def get_questions(db: Session, skip: int = 0, limit: int = 1000) -> list[dict]:
+    """
+    Lấy danh sách câu hỏi cùng với thông tin chi tiết về người đặt câu hỏi
+    """
+    db_questions = db.query(Question).options(
+        joinedload(Question.user)
+    ).offset(skip).limit(limit).all()
+    
+    results = []
+    for question in db_questions:
+        # Chuyển đổi mỗi câu hỏi thành dict
+        question_dict = {k: v for k, v in question.__dict__.items() if not k.startswith('_')}
+        
+        # Thêm thông tin user
+        if question.user:
+            question_dict["user"] = {
+                "id": question.user.id,
+                "name": question.user.name,
+                "email": question.user.email,
+                "role": question.user.role
+            }
+        
+        results.append(question_dict)
+        
+    return results
 
 def update_question(db: Session, question_id: int, question: QuestionUpdate, user_id: int) -> Question:
     db_question = get_question(db, question_id)
@@ -47,14 +94,59 @@ def create_response(db: Session, response: ResponseCreate, user_id: int) -> Resp
     db.refresh(db_response)
     return db_response
 
-def get_response(db: Session, response_id: int) -> Response:
-    db_response = db.query(Response).filter(Response.id == response_id).first()
+def get_response(db: Session, response_id: int) -> dict:
+    """
+    Lấy thông tin câu trả lời cùng với thông tin chi tiết về người trả lời
+    """
+    db_response = db.query(Response).options(
+        joinedload(Response.user)
+    ).filter(Response.id == response_id).first()
+    
     if not db_response:
         raise NotFoundException("Response not found")
-    return db_response
+    
+    # Chuyển đổi kết quả thành dict
+    result = db_response.__dict__
+    
+    # Loại bỏ các thuộc tính private của SQLAlchemy
+    result = {k: v for k, v in result.items() if not k.startswith('_')}
+    
+    # Thêm thông tin user
+    if db_response.user:
+        result["user"] = {
+            "id": db_response.user.id,
+            "name": db_response.user.name,
+            "email": db_response.user.email,
+            "role": db_response.user.role
+        }
+    
+    return result
 
-def get_responses(db: Session, question_id: int, skip: int = 0, limit: int = 100) -> list[Response]:
-    return db.query(Response).filter(Response.question_id == question_id).offset(skip).limit(limit).all()
+def get_responses(db: Session, question_id: int, skip: int = 0, limit: int = 100) -> list[dict]:
+    """
+    Lấy danh sách câu trả lời cho một câu hỏi cùng với thông tin chi tiết về người trả lời
+    """
+    db_responses = db.query(Response).options(
+        joinedload(Response.user)
+    ).filter(Response.question_id == question_id).offset(skip).limit(limit).all()
+    
+    results = []
+    for response in db_responses:
+        # Chuyển đổi mỗi câu trả lời thành dict
+        response_dict = {k: v for k, v in response.__dict__.items() if not k.startswith('_')}
+        
+        # Thêm thông tin user
+        if response.user:
+            response_dict["user"] = {
+                "id": response.user.id,
+                "name": response.user.name,
+                "email": response.user.email,
+                "role": response.user.role
+            }
+        
+        results.append(response_dict)
+        
+    return results
 
 def update_response(db: Session, response_id: int, response: ResponseUpdate, user_id: int) -> Response:
     db_response = get_response(db, response_id)

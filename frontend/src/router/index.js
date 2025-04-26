@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
@@ -56,16 +57,29 @@ const router = createRouter({
 
 // Router guard: kiểm tra yêu cầu đăng nhập
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token')
-  if (to.meta.requiresAuth && !token) {
-    next({ name: 'Login' })
+  const token = sessionStorage.getItem('token')
+
+  if (to.meta.requiresAuth) {
+    if (!token) {
+      // Không có token => chuyển đến Login
+      alert('Vui lòng đăng nhập.')
+      next({ name: 'Login' })
+    } else if (!store.isTokenValid()) {
+      // Token hết hạn
+      alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')
+      store.clearToken()
+      next({ name: 'Login' })
+    } else {
+      // Token hợp lệ => cho phép đi tiếp
+      next()
+    }
   } else {
     next()
   }
 })
 
 router.afterEach((to) => {
-  document.title = to.meta.title || 'ITF Help Student 2025'
+  document.title = to.meta.title || 'Tư vấn tuyển sinh năm 2025'
 })
 
 export default router
