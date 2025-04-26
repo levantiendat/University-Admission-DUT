@@ -124,15 +124,15 @@ def get_response(db: Session, response_id: int) -> dict:
 
 def get_responses(db: Session, question_id: int, skip: int = 0, limit: int = 100) -> list[dict]:
     """
-    Lấy danh sách câu trả lời cho một câu hỏi cùng với thông tin chi tiết về người trả lời
+    Lấy danh sách câu trả lời cho một câu hỏi cùng với thông tin chi tiết về người trả lời và câu hỏi
     """
     db_responses = db.query(Response).options(
-        joinedload(Response.user)
+        joinedload(Response.user),
+        joinedload(Response.question)
     ).filter(Response.question_id == question_id).offset(skip).limit(limit).all()
     
     results = []
     for response in db_responses:
-        # Chuyển đổi mỗi câu trả lời thành dict
         response_dict = {k: v for k, v in response.__dict__.items() if not k.startswith('_')}
         
         # Thêm thông tin user
@@ -142,6 +142,16 @@ def get_responses(db: Session, question_id: int, skip: int = 0, limit: int = 100
                 "name": response.user.name,
                 "email": response.user.email,
                 "role": response.user.role
+            }
+        
+        # Thêm thông tin question (đúng định dạng)
+        if response.question:
+            response_dict["question"] = {
+                "id": response.question.id,
+                "title": getattr(response.question, "title", None),
+                "body_text": getattr(response.question, "body_text", None),
+                "created_at": getattr(response.question, "created_at", None),
+                "updated_at": getattr(response.question, "updated_at", None),
             }
         
         results.append(response_dict)
