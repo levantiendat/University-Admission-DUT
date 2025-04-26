@@ -5,18 +5,14 @@ intents:
   - goodbye
   - ask_major_info
   - ask_major_info_not_found
-  - ask_enrollment_quota
   - ask_enrollment_quota_uni
   - ask_major_dthtdn_info
-  - ask_enrollment_quota_major_dthtdn
   - ask_training_program_major_dthtdn
   - ask_standard_output_language_major_dthtdn
   - ask_major_nnn_info
-  - ask_enrollment_quota_major_nnn
   - ask_training_program_major_nnn
   - ask_standard_output_language_major_nnn
   - ask_major_khdl_ttnt_info
-  - ask_enrollment_quota_major_khdl_ttnt
   - ask_training_program_major_khdl_ttnt
   - ask_standard_output_language_major_khdl_ttnt
   - ask_admission_methods
@@ -49,10 +45,12 @@ intents:
   - ask_methods_for_major
   - ask_if_major_accepts_method
   - ask_quotas_for_major
+  - ask_major_by_achievement
 
 entities:
   - major
   - method
+  - achievement
 
 slots:
   major:
@@ -66,6 +64,12 @@ slots:
     mappings:
       - type: from_entity
         entity: method
+
+  achievement:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: achievement
 
 
 responses:
@@ -85,16 +89,12 @@ responses:
     - text: "rất tiếc, tôi không tìm thấy thông tin chi tiết về ngành bạn yêu cầu."
 
   ## CHỈ TIÊU TUYỂN SINH CHUNG
-  utter_enrollment_quota:
-    - text: "Tổng chỉ tiêu tuyển sinh ngành Công nghệ thông tin là 380, chi tiết mỗi ngành như sau:\n- Công nghệ thông tin (Đặc thù – Hợp tác doanh nghiệp): 210\n- Công nghệ thông tin (Ngoại ngữ Nhật): 110\n- Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo: 60."
   utter_enrollment_quota_uni:
     - text: "Tổng chỉ tiêu tuyển sinh của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng năm 2025 dự kiến là 3900 Sinh Viên"
 
   ## NHÓM CNTT ĐẶC THÙ – HỢP TÁC DOANH NGHIỆP
   utter_major_info_dthtdn:
     - text: "Ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp) tập trung đào tạo những kiến thức chuyên sâu với định hướng hợp tác doanh nghiệp."
-  utter_enrollment_quota_major_dthtdn:
-    - text: "Công nghệ thông tin (Đặc thù – Hợp tác doanh nghiệp) có chỉ tiêu tuyển sinh là 210."
   utter_training_program_major_dthtdn:
     - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Đặc thù – Hợp tác doanh nghiệp):\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanDT\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuDT"
   utter_standard_output_language_major_dthtdn:
@@ -103,8 +103,6 @@ responses:
   ## NHÓM CNTT NGOẠI NGỮ NHẬT
   utter_major_info_nnn:
     - text: "Ngành Công nghệ thông tin (Ngoại ngữ Nhật) là chương trình đào tạo CNTT với định hướng thị trường Nhật Bản; sinh viên học chung chương trình không phân chuyên ngành."
-  utter_enrollment_quota_major_nnn:
-    - text: "Ngành Công nghệ thông tin (Ngoại ngữ Nhật) có chỉ tiêu tuyển sinh là 110."
   utter_training_program_major_nnn:
     - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Ngoại ngữ Nhật):\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanNNN\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuNNN"
   utter_standard_output_language_major_nnn:
@@ -113,8 +111,6 @@ responses:
   ## NHÓM CNTT CHUYÊN NGÀNH KHOA HỌC DỮ LIỆU & TTNT
   utter_major_info_khdl_ttnt:
     - text: "Ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo đào tạo sinh viên từ căn bản đến nâng cao về Trí Tuệ Nhân Tạo, xử lý dữ liệu lớn và ứng dụng AI."
-  utter_enrollment_quota_major_khdl_ttnt:
-    - text: "Ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo có chỉ tiêu tuyển sinh là 60."
   utter_training_program_major_khdl_ttnt:
     - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo:\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanKHDL\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuKHDL"
   utter_standard_output_language_major_khdl_ttnt:
@@ -249,18 +245,14 @@ actions:
   - utter_goodbye
   - utter_major_info
   - utter_major_info_not_found
-  - utter_enrollment_quota
   - utter_enrollment_quota_uni
   - utter_major_info_dthtdn
-  - utter_enrollment_quota_major_dthtdn
   - utter_training_program_major_dthtdn
   - utter_standard_output_language_major_dthtdn
   - utter_major_info_nnn
-  - utter_enrollment_quota_major_nnn
   - utter_training_program_major_nnn
   - utter_standard_output_language_major_nnn
   - utter_major_info_khdl_ttnt
-  - utter_enrollment_quota_major_khdl_ttnt
   - utter_training_program_major_khdl_ttnt
   - utter_standard_output_language_major_khdl_ttnt
   - utter_admission_methods_uni
@@ -293,6 +285,7 @@ actions:
   - action_ask_methods_for_major
   - action_ask_if_major_accepts_method
   - action_get_major_quota
+  - action_major_by_achievement
 
 
 session_config:

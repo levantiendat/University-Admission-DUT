@@ -2,7 +2,7 @@ from typing import List, Dict, Optional
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from actions.graph_connector import GraphConnector
-from actions.mapping_utils import normalize_major, normalize_method  # Import các hàm tiện ích
+from actions.mapping_utils import normalize_major, normalize_method, normalize_achievement_field  # Import các hàm tiện ích
 import logging
 
 # Cấu hình logging
@@ -261,3 +261,46 @@ class ActionGetMajorQuota(Action):
             
         dispatcher.utter_message(text=message)
         return []
+    
+class ActionSuggestMajorByAchievement(Action):
+    def name(self) -> str:
+        return "action_major_by_achievement"
+
+    def __init__(self):
+        self.db = GraphConnector()
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+
+        # Lấy thông tin về thành tích/sở trường từ entity
+        achievement = next(tracker.get_latest_entity_values("achievement"), None)
+        
+        logging.debug(f"Achievement input: {achievement}")
+        
+        if not achievement:
+            message = "❓ Vui lòng cho biết thành tích, sở trường hoặc lĩnh vực bạn giỏi để tôi có thể gợi ý ngành phù hợp."
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Chuẩn hóa và phân loại thành tích/sở trường
+        achievement_type = normalize_achievement_field(achievement)
+        logging.debug(f"Normalized achievement: {achievement_type}")
+        
+        # Truy vấn các ngành phù hợp với thành tích/sở trường
+        majors = self.db.get_major_by_achievement(achievement_type)
+        
+        if majors:
+            message = f"🎯 **Dựa trên thành tích của bạn về {achievement_type}, những ngành sau bạn có thể xét tuyển:**\n\n"
+            
+            for i, major_info in enumerate(majors, 1):
+                message += f"{i}. {major_info['major']}\n"
+            
+            message += "\n💡 *Bạn có thể tìm hiểu thêm về điểm chuẩn, tổ hợp môn và phương thức xét tuyển của các ngành này.*"
+        else:
+            message = f"❗ Thành tích '{achievement_type} không tìm thấy ngành phù hợp'.\n\nVui lòng chia sẻ thêm về thành tích khác để tôi tư vấn tốt hơn."
+        
+        dispatcher.utter_message(text=message)
+        return []
+
+    

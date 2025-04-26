@@ -183,3 +183,13 @@ class GraphConnector:
                 "quota": None,
                 "found": False
             }
+        
+    def get_major_by_achievement(self, achievement_keyword: str):
+        query = """
+        MATCH (m:Major)-[r:HAS_ACHIEVEMENT]->(a:AchievementField)
+        WHERE tolower(a.name) CONTAINS tolower($achievement)
+        RETURN m.name AS major, a.name AS achievement
+        """
+        with self.driver.session() as session:
+            result = session.run(query, {"achievement": achievement_keyword})
+            return list(result)

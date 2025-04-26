@@ -318,6 +318,125 @@ MAJOR_KEYWORDS = {
     "ô tô": ["ô tô", "xe hơi"],
 }
 
+ACHIEVEMENT_FIELD_MAPPING = {
+    # Khoa học cơ bản
+    "toán": "toán",
+    "toán học": "toán",
+    "giải toán": "toán",
+    "olympic toán": "toán",
+    
+    "lý": "vật lý",
+    "vật lý": "vật lý",
+    "vật lí": "vật lý",
+    "giải vật lý": "vật lý",
+    "olympic vật lý": "vật lý",
+    
+    "hóa": "hóa học",
+    "hóa học": "hóa học",
+    "giải hóa": "hóa học",
+    "olympic hóa": "hóa học",
+    
+    "sinh": "sinh học",
+    "sinh học": "sinh học",
+    "giải sinh": "sinh học",
+    "olympic sinh học": "sinh học",
+    
+    # Công nghệ thông tin
+    "tin": "tin học",
+    "tin học": "tin học",
+    "giải tin": "tin học",
+    "olympic tin học": "tin học",
+    "lập trình": "tin học",
+    "cntt": "tin học",
+    "công nghệ thông tin": "tin học",
+    
+    "phần mềm": "phần mềm hệ thống",
+    "phần mềm hệ thống": "phần mềm hệ thống",
+    "hệ thống phần mềm": "phần mềm hệ thống",
+    "software": "phần mềm hệ thống",
+    "system software": "phần mềm hệ thống",
+    
+    # Hệ thống nhúng và robot
+    "robot": "robot và máy thông minh",
+    "robot và máy thông minh": "robot và máy thông minh",
+    "máy thông minh": "robot và máy thông minh",
+    "robotics": "robot và máy thông minh",
+    
+    "hệ thống nhúng": "hệ thống nhúng",
+    "nhúng": "hệ thống nhúng",
+    "embedded": "hệ thống nhúng",
+    "iot": "hệ thống nhúng",
+    
+    # Sinh học ứng dụng
+    "vi sinh": "vi sinh vật",
+    "vi sinh vật": "vi sinh vật",
+    
+    "hóa sinh": "hóa sinh",
+    "sinh hóa": "hóa sinh",
+    
+    "kỹ thuật y sinh": "kỹ thuật y sinh",
+    "y sinh": "kỹ thuật y sinh",
+    
+    "sinh học tế bào": "sinh học tế bào và phân tử",
+    "sinh học phân tử": "sinh học tế bào và phân tử",
+    "sinh học tế bào và phân tử": "sinh học tế bào và phân tử",
+    "tế bào học": "sinh học tế bào và phân tử",
+    
+    "y sinh và khoa học sức khỏe": "y sinh và khoa học sức khỏe",
+    "khoa học sức khỏe": "y sinh và khoa học sức khỏe",
+    
+    # Vật liệu và Điện tử
+    "khoa học vật liệu": "khoa học vật liệu",
+    "vật liệu": "khoa học vật liệu",
+    "hoá học, khoa học vật liệu": "khoa học vật liệu",
+    
+    "thông tin-điện tử-viễn thông": "thông tin điện tử viễn thông",
+    "điện tử viễn thông": "thông tin điện tử viễn thông",
+    "thông tin viễn thông": "thông tin điện tử viễn thông",
+    "đtvt": "thông tin điện tử viễn thông",
+    "viễn thông": "thông tin điện tử viễn thông",
+    "điện tử": "thông tin điện tử viễn thông",
+    
+    # Cơ khí
+    "cơ khí": "kỹ thuật cơ khí",
+    "kỹ thuật cơ khí": "kỹ thuật cơ khí",
+    
+    # Môi trường
+    "khoa học trái đất": "khoa học trái đất và môi trường",
+    "khoa học trái đất và môi trường": "khoa học trái đất và môi trường",
+    "địa chất": "khoa học trái đất và môi trường",
+    
+    "môi trường": "tài nguyên và môi trường",
+    "tài nguyên": "tài nguyên và môi trường",
+    "tài nguyên & môi trường": "tài nguyên và môi trường",
+    "tài nguyên và môi trường": "tài nguyên và môi trường",
+}
+
+
+# Từ điển phụ cho các biến thể cách viết thành tích
+ACHIEVEMENT_VARIANTS = {
+    "toán": ["toán", "toán học", "giải toán", "olympic toán", "hsg toán", "học sinh giỏi toán"],
+    "vật lý": ["lý", "vật lý", "vật lí", "giải lý", "olympic vật lý", "hsg vật lý", "học sinh giỏi vật lý"],
+    "hóa học": ["hóa", "hóa học", "giải hóa", "olympic hóa học", "hsg hóa", "học sinh giỏi hóa"],
+    "sinh học": ["sinh", "sinh học", "giải sinh", "olympic sinh học", "hsg sinh", "học sinh giỏi sinh"],
+    "tin học": ["tin", "tin học", "giải tin", "olympic tin học", "lập trình", "công nghệ thông tin"],
+    "phần mềm hệ thống": ["phần mềm", "phần mềm hệ thống", "hệ thống phần mềm", "software"],
+    "robot và máy thông minh": ["robot", "robotics", "máy thông minh", "robot và máy thông minh"],
+    "hệ thống nhúng": ["hệ thống nhúng", "nhúng", "embedded", "iot", "internet of things"],
+    "vi sinh vật": ["vi sinh", "vi sinh vật", "vi trùng học"],
+    "hóa sinh": ["hóa sinh", "sinh hóa", "biochemistry"],
+    "kỹ thuật y sinh": ["kỹ thuật y sinh", "y sinh", "biomedical", "bioengineering"],
+    "sinh học tế bào và phân tử": ["sinh học tế bào", "sinh học phân tử", "sinh học tế bào và phân tử", "molecular biology", "cell biology"],
+    "y sinh và khoa học sức khỏe": ["y sinh và khoa học sức khỏe", "khoa học sức khỏe", "health science"],
+    "khoa học vật liệu": ["khoa học vật liệu", "vật liệu", "materials science"],
+    "thông tin điện tử viễn thông": ["thông tin-điện tử-viễn thông", "điện tử viễn thông", "viễn thông", "điện tử", "telecommunications"],
+    "kỹ thuật cơ khí": ["cơ khí", "kỹ thuật cơ khí", "mechanical engineering"],
+    "khoa học trái đất và môi trường": ["khoa học trái đất", "khoa học trái đất và môi trường", "địa chất", "earth science"],
+    "tài nguyên và môi trường": ["môi trường", "tài nguyên", "tài nguyên & môi trường", "tài nguyên và môi trường", "environmental science"]
+}
+
+
+
 def clean_text(text):
     """
     Làm sạch văn bản và xóa các ký tự đặc biệt
@@ -430,3 +549,72 @@ def normalize_method(text: Optional[str]) -> Optional[str]:
         return best_match
         
     return None
+
+def normalize_achievement_field(text: Optional[str]) -> Optional[str]:
+    """
+    Chuẩn hóa và ánh xạ tên lĩnh vực giải thưởng/thành tích từ văn bản đầu vào
+    """
+    if not text:
+        return None
+            
+    # Làm sạch và chuẩn hóa văn bản đầu vào
+    normalized_text = clean_text(text)
+    
+    # Thử tìm kiếm trực tiếp trong mapping
+    if normalized_text in ACHIEVEMENT_FIELD_MAPPING:
+        return ACHIEVEMENT_FIELD_MAPPING[normalized_text]
+    
+    # Tìm kiếm dựa trên từng từ khóa trong text và tính điểm khớp
+    match_scores = {}
+    for key, value in ACHIEVEMENT_FIELD_MAPPING.items():
+        # Tính điểm dựa trên có bao nhiêu từ của key có trong text
+        key_words = key.split()
+        score = sum(1 for word in key_words if word in normalized_text)
+        
+        # Cộng điểm nếu có từ khóa đặc biệt từ variants
+        for field_id, keywords in ACHIEVEMENT_VARIANTS.items():
+            if value == field_id and any(kw in normalized_text for kw in keywords):
+                score += 2
+        
+        # Cộng điểm nếu key là một phần của text
+        if key in normalized_text:
+            score += 3
+            
+        # Cộng điểm nếu là từ khóa chính xác
+        if key == normalized_text:
+            score += 5
+            
+        # Lưu điểm và tên lĩnh vực
+        if score > 0:
+            match_scores[value] = match_scores.get(value, 0) + score
+    
+    # Trả về kết quả có điểm cao nhất nếu có
+    if match_scores:
+        return max(match_scores.items(), key=lambda x: x[1])[0]
+    
+    return None
+
+def find_achievement_fields(text: str) -> list:
+    """
+    Tìm tất cả các lĩnh vực thành tích có thể có trong một đoạn văn bản
+    """
+    if not text:
+        return []
+    
+    normalized_text = clean_text(text)
+    found_fields = []
+    
+    # Kiểm tra tất cả các từ khóa trong từ điển
+    for key, value in ACHIEVEMENT_FIELD_MAPPING.items():
+        if key in normalized_text and value not in found_fields:
+            found_fields.append(value)
+            
+    # Kiểm tra các biến thể
+    for field_id, variants in ACHIEVEMENT_VARIANTS.items():
+        if field_id not in found_fields:  # Chỉ kiểm tra nếu chưa tìm thấy
+            for variant in variants:
+                if variant in normalized_text:
+                    found_fields.append(field_id)
+                    break
+    
+    return found_fields

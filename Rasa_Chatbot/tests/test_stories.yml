@@ -1772,3 +1772,163 @@ stories:
       entities:
         - major: "công nghệ sinh học"
     - action: action_ask_quotas_for_major
+
+- story: "Test 1: Kiểm tra xét tuyển với giải Toán"
+  steps:
+    - user: "Tôi đạt giải Toán có thể xét tuyển vào ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Toán"
+    - action: action_major_by_achievement
+
+- story: "Test 2: Kiểm tra xét tuyển với giải Vật Lý"
+  steps:
+    - user: "Đạt giải Vật Lý thì có thể đăng kí ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Vật Lý"
+    - action: action_major_by_achievement
+
+- story: "Test 3: Kiểm tra xét tuyển với giải Tin Học"
+  steps:
+    - user: "Giải Tin Học xét tuyển được những ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Tin Học"
+    - action: action_major_by_achievement
+
+- story: "Test 4: Kiểm tra xét tuyển với giải Hóa Học"
+  steps:
+    - user: "Đạt giải Hóa Học có thể nộp đơn vào ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Hóa Học"
+    - action: action_major_by_achievement
+
+- story: "Test 5: Kiểm tra xét tuyển với giải Sinh Học"
+  steps:
+    - user: "Với giải Sinh Học tôi có thể đăng kí xét tuyển vào ngành gì?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Sinh Học"
+    - action: action_major_by_achievement
+
+- story: "Test 6: Kiểm tra xét tuyển với giải Robot và máy thông minh"
+  steps:
+    - user: "Giải Robot và máy thông minh có thể đăng kí ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Robot và máy thông minh"
+    - action: action_major_by_achievement
+
+- story: "Test 7: Kiểm tra xét tuyển với giải Phần mềm hệ thống"
+  steps:
+    - user: "Tôi đạt giải Phần mềm hệ thống, đăng kí vào ngành nào được?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Phần mềm hệ thống"
+    - action: action_major_by_achievement
+
+- story: "Test 8: Kiểm tra xét tuyển với giải Kỹ thuật Cơ khí"
+  steps:
+    - user: "Giải Kỹ thuật Cơ khí xét tuyển được ngành gì?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Kỹ thuật Cơ khí"
+    - action: action_major_by_achievement
+
+- story: "Test 9: Kiểm tra xét tuyển với giải Thông tin-Điện tử-Viễn thông"
+  steps:
+    - user: "Học sinh đạt giải Thông tin-Điện tử-Viễn thông có thể học ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Thông tin-Điện tử-Viễn thông"
+    - action: action_major_by_achievement
+
+- story: "Test 10: Kiểm tra xét tuyển với giải Hệ thống nhúng"
+  steps:
+    - user: "Giải Hệ thống nhúng xét tuyển được ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Hệ thống nhúng"
+    - action: action_major_by_achievement
+
+- story: "Test 11: Kiểm tra xét tuyển với giải Vi sinh"
+  steps:
+    - user: "Giải Vi sinh thì được xét tuyển vào những ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Vi sinh"
+    - action: action_major_by_achievement
+
+- story: "Test 12: Kiểm tra xét tuyển với giải Hóa sinh"
+  steps:
+    - user: "Tôi có giải Hóa sinh, đăng kí xét tuyển vào ngành nào phù hợp?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Hóa sinh"
+    - action: action_major_by_achievement
+
+- story: "Test 13: Kiểm tra xét tuyển với giải Kỹ thuật y sinh"
+  steps:
+    - user: "Tôi đạt giải Kỹ thuật y sinh, nên đăng kí ngành gì?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Kỹ thuật y sinh"
+    - action: action_major_by_achievement
+
+- story: "Test 14: Kiểm tra xét tuyển với giải Sinh học tế bào và phân tử"
+  steps:
+    - user: "Với giải Sinh học tế bào và phân tử thì nộp hồ sơ vào ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Sinh học tế bào và phân tử"
+    - action: action_major_by_achievement
+
+- story: "Test 15: Kiểm tra xét tuyển với giải Y sinh và khoa học sức khỏe"
+  steps:
+    - user: "Tôi đạt giải Y sinh và khoa học sức khỏe, xét tuyển được ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Y sinh và khoa học sức khỏe"
+    - action: action_major_by_achievement
+
+- story: "Test 16: Kiểm tra xét tuyển với giải Khoa học trái đất và môi trường"
+  steps:
+    - user: "Với giải Khoa học trái đất và môi trường thì nộp đơn được ngành nào?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Khoa học trái đất và môi trường"
+    - action: action_major_by_achievement
+
+- story: "Test 17: Kiểm tra xét tuyển với giải Tài nguyên & Môi trường"
+  steps:
+    - user: "Giải Tài nguyên & Môi trường xét tuyển vào đâu được?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Tài nguyên & Môi trường"
+    - action: action_major_by_achievement
+
+- story: "Test 18: Kiểm tra xét tuyển với giải Hoá học, Khoa học vật liệu"
+  steps:
+    - user: "Tôi có giải Hoá học, Khoa học vật liệu, đăng kí xét tuyển vào ngành nào phù hợp?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Hoá học, Khoa học vật liệu"
+    - action: action_major_by_achievement
+
+- story: "Test 19: Kiểm tra với cách diễn đạt khác"
+  steps:
+    - user: "Những ngành nào phù hợp cho học sinh đạt giải Toán?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Toán"
+    - action: action_major_by_achievement
+
+- story: "Test 20: Kiểm tra với cách diễn đạt về giải thưởng"
+  steps:
+    - user: "Tôi đoạt giải trong kỳ thi Olympic Vật Lý thì đăng kí ngành gì?"
+      intent: ask_major_by_achievement
+      entities:
+        - achievement: "Vật Lý"
+    - action: action_major_by_achievement

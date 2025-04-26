@@ -118,8 +118,6 @@
                 <th rowspan="2" class="align-middle">STT</th>
                 <th rowspan="2" class="align-middle">Ngành</th>
                 <th rowspan="2" class="align-middle">Mã ngành</th>
-                <th rowspan="2" class="align-middle">Chỉ tiêu</th>
-                <th rowspan="2" class="align-middle">Khoa</th>
                 <!-- Header for each admission method -->
                 <th v-for="method in displayedMethods" :key="`header-${method.id}`" 
                     :colspan="selectedYears.length" 
@@ -141,8 +139,6 @@
                 <td>{{ index + 1 }}</td>
                 <td>{{ major.name }}</td>
                 <td>{{ major.major_code }}</td>
-                <td>{{ major.seats }}</td>
-                <td>{{ major.faculty.name }}</td>
                 <!-- Data for each admission method and year -->
                 <template v-for="method in displayedMethods" :key="`data-method-${method.id}`">
                   <td v-for="year in selectedYears" :key="`data-${method.id}-${year}`" class="text-center">

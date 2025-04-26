@@ -1,8 +1,8 @@
 import axios from 'axios'
 import config from '@/config/apiConfig'
 
-// const BASE_API_URL = config?.BASE_API_URL || 'https://university-admission-dut-hzdahmckevehhpdf.southeastasia-01.azurewebsites.net/api'
-const BASE_API_URL = 'http://127.0.0.1:8000/api'
+const BASE_API_URL = config?.BASE_API_URL || 'https://university-admission-dut-hzdahmckevehhpdf.southeastasia-01.azurewebsites.net/api'
+// const BASE_API_URL = 'http://127.0.0.1:8000/api'
 
 const qnaService = {
   // Lấy token từ session storage

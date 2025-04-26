@@ -25,16 +25,6 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 3. Chỉ tiêu tuyển sinh chung CNTT
-  - story: "Pair - Chỉ tiêu tuyển sinh chung CNTT"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_enrollment_quota
-      - action: utter_enrollment_quota
-      - intent: goodbye
-      - action: utter_goodbye
-
   # 4. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: thông tin ngành
   - story: "Pair - CNTT Đặc Thù: thông tin ngành"
     steps:
@@ -42,16 +32,6 @@ stories:
       - action: utter_greet
       - intent: ask_major_dthtdn_info
       - action: utter_major_info_dthtdn
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 5. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: chỉ tiêu tuyển sinh
-  - story: "Pair - CNTT Đặc Thù: chỉ tiêu tuyển sinh"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_enrollment_quota_major_dthtdn
-      - action: utter_enrollment_quota_major_dthtdn
       - intent: goodbye
       - action: utter_goodbye
 
@@ -85,16 +65,6 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 9. CNTT Ngoại Ngữ Nhật: chỉ tiêu tuyển sinh
-  - story: "Pair - CNTT Ngoại Ngữ Nhật: chỉ tiêu tuyển sinh"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_enrollment_quota_major_nnn
-      - action: utter_enrollment_quota_major_nnn
-      - intent: goodbye
-      - action: utter_goodbye
-
   # 10. CNTT Ngoại Ngữ Nhật: chương trình đào tạo
   - story: "Pair - CNTT Ngoại Ngữ Nhật: chương trình đào tạo"
     steps:
@@ -122,16 +92,6 @@ stories:
       - action: utter_greet
       - intent: ask_major_khdl_ttnt_info
       - action: utter_major_info_khdl_ttnt
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 13. CNTT TTNT: chỉ tiêu tuyển sinh
-  - story: "Pair - CNTT TTNT: chỉ tiêu tuyển sinh"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_enrollment_quota_major_khdl_ttnt
-      - action: utter_enrollment_quota_major_khdl_ttnt
       - intent: goodbye
       - action: utter_goodbye
 
@@ -353,20 +313,12 @@ stories:
       - intent: ask_major_info
       - action: utter_major_info
 
-  - story: "Direct Pair - Chỉ tiêu tuyển sinh chung"
-    steps:
-      - intent: ask_enrollment_quota
-      - action: utter_enrollment_quota
 
   - story: "Direct Pair - CNTT Đặc Thù: thông tin ngành"
     steps:
       - intent: ask_major_dthtdn_info
       - action: utter_major_info_dthtdn
 
-  - story: "Direct Pair - CNTT Đặc Thù: chỉ tiêu tuyển sinh"
-    steps:
-      - intent: ask_enrollment_quota_major_dthtdn
-      - action: utter_enrollment_quota_major_dthtdn
 
   - story: "Direct Pair - CNTT Đặc Thù: chương trình đào tạo"
     steps:
@@ -383,11 +335,6 @@ stories:
       - intent: ask_major_nnn_info
       - action: utter_major_info_nnn
 
-  - story: "Direct Pair - CNTT Ngoại Ngữ Nhật: chỉ tiêu tuyển sinh"
-    steps:
-      - intent: ask_enrollment_quota_major_nnn
-      - action: utter_enrollment_quota_major_nnn
-
   - story: "Direct Pair - CNTT Ngoại Ngữ Nhật: chương trình đào tạo"
     steps:
       - intent: ask_training_program_major_nnn
@@ -402,11 +349,6 @@ stories:
     steps:
       - intent: ask_major_khdl_ttnt_info
       - action: utter_major_info_khdl_ttnt
-
-  - story: "Direct Pair - CNTT TTNT: chỉ tiêu tuyển sinh"
-    steps:
-      - intent: ask_enrollment_quota_major_khdl_ttnt
-      - action: utter_enrollment_quota_major_khdl_ttnt
 
   - story: "Direct Pair - CNTT TTNT: chương trình đào tạo"
     steps:
@@ -2095,4 +2037,144 @@ stories:
         entities:
           - major: "kỹ thuật điện tử viễn thông"
       - action: action_get_major_quota
+
+  - story: Xét tuyển với giải Toán
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Toán"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Vật Lý
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Vật Lý"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Tin Học
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Tin Học"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Hóa Học
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Hóa Học"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Sinh Học
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Sinh Học"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Robot và máy thông minh
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Robot và máy thông minh"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Phần mềm hệ thống
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Phần mềm hệ thống"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Kỹ thuật Cơ khí
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Kỹ thuật Cơ khí"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Thông tin-Điện tử-Viễn thông
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Thông tin-Điện tử-Viễn thông"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Hệ thống nhúng
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Hệ thống nhúng"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Vi sinh
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Vi sinh"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Hóa sinh
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Hóa sinh"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Kỹ thuật y sinh
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Kỹ thuật y sinh"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Sinh học tế bào và phân tử
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Sinh học tế bào và phân tử"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Y sinh và khoa học sức khỏe
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Y sinh và khoa học sức khỏe"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Khoa học trái đất và môi trường
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Khoa học trái đất và môi trường"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Tài nguyên & Môi trường
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Tài nguyên & Môi trường"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với giải Hoá học, Khoa học vật liệu
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Hoá học, Khoa học vật liệu"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với nhiều giải khác nhau
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Toán"
+      - action: action_major_by_achievement
+
+  - story: Xét tuyển với đạt nhiều giải
+    steps:
+      - intent: ask_major_by_achievement
+        entities:
+          - achievement: "Vật Lý"
+      - action: action_major_by_achievement
 

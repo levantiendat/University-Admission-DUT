@@ -58,16 +58,6 @@ nlu:
     - không biết về ngành này
     - không có data cho ngành này
 
-# ---------- CHỈ TIÊU TUYỂN SINH CHUNG ----------
-- intent: ask_enrollment_quota
-  examples: |
-    - tổng chỉ tiêu tuyển sinh CNTT là bao nhiêu?
-    - chỉ tiêu tuyển sinh CNTT
-    - cntt có bao nhiêu chỗ?
-    - chỉ tiêu của ngành CNTT là gì?
-    - tuyển sinh CNTT có bao nhiêu?
-    - tổng số chỗ CNTT
-    - quota ngành CNTT là bao nhiêu?
 
 - intent: ask_enrollment_quota_uni
   examples: |
@@ -91,15 +81,6 @@ nlu:
     - ngành công nghệ thông tin đặc thù hợp tác doanh nghiệp
     - công nghệ thông tin đặc thù hợp tác doanh nghiệp đào tạo như thế nào?
     - thông tin về công nghệ thông tin đặc thù hợp tác doanh nghiệp
-
-- intent: ask_enrollment_quota_major_dthtdn
-  examples: |
-    - chỉ tiêu CNTT đặc thù là bao nhiêu?
-    - tuyển sinh CNTT đặc thù có bao nhiêu?
-    - chỉ tiêu CNTT dthtdn là bao nhiêu?
-    - CNTT đặc thù có bao nhiêu chỗ?
-    - chỉ tiêu tuyển sinh công nghệ thông tin đặc thù hợp tác doanh nghiệp là bao nhiêu?
-    - chỉ tiêu công nghệ thông tin đặc thù hợp tác doanh nghiệp
 
 - intent: ask_training_program_major_dthtdn
   examples: |
@@ -135,17 +116,6 @@ nlu:
     - ngành công nghệ thông tin ngoại ngữ nhật đào tạo như thế nào?
     - ngành công nghệ thông tin ngoại ngữ nhật là gì?
     - ngành công nghệ thông tin ngoại ngữ nhật
-
-
-- intent: ask_enrollment_quota_major_nnn
-  examples: |
-    - chỉ tiêu CNTT ngoại ngữ nhật là bao nhiêu?
-    - tuyển sinh CNTT ngoại ngữ nhật có bao nhiêu chỗ?
-    - cntt nnn có bao nhiêu chỉ tiêu?
-    - chỉ tiêu CNTT NNN là bao nhiêu?
-    - chỉ tiêu tuyển sinh công nghệ thông tin ngoại ngữ nhật
-    - chỉ tiêu công nghệ thông tin ngoại ngữ nhật
-    - chỉ tiêu cntt ngoại ngữ nhật
 
 - intent: ask_training_program_major_nnn
   examples: |
@@ -183,20 +153,6 @@ nlu:
     - ngành cntt khdl ttnt
     - ngành cntt khoa học dữ liệu
     - ngành cntt trí tuệ nhân tạo
-
-- intent: ask_enrollment_quota_major_khdl_ttnt
-  examples: |
-    - chỉ tiêu CNTT TTNT là bao nhiêu?
-    - tuyển sinh CNTT TTNT có bao nhiêu chỗ?
-    - quota CNTT TTNT là bao nhiêu?
-    - cntt TTNT chỉ tiêu?
-    - chỉ tiêu tuyển sinh công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo
-    - chỉ tiêu công nghệ thông tin chuyên ngành khoa học dữ liệu trí tuệ nhân tạo
-    - chỉ tiêu cntt khoa học dữ liệu trí tuệ nhân tạo
-    - chỉ tiêu cntt khdl ttnt
-    - chỉ tiêu cntt ai
-    - chỉ tiêu cntt khoa học dữ liệu
-    - chỉ tiêu cntt trí tuệ nhân tạo
 
 - intent: ask_training_program_major_khdl_ttnt
   examples: |
@@ -875,6 +831,62 @@ nlu:
     - chỉ tiêu tuyển sinh vào [kỹ thuật xây dựng chuyên ngành xây dựng dân dụng và công nghiệp](major) là bao nhiêu?
     - số chỉ tiêu tuyển sinh của [kỹ thuật xây dựng chuyên ngành tin học xây dựng](major) là bao nhiêu?
 
+- intent: ask_major_by_achievement
+  examples: |
+    - Tôi đạt giải môn [Toán](achievement) có thể xét tuyển vào ngành nào?
+    - Đạt giải [Vật Lý](achievement) thì có thể đăng kí ngành nào?
+    - Giải [Tin Học](achievement) xét tuyển được những ngành nào?
+    - Đạt giải [Hóa Học](achievement) có thể nộp đơn vào ngành nào?
+    - Với giải [Sinh Học](achievement) tôi có thể đăng kí xét tuyển vào ngành gì?
+    - Giải [Robot và máy thông minh](achievement) có thể đăng kí ngành nào?
+    - Tôi đạt giải [Phần mềm hệ thống](achievement), đăng kí vào ngành nào được?
+    - Giải [Kỹ thuật Cơ khí](achievement) xét tuyển được ngành gì?
+    - Học sinh đạt giải [Thông tin-Điện tử-Viễn thông](achievement) có thể học ngành nào?
+    - Tôi có giải [Hoá học, Khoa học vật liệu](achievement), đăng kí xét tuyển vào ngành nào phù hợp?
+    - Với giải [Khoa học trái đất và môi trường](achievement) thì nộp đơn được ngành nào?
+    - Giải [Vi sinh](achievement) thì được xét tuyển vào những ngành nào?
+    - Giải [Hóa sinh](achievement) có thể đăng kí ngành gì?
+    - Giải [Hệ thống nhúng](achievement) xét tuyển được ngành nào?
+    - Tôi đạt giải [Kỹ thuật y sinh](achievement), nên đăng kí ngành gì?
+    - Giải [Tài nguyên & Môi trường](achievement) xét tuyển vào đâu được?
+    - Với giải [Sinh học tế bào và phân tử](achievement) thì nộp hồ sơ vào ngành nào?
+    - Tôi đạt giải [Y sinh và khoa học sức khỏe](achievement), xét tuyển được ngành nào?
+    - Tôi đạt giải nhất môn [Toán](achievement) thì xét tuyển được ngành nào?
+    - Đạt giải ba [Vật Lý](achievement) có thể đăng kí học ngành gì?
+    - Huy chương bạc [Tin Học](achievement) thì đăng kí xét tuyển ngành nào?
+    - Giải khuyến khích [Hóa Học](achievement) có thể vào ngành gì?
+    - Nếu tôi có giải nhì [Sinh Học](achievement) thì nộp đơn vào ngành nào được?
+    - Với giải nhất [Robot và máy thông minh](achievement) thì xét tuyển vào ngành nào?
+    - Tôi đoạt huy chương vàng [Phần mềm hệ thống](achievement), có thể đăng kí ngành nào?
+    - Giải ba cấp quốc gia môn [Kỹ thuật Cơ khí](achievement) thì xét vào ngành nào?
+    - Tôi đạt giải olympiad [Thông tin-Điện tử-Viễn thông](achievement), đăng kí được ngành gì?
+    - Học sinh đạt giải cấp tỉnh môn [Hoá học](achievement) thì đăng kí được ngành nào?
+    - Đạt giải trong lĩnh vực [Hệ thống nhúng](achievement) thì có thể học ngành gì?
+    - Tôi có thành tích về [Vi sinh](achievement), nên đăng kí xét tuyển vào ngành nào?
+    - Đạt giải trong cuộc thi [Tài nguyên & Môi trường](achievement) thì nên học ngành gì?
+    - Thành tích [Y sinh và khoa học sức khỏe](achievement) có thể đăng kí ngành nào?
+    - Tôi đạt giải trong cuộc thi học sinh giỏi môn [Toán](achievement), xét tuyển được vào ngành nào?
+    - Đoạt giải trong kỳ thi Olympic [Vật Lý](achievement) thì đăng kí ngành gì?
+    - Được giải trong cuộc thi quốc gia về [Tin Học](achievement), có thể học ngành nào?
+    - Tôi có giải trong hội thi sáng tạo [Robot và máy thông minh](achievement), đăng kí được ngành nào?
+    - Đạt thành tích trong cuộc thi học sinh giỏi [Hóa Học](achievement) thì nên xét vào ngành gì?
+    - Với giải thưởng trong lĩnh vực [Sinh Học](achievement), tôi có thể đăng kí vào ngành nào?
+    - Tôi đoạt giải trong kỳ thi tài năng [Kỹ thuật Cơ khí](achievement), nộp hồ sơ vào ngành nào tốt?
+    - Có giải trong cuộc thi sáng chế về [Hệ thống nhúng](achievement), xét tuyển được vào ngành gì?
+    - Đạt giải trong Olympic [Sinh học tế bào và phân tử](achievement) thì đăng kí được ngành nào?
+    - Được giải trong cuộc thi khoa học kỹ thuật về [Thông tin-Điện tử-Viễn thông](achievement), nên học ngành gì?
+    - Những ngành nào phù hợp cho học sinh đạt giải [Toán](achievement)?
+    - Ngành nào chấp nhận xét tuyển học sinh có giải [Vật Lý](achievement)?
+    - Trường có xét tuyển học sinh đạt giải [Hóa Học](achievement) không?
+    - Có ngành nào nhận học sinh đạt giải [Robot và máy thông minh](achievement)?
+    - Tôi nên chọn ngành nào khi có giải [Sinh Học](achievement)?
+    - Có những ngành nào dành cho học sinh đạt giải [Tin Học](achievement)?
+    - Các ngành có chế độ xét tuyển đặc biệt cho học sinh đạt giải [Phần mềm hệ thống](achievement)?
+    - Chỉ tiêu xét tuyển thẳng học sinh đạt giải [Thông tin-Điện tử-Viễn thông](achievement)?
+    - Ngành nào ưu tiên xét tuyển học sinh có giải [Kỹ thuật Cơ khí](achievement)?
+    - Có thể đăng kí vào những ngành nào với giải [Hoá học, Khoa học vật liệu](achievement)?
+    - Tôi giỏi [Vi sinh](achievement), nên đăng kí xét tuyển vào ngành nào?
+    - Đạt thành tích tốt về [Y sinh và khoa học sức khỏe](achievement) thì đăng kí được vào ngành nào?
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program
   examples: |
