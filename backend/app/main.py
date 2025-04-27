@@ -7,6 +7,7 @@ from app.core.security import get_password_hash
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 import os
+import json
 
 app = FastAPI(
     title="FastAPI Backend University admission application",
@@ -14,7 +15,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+raw_origins = os.getenv("ALLOWED_ORIGINS", "[]")
+try:
+    allowed_origins = json.loads(raw_origins)
+    if not isinstance(allowed_origins, list):
+        allowed_origins = []
+except json.JSONDecodeError:
+    allowed_origins = []
 
 app.add_middleware(
     CORSMiddleware,

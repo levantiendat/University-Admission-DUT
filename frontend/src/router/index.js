@@ -28,13 +28,40 @@ import UserController from '@/controllers/userController'
 // Admin pages import
 import AdminLayout from '@/views/admins/AdminLayout.vue'
 import AdminHome from '@/views/admins/AdminHome.vue'
+
+// Admin User Management
 import AdminUsers from '@/views/admins/AdminUsers.vue'
 import AdminUserDetail from '@/views/admins/AdminUserDetail.vue'
 import AdminUserCreate from '@/views/admins/AdminUserCreate.vue'
 
+// Admin Faculty Management
+import AdminFaculties from '@/views/admins/AdminFaculties.vue'
+import AdminFacultyDetail from '@/views/admins/AdminFacultyDetail.vue'
+import AdminFacultyCreate from '@/views/admins/AdminFacultyCreate.vue'
+
+// Admin Major Management
+import AdminMajors from '@/views/admins/AdminMajors.vue'
+import AdminMajorDetail from '@/views/admins/AdminMajorDetail.vue'
+import AdminMajorCreate from '@/views/admins/AdminMajorCreate.vue'
+
+// Add these import lines after the existing imports
+import AdminAdmissionMethods from '@/views/admins/AdminAdmissionMethods.vue'
+import AdminAdmissionMethodDetail from '@/views/admins/AdminAdmissionMethodDetail.vue'
+import AdminAdmissionMethodCreate from '@/views/admins/AdminAdmissionMethodCreate.vue'
+import AdminAdmissionMethodMajors from '@/views/admins/AdminAdmissionMethodMajors.vue'
+import AdminMajorAdmissionMethods from '@/views/admins/AdminMajorAdmissionMethods.vue'
+
+// Add these import lines
+import AdminSubjects from '@/views/admins/AdminSubjects.vue'
+import AdminSubjectCreate from '@/views/admins/AdminSubjectCreate.vue'
+import AdminSubjectDetail from '@/views/admins/AdminSubjectDetail.vue'
+import AdminSubjectGroups from '@/views/admins/AdminSubjectGroups.vue'
+import AdminSubjectGroupCreate from '@/views/admins/AdminSubjectGroupCreate.vue'
+import AdminSubjectGroupDetail from '@/views/admins/AdminSubjectGroupDetail.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
-  { path: '/', name: 'Home', component: Home, meta: { title: 'Homepage - ITF Help Student 2025' } },
+  { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
   { path: '/login', name: 'Login', component: Login, meta: { title: 'Sign in to Your Account' } },
   { path: '/register', name: 'Register', component: Register, meta: { title: 'Create a New Account' } },
   { path: '/callback', name: 'Callback', component: Callback },
@@ -57,7 +84,7 @@ const normalRoutes = [
   { path: '/admission/danhgianangluc', name: 'University Admission - DGNL', component: Admission_DGNL, meta: {title: 'Thông tin tuyển sinh năm 2025 - Đánh giá năng lực'}},
   { path: '/admission/danhgiatuduy', name: 'University Admission - DGTD', component: Admission_DGTD, meta: {title: 'Thông tin tuyển sinh năm 2025 - Đánh giá tư duy'}},
   { path: '/statistics/previous-admission', name: 'PreAdmission', component: preAdmission, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm chuẩn các năm trước'}},
-  { path: '/statistics/pre-admitted-student', name: 'PreAdmittedStudent', component: preAdmittedStudent, meta: {title: 'Thông tin tuyển sinh năm 2025 - Thống kê sinh viên các năm trước'}},
+  { path: '/statistics/pre-admitted-student', name: 'PreAdmittedStudent', component: preAdmittedStudent, meta: {title: 'Thông tin tuyển sinh năm 2025 - Thống kê sinh viên các năm trước'}}
 ]
 
 // Admin routes with AdminLayout as the parent
@@ -73,6 +100,7 @@ const adminRoutes = [
         component: AdminHome, 
         meta: { title: 'Dashboard - Quản trị hệ thống' }
       },
+      // User Management Routes
       { 
         path: 'users', 
         name: 'AdminUsers', 
@@ -91,6 +119,127 @@ const adminRoutes = [
         component: AdminUserDetail, 
         props: true, 
         meta: { title: 'Chi tiết người dùng' }
+      },
+      
+      // Faculty Management Routes
+      {
+        path: 'faculties',
+        name: 'AdminFaculties',
+        component: AdminFaculties,
+        meta: { title: 'Quản lý khoa' }
+      },
+      {
+        path: 'faculties/create',
+        name: 'AdminFacultyCreate',
+        component: AdminFacultyCreate,
+        meta: { title: 'Tạo khoa mới' }
+      },
+      {
+        path: 'faculties/:facultyId',
+        name: 'AdminFacultyDetail',
+        component: AdminFacultyDetail,
+        props: true,
+        meta: { title: 'Chi tiết khoa' }
+      },
+      
+      // Major Management Routes
+      {
+        path: 'majors',
+        name: 'AdminMajors',
+        component: AdminMajors,
+        meta: { title: 'Quản lý ngành' }
+      },
+      {
+        path: 'majors/create',
+        name: 'AdminMajorCreate',
+        component: AdminMajorCreate,
+        meta: { title: 'Tạo ngành mới' }
+      },
+      {
+        path: 'majors/:majorId',
+        name: 'AdminMajorDetail',
+        component: AdminMajorDetail,
+        props: true,
+        meta: { title: 'Chi tiết ngành' }
+      },
+      {
+        path: 'majors/faculty/:facultyId',
+        name: 'AdminMajorsByFaculty',
+        component: AdminMajors,
+        props: true,
+        meta: { title: 'Danh sách ngành theo khoa' }
+      },
+      {
+        path: 'admission-methods',
+        name: 'AdminAdmissionMethods',
+        component: AdminAdmissionMethods,
+        meta: { title: 'Quản lý phương thức tuyển sinh' }
+      },
+      {
+        path: 'admission-methods/create',
+        name: 'AdminAdmissionMethodCreate',
+        component: AdminAdmissionMethodCreate,
+        meta: { title: 'Tạo phương thức tuyển sinh mới' }
+      },
+      {
+        path: 'admission-methods/:admissionMethodId',
+        name: 'AdminAdmissionMethodDetail',
+        component: AdminAdmissionMethodDetail,
+        props: true,
+        meta: { title: 'Chi tiết phương thức tuyển sinh' }
+      },
+      {
+        path: 'admission-methods/:admissionMethodId/majors',
+        name: 'AdminAdmissionMethodMajors',
+        component: AdminAdmissionMethodMajors,
+        props: true,
+        meta: { title: 'Quản lý ngành áp dụng phương thức tuyển sinh' }
+      },
+      {
+        path: 'majors/:majorId/admission-methods',
+        name: 'AdminMajorAdmissionMethods',
+        component: AdminMajorAdmissionMethods,
+        props: true,
+        meta: { title: 'Quản lý phương thức tuyển sinh áp dụng cho ngành' }
+      },
+      {
+        path: 'subjects',
+        name: 'AdminSubjects',
+        component: AdminSubjects,
+        meta: { title: 'Quản lý môn thi' }
+      },
+      {
+        path: 'subjects/create',
+        name: 'AdminSubjectCreate',
+        component: AdminSubjectCreate,
+        meta: { title: 'Tạo môn thi mới' }
+      },
+      {
+        path: 'subjects/:subjectId',
+        name: 'AdminSubjectDetail',
+        component: AdminSubjectDetail,
+        props: true,
+        meta: { title: 'Chi tiết môn thi' }
+      },
+      // Subject Group Management Routes
+      {
+        path: 'subject-groups',
+        name: 'AdminSubjectGroups',
+        component: AdminSubjectGroups,
+        meta: { title: 'Quản lý tổ hợp môn thi' }
+      },
+      {
+        path: 'subject-groups/create',
+        name: 'AdminSubjectGroupCreate',
+        component: AdminSubjectGroupCreate,
+        meta: { title: 'Tạo tổ hợp môn thi mới' }
+      },
+      {
+        path: 'subject-groups/:groupId',
+        name: 'AdminSubjectGroupDetail',
+        component: AdminSubjectGroupDetail,
+        props: true,
+        meta: { title: 'Chi tiết tổ hợp môn thi' }
       },
     ]
   }

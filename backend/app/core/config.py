@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 import mysql.connector
 from mysql.connector import errorcode
+from typing import List
 
 
 class Settings(BaseSettings):
@@ -15,7 +16,7 @@ class Settings(BaseSettings):
     DB_USERNAME: str
     DB_PASSWORD: str
     DB_DATABASE: str
-    DB_SSL_CA: str | None = None  # Hỗ trợ cả None
+    DB_SSL_CA: str | None = None
 
     # Cấu hình Google OAuth
     GOOGLE_CLIENT_ID: str
@@ -23,6 +24,9 @@ class Settings(BaseSettings):
 
     # Cấu hình frontend
     FRONTEND_URL: str = "http://localhost:8080"
+
+    # --- THÊM VÀO ĐÂY ---
+    ALLOWED_ORIGINS: List[str] = []
 
     model_config = SettingsConfigDict(
         env_file=".env",

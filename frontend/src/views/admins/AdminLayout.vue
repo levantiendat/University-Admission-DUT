@@ -47,9 +47,42 @@
             <router-link to="/admins" class="admin-nav-link" exact-active-class="active">
               <i class="bi bi-speedometer2 me-2"></i>Tổng quan
             </router-link>
-            <router-link to="/admins/users" class="admin-nav-link" active-class="active">
-              <i class="bi bi-people-fill me-2"></i>Quản lý người dùng
-            </router-link>
+            
+            <!-- User Management -->
+            <div class="nav-section">
+              <h6 class="nav-section-title">Quản lý người dùng</h6>
+              <router-link to="/admins/users" class="admin-nav-link" active-class="active">
+                <i class="bi bi-people-fill me-2"></i>Danh sách người dùng
+              </router-link>
+            </div>
+            
+            <!-- Academic Management -->
+            <div class="nav-section">
+              <h6 class="nav-section-title">Quản lý học thuật</h6>
+              <router-link to="/admins/faculties" class="admin-nav-link" active-class="active">
+                <i class="bi bi-building me-2"></i>Quản lý khoa
+              </router-link>
+              <router-link to="/admins/majors" class="admin-nav-link" active-class="active">
+                <i class="bi bi-book me-2"></i>Quản lý ngành
+              </router-link>
+            </div>
+
+            <div class="nav-section">
+                <h6 class="nav-section-title">Quản lý tuyển sinh</h6>
+                <router-link to="/admins/admission-methods" class="admin-nav-link" active-class="active">
+                    <i class="bi bi-clipboard-check me-2"></i>Phương thức xét tuyển
+                </router-link>
+            </div>
+
+            <div class="nav-section">
+                <h6 class="nav-section-title">Quản lý môn thi và tổ hợp</h6>
+                <router-link to="/admins/subjects" class="admin-nav-link" active-class="active">
+                    <i class="bi bi-journal-text me-2"></i>Quản lý môn thi
+                </router-link>
+                <router-link to="/admins/subject-groups" class="admin-nav-link" active-class="active">
+                    <i class="bi bi-diagram-3 me-2"></i>Quản lý tổ hợp môn thi
+                </router-link>
+            </div>
           </nav>
         </aside>
   
@@ -203,6 +236,20 @@
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
+  }
+  
+  .nav-section {
+    margin-top: 1.5rem;
+  }
+  
+  .nav-section-title {
+    color: #8395a7;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
   }
   
   .admin-nav-link {

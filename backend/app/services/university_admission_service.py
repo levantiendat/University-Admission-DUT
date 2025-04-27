@@ -377,6 +377,70 @@ def delete_subject_score_method_major(db: Session, subject_score_method_major_id
     db.commit()
     return db_subject_score_method_major
 
+def get_major_by_subject_score_method_group(db: Session, group_id: int) -> list[dict]:
+    """
+    Lấy danh sách các ngành học dựa trên một nhóm môn/phương thức tuyển sinh
+    
+    Args:
+        db (Session): Database session
+        group_id (int): ID của nhóm môn/phương thức tuyển sinh
+    
+    Returns:
+        list[dict]: Danh sách các ngành học với thông tin chi tiết
+    """
+    # Kiểm tra sự tồn tại của group
+    db_subject_score_method_group = db.query(SubjectScoreMethodGroup).filter(SubjectScoreMethodGroup.id == group_id).first()
+    if not db_subject_score_method_group:
+        raise NotFoundException("Subject score method group not found")
+    
+    # Lấy danh sách các SubjectScoreMethodMajor dựa trên group_id
+    subject_score_method_majors = db.query(SubjectScoreMethodMajor).filter(
+        SubjectScoreMethodMajor.group_id == group_id
+    ).all()
+    
+    
+    # Lấy danh sách các môn học trong nhóm
+    
+    # Danh sách kết quả
+    results = []
+    
+    # Xử lý từng SubjectScoreMethodMajor để lấy thông tin ngành
+    for ssmm in subject_score_method_majors:
+        # Lấy thông tin admission_method_major
+        admission_method_major = db.query(AdmissionMethodMajor).filter(
+            AdmissionMethodMajor.id == ssmm.admission_method_major_id
+        ).first()
+        
+        if admission_method_major:
+            # Lấy thông tin ngành học
+            major = db.query(Major).filter(Major.id == admission_method_major.major_id).first()
+            
+            # Lấy thông tin phương thức tuyển sinh
+            admission_method = db.query(AdmissionMethod).filter(
+                AdmissionMethod.id == admission_method_major.admission_methods_id
+            ).first()
+            
+            # Lấy điểm chuẩn của ngành theo phương thức này trong các năm gần đây
+            
+            # Tạo đối tượng kết quả với thông tin chi tiết
+            result = {
+                "id": ssmm.id,
+                "group_id": group_id,
+                "group_name": db_subject_score_method_group.name,
+                "major": {
+                    "id": major.id if major else None,
+                    "name": major.name if major else None,
+                },
+                "admission_method": {
+                    "id": admission_method.id if admission_method else None,
+                    "name": admission_method.name if admission_method else None,
+                },
+            }
+            
+            results.append(result)
+    
+    return results
+
 def create_convert_point(db: Session, convert_point: ConvertPointCreate) -> ConvertPoint:
     db_convert_point = db.query(ConvertPoint).filter(
         ConvertPoint.admission_methods_id == convert_point.admission_methods_id,
