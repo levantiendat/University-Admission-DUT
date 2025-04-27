@@ -80,33 +80,40 @@ async def google_auth(request: Request):
 
     parsed_url = urlparse(str(request.base_url))
     if parsed_url.hostname != "localhost":
-        # Chuyển redirect_uri sang https nếu không phải localhost
+        # Chuyển redirect_uri sang HTTPS nếu không phải localhost
         redirect_uri = str(redirect_uri).replace("http://", "https://")
 
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
 
-# Endpoint xử lý callback từ Google OAuth2
 @router.get("/google/callback")
 async def google_callback(request: Request, db: Session = Depends(get_db)):
     try:
         token = await oauth.google.authorize_access_token(request)
     except OAuthError as error:
         return JSONResponse({"error": str(error)}, status_code=400)
-    
-    # Lấy thông tin người dùng từ endpoint userinfo
+
+    # Lấy thông tin người dùng từ Google
     user_info_response = await oauth.google.get('userinfo', token=token)
     user_data = user_info_response.json()
     user_email = user_data.get("email")
-    
+
     if not user_email:
         return JSONResponse({"error": "Email không khả dụng trong thông tin Google"}, status_code=400)
-    
-    # Kiểm tra tài khoản có tồn tại chưa, nếu chưa tạo mới với role mặc định "guest"
+
+    # Đăng ký tài khoản nếu chưa có
     name = user_data.get("name", "")
-    account = register_user_with_google(db, email = user_email, name = name)
-    
-    # Tạo JWT token cho người dùng
+    account = register_user_with_google(db, email=user_email, name=name)
+
+    # Tạo JWT token
     access_token = create_access_token(data={"sub": user_email})
-    # Chuyển hướng về frontend callback (ví dụ: localhost:8080/callback) kèm token
-    return RedirectResponse(url=f"{settings.FRONTEND_URL}/callback?token={access_token}")
+
+    # Xác định URL frontend cần redirect
+    parsed_url = urlparse(str(request.base_url))
+    if parsed_url.hostname == "localhost":
+        frontend_url = "http://localhost:8080"  # URL frontend khi chạy local
+    else:
+        frontend_url = "https://tuvantuyensinh-levantiendat-dut.vercel.app"  # URL frontend production
+
+    # Redirect về frontend callback kèm token
+    return RedirectResponse(url=f"{frontend_url}/callback?token={access_token}")

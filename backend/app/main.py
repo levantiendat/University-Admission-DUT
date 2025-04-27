@@ -6,6 +6,7 @@ from app.db.session import engine, SessionLocal
 from app.core.security import get_password_hash
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
+import os
 
 app = FastAPI(
     title="FastAPI Backend University admission application",
@@ -13,9 +14,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
