@@ -69,5 +69,17 @@ export default {
     } catch (error) {
       throw new Error(`Không thể xóa mối quan hệ: ${error.message}`);
     }
+  },
+
+  /**
+  * Lấy danh sách ngành áp dụng cho một tổ hợp môn thi
+  * @param {number} groupId - ID của tổ hợp môn thi
+  */
+  async getMajorsBySubjectGroup(groupId) {
+    try {
+      return await SubjectGroupMajorServices.getMajorsBySubjectGroup(groupId);
+    } catch (error) {
+      throw new Error(`Không thể lấy danh sách ngành cho tổ hợp môn thi: ${error.message}`);
+    }
   }
 };

@@ -127,17 +127,145 @@
   
         <!-- Applied Majors List -->
         <div class="admin-card">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="section-title mb-0">Các ngành áp dụng tổ hợp này</h3>
-          </div>
-  
-          <!-- To be implemented in the future -->
-          <div class="empty-state">
-            <i class="bi bi-building empty-icon"></i>
-            <h4>Thông tin về các ngành áp dụng</h4>
-            <p>Tính năng đang được phát triển...</p>
-          </div>
-        </div>
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="section-title mb-0">Các ngành áp dụng tổ hợp này</h3>
+    <button class="btn-add-major" @click="showAddMajorModal = true">
+      <i class="bi bi-plus-circle me-2"></i>Thêm ngành áp dụng
+    </button>
+  </div>
+
+  <div v-if="loadingMajors" class="text-center py-4">
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+    <p class="loading-text">Đang tải danh sách ngành...</p>
+  </div>
+
+  <div v-else-if="majorsError" class="alert alert-danger mx-3 my-3">
+    {{ majorsError }}
+  </div>
+
+  <div class="table-responsive" v-else-if="groupMajors.length > 0">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ngành</th>
+          <th>Phương thức tuyển sinh</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="majorRelation in groupMajors" :key="majorRelation.id" class="data-row">
+          <td>
+            <span class="major-name">{{ majorRelation.major.name }}</span>
+          </td>
+          <td>
+            <span class="method-name">{{ majorRelation.admission_method.name }}</span>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <router-link :to="`/admins/majors/${majorRelation.major.id}`" class="btn-action view" title="Xem chi tiết ngành">
+                <i class="bi bi-eye"></i>
+              </router-link>
+              <button 
+                class="btn-action delete"
+                @click="confirmRemoveMajor(majorRelation)"
+                title="Xóa ngành khỏi tổ hợp"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty State for Majors -->
+  <div v-else class="empty-state">
+    <i class="bi bi-building empty-icon"></i>
+    <h4>Chưa có ngành nào áp dụng tổ hợp này</h4>
+    <p>Hãy thêm ngành vào tổ hợp này</p>
+    <button @click="showAddMajorModal = true" class="btn-add-empty">
+      <i class="bi bi-plus-circle me-2"></i>Thêm ngành áp dụng
+    </button>
+  </div>
+</div>
+
+<!-- Add these new modals to the component -->
+
+<!-- Add Major Modal -->
+<div v-if="showAddMajorModal" class="modal-overlay" @click="cancelAddMajor">
+  <div class="modal-content" @click.stop>
+    <div class="modal-header">
+      <h4 class="modal-title">Thêm ngành áp dụng tổ hợp</h4>
+      <button type="button" class="btn-close" @click="cancelAddMajor"></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="admission-method-major-select">Chọn phương thức tuyển sinh-ngành <span class="required">*</span></label>
+        <select 
+          id="admission-method-major-select" 
+          v-model="addMajorData.admission_method_major_id" 
+          class="form-control" 
+          :class="{ 'is-invalid': addMajorErrors.admission_method_major_id }"
+        >
+          <option value="" disabled selected>Chọn phương thức tuyển sinh-ngành</option>
+          <option v-for="relation in availableAdmissionMethodMajors" :key="relation.id" :value="relation.id">
+            {{ relation.major_name }} - {{ getAdmissionMethodName(relation.admission_method_id) }}
+          </option>
+        </select>
+        <div v-if="addMajorErrors.admission_method_major_id" class="invalid-feedback">{{ addMajorErrors.admission_method_major_id }}</div>
+      </div>
+      
+      <div v-if="addMajorError" class="alert alert-danger">{{ addMajorError }}</div>
+      
+      <p class="text-info" v-if="availableAdmissionMethodMajors.length === 0">
+        <i class="bi bi-info-circle me-1"></i>
+        Tất cả ngành đã được thêm vào tổ hợp này hoặc chưa có ngành nào có phương thức tuyển sinh phù hợp.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-cancel" @click="cancelAddMajor">Hủy</button>
+      <button 
+        type="button" 
+        class="btn-add" 
+        @click="addMajorToSubjectGroup" 
+        :disabled="isAddingMajor || !addMajorData.admission_method_major_id"
+      >
+        <span v-if="isAddingMajor">Đang thêm...</span>
+        <span v-else>Thêm ngành</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Remove Major Confirmation Modal -->
+<div v-if="showRemoveMajorModal" class="modal-overlay" @click="cancelRemoveMajor">
+  <div class="modal-content" @click.stop>
+    <div class="modal-header">
+      <h4 class="modal-title">Xác nhận xóa ngành</h4>
+      <button type="button" class="btn-close" @click="cancelRemoveMajor"></button>
+    </div>
+    <div class="modal-body">
+      <p>Bạn có chắc chắn muốn xóa ngành <strong>{{ majorToRemove?.major?.name }}</strong> khỏi tổ hợp này?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-cancel" @click="cancelRemoveMajor">Hủy</button>
+      <button 
+        type="button" 
+        class="btn-delete" 
+        @click="removeMajorFromSubjectGroup" 
+        :disabled="isRemovingMajor"
+      >
+        <span v-if="isRemovingMajor">Đang xóa...</span>
+        <span v-else>Xác nhận xóa</span>
+      </button>
+    </div>
+  </div>
+</div>
       </div>
   
       <!-- Edit Group Name Modal -->
@@ -338,6 +466,9 @@
   import SubjectGroupController from '@/controllers/admins/SubjectGroupController'
   import SubjectController from '@/controllers/admins/SubjectController'
   import SubjectGroupDetailController from '@/controllers/admins/SubjectGroupDetailController'
+  import AdmissionMethodMajorController from '@/controllers/admins/AdmissionMethodMajorController'
+  import AdmissionMethodController from '@/controllers/admins/AdmissionMethodController'
+  import SubjectGroupMajorController from '@/controllers/admins/SubjectGroupMajorController'
   
   export default {
     name: 'AdminSubjectGroupDetail',
@@ -354,6 +485,9 @@
       const allSubjects = ref([])
       const loading = ref(true)
       const error = ref(null)
+      const groupMajors = ref([])
+      const loadingMajors = ref(false)
+      const majorsError = ref(null)
       
       // Edit group modal state
       const showEditModal = ref(false)
@@ -398,6 +532,27 @@
   
       // Computed property: available subjects (not yet in the group)
       const availableSubjects = ref([])
+
+      // Add Major modal state
+      const showAddMajorModal = ref(false)
+      const addMajorData = reactive({
+        group_id: parseInt(props.groupId),
+        admission_method_major_id: ''
+    })
+    const addMajorError = ref('')
+    const addMajorErrors = reactive({
+        admission_method_major_id: ''
+    })
+    const isAddingMajor = ref(false)
+
+    // Remove Major modal state
+    const showRemoveMajorModal = ref(false)
+    const majorToRemove = ref(null)
+    const isRemovingMajor = ref(false)
+
+    // Available admission method majors (not yet linked to this group)
+    const availableAdmissionMethodMajors = ref([])
+    const admissionMethods = ref([])
       
       // Update available subjects
       const updateAvailableSubjects = () => {
@@ -426,34 +581,51 @@
           minute: '2-digit'
         }).format(date)
       }
+
+      const getAdmissionMethodName = (methodId) => {
+        const method = admissionMethods.value.find(m => m.id === methodId)
+        return method ? method.name : 'Không xác định'
+        }
   
       // Fetch data
       const fetchData = async () => {
-        try {
-          loading.value = true
-          error.value = null
-  
-          // Load all subjects for reference
-          const subjectsData = await SubjectController.getAllSubjects()
-          allSubjects.value = subjectsData
-          
-          // Load group data
-          const groupData = await SubjectGroupController.getSubjectGroupById(props.groupId)
-          group.value = groupData
-          editGroupData.name = groupData.name
-          
-          // Load group subjects
-          const groupSubjectsData = await SubjectGroupDetailController.getSubjectGroupDetailsByGroup(props.groupId)
-          groupSubjects.value = groupSubjectsData
-          
-          // Update available subjects
-          updateAvailableSubjects()
-        } catch (err) {
-          error.value = `Không thể tải thông tin tổ hợp: ${err.message}`
-        } finally {
-          loading.value = false
-        }
-      }
+  try {
+    loading.value = true
+    error.value = null
+
+    // Load all subjects for reference
+    const subjectsData = await SubjectController.getAllSubjects()
+    allSubjects.value = subjectsData
+    
+    // Load group data
+    const groupData = await SubjectGroupController.getSubjectGroupById(props.groupId)
+    group.value = groupData
+    editGroupData.name = groupData.name
+    
+    // Load group subjects
+    const groupSubjectsData = await SubjectGroupDetailController.getSubjectGroupDetailsByGroup(props.groupId)
+    groupSubjects.value = groupSubjectsData
+    
+    // Update available subjects
+    updateAvailableSubjects()
+    
+    // Load majors that apply this subject group
+    loadMajors()
+    
+    // Load admission methods for reference
+    try {
+      const methodsData = await AdmissionMethodController.getAllAdmissionMethods()
+      admissionMethods.value = methodsData
+    } catch (err) {
+      console.error('Error loading admission methods:', err)
+    }
+    
+  } catch (err) {
+    error.value = `Không thể tải thông tin tổ hợp: ${err.message}`
+  } finally {
+    loading.value = false
+  }
+}
   
       // Update group name
       const updateGroupName = async () => {
@@ -656,6 +828,119 @@
           showDeleteGroupModal.value = false
         }
       }
+
+      // Add a function to load majors
+const loadMajors = async () => {
+  try {
+    loadingMajors.value = true
+    majorsError.value = null
+    
+    // Get majors that use this subject group
+    const majorsData = await SubjectGroupMajorController.getMajorsBySubjectGroup(props.groupId)
+    groupMajors.value = majorsData
+    
+    // Load available admission method majors that can be added
+    loadAvailableAdmissionMethodMajors()
+  } catch (err) {
+    majorsError.value = `Không thể tải danh sách ngành: ${err.message}`
+  } finally {
+    loadingMajors.value = false
+  }
+}
+
+// Load available admission method majors
+const loadAvailableAdmissionMethodMajors = async () => {
+  try {
+    // Get all admission method majors
+    const allMethodMajors = await AdmissionMethodMajorController.getAllAdmissionMethodMajors()
+    
+    // Filter out ones already linked to this group
+    const linkedIds = groupMajors.value.map(m => m.id)
+    availableAdmissionMethodMajors.value = allMethodMajors.filter(amm => !linkedIds.includes(amm.id))
+  } catch (err) {
+    console.error('Error loading available admission method majors:', err)
+    availableAdmissionMethodMajors.value = []
+  }
+}
+
+// Cancel add major
+const cancelAddMajor = () => {
+  showAddMajorModal.value = false
+  addMajorData.admission_method_major_id = ''
+  addMajorError.value = ''
+  addMajorErrors.admission_method_major_id = ''
+}
+
+// Add major to subject group
+const addMajorToSubjectGroup = async () => {
+  // Validate
+  if (!addMajorData.admission_method_major_id) {
+    addMajorErrors.admission_method_major_id = 'Vui lòng chọn phương thức tuyển sinh-ngành'
+    return
+  }
+  
+  try {
+    isAddingMajor.value = true
+    
+    const data = {
+      group_id: parseInt(props.groupId),
+      admission_method_major_id: parseInt(addMajorData.admission_method_major_id)
+    }
+    
+    await SubjectGroupMajorController.createSubjectGroupMajor(data)
+    
+    // Reload majors
+    await loadMajors()
+    
+    // Reset form and close modal
+    addMajorData.admission_method_major_id = ''
+    showAddMajorModal.value = false
+    
+    alert('Thêm ngành áp dụng tổ hợp thành công')
+  } catch (err) {
+    addMajorError.value = `Không thể thêm ngành: ${err.message}`
+  } finally {
+    isAddingMajor.value = false
+  }
+}
+
+// Confirm remove major
+const confirmRemoveMajor = (majorRelation) => {
+  majorToRemove.value = majorRelation
+  showRemoveMajorModal.value = true
+}
+
+// Cancel remove major
+const cancelRemoveMajor = () => {
+  showRemoveMajorModal.value = false
+  majorToRemove.value = null
+}
+
+// Remove major from subject group
+const removeMajorFromSubjectGroup = async () => {
+  if (!majorToRemove.value) return
+  
+  try {
+    isRemovingMajor.value = true
+    
+    await SubjectGroupMajorController.deleteSubjectGroupMajor(majorToRemove.value.id)
+    
+    // Reload majors
+    await loadMajors()
+    
+    // Close modal
+    showRemoveMajorModal.value = false
+    majorToRemove.value = null
+    
+    alert('Xóa ngành khỏi tổ hợp thành công')
+  } catch (err) {
+    alert(`Lỗi: ${err.message}`)
+  } finally {
+    isRemovingMajor.value = false
+  }
+}
+
+      
   
       onMounted(() => {
         fetchData()
@@ -699,7 +984,30 @@
         deleteSubjectFromGroup,
         confirmDeleteGroup,
         cancelDeleteGroup,
-        deleteGroup
+        deleteGroup,
+        groupMajors,
+  loadingMajors,
+  majorsError,
+  showAddMajorModal,
+  addMajorData,
+  addMajorError,
+  addMajorErrors,
+  isAddingMajor,
+  showRemoveMajorModal,
+  majorToRemove,
+  isRemovingMajor,
+  availableAdmissionMethodMajors,
+  admissionMethods,
+  
+  // New functions
+  getAdmissionMethodName,
+  loadMajors,
+  loadAvailableAdmissionMethodMajors,
+  cancelAddMajor,
+  addMajorToSubjectGroup,
+  confirmRemoveMajor,
+  cancelRemoveMajor,
+  removeMajorFromSubjectGroup
       }
     }
   }

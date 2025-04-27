@@ -32,9 +32,9 @@ export default {
   },
 
   /**
-   * Tạo mối quan hệ mới giữa tổ hợp môn và ngành tuyển sinh
-   * @param {Object} data - Dữ liệu mối quan hệ mới
-   */
+    * Tạo mối quan hệ mới giữa tổ hợp môn và ngành tuyển sinh
+    * @param {Object} data - Dữ liệu mối quan hệ mới
+    */
   async createSubjectGroupMajor(data) {
     try {
       const token = sessionStorage.getItem('token');
@@ -85,6 +85,20 @@ export default {
       return response.data;
     } catch (error) {
       console.error(`Error deleting subject group major ${relationId}:`, error);
+      throw error;
+    }
+  },
+
+  /**
+ * Lấy danh sách ngành áp dụng cho một tổ hợp môn thi
+ * @param {number} groupId - ID của tổ hợp môn thi
+ */
+  async getMajorsBySubjectGroup(groupId) {
+    try {
+      const response = await axios.get(`${BASE_API_URL}/university-admissions/subject-score-method-majors/group/${groupId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching majors for subject group ${groupId}:`, error);
       throw error;
     }
   }
