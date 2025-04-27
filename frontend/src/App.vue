@@ -1,5 +1,9 @@
 <template>
-  <div id="app">
+  <!-- Use admin layout when path starts with /admins -->
+  <router-view v-if="isAdminPage"/>
+  
+  <!-- Use regular layout for all other pages -->
+  <div v-else id="app">
     <nav class="navbar navbar-expand-lg custom-header">
       <div class="container-fluid px-5vw d-flex align-items-center">
         <router-link 
@@ -97,6 +101,12 @@
                   <i class="bi bi-person-circle me-1"></i><span>{{ userEmail }}</span>
                 </a>
                 <ul class="custom-dropdown-menu dropdown-menu-end">
+                  <!-- Nếu người dùng có role là admin thì hiện thêm nút quản trị hệ thống -->
+                  <li v-if="isAdmin">
+                    <router-link class="dropdown-item" to="/admins">
+                      <i class="bi bi-gear-fill me-1"></i> Quản trị hệ thống
+                    </router-link>
+                  </li>
                   <li>
                     <a class="dropdown-item" href="#" @click.prevent="logout">
                       <i class="bi bi-box-arrow-right me-1"></i> Đăng xuất
@@ -182,19 +192,27 @@
 </template>
 
 <script>
-import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, onMounted, onBeforeUnmount, ref, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import store from '@/store'
 import axios from 'axios'
 import config from '@/config/apiConfig'  // nếu bạn đã tách riêng file cấu hình base API
+import UserController from '@/controllers/userController'
 
 const BASE_API_URL = config?.BASE_API_URL || 'https://university-admission-dut-hzdahmckevehhpdf.southeastasia-01.azurewebsites.net/api'
 
 export default {
   setup() {
     const router = useRouter()
+    const route = useRoute()
     const isAuthenticated = computed(() => !!store.state.token)
     const userEmail = computed(() => store.state.user.email)
+    const isAdmin = ref(false)
+    
+    // Check if current page is admin page
+    const isAdminPage = computed(() => {
+      return route.path.startsWith('/admins')
+    })
     
     // Thêm biến để lưu trữ số liệu người truy cập
     const currentVisitors = ref(0)
@@ -206,8 +224,25 @@ export default {
       router.push({ name: 'Login' })
     }
 
+    // Hàm kiểm tra quyền admin
+    const checkIsAdmin = async () => {
+      if (isAuthenticated.value) {
+        try {
+          const user = await UserController.getCurrentUser()
+          isAdmin.value = user && user.role === 'admin'
+        } catch (error) {
+          console.error('Error checking admin role:', error)
+          isAdmin.value = false
+        }
+      } else {
+        isAdmin.value = false
+      }
+    }
+
     // Hàm lấy thông tin người truy cập
     const fetchVisitorStats = async () => {
+      if (isAdminPage.value) return // Skip for admin pages
+      
       try {
         const response = await axios.get(`${BASE_API_URL}/visitors/stats`, {
           withCredentials: true // Cần thiết để gửi cookie session
@@ -224,6 +259,8 @@ export default {
 
     // Hàm gửi heartbeat để duy trì session
     const sendHeartbeat = async () => {
+      if (isAdminPage.value) return // Skip for admin pages
+      
       try {
         await axios.post(`${BASE_API_URL}/visitors/heartbeat`, {}, {
           withCredentials: true
@@ -234,47 +271,74 @@ export default {
     }
 
     onMounted(() => {
-      const header = document.querySelector('.custom-header')
-      const handleScroll = () => {
-        if (window.scrollY > 50) {
-          header.classList.add('scrolled')
-        } else {
-          header.classList.remove('scrolled')
+      // Only setup these handlers for non-admin pages
+      if (!isAdminPage.value) {
+        const header = document.querySelector('.custom-header')
+        const handleScroll = () => {
+          if (window.scrollY > 50) {
+            header.classList.add('scrolled')
+          } else {
+            header.classList.remove('scrolled')
+          }
+        }
+        window.addEventListener('scroll', handleScroll)
+        handleScroll()
+
+        // Kiểm tra quyền admin khi component được mount
+        checkIsAdmin()
+
+        // Lấy thông tin người truy cập khi trang được tải
+        fetchVisitorStats()
+        
+        // Thiết lập heartbeat mỗi 5 phút để duy trì session và cập nhật số liệu
+        heartbeatInterval = setInterval(() => {
+          sendHeartbeat()
+          fetchVisitorStats()
+          if (isAuthenticated.value) {
+            checkIsAdmin() // Cập nhật quyền admin định kỳ
+          }
+        }, 5 * 60 * 1000) // 5 phút
+
+        onBeforeUnmount(() => {
+          window.removeEventListener('scroll', handleScroll)
+          // Xóa interval khi component unmount
+          if (heartbeatInterval) {
+            clearInterval(heartbeatInterval)
+          }
+        })
+      } else {
+        // For admin pages, just check admin permissions
+        checkIsAdmin()
+      }
+    })
+
+    // Watch for route changes
+    watch(
+      () => route.path,
+      () => {
+        if (!isAdminPage.value) {
+          // Reset handlers when switching from admin to non-admin pages
+          checkIsAdmin()
+          fetchVisitorStats()
         }
       }
-      window.addEventListener('scroll', handleScroll)
-      handleScroll()
-
-      // Lấy thông tin người truy cập khi trang được tải
-      fetchVisitorStats()
-      
-      // Thiết lập heartbeat mỗi 5 phút để duy trì session và cập nhật số liệu
-      heartbeatInterval = setInterval(() => {
-        sendHeartbeat()
-        fetchVisitorStats()
-      }, 5 * 60 * 1000) // 5 phút
-
-      onBeforeUnmount(() => {
-        window.removeEventListener('scroll', handleScroll)
-        // Xóa interval khi component unmount
-        if (heartbeatInterval) {
-          clearInterval(heartbeatInterval)
-        }
-      })
-    })
+    )
 
     return { 
       isAuthenticated, 
-      userEmail, 
+      userEmail,
+      isAdmin, 
       logout,
       currentVisitors,
-      totalVisitors
+      totalVisitors,
+      isAdminPage
     }
   }
 }
 </script>
 
 <style scoped>
+/* CSS styles remain the same */
 .custom-header {
   background-color: #efeff38f !important;
   position: sticky;

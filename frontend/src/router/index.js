@@ -23,8 +23,17 @@ import Admission_DGNL from '@/views/DGNLView.vue'
 import Admission_DGTD from '@/views/DGTDView.vue'
 import preAdmission from '@/views/preAdmission.vue'
 import preAdmittedStudent from '@/views/preAdmittedStudent.vue'
+import UserController from '@/controllers/userController'
 
-const routes = [
+// Admin pages import
+import AdminLayout from '@/views/admins/AdminLayout.vue'
+import AdminHome from '@/views/admins/AdminHome.vue'
+import AdminUsers from '@/views/admins/AdminUsers.vue'
+import AdminUserDetail from '@/views/admins/AdminUserDetail.vue'
+import AdminUserCreate from '@/views/admins/AdminUserCreate.vue'
+
+// Define normal routes and admin routes separately
+const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Homepage - ITF Help Student 2025' } },
   { path: '/login', name: 'Login', component: Login, meta: { title: 'Sign in to Your Account' } },
   { path: '/register', name: 'Register', component: Register, meta: { title: 'Create a New Account' } },
@@ -51,14 +60,59 @@ const routes = [
   { path: '/statistics/pre-admitted-student', name: 'PreAdmittedStudent', component: preAdmittedStudent, meta: {title: 'Thông tin tuyển sinh năm 2025 - Thống kê sinh viên các năm trước'}},
 ]
 
+// Admin routes with AdminLayout as the parent
+const adminRoutes = [
+  { 
+    path: '/admins', 
+    component: AdminLayout, 
+    meta: { requiresAuth: true, requiresAdmin: true },
+    children: [
+      { 
+        path: '', 
+        name: 'AdminHome', 
+        component: AdminHome, 
+        meta: { title: 'Dashboard - Quản trị hệ thống' }
+      },
+      { 
+        path: 'users', 
+        name: 'AdminUsers', 
+        component: AdminUsers, 
+        meta: { title: 'Quản lý người dùng' }
+      },
+      { 
+        path: 'users/create', 
+        name: 'AdminUserCreate', 
+        component: AdminUserCreate, 
+        meta: { title: 'Tạo người dùng mới' }
+      },
+      { 
+        path: 'users/:userId', 
+        name: 'AdminUserDetail', 
+        component: AdminUserDetail, 
+        props: true, 
+        meta: { title: 'Chi tiết người dùng' }
+      },
+    ]
+  }
+]
+
+// Combine all routes
+const routes = [
+  ...normalRoutes,
+  ...adminRoutes
+]
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
-// Router guard: kiểm tra yêu cầu đăng nhập
-router.beforeEach((to, from, next) => {
+// Router guard: kiểm tra yêu cầu đăng nhập và quyền admin
+router.beforeEach(async (to, from, next) => {
   const token = sessionStorage.getItem('token')
+
+  // Check if route is part of admin area
+  const isAdminRoute = to.path.startsWith('/admins')
 
   if (to.meta.requiresAuth) {
     if (!token) {
@@ -70,6 +124,22 @@ router.beforeEach((to, from, next) => {
       alert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')
       store.clearToken()
       next({ name: 'Login' })
+    } else if (to.meta.requiresAdmin) {
+      // Kiểm tra quyền admin bằng cách gọi getCurrentUser()
+      try {
+        const user = await UserController.getCurrentUser()
+        if (user && user.role === 'admin') {
+          next() // User có quyền admin, cho phép tiếp tục
+        } else {
+          alert('Bạn không có quyền truy cập trang này.')
+          next({ name: 'Home' })
+        }
+      } catch (error) {
+        console.error('Error checking user role:', error)
+        alert('Có lỗi xảy ra khi xác thực quyền truy cập. Vui lòng đăng nhập lại.')
+        store.clearToken()
+        next({ name: 'Login' })
+      }
     } else {
       // Token hợp lệ => cho phép đi tiếp
       next()
