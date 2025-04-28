@@ -101,5 +101,24 @@ export default {
       console.error(`Error fetching majors for subject group ${groupId}:`, error);
       throw error;
     }
+  },
+
+  /**
+ * Tạo mối quan hệ mới giữa tổ hợp môn và một phương thức tuyển sinh của ngành
+ * @param {Object} data - Dữ liệu mối quan hệ mới (group_id, admission_method_major_id)
+ */
+async createSubjectGroupForAdmissionMethodMajor(data) {
+  try {
+    const token = sessionStorage.getItem('token');
+    const response = await axios.post(`${BASE_API_URL}/university-admissions/subject-score-method-majors`, data, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating subject group admission method major relationship:', error);
+    throw error;
   }
+}
 };

@@ -81,5 +81,22 @@ export default {
     } catch (error) {
       throw new Error(`Không thể lấy danh sách ngành cho tổ hợp môn thi: ${error.message}`);
     }
+  },
+
+  /**
+ * Tạo mối quan hệ mới giữa tổ hợp môn và một phương thức tuyển sinh của ngành
+ * @param {Object} data - Dữ liệu mối quan hệ mới
+ */
+async createSubjectGroupForAdmissionMethodMajor(data) {
+  try {
+    // Validate input
+    if (!data.group_id || !data.admission_method_major_id) {
+      throw new Error('Vui lòng chọn tổ hợp môn và phương thức tuyển sinh của ngành');
+    }
+
+    return await SubjectGroupMajorServices.createSubjectGroupForAdmissionMethodMajor(data);
+  } catch (error) {
+    throw new Error(`Không thể tạo mối quan hệ mới: ${error.message}`);
   }
+}
 };
