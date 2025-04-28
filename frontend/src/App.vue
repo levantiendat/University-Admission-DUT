@@ -153,8 +153,8 @@
               </div>
             </div>
             <p><i class="bi bi-geo-alt-fill me-2"></i> 54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</p>
-            <p><i class="bi bi-telephone-fill me-2"></i> (0236) 3842 308</p>
-            <p><i class="bi bi-envelope-fill me-2"></i> tuyensinh@dut.udn.vn</p>
+            <p><i class="bi bi-telephone-fill me-2"></i> 0888 477 377 - 0888 377 177 - 0888 577 277</p>
+            <p><i class="bi bi-envelope-fill me-2"></i> tuyensinhbkdn@dut.udn.vn</p>
           </div>
           
           <div class="col-lg-4 mb-4 mb-lg-0">
