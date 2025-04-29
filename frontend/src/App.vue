@@ -353,17 +353,17 @@ export default {
   border-radius: 20px 20px 20px 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   top: 10px;
-  margin-left: 3%;
-  margin-right: 3%;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 .px-5vw {
-  padding-left: 5vw !important;
-  padding-right: 5vw !important;
+  padding-left: 3vw !important;
+  padding-right: 3vw !important;
 }
 
 .header-logo {
-  height: 60px;
+  height: 50px;
   width: auto;
 }
 
@@ -399,6 +399,7 @@ export default {
   position: relative;
   padding-bottom: 0.5rem !important;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .custom-dropdown:hover, .custom-nav-link:hover {
@@ -457,6 +458,7 @@ export default {
   text-decoration: none;
   white-space: nowrap;
   transition: all 0.2s ease;
+  font-size: 0.9rem;
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
