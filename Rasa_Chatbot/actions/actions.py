@@ -90,7 +90,7 @@ class ActionMajorByMethod(Action):
         if method_keyword:
             rows = self.db.get_major_by_method(method_keyword)
             if rows:
-                message = f"📌 **Các ngành có xét tuyển bằng phương thức {method_keyword}**:\n"
+                message = f"📌 **Các ngành có xét tuyển bằng phương thức {rows[0]['method']}**:\n"
                 for row in rows:
                     message += f"- {row['major']}\n"
             else:

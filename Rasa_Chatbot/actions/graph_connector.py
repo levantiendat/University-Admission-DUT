@@ -60,7 +60,7 @@ class GraphConnector:
         query = """
         MATCH (m:Major)-[r:HAS_METHOD_2025]->(c:Method)
         WHERE c.id CONTAINS $method
-        RETURN DISTINCT m.name AS major
+        RETURN DISTINCT m.name AS major , c.name AS method
         """
         with self.driver.session() as session:
             result = session.run(query, {"method": method_keyword})
