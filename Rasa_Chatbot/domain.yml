@@ -46,11 +46,20 @@ intents:
   - ask_if_major_accepts_method
   - ask_quotas_for_major
   - ask_major_by_achievement
+  - smalltalk_how_are_you
+  - smalltalk_bot_age
+  - smalltalk_who_created_you
+  - smalltalk_bot_capabilities
+  - bot_challenge  # Đang thiếu trong domain nhưng được sử dụng trong stories
+  - affirm         # Đang thiếu trong domain nhưng được sử dụng trong stories
+  - deny           # Thêm cho đầy đủ
+  - request_human
 
 entities:
   - major
   - method
   - achievement
+  - contact
 
 slots:
   major:
@@ -69,8 +78,37 @@ slots:
     type: text
     mappings:
       - type: from_entity
-        entity: achievement
-
+        entity: achievement  
+  
+  current_context_major:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  
+  current_context_method:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+  
+  handoff_requested:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: custom
+  
+  awaiting_contact:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: custom
+  
+  user_contact:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: contact
 
 responses:
 
@@ -239,6 +277,24 @@ responses:
   ## PHẢN HỒI CẢM ƠN
   utter_thank:
     - text: "cảm ơn bạn đã tin tưởng và sử dụng dịch vụ của chúng tôi!"
+    - text: "cảm ơn bạn đã hỏi! nếu cần thêm thông tin, hãy cho tôi biết nhé!"
+
+  utter_smalltalk_how_are_you:
+    - text: "Tôi là chatbot nên luôn sẵn sàng phục vụ bạn! Bạn cần hỗ trợ gì về tuyển sinh?"
+    - text: "Tôi vẫn hoạt động tốt và luôn sẵn sàng trả lời các câu hỏi về tuyển sinh. Còn bạn thì sao?"
+    - text: "Cảm ơn đã hỏi thăm! Tôi đang hoạt động tốt và sẵn sàng giúp bạn tìm hiểu về các ngành học tại Đại học Bách Khoa."
+
+  utter_smalltalk_bot_age:
+    - text: "Tôi là phiên bản mới nhất được phát triển vào năm 2025 để hỗ trợ tư vấn tuyển sinh Đại học Bách Khoa - Đại học Đà Nẵng."
+    - text: "Tôi được cập nhật liên tục, phiên bản hiện tại của tôi được phát triển cho mùa tuyển sinh 2025."
+
+  utter_smalltalk_who_created_you:
+    - text: "Tôi được phát triển bởi nhóm nghiên cứu AI thuộc khoa Công nghệ thông tin, Đại học Bách Khoa - Đại học Đà Nẵng."
+    - text: "Tôi là sản phẩm của nhóm nghiên cứu AI tại trường Đại học Bách Khoa Đà Nẵng. Họ phát triển tôi để hỗ trợ các bạn học sinh tìm hiểu thông tin tuyển sinh."
+
+  utter_smalltalk_bot_capabilities:
+    - text: "Tôi có thể giúp bạn tìm hiểu về các ngành học, điểm chuẩn, tổ hợp môn xét tuyển, phương thức tuyển sinh và nhiều thông tin khác về tuyển sinh vào Đại học Bách Khoa - Đại học Đà Nẵng."
+    - text: "Tôi được đào tạo để trả lời các câu hỏi về tuyển sinh như điểm chuẩn các năm trước, phương thức xét tuyển, tổ hợp môn, thông tin ngành học và cơ hội nghề nghiệp sau tốt nghiệp."
 
 actions:
   - utter_greet
@@ -286,6 +342,13 @@ actions:
   - action_ask_if_major_accepts_method
   - action_get_major_quota
   - action_major_by_achievement
+  - utter_smalltalk_how_are_you
+  - utter_smalltalk_bot_age
+  - utter_smalltalk_who_created_you
+  - utter_smalltalk_bot_capabilities
+  - action_extract_from_context
+  - action_handoff_to_human
+  - action_default_fallback
 
 
 session_config:

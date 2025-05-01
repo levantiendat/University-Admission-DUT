@@ -4,6 +4,8 @@ from rasa_sdk.executor import CollectingDispatcher
 from actions.graph_connector import GraphConnector
 from actions.mapping_utils import normalize_major, normalize_method, normalize_achievement_field  # Import các hàm tiện ích
 import logging
+from rasa_sdk.events import SlotSet
+from rasa_sdk.events import FollowupAction
 
 # Cấu hình logging
 logging.basicConfig(
@@ -303,4 +305,94 @@ class ActionSuggestMajorByAchievement(Action):
         dispatcher.utter_message(text=message)
         return []
 
-    
+class ActionDefaultFallback(Action):
+    def name(self) -> str:
+        return "action_default_fallback"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        # Đếm số lần fallback liên tiếp
+        fallback_count = 0
+        for event in reversed(tracker.events):
+            if event.get("name") == "action_default_fallback":
+                fallback_count += 1
+            elif event.get("name") not in ["action_listen", None]:
+                break
+        
+        if fallback_count >= 2:
+            # Nếu fallback nhiều lần liên tiếp -> đề nghị chuyển người hỗ trợ
+            dispatcher.utter_message(
+                text="Có vẻ như tôi không thể trả lời câu hỏi của bạn. "
+                     "Bạn muốn được kết nối với cán bộ tư vấn tuyển sinh không?")
+            
+            # Đặt một slot để theo dõi yêu cầu handoff
+            return [SlotSet("handoff_requested", True)]
+        else:
+            # Fallback thông thường với gợi ý
+            dispatcher.utter_message(
+                text="Xin lỗi, tôi không hiểu ý của bạn. Bạn có thể thử các câu hỏi như:\n"
+                     "- Điểm chuẩn ngành Công nghệ thông tin năm 2024?\n"
+                     "- Ngành CNTT đặc thù là gì?\n"
+                     "- Tổ hợp môn xét tuyển ngành CNTT?\n"
+                     "- Các phương thức xét tuyển năm nay là gì?")
+            
+            return []
+
+# Thêm action handoff đã điều chỉnh
+class ActionHandoffToHuman(Action):
+    def name(self) -> str:
+        return "action_handoff_to_human"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        # Thông báo hướng dẫn theo yêu cầu
+        dispatcher.utter_message(
+            text="Để kết nối với cán bộ tư vấn, vui lòng truy cập vào mục tư vấn tuyển sinh trên website.")
+        
+        # Reset slot handoff_requested
+        return [SlotSet("handoff_requested", False)]
+
+# Thêm action trích xuất thông tin từ ngữ cảnh
+class ActionExtractFromContext(Action):
+    def name(self) -> str:
+        return "action_extract_from_context"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        # Lấy message hiện tại của người dùng
+        user_message = tracker.latest_message.get("text", "").lower()
+        
+        # Trích xuất ngữ cảnh hiện tại
+        current_major = tracker.get_slot("current_context_major")
+        current_method = tracker.get_slot("current_context_method")
+        
+        # Các từ khóa xác nhận/phủ định
+        affirm_keywords = ["có", "đúng", "vâng", "ok", "được", "muốn", "tất nhiên", "chắc chắn"]
+        deny_keywords = ["không", "đừng", "thôi", "khỏi", "chưa", "không cần"]
+        
+        # Kiểm tra nếu có xác nhận/phủ định trong tin nhắn
+        is_affirm = any(keyword in user_message for keyword in affirm_keywords)
+        is_deny = any(keyword in user_message for keyword in deny_keywords)
+        
+        # Nếu có xác nhận và đang có major trong ngữ cảnh
+        if is_affirm and current_major:
+            if "tổ hợp" in user_message or "môn" in user_message:
+                # Chuyển hướng sang action trả lời về tổ hợp môn
+                return [FollowupAction("action_combination_major")]
+            
+            elif "phương thức" in user_message or "xét tuyển" in user_message:
+                # Chuyển sang trả lời về phương thức xét tuyển
+                return [FollowupAction("action_ask_methods_for_major")]
+        
+        # Nếu phủ định hoặc không rõ ý người dùng
+        if is_deny or not (is_affirm or is_deny):
+            dispatcher.utter_message(
+                text="Bạn cần tư vấn thêm thông tin gì về tuyển sinh?")
+        
+        return []

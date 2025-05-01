@@ -30,13 +30,6 @@ nlu:
     - cám ơn nhiều
     - tks
 
-- intent: iamabot
-  examples: |
-    - bạn là ai?
-    - ai là chatbot?
-    - giới thiệu bản thân
-    - bạn là bot phải không?
-    - bot ơi, bạn là ai?
 
 # ---------- THÔNG TIN CHUNG NGÀNH CNTT ----------
 - intent: ask_major_info
@@ -1042,3 +1035,81 @@ nlu:
     - tôi không chắc chắn
     - không biết nói gì
 
+- intent: bot_challenge
+  examples: |
+    - bạn có phải là bot không?
+    - bạn là người thật hay máy?
+    - tôi đang nói chuyện với robot à?
+    - bạn là ai vậy?
+    - bạn là chatbot à?
+
+# Và intent iamabot nên có các ví dụ khác
+- intent: iamabot
+  examples: |
+    - giới thiệu về bạn đi
+    - bạn là ai?
+    - cho tôi biết về bạn
+    - bạn được tạo ra như thế nào?
+    - bạn làm việc cho ai?
+  
+- intent: affirm
+  examples: |
+    - đúng rồi
+    - vâng
+    - có
+    - chính xác
+    - được
+    - đồng ý
+    - tất nhiên
+    - đúng vậy
+    - ok
+  
+- intent: deny
+  examples: |
+    - không
+    - không phải
+    - không đúng
+    - chưa
+    - không bao giờ
+    - tôi không nghĩ vậy
+    - không đồng ý
+    - không cần
+    - thôi
+  
+- intent: request_human
+  examples: |
+    - tôi muốn nói chuyện với người tư vấn
+    - kết nối tôi với cán bộ tư vấn
+    - tôi cần nói chuyện với người thật
+    - chuyển cho người thật đi
+    - tôi muốn nói chuyện với nhân viên tư vấn
+  
+- intent: smalltalk_how_are_you
+  examples: |
+    - bạn khỏe không
+    - khỏe không
+    - dạo này thế nào
+    - bạn có khỏe không
+    - hôm nay thế nào
+  
+- intent: smalltalk_bot_age
+  examples: |
+    - bạn bao nhiêu tuổi
+    - chatbot được tạo khi nào
+    - bạn được tạo ra khi nào
+    - bạn được phát triển từ bao giờ
+  
+- intent: smalltalk_who_created_you
+  examples: |
+    - ai tạo ra bạn
+    - bạn được phát triển bởi ai
+    - ai là người viết code cho bạn
+    - ai làm ra bạn
+  
+- intent: smalltalk_bot_capabilities
+  examples: |
+    - bạn có thể làm gì
+    - bạn giúp được những gì
+    - chức năng của bạn là gì
+    - bạn có thể trả lời những câu hỏi nào
+    - khả năng của bạn là gì

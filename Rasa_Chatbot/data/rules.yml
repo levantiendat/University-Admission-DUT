@@ -2,12 +2,37 @@ version: "3.1"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  - rule: Say 'I am a bot' anytime the user challenges
+    steps:
+    - intent: bot_challenge
+    - action: utter_iamabot
+  
+  - rule: Handoff khi người dùng yêu cầu trực tiếp
+    steps:
+    - intent: request_human
+    - action: action_handoff_to_human
 
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - rule: Respond to smalltalk about how are you
+    steps:
+    - intent: smalltalk_how_are_you
+    - action: utter_smalltalk_how_are_you
+  
+  - rule: Respond to smalltalk about bot age
+    steps:
+    - intent: smalltalk_bot_age
+    - action: utter_smalltalk_bot_age
+  
+  - rule: Respond to smalltalk about who created you
+    steps:
+    - intent: smalltalk_who_created_you
+    - action: utter_smalltalk_who_created_you
+  
+  - rule: Respond to smalltalk about bot capabilities
+    steps:
+    - intent: smalltalk_bot_capabilities
+    - action: utter_smalltalk_bot_capabilities
+
+  - rule: Fallback
+    steps:
+    - intent: nlu_fallback
+    - action: action_default_fallback

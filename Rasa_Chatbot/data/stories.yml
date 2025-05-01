@@ -2178,3 +2178,33 @@ stories:
           - achievement: "Vật Lý"
       - action: action_major_by_achievement
 
+  - story: Flow tự nhiên - Thông tin ngành và điểm chuẩn
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_major_info
+      - action: utter_major_info
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin"
+      - action: action_cutoff_score
+      - intent: affirm  # Người dùng xác nhận muốn biết thêm
+      - action: action_extract_from_context
+      - action: action_combination_major  # Giả sử action trả về tổ hợp môn
+      - intent: thank
+      - action: utter_thank
+      - intent: goodbye
+      - action: utter_goodbye
+  
+  - story: Flow tự nhiên - Small talk trước khi hỏi thông tin
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: smalltalk_how_are_you
+      - action: utter_smalltalk_how_are_you
+      - intent: smalltalk_bot_capabilities
+      - action: utter_smalltalk_bot_capabilities
+      - intent: ask_major_khdl_ttnt_info  # Chuyển sang hỏi thông tin chính
+      - action: utter_major_info_khdl_ttnt
+      - intent: thank
+      - action: utter_thank
