@@ -78,6 +78,10 @@ import AdminCourses from '@/views/admins/AdminCourses.vue'
 import AdminCourseCreate from '@/views/admins/AdminCourseCreate.vue'
 import AdminCourseDetail from '@/views/admins/AdminCourseDetail.vue'
 
+import AdminMajorCourseDetails from '@/views/admins/AdminMajorCourseDetails.vue'
+import AdminMajorCourseDetailCreate from '@/views/admins/AdminMajorCourseDetailCreate.vue'
+import AdminMajorCourseDetailEdit from '@/views/admins/AdminMajorCourseDetailEdit.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -354,6 +358,27 @@ const adminRoutes = [
         component: AdminCourseDetail,
         props: true,
         meta: { title: 'Chi tiết lớp học phần' }
+      },
+      {
+        path: 'major-courses/:majorCourseId/details',
+        name: 'AdminMajorCourseDetails',
+        component: AdminMajorCourseDetails,
+        props: true,
+        meta: { title: 'Chi tiết khung chương trình đào tạo' }
+      },
+      {
+        path: 'major-courses/:majorCourseId/details/create',
+        name: 'AdminMajorCourseDetailCreate',
+        component: AdminMajorCourseDetailCreate,
+        props: true,
+        meta: { title: 'Thêm học phần vào khung chương trình' }
+      },
+      {
+        path: 'major-courses/:majorCourseId/details/:detailId/edit',
+        name: 'AdminMajorCourseDetailEdit',
+        component: AdminMajorCourseDetailEdit,
+        props: true,
+        meta: { title: 'Chỉnh sửa học phần trong khung chương trình' }
       },
     ]
   }
