@@ -74,6 +74,10 @@ import AdminMajorCourses from '@/views/admins/AdminMajorCourses.vue'
 import AdminMajorCourseCreate from '@/views/admins/AdminMajorCourseCreate.vue'
 import AdminMajorCourseDetail from '@/views/admins/AdminMajorCourseDetail.vue'
 
+import AdminCourses from '@/views/admins/AdminCourses.vue'
+import AdminCourseCreate from '@/views/admins/AdminCourseCreate.vue'
+import AdminCourseDetail from '@/views/admins/AdminCourseDetail.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -331,6 +335,25 @@ const adminRoutes = [
         component: AdminMajorCourseDetail,
         props: true,
         meta: { title: 'Chi tiết khung chương trình đào tạo' }
+      },
+      {
+        path: 'courses',
+        name: 'AdminCourses',
+        component: AdminCourses,
+        meta: { title: 'Quản lý lớp học phần' }
+      },
+      {
+        path: 'courses/create',
+        name: 'AdminCourseCreate',
+        component: AdminCourseCreate,
+        meta: { title: 'Thêm lớp học phần mới' }
+      },
+      {
+        path: 'courses/:courseId',
+        name: 'AdminCourseDetail',
+        component: AdminCourseDetail,
+        props: true,
+        meta: { title: 'Chi tiết lớp học phần' }
       },
     ]
   }

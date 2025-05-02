@@ -99,15 +99,15 @@
           </div>
         </div>
         
-        <!-- Users Stats -->
+        <!-- Courses Stats (NEW) -->
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="admin-stat-card">
-            <div class="admin-stat-icon bg-primary">
-              <i class="bi bi-people-fill"></i>
+            <div class="admin-stat-icon bg-blue">
+              <i class="bi bi-journals"></i>
             </div>
             <div class="admin-stat-content">
-              <h3 class="admin-stat-value">{{ userCount }}</h3>
-              <p class="admin-stat-label">Người dùng</p>
+              <h3 class="admin-stat-value">{{ courseCount }}</h3>
+              <p class="admin-stat-label">Lớp học phần</p>
             </div>
           </div>
         </div>
@@ -333,7 +333,7 @@
       <div class="row">
         <!-- Major Courses Management -->
         <div class="col-md-6 mb-4">
-          <div class="admin-card highlight-card">
+          <div class="admin-card">
             <div class="admin-card-header">
               <div class="admin-card-icon bg-orange">
                 <i class="bi bi-mortarboard-fill"></i>
@@ -354,8 +354,31 @@
           </div>
         </div>
 
+        <!-- Course Management (NEW) -->
+        <div class="col-md-6 mb-4">
+          <div class="admin-card highlight-card">
+            <div class="admin-card-header">
+              <div class="admin-card-icon bg-blue">
+                <i class="bi bi-journals"></i>
+              </div>
+              <h4 class="admin-card-title">Lớp học phần</h4>
+            </div>
+            <div class="admin-actions">
+              <router-link to="/admins/courses" class="admin-action-btn">
+                <i class="bi bi-list-ul me-2"></i>
+                Danh sách lớp học phần
+              </router-link>
+      
+              <router-link to="/admins/courses/create" class="admin-action-btn">
+                <i class="bi bi-plus-circle me-2"></i>
+                Thêm lớp học phần mới
+              </router-link>
+            </div>
+          </div>
+        </div>
+        
         <!-- System Stats -->
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="admin-card">
             <div class="admin-card-header">
               <div class="admin-card-icon bg-warning">
@@ -364,17 +387,27 @@
               <h4 class="admin-card-title">Thống kê hệ thống</h4>
             </div>
             <div class="system-stats">
-              <div class="system-stat-item">
-                <span class="system-stat-label">Tổng lượt truy cập:</span>
-                <span class="system-stat-value">{{ totalVisitors }}</span>
-              </div>
-              <div class="system-stat-item">
-                <span class="system-stat-label">Người dùng hiện tại:</span>
-                <span class="system-stat-value">{{ currentVisitors }}</span>
-              </div>
-              <div class="system-stat-item">
-                <span class="system-stat-label">Thời gian hiện tại:</span>
-                <span class="system-stat-value">{{ currentDateTime }}</span>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="system-stat-item">
+                    <span class="system-stat-label">Tổng lượt truy cập:</span>
+                    <span class="system-stat-value">{{ totalVisitors }}</span>
+                  </div>
+                  <div class="system-stat-item">
+                    <span class="system-stat-label">Người dùng hiện tại:</span>
+                    <span class="system-stat-value">{{ currentVisitors }}</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="system-stat-item">
+                    <span class="system-stat-label">Thời gian hiện tại:</span>
+                    <span class="system-stat-value">{{ currentDateTime }}</span>
+                  </div>
+                  <div class="system-stat-item">
+                    <span class="system-stat-label">Người đang đăng nhập:</span>
+                    <span class="system-stat-value">{{ currentUser }}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -396,6 +429,7 @@ import PreviousAdmissionController from '@/controllers/admins/PreviousAdmissionC
 import AdmissionDescriptionController from '@/controllers/admins/AdmissionDescriptionController'
 import ConvertPointController from '@/controllers/admins/ConvertPointController'
 import MajorCourseController from '@/controllers/admins/MajorCourseController'
+import CourseController from '@/controllers/admins/CourseController'
 import axios from 'axios'
 import config from '@/config/apiConfig'
 
@@ -416,6 +450,8 @@ export default {
     const admissionDescriptionCount = ref(0)
     const convertPointCount = ref(0)
     const majorCourseCount = ref(0)
+    const courseCount = ref(0)
+    const currentUser = ref(sessionStorage.getItem('username') || 'Admin')
 
     // Get current date and time in Vietnam timezone
     const currentDateTime = computed(() => {
@@ -530,7 +566,6 @@ export default {
       }
     }
     
-    // NEW: Fetch major courses count
     const fetchMajorCourseCount = async () => {
       try {
         const majorCourses = await MajorCourseController.getAllMajorCourses()
@@ -538,6 +573,17 @@ export default {
       } catch (error) {
         console.error('Error fetching major courses count:', error)
         majorCourseCount.value = 0
+      }
+    }
+    
+    // NEW: Fetch courses count
+    const fetchCourseCount = async () => {
+      try {
+        const courses = await CourseController.getAllCourses()
+        courseCount.value = courses.length
+      } catch (error) {
+        console.error('Error fetching courses count:', error)
+        courseCount.value = 0
       }
     }
 
@@ -552,7 +598,8 @@ export default {
       fetchPreviousAdmissionCount()
       fetchAdmissionDescriptionCount()
       fetchConvertPointCount()
-      fetchMajorCourseCount() // NEW
+      fetchMajorCourseCount()
+      fetchCourseCount() // NEW
     })
 
     return {
@@ -567,8 +614,10 @@ export default {
       previousAdmissionCount,
       admissionDescriptionCount,
       convertPointCount,
-      majorCourseCount, // NEW
-      currentDateTime
+      majorCourseCount,
+      courseCount, // NEW
+      currentDateTime,
+      currentUser
     }
   }
 }
@@ -677,7 +726,7 @@ export default {
 
 /* Highlight the new feature */
 .highlight-card {
-  border: 2px solid #ff9800;
+  border: 2px solid #1e88e5;
   position: relative;
   overflow: hidden;
 }
@@ -687,7 +736,7 @@ export default {
   position: absolute;
   top: -10px;
   right: -25px;
-  background-color: #ff9800;
+  background-color: #1e88e5;
   color: white;
   padding: 20px 25px 5px 25px;
   font-size: 12px;
@@ -818,6 +867,10 @@ export default {
 
 .bg-orange {
   background-color: #ff9800 !important;
+}
+
+.bg-blue {
+  background-color: #1e88e5 !important;
 }
 
 @media (max-width: 768px) {

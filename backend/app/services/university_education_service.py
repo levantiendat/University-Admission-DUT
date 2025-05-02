@@ -29,7 +29,7 @@ def get_course(db: Session, course_id: int) -> Course:
         raise NotFoundException("Course not found")
     return db_course
 
-def get_courses(db: Session, skip: int = 0, limit: int = 100) -> list[Course]:
+def get_courses(db: Session, skip: int = 0, limit: int = 10000) -> list[Course]:
     return db.query(Course).offset(skip).limit(limit).all()
 
 def update_course(db: Session, course_id: int, course: CourseUpdate) -> Course:
@@ -66,7 +66,7 @@ def get_major_course(db: Session, major_course_id: int) -> MajorCourse:
         raise NotFoundException("Major course not found")
     return db_major_course
 
-def get_major_courses(db: Session, skip: int = 0, limit: int = 100) -> list[MajorCourse]:
+def get_major_courses(db: Session, skip: int = 0, limit: int = 10000) -> list[MajorCourse]:
     return db.query(MajorCourse).offset(skip).limit(limit).all()
 
 def update_major_course(db: Session, major_course_id: int, major_course: MajorCourseUpdate) -> MajorCourse:
@@ -109,7 +109,7 @@ def get_major_course_detail(db: Session, major_course_detail_id: int) -> MajorCo
         raise NotFoundException("Major course detail not found")
     return db_major_course_detail
 
-def get_major_course_details(db: Session, skip: int = 0, limit: int = 100) -> list[MajorCourseDetail]:
+def get_major_course_details(db: Session, skip: int = 0, limit: int = 20000) -> list[MajorCourseDetail]:
     return db.query(MajorCourseDetail).offset(skip).limit(limit).all()
 
 def update_major_course_detail(db: Session, major_course_detail_id: int, major_course_detail: MajorCourseDetailUpdate) -> MajorCourseDetail:
@@ -214,7 +214,7 @@ def get_course_prior_course(db: Session, course_prior_course_id: int) -> CourseP
         raise NotFoundException("Course prior course not found")
     return db_course_prior_course
 
-def get_course_prior_courses(db: Session, skip: int = 0, limit: int = 100) -> list[CoursePriorCourse]:
+def get_course_prior_courses(db: Session, skip: int = 0, limit: int = 10000) -> list[CoursePriorCourse]:
     return db.query(CoursePriorCourse).offset(skip).limit(limit).all()
 
 def update_course_prior_course(db: Session, course_prior_course_id: int, course_prior_course: CoursePriorCourseUpdate) -> CoursePriorCourse:
@@ -258,7 +258,7 @@ def get_course_prerequisite(db: Session, course_prerequisite_id: int) -> CourseP
         raise NotFoundException("Course prerequisite not found")
     return db_course_prerequisite
 
-def get_course_prerequisites(db: Session, skip: int = 0, limit: int = 100) -> list[CoursePrerequisite]:
+def get_course_prerequisites(db: Session, skip: int = 0, limit: int = 10000) -> list[CoursePrerequisite]:
     return db.query(CoursePrerequisite).offset(skip).limit(limit).all()
 
 def update_course_prerequisite(db: Session, course_prerequisite_id: int, course_prerequisite: CoursePrerequisiteUpdate) -> CoursePrerequisite:
@@ -302,7 +302,7 @@ def get_course_corequisite(db: Session, course_corequisite_id: int) -> CourseCor
         raise NotFoundException("Course corequisite not found")
     return db_course_corequisite
 
-def get_course_corequisites(db: Session, skip: int = 0, limit: int = 100) -> list[CourseCorequisite]:
+def get_course_corequisites(db: Session, skip: int = 0, limit: int = 10000) -> list[CourseCorequisite]:
     return db.query(CourseCorequisite).offset(skip).limit(limit).all()
 
 def update_course_corequisite(db: Session, course_corequisite_id: int, course_corequisite: CourseCorequisiteUpdate) -> CourseCorequisite:

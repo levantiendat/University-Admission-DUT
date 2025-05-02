@@ -101,6 +101,9 @@
               <router-link to="/admins/major-courses" class="admin-nav-link" active-class="active">
                 <i class="bi bi-mortarboard-fill me-2"></i>Khung chương trình đào tạo
               </router-link>
+              <router-link to="/admins/courses" class="admin-nav-link" active-class="active">
+                <i class="bi bi-journals me-2"></i>Lớp học phần
+              </router-link>
             </div>
           </nav>
         </aside>
