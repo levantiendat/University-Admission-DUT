@@ -67,7 +67,7 @@ async def get_course_endpoint(course_id: int, db: Session = Depends(get_db)):
     """
     API để lấy thông tin một học phần theo ID
     """
-    course = await get_course(db=db, course_id=course_id)
+    course = get_course(db=db, course_id=course_id)
     if not course:
         raise NotFoundException(detail="Course not found")
     return course
