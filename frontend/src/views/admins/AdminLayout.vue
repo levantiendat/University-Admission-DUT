@@ -83,6 +83,13 @@
                     <i class="bi bi-diagram-3 me-2"></i>Quản lý tổ hợp môn thi
                 </router-link>
             </div>
+
+            <div class="nav-section">
+              <h6 class="nav-section-title">Điểm chuẩn</h6>
+              <router-link to="/admins/previous-admissions" class="admin-nav-link" active-class="active">
+                <i class="bi bi-bar-chart-line me-2"></i>Điểm chuẩn các năm trước
+              </router-link>
+            </div>
           </nav>
         </aside>
   

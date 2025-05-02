@@ -59,6 +59,10 @@ import AdminSubjectGroups from '@/views/admins/AdminSubjectGroups.vue'
 import AdminSubjectGroupCreate from '@/views/admins/AdminSubjectGroupCreate.vue'
 import AdminSubjectGroupDetail from '@/views/admins/AdminSubjectGroupDetail.vue'
 
+import AdminPreviousAdmissions from '@/views/admins/AdminPreviousAdmissions.vue'
+import AdminPreviousAdmissionCreate from '@/views/admins/AdminPreviousAdmissionCreate.vue'
+import AdminPreviousAdmissionDetail from '@/views/admins/AdminPreviousAdmissionDetail.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -240,6 +244,25 @@ const adminRoutes = [
         component: AdminSubjectGroupDetail,
         props: true,
         meta: { title: 'Chi tiết tổ hợp môn thi' }
+      },
+      {
+        path: 'previous-admissions',
+        name: 'AdminPreviousAdmissions',
+        component: AdminPreviousAdmissions,
+        meta: { title: 'Quản lý điểm chuẩn các năm trước' }
+      },
+      {
+        path: 'previous-admissions/create',
+        name: 'AdminPreviousAdmissionCreate',
+        component: AdminPreviousAdmissionCreate,
+        meta: { title: 'Thêm điểm chuẩn mới' }
+      },
+      {
+        path: 'previous-admissions/:admissionId',
+        name: 'AdminPreviousAdmissionDetail',
+        component: AdminPreviousAdmissionDetail,
+        props: true,
+        meta: { title: 'Chi tiết điểm chuẩn' }
       },
     ]
   }

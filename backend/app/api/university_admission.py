@@ -876,7 +876,7 @@ async def get_previous_admission_endpoint(previous_admission_id: int, db: Sessio
     """
     API để lấy thông tin một điểm chuẩn của ngành đào tạo năm trước
     """
-    previous_admission = get_previous_admissions(db, previous_admission_id)
+    previous_admission = get_previous_admission(db, previous_admission_id)
     if not previous_admission:
         raise NotFoundException(detail="Previous admission not found")
     return previous_admission
