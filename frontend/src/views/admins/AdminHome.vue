@@ -86,15 +86,15 @@
           </div>
         </div>
         
-        <!-- Admission Descriptions Stats (NEW) -->
+        <!-- Major Courses Stats -->
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="admin-stat-card">
-            <div class="admin-stat-icon bg-coral">
-              <i class="bi bi-award"></i>
+            <div class="admin-stat-icon bg-orange">
+              <i class="bi bi-mortarboard-fill"></i>
             </div>
             <div class="admin-stat-content">
-              <h3 class="admin-stat-value">{{ admissionDescriptionCount }}</h3>
-              <p class="admin-stat-label">Lĩnh vực/Môn học xét tuyển</p>
+              <h3 class="admin-stat-value">{{ majorCourseCount }}</h3>
+              <p class="admin-stat-label">Khung chương trình</p>
             </div>
           </div>
         </div>
@@ -116,7 +116,7 @@
 
     <!-- Management Sections -->
     <div class="management-container">
-      <h3 class="section-title">Quản lý tuyển sinh</h3>
+      <h3 class="section-title">Quản lý cơ bản</h3>
       <div class="row">
         <!-- Faculty Management -->
         <div class="col-md-6 col-lg-4 mb-4">
@@ -164,6 +164,32 @@
           </div>
         </div>
 
+        <!-- User Management -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-icon bg-primary">
+                <i class="bi bi-people-fill"></i>
+              </div>
+              <h4 class="admin-card-title">Quản lý người dùng</h4>
+            </div>
+            <div class="admin-actions">
+              <router-link to="/admins/users" class="admin-action-btn">
+                <i class="bi bi-list-ul me-2"></i>
+                Danh sách người dùng
+              </router-link>
+              
+              <router-link to="/admins/users/create" class="admin-action-btn">
+                <i class="bi bi-person-plus-fill me-2"></i>
+                Thêm người dùng mới
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-title">Quản lý tuyển sinh</h3>
+      <div class="row">
         <!-- Admission Method Management -->
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="admin-card">
@@ -232,7 +258,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Previous Admission Scores Management -->
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="admin-card">
@@ -256,9 +282,32 @@
           </div>
         </div>
         
-        <!-- Admission Descriptions Management (NEW) -->
+        <!-- Convert Points Management -->
         <div class="col-md-6 col-lg-4 mb-4">
-          <div class="admin-card highlight-card">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-icon bg-cyan">
+                <i class="bi bi-calculator"></i>
+              </div>
+              <h4 class="admin-card-title">Quy đổi điểm</h4>
+            </div>
+            <div class="admin-actions">
+              <router-link to="/admins/convert-points" class="admin-action-btn">
+                <i class="bi bi-list-ul me-2"></i>
+                Danh sách quy đổi điểm
+              </router-link>
+      
+              <router-link to="/admins/convert-points/create" class="admin-action-btn">
+                <i class="bi bi-plus-circle me-2"></i>
+                Thêm quy đổi điểm mới
+              </router-link>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Admission Descriptions Management -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="admin-card">
             <div class="admin-card-header">
               <div class="admin-card-icon bg-coral">
                 <i class="bi bi-award"></i>
@@ -279,27 +328,27 @@
           </div>
         </div>
       </div>
-
-      <h3 class="section-title">Quản lý người dùng</h3>
+      
+      <h3 class="section-title">Quản lý đào tạo</h3>
       <div class="row">
-        <!-- User Management -->
-        <div class="col-md-6">
-          <div class="admin-card">
+        <!-- Major Courses Management -->
+        <div class="col-md-6 mb-4">
+          <div class="admin-card highlight-card">
             <div class="admin-card-header">
-              <div class="admin-card-icon bg-primary">
-                <i class="bi bi-people-fill"></i>
+              <div class="admin-card-icon bg-orange">
+                <i class="bi bi-mortarboard-fill"></i>
               </div>
-              <h4 class="admin-card-title">Quản lý người dùng</h4>
+              <h4 class="admin-card-title">Khung chương trình đào tạo</h4>
             </div>
             <div class="admin-actions">
-              <router-link to="/admins/users" class="admin-action-btn">
+              <router-link to="/admins/major-courses" class="admin-action-btn">
                 <i class="bi bi-list-ul me-2"></i>
-                Danh sách người dùng
+                Danh sách khung chương trình
               </router-link>
-              
-              <router-link to="/admins/users/create" class="admin-action-btn">
-                <i class="bi bi-person-plus-fill me-2"></i>
-                Thêm người dùng mới
+      
+              <router-link to="/admins/major-courses/create" class="admin-action-btn">
+                <i class="bi bi-plus-circle me-2"></i>
+                Thêm khung chương trình mới
               </router-link>
             </div>
           </div>
@@ -345,6 +394,8 @@ import SubjectController from '@/controllers/admins/SubjectController'
 import SubjectGroupController from '@/controllers/admins/SubjectGroupController'
 import PreviousAdmissionController from '@/controllers/admins/PreviousAdmissionController'
 import AdmissionDescriptionController from '@/controllers/admins/AdmissionDescriptionController'
+import ConvertPointController from '@/controllers/admins/ConvertPointController'
+import MajorCourseController from '@/controllers/admins/MajorCourseController'
 import axios from 'axios'
 import config from '@/config/apiConfig'
 
@@ -363,6 +414,8 @@ export default {
     const subjectGroupCount = ref(0)
     const previousAdmissionCount = ref(0)
     const admissionDescriptionCount = ref(0)
+    const convertPointCount = ref(0)
+    const majorCourseCount = ref(0)
 
     // Get current date and time in Vietnam timezone
     const currentDateTime = computed(() => {
@@ -457,7 +510,6 @@ export default {
       }
     }
     
-    // NEW: Fetch admission descriptions count
     const fetchAdmissionDescriptionCount = async () => {
       try {
         const descriptions = await AdmissionDescriptionController.getAllAdmissionDescriptions()
@@ -465,6 +517,27 @@ export default {
       } catch (error) {
         console.error('Error fetching admission description count:', error)
         admissionDescriptionCount.value = 0
+      }
+    }
+    
+    const fetchConvertPointCount = async () => {
+      try {
+        const convertPoints = await ConvertPointController.getAllConvertPoints()
+        convertPointCount.value = convertPoints.length
+      } catch (error) {
+        console.error('Error fetching convert points count:', error)
+        convertPointCount.value = 0
+      }
+    }
+    
+    // NEW: Fetch major courses count
+    const fetchMajorCourseCount = async () => {
+      try {
+        const majorCourses = await MajorCourseController.getAllMajorCourses()
+        majorCourseCount.value = majorCourses.length
+      } catch (error) {
+        console.error('Error fetching major courses count:', error)
+        majorCourseCount.value = 0
       }
     }
 
@@ -477,7 +550,9 @@ export default {
       fetchSubjectCount()
       fetchSubjectGroupCount()
       fetchPreviousAdmissionCount()
-      fetchAdmissionDescriptionCount() // NEW
+      fetchAdmissionDescriptionCount()
+      fetchConvertPointCount()
+      fetchMajorCourseCount() // NEW
     })
 
     return {
@@ -490,7 +565,9 @@ export default {
       subjectCount,
       subjectGroupCount,
       previousAdmissionCount,
-      admissionDescriptionCount, // NEW
+      admissionDescriptionCount,
+      convertPointCount,
+      majorCourseCount, // NEW
       currentDateTime
     }
   }
@@ -600,7 +677,7 @@ export default {
 
 /* Highlight the new feature */
 .highlight-card {
-  border: 2px solid #ff7f50;
+  border: 2px solid #ff9800;
   position: relative;
   overflow: hidden;
 }
@@ -610,7 +687,7 @@ export default {
   position: absolute;
   top: -10px;
   right: -25px;
-  background-color: #ff7f50;
+  background-color: #ff9800;
   color: white;
   padding: 20px 25px 5px 25px;
   font-size: 12px;
@@ -733,6 +810,14 @@ export default {
 
 .bg-coral {
   background-color: #ff7f50 !important;
+}
+
+.bg-cyan {
+  background-color: #00bcd4 !important;
+}
+
+.bg-orange {
+  background-color: #ff9800 !important;
 }
 
 @media (max-width: 768px) {

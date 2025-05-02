@@ -75,6 +75,9 @@
                 <router-link to="/admins/admission-descriptions" class="admin-nav-link" active-class="active">
                   <i class="bi bi-award me-2"></i>Lĩnh vực/môn học xét tuyển Thẳng / Riêng
                 </router-link>
+                <router-link to="/admins/convert-points" class="admin-nav-link" active-class="active">
+                  <i class="bi bi-calculator me-2"></i>Quy đổi điểm
+                </router-link>
             </div>
 
             <div class="nav-section">
@@ -91,6 +94,12 @@
               <h6 class="nav-section-title">Điểm chuẩn</h6>
               <router-link to="/admins/previous-admissions" class="admin-nav-link" active-class="active">
                 <i class="bi bi-bar-chart-line me-2"></i>Điểm chuẩn các năm trước
+              </router-link>
+            </div>
+            <div class="nav-section">
+              <h6 class="nav-section-title">Quản lý chương trình đào tạo</h6>
+              <router-link to="/admins/major-courses" class="admin-nav-link" active-class="active">
+                <i class="bi bi-mortarboard-fill me-2"></i>Khung chương trình đào tạo
               </router-link>
             </div>
           </nav>

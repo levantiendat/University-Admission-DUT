@@ -66,6 +66,14 @@ import AdminAdmissionDescriptions from '@/views/admins/AdminAdmissionDescription
 import AdminAdmissionDescriptionCreate from '@/views/admins/AdminAdmissionDescriptionCreate.vue'
 import AdminAdmissionDescriptionDetail from '@/views/admins/AdminAdmissionDescriptionDetail.vue'
 
+import AdminConvertPoints from '@/views/admins/AdminConvertPoints.vue'
+import AdminConvertPointCreate from '@/views/admins/AdminConvertPointCreate.vue'
+import AdminConvertPointDetail from '@/views/admins/AdminConvertPointDetail.vue'
+
+import AdminMajorCourses from '@/views/admins/AdminMajorCourses.vue'
+import AdminMajorCourseCreate from '@/views/admins/AdminMajorCourseCreate.vue'
+import AdminMajorCourseDetail from '@/views/admins/AdminMajorCourseDetail.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -285,6 +293,44 @@ const adminRoutes = [
         component: AdminAdmissionDescriptionDetail,
         props: true,
         meta: { title: 'Chi tiết lĩnh vực/môn học xét tuyển' }
+      },
+      {
+        path: 'convert-points',
+        name: 'AdminConvertPoints',
+        component: AdminConvertPoints,
+        meta: { title: 'Quản lý quy đổi điểm' }
+      },
+      {
+        path: 'convert-points/create',
+        name: 'AdminConvertPointCreate',
+        component: AdminConvertPointCreate,
+        meta: { title: 'Thêm quy đổi điểm mới' }
+      },
+      {
+        path: 'convert-points/:convertPointId',
+        name: 'AdminConvertPointDetail',
+        component: AdminConvertPointDetail,
+        props: true,
+        meta: { title: 'Chi tiết quy đổi điểm' }
+      },
+      {
+        path: 'major-courses',
+        name: 'AdminMajorCourses',
+        component: AdminMajorCourses,
+        meta: { title: 'Quản lý khung chương trình đào tạo' }
+      },
+      {
+        path: 'major-courses/create',
+        name: 'AdminMajorCourseCreate',
+        component: AdminMajorCourseCreate,
+        meta: { title: 'Thêm khung chương trình đào tạo mới' }
+      },
+      {
+        path: 'major-courses/:majorCourseId',
+        name: 'AdminMajorCourseDetail',
+        component: AdminMajorCourseDetail,
+        props: true,
+        meta: { title: 'Chi tiết khung chương trình đào tạo' }
       },
     ]
   }
