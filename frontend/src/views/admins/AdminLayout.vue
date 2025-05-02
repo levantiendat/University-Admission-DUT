@@ -72,6 +72,9 @@
                 <router-link to="/admins/admission-methods" class="admin-nav-link" active-class="active">
                     <i class="bi bi-clipboard-check me-2"></i>Phương thức xét tuyển
                 </router-link>
+                <router-link to="/admins/admission-descriptions" class="admin-nav-link" active-class="active">
+                  <i class="bi bi-award me-2"></i>Lĩnh vực/môn học xét tuyển Thẳng / Riêng
+                </router-link>
             </div>
 
             <div class="nav-section">
