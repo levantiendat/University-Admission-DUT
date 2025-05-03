@@ -49,8 +49,6 @@ def get_question_endpoint(
 
 @router.get("/questions", response_model=list[QuestionOut])
 def get_questions_endpoint(
-    skip: int = 0,
-    limit: int = 100,
     db: Session = Depends(get_db),
     token: str = Depends(oauth2_scheme)
 ):
@@ -63,7 +61,7 @@ def get_questions_endpoint(
     user = db.query(User).filter(User.email == email).first()
     if not user:
         raise credentials_exception
-    return get_questions(db, skip, limit)
+    return get_questions(db)
 
 @router.put("/questions/{question_id}", response_model=QuestionOut)
 def update_question_endpoint(
@@ -83,7 +81,7 @@ def update_question_endpoint(
         raise credentials_exception
     return update_question(db, question_id, question, user.id)
 
-@router.delete("/questions/{question_id}", response_model=QuestionOut)
+@router.delete("/questions/{question_id}")
 def delete_question_endpoint(
     question_id: int,
     db: Session = Depends(get_db),
@@ -98,7 +96,8 @@ def delete_question_endpoint(
     user = db.query(User).filter(User.email == email).first()
     if not user:
         raise credentials_exception
-    return delete_question(db, question_id, user.id)
+    deleteQuestion =  delete_question(db, question_id, user)
+    return {"detail": "Question deleted successfully"}
 
 @router.post("/responses", response_model=ResponseOut, status_code=201)
 def create_response_endpoint(
@@ -137,8 +136,6 @@ def get_response_endpoint(
 @router.get("/questions/{question_id}/responses", response_model=list[ResponseOutWithQuestion])
 def get_responses_endpoint(
     question_id: int,
-    skip: int = 0,
-    limit: int = 100,
     db: Session = Depends(get_db),
     token: str = Depends(oauth2_scheme)
 ):
@@ -151,7 +148,7 @@ def get_responses_endpoint(
     user = db.query(User).filter(User.email == email).first()
     if not user:
         raise credentials_exception
-    return get_responses(db, question_id, skip, limit)
+    return get_responses(db, question_id)
 
 @router.put("/responses/{response_id}", response_model=ResponseOut)
 def update_response_endpoint(
@@ -171,7 +168,7 @@ def update_response_endpoint(
         raise credentials_exception
     return update_response(db, response_id, response, user.id)
 
-@router.delete("/responses/{response_id}", response_model=ResponseOut)
+@router.delete("/responses/{response_id}")
 def delete_response_endpoint(
     response_id: int,
     db: Session = Depends(get_db),
@@ -186,4 +183,5 @@ def delete_response_endpoint(
     user = db.query(User).filter(User.email == email).first()
     if not user:
         raise credentials_exception
-    return delete_response(db, response_id, user.id)
+    deleteResponse =  delete_response(db, response_id, user)
+    return {"detail": "Response deleted successfully"}

@@ -81,6 +81,14 @@ import AdminCourseDetail from '@/views/admins/AdminCourseDetail.vue'
 
 import AdminMajorCourseDetailEdit from '@/views/admins/AdminMajorCourseDetailEdit.vue'
 
+import AdminSchoolPriorities from '@/views/admins/AdminSchoolPriorities.vue'
+import AdminCityCreate from '@/views/admins/AdminCityCreate.vue'
+import AdminCityDetail from '@/views/admins/AdminCityDetail.vue'
+import AdminDistrictCreate from '@/views/admins/AdminDistrictCreate.vue'
+import AdminDistrictDetail from '@/views/admins/AdminDistrictDetail.vue'
+import AdminSchoolCreate from '@/views/admins/AdminSchoolCreate.vue'
+import AdminSchoolDetail from '@/views/admins/AdminSchoolDetail.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -365,7 +373,51 @@ const adminRoutes = [
         props: true,
         meta: { title: 'Chi tiết lớp học phần' }
       },
-      
+      {
+        path: 'school-priorities',
+        name: 'AdminSchoolPriorities',
+        component: AdminSchoolPriorities,
+        meta: { title: 'Quản lý khu vực ưu tiên' }
+      },
+      {
+        path: 'school-priorities/cities/create',
+        name: 'AdminCityCreate',
+        component: AdminCityCreate,
+        meta: { title: 'Tạo tỉnh/thành phố mới' }
+      },
+      {
+        path: 'school-priorities/cities/:cityId',
+        name: 'AdminCityDetail',
+        component: AdminCityDetail,
+        props: true,
+        meta: { title: 'Chi tiết tỉnh/thành phố' }
+      },
+      {
+        path: 'school-priorities/districts/create',
+        name: 'AdminDistrictCreate',
+        component: AdminDistrictCreate,
+        meta: { title: 'Tạo quận/huyện mới' }
+      },
+      {
+        path: 'school-priorities/districts/:districtId',
+        name: 'AdminDistrictDetail',
+        component: AdminDistrictDetail,
+        props: true,
+        meta: { title: 'Chi tiết quận/huyện' }
+      },
+      {
+        path: 'school-priorities/schools/create',
+        name: 'AdminSchoolCreate',
+        component: AdminSchoolCreate,
+        meta: { title: 'Tạo trường học mới' }
+      },
+      {
+        path: 'school-priorities/schools/:schoolId',
+        name: 'AdminSchoolDetail',
+        component: AdminSchoolDetail,
+        props: true,
+        meta: { title: 'Chi tiết trường học' }
+      },
     ]
   }
 ]

@@ -85,11 +85,11 @@ def update_question(db: Session, question_id: int, question_update: QuestionUpda
     return db_question
 
 
-def delete_question(db: Session, question_id: int, user_id: int) -> Question:
+def delete_question(db: Session, question_id: int, user: dict) -> Question:
     db_question = db.query(Question).filter(Question.id == question_id).first()
     if not db_question:
         raise NotFoundException("Question not found")
-    if db_question.user_id != user_id:
+    if db_question.user_id != user.id and user.role != "admin":
         raise ForbiddenException("You do not have permission to delete this question")
     
     db.delete(db_question)
@@ -131,7 +131,7 @@ def get_response(db: Session, response_id: int) -> dict:
     
     return result
 
-def get_responses(db: Session, question_id: int, skip: int = 0, limit: int = 100) -> list[dict]:
+def get_responses(db: Session, question_id: int, skip: int = 0, limit: int = 1000) -> list[dict]:
     """
     Lấy danh sách câu trả lời cho một câu hỏi cùng với thông tin chi tiết về người trả lời và câu hỏi
     """
@@ -183,11 +183,11 @@ def update_response(db: Session, response_id: int, response_update: ResponseUpda
     return db_response
 
 
-def delete_response(db: Session, response_id: int, user_id: int) -> Response:
+def delete_response(db: Session, response_id: int, user: dict) -> Response:
     db_response = db.query(Response).filter(Response.id == response_id).first()
     if not db_response:
         raise NotFoundException("Response not found")
-    if db_response.user_id != user_id:
+    if db_response.user_id != user.id and user.role != "admin":
         raise ForbiddenException("You do not have permission to delete this response")
     
     db.delete(db_response)

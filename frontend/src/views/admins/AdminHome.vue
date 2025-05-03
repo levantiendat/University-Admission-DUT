@@ -99,7 +99,7 @@
           </div>
         </div>
         
-        <!-- Courses Stats (NEW) -->
+        <!-- Courses Stats -->
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="admin-stat-card">
             <div class="admin-stat-icon bg-blue">
@@ -354,7 +354,7 @@
           </div>
         </div>
 
-        <!-- Course Management (NEW) -->
+        <!-- Course Management -->
         <div class="col-md-6 mb-4">
           <div class="admin-card highlight-card">
             <div class="admin-card-header">
@@ -376,37 +376,62 @@
             </div>
           </div>
         </div>
-        
-        <!-- System Stats -->
-        <div class="col-md-12">
+      </div>
+      
+      <h3 class="section-title">Quản lý khu vực ưu tiên</h3>
+      <div class="row">
+        <div class="col-md-12 mb-4">
           <div class="admin-card">
             <div class="admin-card-header">
-              <div class="admin-card-icon bg-warning">
-                <i class="bi bi-bar-chart-fill"></i>
+              <div class="admin-card-icon bg-green">
+                <i class="bi bi-geo-alt-fill"></i>
               </div>
-              <h4 class="admin-card-title">Thống kê hệ thống</h4>
+              <h4 class="admin-card-title">Quản lý khu vực ưu tiên</h4>
             </div>
-            <div class="system-stats">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="system-stat-item">
-                    <span class="system-stat-label">Tổng lượt truy cập:</span>
-                    <span class="system-stat-value">{{ totalVisitors }}</span>
-                  </div>
-                  <div class="system-stat-item">
-                    <span class="system-stat-label">Người dùng hiện tại:</span>
-                    <span class="system-stat-value">{{ currentVisitors }}</span>
-                  </div>
+            <div class="admin-actions">
+              <router-link to="/admins/school-priorities" class="admin-action-btn">
+                <i class="bi bi-list-ul me-2"></i>
+                Danh sách tỉnh/thành phố
+              </router-link>
+              
+              <router-link to="/admins/school-priorities/cities/create" class="admin-action-btn">
+                <i class="bi bi-plus-circle me-2"></i>
+                Thêm tỉnh/thành phố mới
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- System Stats -->
+      <div class="col-md-12">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-icon bg-warning">
+              <i class="bi bi-bar-chart-fill"></i>
+            </div>
+            <h4 class="admin-card-title">Thống kê hệ thống</h4>
+          </div>
+          <div class="system-stats">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="system-stat-item">
+                  <span class="system-stat-label">Tổng lượt truy cập:</span>
+                  <span class="system-stat-value">{{ totalVisitors }}</span>
                 </div>
-                <div class="col-md-6">
-                  <div class="system-stat-item">
-                    <span class="system-stat-label">Thời gian hiện tại:</span>
-                    <span class="system-stat-value">{{ currentDateTime }}</span>
-                  </div>
-                  <div class="system-stat-item">
-                    <span class="system-stat-label">Người đang đăng nhập:</span>
-                    <span class="system-stat-value">{{ currentUser }}</span>
-                  </div>
+                <div class="system-stat-item">
+                  <span class="system-stat-label">Người dùng hiện tại:</span>
+                  <span class="system-stat-value">{{ currentVisitors }}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="system-stat-item">
+                  <span class="system-stat-label">Thời gian hiện tại:</span>
+                  <span class="system-stat-value">{{ currentDateTime }}</span>
+                </div>
+                <div class="system-stat-item">
+                  <span class="system-stat-label">Người đang đăng nhập:</span>
+                  <span class="system-stat-value">{{ currentUser }}</span>
                 </div>
               </div>
             </div>
@@ -451,7 +476,7 @@ export default {
     const convertPointCount = ref(0)
     const majorCourseCount = ref(0)
     const courseCount = ref(0)
-    const currentUser = ref(sessionStorage.getItem('username') || 'Admin')
+    const currentUser = ref(sessionStorage.getItem('username') || 'levantiendatBạn')
 
     // Get current date and time in Vietnam timezone
     const currentDateTime = computed(() => {
@@ -576,7 +601,6 @@ export default {
       }
     }
     
-    // NEW: Fetch courses count
     const fetchCourseCount = async () => {
       try {
         const courses = await CourseController.getAllCourses()
@@ -599,7 +623,7 @@ export default {
       fetchAdmissionDescriptionCount()
       fetchConvertPointCount()
       fetchMajorCourseCount()
-      fetchCourseCount() // NEW
+      fetchCourseCount()
     })
 
     return {
@@ -615,7 +639,7 @@ export default {
       admissionDescriptionCount,
       convertPointCount,
       majorCourseCount,
-      courseCount, // NEW
+      courseCount,
       currentDateTime,
       currentUser
     }
@@ -871,6 +895,10 @@ export default {
 
 .bg-blue {
   background-color: #1e88e5 !important;
+}
+
+.bg-green {
+  background-color: #2ecc71 !important;
 }
 
 @media (max-width: 768px) {
