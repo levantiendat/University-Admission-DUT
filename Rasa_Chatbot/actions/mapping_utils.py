@@ -618,3 +618,228 @@ def find_achievement_fields(text: str) -> list:
                     break
     
     return found_fields
+
+# Dictionary ánh xạ tên môn học
+SUBJECT_MAPPING = {
+    # Toán học
+    "toán": "toán",
+    "toán học": "toán",
+    "đại số": "toán",
+    "hình học": "toán",
+    "giải tích": "toán",
+    "mathematics": "toán",
+    "algebra": "toán",
+    "geometry": "toán",
+    "calculus": "toán",
+    
+    # Vật lý
+    "lý": "vật lý",
+    "vật lý": "vật lý",
+    "vật lí": "vật lý",
+    "physics": "vật lý",
+    
+    # Tiếng Anh
+    "anh": "tiếng anh",
+    "tiếng anh": "tiếng anh",
+    "ta": "tiếng anh",
+    "ngoại ngữ anh": "tiếng anh",
+    "english": "tiếng anh",
+    "foreign language english": "tiếng anh",
+    
+    # Tiếng Nhật
+    "nhật": "tiếng nhật",
+    "tiếng nhật": "tiếng nhật",
+    "ngoại ngữ nhật": "tiếng nhật",
+    "ngoại ngữ tiếng nhật": "tiếng nhật",
+    "tiếng nhật bản": "tiếng nhật",
+    "japanese": "tiếng nhật",
+    
+    # Hóa học
+    "hóa": "hóa học",
+    "hoá": "hóa học",
+    "hóa học": "hóa học",
+    "hoá học": "hóa học",
+    "chemistry": "hóa học",
+    
+    # Sinh học
+    "sinh": "sinh học",
+    "sinh học": "sinh học",
+    "sinh vật": "sinh học",
+    "sinh vật học": "sinh học",
+    "biology": "sinh học",
+    
+    # Lịch sử
+    "sử": "lịch sử",
+    "lịch sử": "lịch sử",
+    "sử học": "lịch sử",
+    "history": "lịch sử",
+    
+    # Địa lý
+    "địa": "địa lý",
+    "địa lý": "địa lý",
+    "địa lí": "địa lý",
+    "geography": "địa lý",
+    "địa học": "địa lý",
+    
+    # Công nghệ
+    "công nghệ": "công nghệ",
+    "kĩ thuật công nghệ": "công nghệ",
+    "kỹ thuật công nghệ": "công nghệ",
+    "technology": "công nghệ",
+    "tech": "công nghệ",
+    
+    # Tin học
+    "tin": "tin học",
+    "tin học": "tin học",
+    "công nghệ thông tin": "tin học",
+    "cntt": "tin học",
+    "informatics": "tin học",
+    "it": "tin học",
+    "ict": "tin học",
+    
+    # Giáo dục kinh tế và pháp luật
+    "gdkt": "giáo dục kinh tế và pháp luật",
+    "gdpl": "giáo dục kinh tế và pháp luật",
+    "gdktpl": "giáo dục kinh tế và pháp luật",
+    "giáo dục kinh tế": "giáo dục kinh tế và pháp luật",
+    "giáo dục pháp luật": "giáo dục kinh tế và pháp luật",
+    "giáo dục kinh tế và pháp luật": "giáo dục kinh tế và pháp luật",
+    "kinh tế và pháp luật": "giáo dục kinh tế và pháp luật",
+    "economics and law": "giáo dục kinh tế và pháp luật",
+    "kinh tế pháp luật": "giáo dục kinh tế và pháp luật",
+    
+    # Vẽ mỹ thuật
+    "vẽ": "vẽ mỹ thuật",
+    "mỹ thuật": "vẽ mỹ thuật",
+    "vẽ mỹ thuật": "vẽ mỹ thuật",
+    "hội họa": "vẽ mỹ thuật",
+    "mĩ thuật": "vẽ mỹ thuật",
+    "vẽ mĩ thuật": "vẽ mỹ thuật",
+    "art": "vẽ mỹ thuật",
+    "drawing": "vẽ mỹ thuật",
+    "fine art": "vẽ mỹ thuật",
+    
+    # Ngữ văn
+    "văn": "ngữ văn",
+    "ngữ văn": "ngữ văn",
+    "văn học": "ngữ văn",
+    "văn học việt nam": "ngữ văn",
+    "literature": "ngữ văn"
+}
+
+# Danh sách các từ khóa quan trọng để xác định môn học chính xác
+SUBJECT_KEYWORDS = {
+    "toán": ["toán", "đại số", "hình học", "giải tích", "number", "số học"],
+    "vật lý": ["vật lý", "lý", "vật lí", "sức", "điện", "nhiệt", "cơ học"],
+    "tiếng anh": ["anh", "tiếng anh", "english", "từ vựng", "ngữ pháp"],
+    "tiếng nhật": ["nhật", "tiếng nhật", "kana", "kanji", "hiragana"],
+    "hóa học": ["hóa", "hoá", "hóa học", "nguyên tố", "phân tử"],
+    "sinh học": ["sinh", "sinh học", "tế bào", "di truyền", "thực vật"],
+    "lịch sử": ["sử", "lịch sử", "thời kỳ", "triều đại", "thời đại"],
+    "địa lý": ["địa", "địa lý", "bản đồ", "khí hậu", "dân số"],
+    "công nghệ": ["công nghệ", "kỹ thuật", "thiết bị", "phương pháp"],
+    "tin học": ["tin", "tin học", "máy tính", "lập trình", "phần mềm"],
+    "giáo dục kinh tế và pháp luật": ["kinh tế", "pháp luật", "gdktpl", "gdkt", "gdpl", "luật"],
+    "vẽ mỹ thuật": ["vẽ", "mỹ thuật", "hội họa", "màu sắc", "bố cục"],
+    "ngữ văn": ["văn", "ngữ văn", "văn học", "tác phẩm", "tác giả"]
+}
+
+# Từ điển phụ cho các biến thể cách viết môn học
+SUBJECT_VARIANTS = {
+    "toán": ["toán", "toán học", "đại số", "hình học", "giải tích", "số học", "mathematics", "algebra", "calculus"],
+    "vật lý": ["vật lý", "lý", "vật lí", "physics", "cơ học", "nhiệt học", "điện học", "quang học"],
+    "tiếng anh": ["tiếng anh", "anh", "anh văn", "english", "foreign language", "ngoại ngữ anh"],
+    "tiếng nhật": ["tiếng nhật", "nhật", "nhật ngữ", "japanese", "ngoại ngữ nhật"],
+    "hóa học": ["hóa học", "hoá học", "hóa", "hoá", "chemistry", "nguyên tố hóa học"],
+    "sinh học": ["sinh học", "sinh", "sinh vật", "biology", "thực vật học", "động vật học"],
+    "lịch sử": ["lịch sử", "sử", "sử học", "history", "lịch sử thế giới", "lịch sử việt nam"],
+    "địa lý": ["địa lý", "địa", "địa lí", "geography", "bản đồ học", "địa chất"],
+    "công nghệ": ["công nghệ", "kĩ thuật công nghệ", "technology", "kĩ thuật", "kỹ thuật"],
+    "tin học": ["tin học", "tin", "cntt", "informatics", "it", "công nghệ thông tin", "máy tính"],
+    "giáo dục kinh tế và pháp luật": ["gdktpl", "gdkt", "gdpl", "kinh tế pháp luật", "giáo dục kinh tế", "giáo dục pháp luật"],
+    "vẽ mỹ thuật": ["vẽ mỹ thuật", "mỹ thuật", "vẽ", "hội họa", "mĩ thuật", "vẽ mĩ thuật", "art"],
+    "ngữ văn": ["ngữ văn", "văn", "văn học", "literature", "văn học việt nam", "văn học nước ngoài"]
+}
+
+def normalize_subject(text: Optional[str]) -> Optional[str]:
+    """
+    Chuẩn hóa và ánh xạ tên môn học từ văn bản đầu vào
+    
+    Args:
+        text (str): Tên môn học cần chuẩn hóa
+        
+    Returns:
+        str: Tên môn học đã chuẩn hóa (tiếng Việt) hoặc None nếu không nhận dạng được
+    """
+    if not text:
+        return None
+            
+    # Làm sạch và chuẩn hóa văn bản đầu vào
+    normalized_text = clean_text(text)
+    
+    # Thử tìm kiếm trực tiếp trong mapping
+    if normalized_text in SUBJECT_MAPPING:
+        return SUBJECT_MAPPING[normalized_text]
+    
+    # Tìm kiếm dựa trên từng từ khóa trong text và tính điểm khớp
+    match_scores = {}
+    for key, value in SUBJECT_MAPPING.items():
+        # Tính điểm dựa trên có bao nhiêu từ của key có trong text
+        key_words = key.split()
+        score = sum(1 for word in key_words if word in normalized_text)
+        
+        # Cộng điểm nếu có từ khóa đặc biệt
+        for subject_name, keywords in SUBJECT_KEYWORDS.items():
+            if subject_name == value and any(kw in normalized_text for kw in keywords):
+                score += 2
+        
+        # Cộng điểm nếu key là một phần của text
+        if key in normalized_text:
+            score += 3
+            
+        # Lưu điểm và tên môn học đầy đủ
+        if score > 0:
+            match_scores[value] = match_scores.get(value, 0) + score
+    
+    # Trả về kết quả có điểm cao nhất nếu có
+    if match_scores:
+        return max(match_scores.items(), key=lambda x: x[1])[0]
+    
+    # Thử tìm kiếm trong danh sách các biến thể
+    for subject, variants in SUBJECT_VARIANTS.items():
+        for variant in variants:
+            if variant in normalized_text:
+                return subject
+            
+    return None
+
+def find_subjects_in_text(text: str) -> list:
+    """
+    Tìm tất cả các môn học có thể có trong một đoạn văn bản
+    
+    Args:
+        text (str): Đoạn văn bản cần tìm kiếm
+        
+    Returns:
+        list: Danh sách các môn học tìm thấy (đã chuẩn hóa)
+    """
+    if not text:
+        return []
+    
+    normalized_text = clean_text(text)
+    found_subjects = []
+    
+    # Kiểm tra các từ khóa chính xác
+    for key, value in SUBJECT_MAPPING.items():
+        if key in normalized_text and value not in found_subjects:
+            found_subjects.append(value)
+    
+    # Kiểm tra các từ khóa đặc biệt
+    for subject_name, keywords in SUBJECT_KEYWORDS.items():
+        if subject_name not in found_subjects:
+            for keyword in keywords:
+                if keyword in normalized_text:
+                    found_subjects.append(subject_name)
+                    break
+    
+    return found_subjects

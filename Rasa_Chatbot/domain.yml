@@ -54,12 +54,14 @@ intents:
   - affirm         # Đang thiếu trong domain nhưng được sử dụng trong stories
   - deny           # Thêm cho đầy đủ
   - request_human
+  - ask_major_by_subjects
 
 entities:
   - major
   - method
   - achievement
   - contact
+  - subject
 
 slots:
   major:
@@ -79,6 +81,18 @@ slots:
     mappings:
       - type: from_entity
         entity: achievement  
+  
+  subject:  # Thêm slot subject
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: subject
+  current_subjects:  # Thêm slot current_subjects
+    type: list
+    influence_conversation: true
+    mappings:
+    - type: custom  
   
   current_context_major:
     type: text
@@ -349,6 +363,7 @@ actions:
   - action_extract_from_context
   - action_handoff_to_human
   - action_default_fallback
+  - action_suggest_major_by_subjects
 
 
 session_config:

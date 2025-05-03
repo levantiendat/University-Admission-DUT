@@ -2,7 +2,7 @@ from typing import List, Dict, Optional
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from actions.graph_connector import GraphConnector
-from actions.mapping_utils import normalize_major, normalize_method, normalize_achievement_field  # Import các hàm tiện ích
+from actions.mapping_utils import normalize_major, normalize_method, normalize_achievement_field, normalize_subject  # Import các hàm tiện ích
 import logging
 from rasa_sdk.events import SlotSet
 from rasa_sdk.events import FollowupAction
@@ -395,4 +395,101 @@ class ActionExtractFromContext(Action):
             dispatcher.utter_message(
                 text="Bạn cần tư vấn thêm thông tin gì về tuyển sinh?")
         
+        return []
+
+class ActionSuggestMajorBySubjects(Action):
+    def name(self) -> str:
+        return "action_suggest_major_by_subjects"
+
+    def __init__(self):
+        self.db = GraphConnector()
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        # Lấy tất cả các entity subject từ message hiện tại
+        subjects = list(tracker.get_latest_entity_values("subject"))
+        
+        logging.debug(f"Raw subjects from entities: {subjects}")
+        
+        # Nếu không tìm thấy subject trong entities, thử tìm trong toàn bộ message
+        if not subjects:
+            user_message = tracker.latest_message.get("text", "")
+            from actions.mapping_utils import find_subjects_in_text
+            subjects = find_subjects_in_text(user_message)
+            logging.debug(f"Subjects extracted from message: {subjects}")
+        
+        # Chuẩn hóa các môn học
+        normalized_subjects = []
+        for subject in subjects:
+            normalized_subject = normalize_subject(subject)
+            if normalized_subject and normalized_subject not in normalized_subjects:
+                normalized_subjects.append(normalized_subject)
+        
+        logging.debug(f"Normalized subjects: {normalized_subjects}")
+        
+        if not normalized_subjects:
+            message = "❓ Vui lòng cho biết các môn học bạn muốn xét tuyển để tôi có thể gợi ý ngành phù hợp.\n\n" \
+                      "Ví dụ: \"*Tôi muốn xét tuyển bằng môn Toán, Lý, Hóa thì có thể đăng ký ngành nào?*\""
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Giới hạn số lượng môn học tối đa là 4
+        if len(normalized_subjects) > 4:
+            normalized_subjects = normalized_subjects[:4]
+            logging.debug(f"Limited to max 4 subjects: {normalized_subjects}")
+        
+        # Truy vấn các ngành phù hợp với các môn học đã chuẩn hóa
+        majors = self.db.get_majors_by_subjects(normalized_subjects)
+        logging.debug(f"Got {len(majors)} results from Neo4j")
+        
+        if majors:
+            # Danh sách các môn đã chọn
+            subjects_str = ", ".join([f"**{subject}**" for subject in normalized_subjects])
+            
+            message = f"📚 **Các ngành phù hợp với môn {subjects_str}:**\n\n"
+            
+            # Xử lý kết quả trực tiếp từ Neo4j, không cần gom nhóm lại
+            major_count = 0
+            for i, record in enumerate(majors, 1):
+                # Chuyển Neo4j record thành dict để dễ xử lý
+                major_info = dict(record)
+                
+                # Lấy thông tin cơ bản
+                major_name = major_info.get('major')
+                major_id = major_info.get('major_id')
+                
+                if not major_name:
+                    continue
+                
+                major_count += 1
+                message += f"{major_count}. **{major_name}**\n"
+                
+                # Xử lý và hiển thị các tổ hợp môn
+                subject_combinations = major_info.get('subject_combinations', [])
+                
+                if subject_combinations and len(subject_combinations) > 0:
+                    message += "   *Tổ hợp môn*:\n"
+                    for combo in subject_combinations:
+                        message += f"   - {combo}\n"
+                else:
+                    message += "   *Tổ hợp môn*: Thông tin không có sẵn\n"
+                
+                message += "\n"
+                
+            
+            # Thêm gợi ý
+            message += "\n💡 *Bạn có thể hỏi thêm về điểm chuẩn hoặc thông tin chi tiết của từng ngành.*"
+        else:
+            subjects_str = ", ".join(normalized_subjects)
+            message = f"❌ Không tìm thấy ngành nào phù hợp với môn **{subjects_str}**.\n\n" \
+                      f"Có thể tổ hợp môn này không được sử dụng trong xét tuyển hoặc thông tin chưa được cập nhật trong hệ thống.\n\n" \
+                      f"💡 Bạn có thể thử với các môn phổ biến như: **Toán, Lý, Hóa** hoặc **Toán, Văn, Anh**."
+        
+        dispatcher.utter_message(text=message)
+        
+        # Lưu lại bối cảnh để xử lý theo dõi
+        if "current_subjects" in domain.get("slots", {}):
+            return [SlotSet("current_subjects", normalized_subjects)]
         return []

@@ -36,3 +36,8 @@ rules:
     steps:
     - intent: nlu_fallback
     - action: action_default_fallback
+
+  - rule: Suggest major by subjects
+    steps:
+    - intent: ask_major_by_subjects
+    - action: action_suggest_major_by_subjects
