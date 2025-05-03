@@ -89,6 +89,11 @@ import AdminDistrictDetail from '@/views/admins/AdminDistrictDetail.vue'
 import AdminSchoolCreate from '@/views/admins/AdminSchoolCreate.vue'
 import AdminSchoolDetail from '@/views/admins/AdminSchoolDetail.vue'
 
+import AdminQnaQuestions from '@/views/admins/AdminQnaQuestions.vue'
+import AdminQnaDetail from '@/views/admins/AdminQnaDetail.vue'
+import AdminQnaCreate from '@/views/admins/AdminQnaCreate.vue'
+import AdminQnaEdit from '@/views/admins/AdminQnaEdit.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -417,6 +422,32 @@ const adminRoutes = [
         component: AdminSchoolDetail,
         props: true,
         meta: { title: 'Chi tiết trường học' }
+      },
+      {
+        path: 'qna',
+        name: 'AdminQna',
+        component: AdminQnaQuestions,
+        meta: { title: 'Quản lý hỏi đáp (Q&A)' }
+      },
+      {
+        path: 'qna/create',
+        name: 'AdminQnaCreate',
+        component: AdminQnaCreate,
+        meta: { title: 'Tạo câu hỏi mới' }
+      },
+      {
+        path: 'qna/:questionId',
+        name: 'AdminQnaDetail',
+        component: AdminQnaDetail,
+        props: true,
+        meta: { title: 'Chi tiết câu hỏi' }
+      },
+      {
+        path: 'qna/:questionId/edit',
+        name: 'AdminQnaEdit',
+        component: AdminQnaEdit,
+        props: true,
+        meta: { title: 'Chỉnh sửa câu hỏi' }
       },
     ]
   }

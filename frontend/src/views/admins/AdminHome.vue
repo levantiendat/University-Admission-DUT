@@ -111,6 +111,31 @@
             </div>
           </div>
         </div>
+
+        <!-- Q&A Stats -->
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon bg-purple-light">
+              <i class="bi bi-chat-left-dots"></i>
+            </div>
+            <div class="admin-stat-content">
+              <h3 class="admin-stat-value">{{ questionCount }}</h3>
+              <p class="admin-stat-label">Câu hỏi</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon bg-teal-light">
+              <i class="bi bi-chat-square-text"></i>
+            </div>
+            <div class="admin-stat-content">
+              <h3 class="admin-stat-value">{{ responseCount }}</h3>
+              <p class="admin-stat-label">Phản hồi</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -182,6 +207,31 @@
               <router-link to="/admins/users/create" class="admin-action-btn">
                 <i class="bi bi-person-plus-fill me-2"></i>
                 Thêm người dùng mới
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-title">Quản lý hỏi đáp (Q&A)</h3>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-icon bg-purple-light">
+                <i class="bi bi-chat-left-dots"></i>
+              </div>
+              <h4 class="admin-card-title">Quản lý câu hỏi</h4>
+            </div>
+            <div class="admin-actions">
+              <router-link to="/admins/qna" class="admin-action-btn">
+                <i class="bi bi-list-ul me-2"></i>
+                Danh sách câu hỏi
+              </router-link>
+              
+              <router-link to="/admins/qna/create" class="admin-action-btn">
+                <i class="bi bi-plus-circle me-2"></i>
+                Tạo câu hỏi mới
               </router-link>
             </div>
           </div>
@@ -455,6 +505,7 @@ import AdmissionDescriptionController from '@/controllers/admins/AdmissionDescri
 import ConvertPointController from '@/controllers/admins/ConvertPointController'
 import MajorCourseController from '@/controllers/admins/MajorCourseController'
 import CourseController from '@/controllers/admins/CourseController'
+import QnaController from '@/controllers/admins/qnaController'
 import axios from 'axios'
 import config from '@/config/apiConfig'
 
@@ -476,6 +527,8 @@ export default {
     const convertPointCount = ref(0)
     const majorCourseCount = ref(0)
     const courseCount = ref(0)
+    const questionCount = ref(0)
+    const responseCount = ref(0)
     const currentUser = ref(sessionStorage.getItem('username') || 'levantiendatBạn')
 
     // Get current date and time in Vietnam timezone
@@ -611,6 +664,26 @@ export default {
       }
     }
 
+    // Lấy số liệu Q&A
+    const fetchQnaStats = async () => {
+      try {
+        const questions = await QnaController.getAllQuestions()
+        questionCount.value = questions.length
+        
+        // Đếm tổng số responses từ tất cả questions
+        let totalResponses = 0
+        for (const question of questions) {
+          const responses = await QnaController.getResponsesByQuestionId(question.id)
+          totalResponses += responses.length
+        }
+        responseCount.value = totalResponses
+      } catch (error) {
+        console.error('Error fetching QNA stats:', error)
+        questionCount.value = 0
+        responseCount.value = 0
+      }
+    }
+
     onMounted(() => {
       fetchUserCount()
       fetchFacultyCount()
@@ -624,6 +697,7 @@ export default {
       fetchConvertPointCount()
       fetchMajorCourseCount()
       fetchCourseCount()
+      fetchQnaStats()
     })
 
     return {
@@ -640,6 +714,8 @@ export default {
       convertPointCount,
       majorCourseCount,
       courseCount,
+      questionCount,
+      responseCount,
       currentDateTime,
       currentUser
     }
@@ -873,12 +949,20 @@ export default {
   background-color: #8c54ff !important;
 }
 
+.bg-purple-light {
+  background-color: #9c27b0 !important;
+}
+
 .bg-secondary {
   background-color: #6c757d !important;
 }
 
 .bg-teal {
   background-color: #20c997 !important;
+}
+
+.bg-teal-light {
+  background-color: #009688 !important;
 }
 
 .bg-coral {

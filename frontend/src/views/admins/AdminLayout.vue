@@ -113,6 +113,13 @@
               <i class="bi bi-geo-alt-fill me-2"></i>Khu vực ưu tiên
             </router-link>
           </div>
+
+          <div class="nav-section">
+            <h6 class="nav-section-title">Quản lý hỏi đáp</h6>
+            <router-link to="/admins/qna" class="admin-nav-link" active-class="active">
+              <i class="bi bi-chat-left-dots me-2"></i>Câu hỏi và phản hồi
+            </router-link>
+          </div>
         </nav>
       </aside>
 
