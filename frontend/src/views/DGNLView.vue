@@ -1,6 +1,6 @@
 <template>
-  <div class="hocba-container bg-light">
-    <div class="container-fluid py-5">
+  <div class="dgnl-container bg-light">
+    <div class="container-fluid py-4">
       <div class="card main-card shadow no-copy">
         <div class="card-header bg-primary text-white">
           <div class="d-flex justify-content-center align-items-center">
@@ -11,23 +11,39 @@
           </div>
         </div>
         
-        <div class="description-section bg-light p-3 border-bottom">
+        <div class="announcement-section p-3 border-bottom">
           <div class="container">
-            <p class="description-text mb-0">
-              <i class="bi bi-info-circle me-2"></i>
-              <strong>Phương thức xét tuyển:</strong> Xét tuyển theo điểm thi đánh giá năng lực của Đại học Quốc Gia TPHCM
-              | <strong>Mã phương thức:</strong> 402
-              | <strong>Điều kiện:</strong> Thí sinh tham dự kỳ thi đánh giá năng lực của Đại Học Quốc Gia TPHCM tổ chức năm 2025 và đạt điểm sàn theo quy định.
-            </p>
+            <h5 class="fw-bold mb-3">Trường Đại học Bách khoa, Đại học Đà Nẵng thông báo tuyển sinh đào tạo trình độ đại học chính quy vào các ngành thuộc Trường năm 2025, theo phương thức xét kết quả thi Đánh giá năng lực do Đại học Quốc gia Thành phố Hồ Chí Minh tổ chức như sau:</h5>
+            
+            <div class="mb-3">
+              <h6 class="fw-bold">1. Ngành đào tạo, mã xét tuyển</h6>
+              <p class="mb-1">Danh mục các ngành tuyển sinh đào tạo, mã xét tuyển được quy định trong Phụ lục đính kèm.</p>
+            </div>
+            
+            <div class="mb-3">
+              <h6 class="fw-bold">2. Đối tượng tuyển sinh</h6>
+              <ul class="mb-2 ps-3">
+                <li>Đối tượng: thí sinh đã tốt nghiệp trung học phổ thông hoặc tương đương và có kết quả kỳ thi đánh giá năng lực của Đại học Quốc gia Thành phố Hồ Chí Minh năm 2025.</li>
+              </ul>
+            </div>
+            
+            <div class="info-box">
+              <p class="mb-0">
+                <i class="bi bi-info-circle me-2"></i>
+                <strong>Phương thức xét tuyển:</strong> Xét tuyển theo điểm thi đánh giá năng lực của Đại học Quốc Gia TPHCM
+                | <strong>Mã phương thức:</strong> 402
+                | <strong>Điều kiện:</strong> Thí sinh tham dự kỳ thi đánh giá năng lực của Đại Học Quốc Gia TPHCM tổ chức năm 2025 và đạt điểm sàn theo quy định.
+              </p>
+            </div>
           </div>
         </div>
         
         <div class="card-body">
-          <div v-if="loading" class="text-center py-5">
+          <div v-if="loading" class="text-center py-4">
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden">Đang tải...</span>
             </div>
-            <p class="mt-3 fs-5">Đang tải dữ liệu xét tuyển...</p>
+            <p class="mt-3">Đang tải dữ liệu xét tuyển...</p>
           </div>
           
           <div v-else-if="error" class="alert alert-danger" role="alert">
@@ -37,8 +53,8 @@
           
           <div v-else>
             <!-- Bộ lọc và tìm kiếm -->
-            <div class="filter-section mb-4">
-              <div class="row g-3">
+            <div class="filter-section mb-3">
+              <div class="row g-2">
                 <div class="col-md-6">
                   <div class="input-group search-box">
                     <span class="input-group-text bg-primary text-white">
@@ -46,7 +62,7 @@
                     </span>
                     <input 
                       type="text" 
-                      class="form-control form-control-lg" 
+                      class="form-control" 
                       placeholder="Tìm kiếm ngành học..." 
                       v-model="searchQuery"
                     >
@@ -58,7 +74,7 @@
                     <span class="input-group-text bg-primary text-white">
                       <i class="bi bi-filter"></i>
                     </span>
-                    <select class="form-select form-select-lg" v-model="selectedFaculty">
+                    <select class="form-select" v-model="selectedFaculty">
                       <option value="all">Tất cả các khoa</option>
                       <option v-for="faculty in faculties" :key="faculty.id" :value="faculty.falculty_id">
                         {{ faculty.faculty_code }} - {{ faculty.faculty_name }}
@@ -70,14 +86,13 @@
             </div>
             
             <!-- Bảng thông tin tuyển sinh -->
-            <div class="table-responsive hocba-table custom-scroll">
+            <div class="table-responsive">
               <table class="table table-hover border">
                 <thead>
                   <tr class="bg-primary text-white">
                     <th scope="col" class="text-center" style="width: 5%">STT</th>
                     <th scope="col" style="width: 15%">Mã ngành</th>
-                    <th scope="col" style="width: 50%">Tên ngành</th>
-                    <th scope="col" class="text-center" style="width: 30%">Chỉ tiêu</th>
+                    <th scope="col" style="width: 80%">Tên ngành</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -85,20 +100,17 @@
                     <tr>
                       <td class="text-center">{{ index + 1 }}</td>
                       <td>{{ major.major_code }}</td>
-                      <td class="fw-medium">{{ major.major_name }}</td>
-                      <td class="text-center fw-bold fs-5">
-                        {{ major.seats }}
-                      </td>
+                      <td>{{ major.major_name }}</td>
                     </tr>
                   </template>
                   
                   <tr v-if="filteredMajors.length === 0">
-                    <td colspan="4" class="text-center py-5">
+                    <td colspan="3" class="text-center py-4">
                       <div class="no-results">
-                        <i class="bi bi-search fs-1 text-muted"></i>
-                        <p class="mt-3 fs-5">Không tìm thấy ngành phù hợp với tiêu chí tìm kiếm.</p>
-                        <button class="btn btn-outline-primary mt-2 btn-lg" @click="resetFilters">
-                          <i class="bi bi-arrow-counterclockwise me-2"></i>
+                        <i class="bi bi-search fs-6 text-muted"></i>
+                        <p class="mt-2">Không tìm thấy ngành phù hợp với tiêu chí tìm kiếm.</p>
+                        <button class="btn btn-outline-primary mt-2 btn-sm" @click="resetFilters">
+                          <i class="bi bi-arrow-counterclockwise me-1"></i>
                           Đặt lại bộ lọc
                         </button>
                       </div>
@@ -108,69 +120,16 @@
               </table>
             </div>
             
-            <!-- Thống kê -->
-            <div class="stats-section mt-4">
-              <div class="row g-3">
-                <div class="col-md-4">
-                  <div class="card stat-card bg-primary text-white">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center">
-                        <div class="stat-icon me-3">
-                          <i class="bi bi-building"></i>
-                        </div>
-                        <div>
-                          <h6 class="mb-0">Tổng số khoa</h6>
-                          <h3 class="mb-0">{{ faculties.length }}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="col-md-4">
-                  <div class="card stat-card bg-success text-white">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center">
-                        <div class="stat-icon me-3">
-                          <i class="bi bi-book"></i>
-                        </div>
-                        <div>
-                          <h6 class="mb-0">Tổng số ngành</h6>
-                          <h3 class="mb-0">{{ majors.length }}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="col-md-4">
-                  <div class="card stat-card bg-info text-white">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center">
-                        <div class="stat-icon me-3">
-                          <i class="bi bi-people"></i>
-                        </div>
-                        <div>
-                          <h6 class="mb-0">Tổng chỉ tiêu</h6>
-                          <h3 class="mb-0">{{ totalSeats }}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
             <!-- Thông tin chi tiết về phương thức -->
             <div class="info-section mt-4">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title fs-4">
+                  <h5 class="card-title">
                     <i class="bi bi-info-circle me-2"></i>
                     Thông tin về kỳ thi đánh giá năng lực
                   </h5>
-                  <div class="mt-3 fs-5">
-                    <p>Kỳ thi đánh giá năng lực (ĐGNL) là kì thi do Đại học Quốc gia TPHCM tổ chức, giúp xác định trình độ hiểu biết, kỹ năng cơ bản, tư duy logic và giải quyết vấn đề của thí sinh.</p>
+                  <div class="mt-3">
+                    <p>Kỳ thi đánh giá năng lực (ĐGNL) là kì thi do Đại học Quốc gia TPHCM tổ chức, giúp xác định trình độ hiểu biết, kỹ năng cơ bản, tư duy logic của thí sinh.</p>
                     <p class="fw-medium">Cấu trúc đề thi Đánh giá năng lực:</p>
                     <ul>
                       <li>Phần 1: Sử dụng ngôn ngữ (60 Câu hỏi)</li>
@@ -188,6 +147,27 @@
               </div>
             </div>
             
+            <!-- Thông tin liên hệ -->
+            <div class="contact-section mt-4">
+              <div class="card bg-light">
+                <div class="card-body">
+                  <h6 class="card-title fw-bold">
+                    <i class="bi bi-info-circle me-2"></i>
+                    3. Thông tin liên hệ:
+                  </h6>
+                  <div class="mt-2">
+                    <p>Muốn biết thêm chi tiết, thí sinh vui lòng truy cập trang tuyển sinh của Trường Đại học Bách khoa, Đại học Đà Nẵng tại địa chỉ <a href="https://tuyensinh.dut.udn.vn/" target="_blank">https://tuyensinh.dut.udn.vn/</a> hoặc trang Tuyển sinh của Đại học Đà Nẵng tại địa chỉ <a href="http://ts.udn.vn" target="_blank">http://ts.udn.vn</a></p>
+                    
+                    <ul class="contact-list">
+                      <li>Hoặc liên hệ với bộ phận Tuyển sinh của Trường Đại học Bách khoa. Số 54 Nguyễn Lương Bằng, quận Liên Chiểu, thành phố Đà Nẵng</li>
+                      <li>Số điện thoại hỗ trợ: 0888.477.377, 0888.577.277, 0888.377.177, 0236.3620.999;</li>
+                      <li>Email: <a href="mailto:tuyensinhbkdn@dut.udn.vn">tuyensinhbkdn@dut.udn.vn</a>.</li>
+                      <li>Fanpage: <a href="https://www.facebook.com/DUTpage" target="_blank">https://www.facebook.com/DUTpage</a>.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -230,10 +210,6 @@ export default {
       }
 
       return result
-    },
-
-    totalSeats() {
-      return this.majors.reduce((sum, major) => sum + major.seats, 0)
     }
   },
   async mounted() {
@@ -284,7 +260,7 @@ export default {
 </script>
 
 <style scoped>
-.hocba-container {
+.dgnl-container {
   min-height: 100vh;
   background-color: #f5f5f5;
   margin: 0 5vw;
@@ -292,74 +268,80 @@ export default {
 
 .main-card {
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
 }
 
 .card-header {
   background-color: #0d47a1 !important;
-  padding: 1.5rem;
+  padding: 1rem;
 }
 
 .card-header h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 0;
   color: #fff;
 }
 
 .header-icon {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
-.description-section {
+.announcement-section {
   background-color: #e8f1ff !important;
   border-bottom: 1px solid #dee2e6;
+  font-size: 0.9rem;
 }
 
-.description-text {
+.announcement-section h5 {
   font-size: 1.1rem;
-  line-height: 1.5;
-  color: #495057;
+  color: #0d47a1;
+}
+
+.announcement-section h6 {
+  font-size: 0.95rem;
+  color: #0d47a1;
+}
+
+.announcement-section ul {
+  margin-bottom: 0.5rem;
+  list-style-type: disc;
+}
+
+.info-box {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  border-left: 4px solid #0d47a1;
+  font-size: 0.85rem;
 }
 
 .filter-section {
   background-color: #f8f9fa;
-  padding: 1.25rem;
-  border-radius: 10px;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  padding: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
 }
 
 .search-box .form-control:focus {
   border-color: #0d47a1;
-  box-shadow: 0 0 0 0.25rem rgba(13, 71, 161, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(13, 71, 161, 0.25);
 }
 
-.hocba-table {
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-/* Tạo hiệu ứng cuộn nếu bảng vượt quá kích thước màn hình */
-.custom-scroll {
-  overflow-x: auto;
-  overflow-y: auto;
-  max-height: 70vh;
-}
-
-/* Thiết lập cho các ô trong header: tự động xuống dòng và giảm kích thước chữ */
+/* Smaller font sizes for table */
 .table th {
   vertical-align: middle;
-  white-space: normal; /* Cho phép xuống dòng */
-  font-size: 1.1rem;
-  padding: 0.75rem;
+  white-space: normal;
+  font-size: 0.9rem;
+  padding: 0.6rem;
 }
 
-/* Tăng kích thước chữ cho dữ liệu bảng */
 .table td {
-  font-size: 1rem;
+  font-size: 0.85rem;
   vertical-align: middle;
-  padding: 0.75rem;
+  padding: 0.6rem;
 }
 
 /* Hiệu ứng hover cho các dòng */
@@ -367,42 +349,47 @@ export default {
   background-color: rgba(13, 71, 161, 0.05);
 }
 
-.stats-section .card {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  transition: transform 0.3s;
-}
-
-.stats-section .card:hover {
-  transform: translateY(-5px);
-}
-
-.stat-icon {
-  font-size: 2.5rem;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-}
-
 .info-section .card {
   border: none;
   border-radius: 10px;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   background-color: #f0f7ff;
+  font-size: 0.9rem;
 }
 
-.calculation-section .card {
+.info-section .card-title {
+  font-size: 1.1rem;
+  color: #0d47a1;
+  font-weight: 600;
+}
+
+.contact-section .card {
+  border: none;
+  border-radius: 8px;
   background-color: #f8f9fa;
-  border-left: 4px solid #0d47a1;
+}
+
+.contact-list {
+  padding-left: 1rem;
+  margin-bottom: 0;
+  font-size: 0.85rem;
+}
+
+.contact-list li {
+  margin-bottom: 0.5rem;
+}
+
+.contact-list a {
+  color: #0d47a1;
+  text-decoration: none;
+}
+
+.contact-list a:hover {
+  text-decoration: underline;
 }
 
 .no-results {
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .no-copy {
@@ -427,35 +414,46 @@ export default {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .card-header h2 {
-    font-size: 0.8rem;
+    font-size: 1.0rem;
   }
   
   .header-icon {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
   
-  .stats-section .card {
-    margin-bottom: 1rem;
-  }
-  
-  /* Giảm kích thước chữ cho bảng trên màn hình nhỏ nhưng vẫn đảm bảo đủ lớn để đọc */
-  .table th, .table td {
+  .announcement-section {
     font-size: 0.8rem;
+  }
+  
+  .announcement-section h5 {
+    font-size: 1rem;
+  }
+  
+  .announcement-section h6 {
+    font-size: 0.85rem;
+  }
+  
+  .table th, .table td {
+    font-size: 0.75rem;
     padding: 0.5rem;
+  }
+  
+  .info-section .card {
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
-  .description-text {
-    font-size: 0.95rem;
+  .card-header h2 {
+    font-size: 0.85rem;
   }
   
-  .card-header h2 {
-    font-size: 0.6rem;
+  .announcement-section {
+    font-size: 0.75rem;
   }
   
   .table th, .table td {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     padding: 0.4rem;
   }
 }
