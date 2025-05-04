@@ -884,11 +884,14 @@ nlu:
 # ---------- CHUẨN ĐẦU RA NGOẠI NGỮ ----------
 - intent: ask_standard_output_language
   examples: |
-    - chuẩn ngoại ngữ CNTT là gì?
-    - yêu cầu ngoại ngữ cho CNTT là gì?
-    - cntt cần ngoại ngữ gì?
-    - tiêu chuẩn ngoại ngữ CNTT?
-    - ngoai ngu cntt, yeu cau la gi?
+    - chuẩn ngoại ngữ đầu ra của các ngành là gì?
+    - chuẩn đầu ra ngoại ngữ của nhà trường là gì?
+    - chuẩn đầu ra ngoại ngữ của trường là gì?
+    - chuẩn đầu ra ngoại ngữ của các ngành là như thế nào?
+    - chứng chỉ ngoại ngữ đầu ra của các ngành là gì?
+    - chuẩn đầu ra ngoại ngữ
+    - yêu cầu ngoại ngữ đầu ra
+    - yêu cầu ngoại ngữ đầu ra của các ngành
 
 # ---------- FAQ VIỆC LÀM & CHỨNG CHỈ NGOẠI NGỮ ----------
 - intent: ask_faq_job_opportunities

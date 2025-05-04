@@ -128,8 +128,8 @@ responses:
 
   ## CHÀO HỎI & KẾT THÚC
   utter_greet:
-    - text: "xin chào! tôi là chatbot tư vấn tuyển sinh khoa cntt. tôi có thể giúp gì cho bạn?"
-    - text: "chào bạn! chatbot tư vấn tuyển sinh sẵn sàng hỗ trợ. bạn cần thông tin gì?"
+    - text: "Xin chào! Tôi là chatbot hỗ trợ cung cấp thông tin tuyển sinh, bạn cần những thông tin gì ?"
+    - text: "chào bạn! chatbot tư vấn tuyển sinh sẵn sàng hỗ trợ. Bạn cần thông tin gì?"
   utter_goodbye:
     - text: "tạm biệt! nếu có thêm thắc mắc, hãy quay lại nhé."
     - text: "chào tạm biệt và hẹn gặp lại!"
@@ -189,7 +189,7 @@ responses:
           a) Anh hùng Lao Động, Anh hùng Lực Lượng Vũ Trang Nhân Dân, Chiến sĩ Thi Đua Toàn Quốc.\n 
           b) Đạt giải Nhất, Nhì, Ba trong kỳ thi chọn Học Sinh Giỏi Quốc Gia/Quốc Tế (Toán, Vật Lý, Hóa Học, Sinh Học, Tin Học) do Bộ GD&ĐT tổ chức; thời gian không quá 3 năm.\n 
           c) Đạt giải Nhất, Nhì, Ba trong kỳ thi Khoa Học Kỹ Thuật cấp Quốc Gia/Quốc Tế do Bộ GD&ĐT tổ chức; thời gian không quá 3 năm.
-          Thông tin chi tiết về việc đăng kí xét tuyển thí sinh tham khảo tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh"
+          Thông tin chi tiết về việc đăng kí xét tuyển thí sinh tham khảo tại đường dẫn: https://tuyensinh.dut.udn.vn"
   utter_xet_tuyen_rieng_detail:
     - text: "Thí sinh đạt một trong ba nhóm sau sẽ được đăng kí xét tuyển riêng theo đề án tuyển sinh của Trường Đại Học Bách Khoa:\n
           • Nhóm 1: Giải Khuyến Khích HSG cấp Quốc Gia (Toán, Vật Lý, Hóa Học, Sinh Học, Tin Học); thời gian không quá 3 năm.\n
@@ -197,21 +197,20 @@ responses:
           • Nhóm 3: Giải Nhất, Nhì, Ba, Khuyến Khích (Giải Tư) cuộc thi Khoa Học Kỹ Thuật cấp Tỉnh/Thành phố; thời gian không quá 3 năm.\n
           Lưu ý: Ở các giải HSG cấp Quốc Gia/Tỉnh, cần đạt giải Toán, Vật Lý, Tin Học để nộp đơn vào các ngành công nghệ thông tin. Với giải khoa học kỹ thuật thì cần đạt giải ở nhóm lĩnh vực về phần mềm hệ thống để nộp đơn vào công nghệ thông tin\n
           ** Điểm xét tuyển bao gồm điểm xét tuyển quy đổi + điểm ưu tiên\n
-          ** Điểm xét tuyển quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh"
+          ** Điểm xét tuyển quy đổi sẽ được công bố trong thông tin tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn"
   utter_diem_thi_TN_THPT:
     - text: "Thí sinh đăng ký xét tuyển dựa vào kết quả thi Tốt Nghiệp THPT theo tổ hợp được công bố trên trang web tuyển sinh của trường \n
         -Bạn có thể đặt câu hỏi như Tổ hợp xét tuyển của ngành ... để xem tổ hợp xét tuyển của một ngành"
   utter_dgnl:
     - text: "Thí sinh sử dụng kết quả thi đánh giá năng lực (V-ACT) của Đại Học Quốc Gia thành phố Hồ Chí Minh tổ chức năm 2025 để đăng kí xét tuyển \n
           - Điểm xét tuyển bằng điểm thi đánh giá năng lực quy đổi + điểm ưu tiên \n
-          - Thang điểm quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh. \n
-          **Đặc biệt: Năm nay nhóm ngành Công nghệ thông tin không còn xét tuyển bằng điểm thi đánh giá năng lực**
+          - Thang điểm quy đổi sẽ được công bố trong thông tin tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn. \n
           "
   utter_dgtd:
     - text: "Thí sinh sử dụng kết quả thi đánh giá tư duy (TSA) của Đại Học Bách Khoa Hà Nội tổ chức năm 2024, 2025 để đăng kí xét tuyển \n
           - Điểm xét tuyển bằng điểm thi đánh giá tư duy quy đổi + điểm ưu tiên \n
-          - Thang điểm quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh. \n
-          **Đặc biệt: Năm nay nhóm ngành Công nghệ thông tin không còn xét tuyển bằng điểm thi đánh giá tư duy**
+          - Thang điểm quy đổi sẽ được công bố trong thông tin tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn. \n
+          
           "
   utter_cntt_luu_y:
     - text: "Năm 2025, Một số điểm lưu ý khi đăng kí vào ngành công nghệ thông tin: \n
@@ -228,9 +227,8 @@ responses:
           "
   utter_admission_process:
     - text: "Năm 2025, các phương thức xét tuyển (ngoại trừ phương thức xét tuyển thẳng) thì sẽ đều xét tuyển trong cùng một đợt, chung một thang điểm, không còn phân chia chỉ tiêu theo từng phương thức. Một số điểm cần lưu ý như sau: \n
-          - Điểm xét tuyển sẽ được quy đổi về thang điểm 30 (Bao gồm điểm xét tuyển quy đổi + điểm ưu tiên theo quy định của Bộ GD&ĐT) \n
-          - Điểm quy đổi sẽ được công bố trong đề án tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn/de-an-tuyen-sinh \n
-          - Ở phương thức xét tuyển riêng thì thí sinh cần đăng kí xét tuyển tại đường dẫn: https://tuyensinh.dut.udn.vn, thí sinh cần lưu ý các thành tích mình hiện có sẽ đăng kí được ở ngành nào. \n
+          - Điểm xét tuyển sẽ được quy đổi về thang điểm 30 (Bao gồm điểm xét tuyển quy đổi + điểm thưởng (nếu có) + điểm ưu tiên theo quy định của Bộ GD&ĐT) \n
+          - Điểm quy đổi sẽ được công bố trong thông tin tuyển sinh tại đường dẫn: https://tuyensinh.dut.udn.vn khi có thông tin \n
           - Thí sinh sẽ không cần đăng kí phương thức xét tuyển mà chỉ cần đăng kí thứ tự nguyện vọng + Trường + Ngành xét tuyển trên cổng đăng kí xét tuyển chung, tất cả dữ liệu thí sinh có và dùng được ở mỗi ngành sẽ đều được quy đổi về một thang điểm chung để xét tuyển \n
           - Điểm quy đổi của phương thức xét tuyển nào cao nhất thì sẽ được sử dụng để xét tuyển \n
           - Thí sinh sẽ được đăng kí không giới hạn số nguyện vọng"
@@ -238,17 +236,29 @@ responses:
 
   ## CHƯƠNG TRÌNH ĐÀO TẠO CHUNG
   utter_training_program:
-    - text: "Chương trình đào tạo CNTT gồm hai hình thức:\n- Cử nhân: 4 năm, 130 tín chỉ (Bằng Cử nhân, Bậc 6)\n- Kỹ sư: 5 năm, 180 tín chỉ (Có cơ hội học Thạc sĩ 6 tháng đến 1 năm)."
+    - text: "Chương trình đào tạo công nghệ thông tin gồm hai hình thức:\n- Cử nhân: 4 năm, 130 tín chỉ (Bằng Cử nhân, Bậc 6)\n- Kỹ sư: 5 năm, 180 tín chỉ (Có cơ hội học Thạc sĩ 6 tháng đến 1 năm)."
 
   ## CHUẨN ĐẦU RA NGOẠI NGỮ
   utter_standard_output_language:
     - text: |
-        **📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO NGÀNH CNTT**
-        | NGÀNH                                                                   | CỬ NHÂN                  | KỸ SƯ                    |
-        |:-----------------------------------------------------------------------:|:------------------------:|:------------------------:|
-        | CNTT (Đặc Thù – Hợp Tác Doanh Nghiệp)                                   | Tiếng Anh (Bậc 3)        | Tiếng Anh (Bậc 4)        |
-        | CNTT (Ngoại Ngữ Nhật)                                                   | Tiếng Nhật (JLPT N3)     | Tiếng Nhật (JLPT N2)     |
-        | CNTT (Đặc Thù – HTDN), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo | Tiếng Anh (Bậc 3)        | Tiếng Anh (Bậc 4)        |
+        **📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO CÁC NGÀNH THUỘC TRƯỜNG ĐẠI HỌC BÁCH KHOA**
+      
+        **1. Chương trình truyền thống:**
+        - Cử nhân: Tiếng Anh (Bậc 3)
+        - Kỹ sư: Tiếng Anh (Bậc 4)
+      
+        **2. Công nghệ thông tin (Ngoại Ngữ Nhật):**
+        - Cử nhân: Tiếng Nhật (JLPT N3)
+        - Kỹ sư: Tiếng Nhật (JLPT N2)
+      
+        **3. Chương trình Tiên Tiến Việt Mỹ:**
+        - Cử nhân: Tiếng Anh (IELTS 5.5)
+        - Kỹ sư: Tiếng Anh (IELTS 6.0)
+      
+        **4. Chương trình PFIEV:**
+        - Kỹ sư: Tiếng Anh (Bậc 4) và Tiếng Pháp (DELF B1)
+      
+        *Thí sinh có thể tìm hiểu thêm tại website:* https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view
 
   ## FAQ VIỆC LÀM & CHỨNG CHỈ NGOẠI NGỮ
   utter_faq_job_opportunities:
@@ -282,11 +292,11 @@ responses:
 
   ## INTENT NGOÀI PHẠM VI
   utter_out_of_scope:
-    - text: "xin lỗi, tôi không hiểu câu hỏi. vui lòng hỏi lại về tuyển sinh Công nghệ thông tin."
+    - text: "xin lỗi, tôi không hiểu câu hỏi. vui lòng hỏi lại vấn đề rõ ràng hơn."
   
   ## BOT GIỚI THIỆU BẢN THÂN
   utter_iamabot:
-    - text: "tôi là chatbot tư vấn tuyển sinh của Khoa Công nghệ thông tin - Trường Đại Học Bách Khoa - Đại Học Đà Nẵng. bạn cần tôi giúp gì?"
+    - text: "tôi là chatbot tư vấn tuyển sinh của Khoa Công nghệ thông tin - Trường Đại Học Bách Khoa - Đại Học Đà Nẵng. Bạn cần tôi giúp gì?"
   
   ## PHẢN HỒI CẢM ƠN
   utter_thank:
