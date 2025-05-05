@@ -94,6 +94,9 @@
                 </a>
                 <ul class="custom-dropdown-menu">
                   <li><router-link class="dropdown-item" to="/qa">Q&A</router-link></li>
+                  <li><router-link class="dropdown-item" to="/chat">
+                    <i class="bi bi-chat-dots-fill me-1"></i> Chat với trợ lý
+                  </router-link></li>
                 </ul>
               </li>
               <li class="nav-item dropdown menu-item">
@@ -189,6 +192,9 @@
       </div>
     </footer>
   </div>
+  
+  <!-- Mini Chat Widget Component -->
+  <MiniChatWidget v-if="isAuthenticated && !isAdminPage" />
 </template>
 
 <script>
@@ -198,10 +204,14 @@ import store from '@/store'
 import axios from 'axios'
 import config from '@/config/apiConfig'  // nếu bạn đã tách riêng file cấu hình base API
 import UserController from '@/controllers/userController'
+import MiniChatWidget from '@/components/MiniChatWidget.vue'
 
 const BASE_API_URL = config?.BASE_API_URL || 'https://university-admission-dut-hzdahmckevehhpdf.southeastasia-01.azurewebsites.net/api'
 
 export default {
+  components: {
+    MiniChatWidget
+  },
   setup() {
     const router = useRouter()
     const route = useRoute()
