@@ -1,8 +1,5 @@
 rasa
 
-# HuggingFace Transformers for PhoBERT
-transformers==4.39.3
-torch>=1.13.1
 
 # Neo4j Python driver
 neo4j
