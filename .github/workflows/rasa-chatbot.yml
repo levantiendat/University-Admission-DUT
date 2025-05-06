@@ -64,7 +64,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Download artifact
+      - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: rasa-chatbot
@@ -77,7 +77,7 @@ jobs:
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D15D04F9E70B44B0B0C7F8C3489ED247 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6F53698FA75D4A5F9326BAA35E8ED38B }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_60CB2F61FBC44121A6589F01D44FCB94 }}
+          subscription-id: "9c17aff3-732f-48ce-ae11-c6bdcbf02e67"
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
@@ -85,3 +85,4 @@ jobs:
         with:
           app-name: 'Rasa-Chatbot-App'
           slot-name: 'Production'
+          
