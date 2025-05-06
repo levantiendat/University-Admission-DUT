@@ -96,6 +96,9 @@ import AdminQnaEdit from '@/views/admins/AdminQnaEdit.vue'
 
 import ChatRasaView from '@/views/ChatRasaView.vue'
 
+import CalculateScoreHB from '@/views/CalculateScoreHB.vue'
+import CalculateScoreTHPT from '@/views/CalculateScoreTHPT.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -130,6 +133,18 @@ const normalRoutes = [
       requiresAuth: true, 
       title: 'Chat với trợ lý tư vấn tuyển sinh' 
     } 
+  },
+  { 
+    path: '/calculatescore/hb', 
+    name: 'CalculateScoreHB', 
+    component: CalculateScoreHB, 
+    meta: { title: 'Tính điểm xét tuyển học bạ THPT' } 
+  },
+  { 
+    path: '/calculatescore/thpt', 
+    name: 'CalculateScoreTHPT', 
+    component: CalculateScoreTHPT, 
+    meta: { title: 'Tính điểm xét tuyển thi THPT' } 
   },
 ]
 

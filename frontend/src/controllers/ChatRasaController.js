@@ -150,7 +150,7 @@ export default {
       // Add welcome message
       chatHistory = [{
         id: Date.now(),
-        text: "Xin chào! Tôi là trợ lý ảo của Đại học Bách khoa Đà Nẵng. Tôi có thể giúp gì cho bạn về thông tin tuyển sinh?",
+        text: "Xin chào! Tôi là trợ lý ảo của Trường Đại học Bách Khoa - Đại Học Đà Nẵng. Tôi có thể giúp gì cho bạn về thông tin tuyển sinh?",
         sender: 'bot',
         timestamp: new Date().toISOString()
       }];

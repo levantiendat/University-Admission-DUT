@@ -59,13 +59,15 @@
                 <li><router-link class="dropdown-item" to="/admission/danhgiatuduy">Xét tuyển theo điểm thi kỳ thi Đánh Giá Tư Duy của ĐHBK Hà Nội</router-link></li>
               </ul>
             </li>
-            <li class="nav-item dropdown menu-item">
+            <li class="nav-item dropdown menu-item" v-if="isAuthenticated">
               <a class="nav-link dropdown-toggle custom-dropdown" href="#" role="button">
                 <i class="bi bi-house-fill me-1"></i> Công cụ hỗ trợ
               </a>
               <ul class="custom-dropdown-menu">
                 <li><router-link class="dropdown-item" to="/school-priority">Tra cứu điểm ưu tiên khu vực</router-link></li>
                 <li><router-link class="dropdown-item" to="/point-count">Tính điểm phương thức xét tuyển riêng</router-link></li>
+                <li><router-link class="dropdown-item" to="/calculatescore/hb">Tính điểm xét tuyển học bạ THPT</router-link></li>
+                <li><router-link class="dropdown-item" to="/calculatescore/thpt">Tính điểm xét tuyển thi THPT</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item">
