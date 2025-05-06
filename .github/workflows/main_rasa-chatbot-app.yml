@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - Rasa-Chatbot-App
+name: Build and deploy Rasa Chatbot to Azure Web App - Rasa-Chatbot-App
 
 on:
   push:
@@ -14,36 +14,45 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
+
+    defaults:
+      run:
+        working-directory: Rasa_Chatbot
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python version
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Create and start virtual environment
+      - name: Create and activate virtual environment
         run: |
           python -m venv venv
           source venv/bin/activate
-      
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
-        
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+        run: |
+          pip install -r requirements.txt
+          pip install rasa rasa-sdk
+
+      - name: Train Rasa model
+        run: |
+          source venv/bin/activate
+          rasa train
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
-      - name: Upload artifact for deployment jobs
+      - name: Upload artifact for deployment
         uses: actions/upload-artifact@v4
         with:
-          name: python-app
+          name: rasa-chatbot
           path: |
-            release.zip
-            !venv/
+            Rasa_Chatbot/release.zip
+            !Rasa_Chatbot/venv/
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,30 +61,30 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: python-app
+          name: rasa-chatbot
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_FBB5D4F264AC4CE6A3F781B587FDA18D }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D3C51869501341CBA803FDE80DE79F05 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5ED741F19ABA485FB2646DD1D7778D07 }}
+          client-id: ${{ secrets.__clientidsecretname__ }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'Rasa-Chatbot-App'
           slot-name: 'Production'
+
           
