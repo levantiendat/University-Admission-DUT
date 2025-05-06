@@ -584,3 +584,146 @@ def delete_admission_description(db: Session, admission_description_id: int) -> 
     db.commit()
     return db_admission_description
 
+
+def calculate_admission_scores(db: Session, scores_type: str, subjects: list[dict]) -> list[dict]:
+    """
+    Calculate admission scores based on academic records or exam scores
+    
+    Args:
+        db (Session): Database session
+        scores_type (str): Type of scores - "semester" for 6 semesters, "year" for 3 years, "exam" for exam scores
+        subjects (list[dict]): List of subjects with their scores
+    
+    Returns:
+        list[dict]: List of combination scores with group_id, group_name and score
+    """
+    # Validate scores type
+    if scores_type not in ["semester", "year", "exam"]:
+        raise ValueError("Invalid scores_type. Must be 'semester', 'year', or 'exam'")
+    
+    # Process each subject to get the average scores
+    processed_subjects = {}
+    subject_details = {}
+    
+    for subject_data in subjects:
+        subject_id = subject_data.get("subject_id")
+        subject_name = subject_data.get("subject_name")
+        scores = subject_data.get("scores", [])
+        
+        # Skip if no scores provided or insufficient identification
+        if not scores or (not subject_id and not subject_name):
+            continue
+        
+        # Check if this is an art subject
+        is_art_subject = False
+        db_subject = None
+        
+        if subject_id:
+            # Look up subject by ID
+            db_subject = db.query(Subject).filter(Subject.id == subject_id).first()
+            if db_subject:
+                subject_name = db_subject.name
+                if "vẽ mỹ thuật" in db_subject.name.lower():
+                    is_art_subject = True
+        else:
+            # Look up subject by name
+            db_subject = db.query(Subject).filter(Subject.name == subject_name).first()
+            if db_subject:
+                subject_id = db_subject.id
+                if "vẽ mỹ thuật" in subject_name.lower():
+                    is_art_subject = True
+        
+        if not db_subject and not subject_id:
+            continue
+            
+        # Handle art subject specially - only use the first score
+        if is_art_subject:
+            # Use only the first valid score for art
+            valid_scores = [score for score in scores if score > 0]
+            if valid_scores:
+                avg_score = valid_scores[0]
+            else:
+                continue
+        else:
+            # For normal subjects, ensure correct number of scores or use what's available
+            valid_scores = [score for score in scores if score > 0]
+            if not valid_scores:
+                continue
+                
+            # For exam scores, just use the first valid score
+            if scores_type == "exam":
+                avg_score = valid_scores[0] if valid_scores else 0
+            else:
+                # For academic records, calculate average
+                avg_score = sum(valid_scores) / len(valid_scores)
+        
+        # Store the processed subject score
+        if subject_id:
+            processed_subjects[subject_id] = avg_score
+            subject_details[subject_id] = {
+                "id": subject_id,
+                "name": subject_name,
+                "score": avg_score
+            }
+    
+    # Get all subject groups and details
+    subject_groups = db.query(SubjectScoreMethodGroup).all()
+    subject_group_details = db.query(SubjectGroupDetail).all()
+    
+    # Group subject details by group_id
+    grouped_details = {}
+    for detail in subject_group_details:
+        if detail.group_id not in grouped_details:
+            grouped_details[detail.group_id] = []
+        grouped_details[detail.group_id].append(detail)
+    
+    all_combinations = []
+    
+    # Process each group to calculate combination scores
+    for group in subject_groups:
+        group_id = group.id
+        if group_id not in grouped_details:
+            continue
+            
+        details = grouped_details[group_id]
+        
+        # Check if we have scores for all subjects in this group
+        all_subjects_have_scores = True
+        total_coefficient = 0
+        weighted_score_sum = 0
+        combination_subjects = []
+        
+        for detail in details:
+            subject_id = detail.subject_id
+            coefficient = detail.coefficient
+            
+            if subject_id in processed_subjects:
+                subject_score = processed_subjects[subject_id]
+                weighted_score_sum += subject_score * coefficient
+                total_coefficient += coefficient
+                
+                # Add subject to the combination
+                subject_info = subject_details.get(subject_id, {}).copy()
+                subject_info["coefficient"] = coefficient
+                combination_subjects.append(subject_info)
+            else:
+                all_subjects_have_scores = False
+                break
+        
+        # Calculate combination score if all subjects have scores
+        if all_subjects_have_scores and total_coefficient > 0:
+            combination_score = (weighted_score_sum * 3) / total_coefficient
+            # Round to 2 decimal places
+            combination_score = round(combination_score, 2)
+            
+            all_combinations.append({
+                "group_id": group_id,
+                "group_name": group.name,
+                "score": combination_score,
+                "subjects": combination_subjects
+            })
+    
+    # Sort combinations by score in descending order
+    all_combinations.sort(key=lambda x: x["score"], reverse=True)
+    
+    return all_combinations

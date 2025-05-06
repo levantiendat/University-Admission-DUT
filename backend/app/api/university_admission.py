@@ -10,8 +10,8 @@ from app.schemas.university import AdmissionMethodMajorCreate, AdmissionMethodMa
 from app.schemas.university import SubjectScoreMethodGroupCreate, SubjectScoreMethodGroupUpdate, SubjectScoreMethodGroupOut
 from app.schemas.university import SubjectGroupDetailCreate, SubjectGroupDetailUpdate, ConvertPointCreate, ConvertPointUpdate, SubjectGroupDetailOut, ConvertPointOut
 from app.schemas.university import SubjectScoreMethodMajorCreate, SubjectScoreMethodMajorUpdate, SubjectScoreMethodMajorOut
-from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate, PreviousAdmissionOut
-from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut, PointCountRequest, PointCountResponse
+from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate, PreviousAdmissionOut, ScoreCalculationResponse
+from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut, PointCountRequest, PointCountResponse, ScoreCalculationRequest
 
 
 
@@ -25,7 +25,7 @@ from app.services.university_admission_service import create_subject_group_detai
 from app.services.university_admission_service import create_subject_score_method_major, get_subject_score_method_majors, get_subject_score_method_major, update_subject_score_method_major, delete_subject_score_method_major
 from app.services.university_admission_service import create_convert_point, get_convert_point, update_convert_point, delete_convert_point, get_convert_point_by_admission_method, get_convert_points
 from app.services.university_admission_service import create_previous_admission, get_previous_admission, update_previous_admission, delete_previous_admission, get_previous_admission_by_major, get_previous_admission_by_admission_method,get_previous_admission_by_major_and_admission_method, get_previous_admission_by_year, get_previous_admissions 
-from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions, get_major_by_subject_score_method_group
+from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions, get_major_by_subject_score_method_group, calculate_admission_scores
 from app.services.priority_service import get_school_by_id
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
@@ -1056,3 +1056,41 @@ async def calculate_point_count(
         converted_priority=converted_priority,
         total_score=total_score
     )
+
+# Add this endpoint to the existing university_admission.py
+
+@router.post("/calculate-admission-scores", response_model=ScoreCalculationResponse)
+async def calculate_admission_scores_endpoint(
+    data: ScoreCalculationRequest,
+    db: Session = Depends(get_db),
+):
+    """
+    API để tính điểm xét tuyển (học bạ hoặc điểm thi THPT)
+    
+    - scores_type=semester: Tính điểm trung bình 6 học kỳ
+    - scores_type=year: Tính điểm trung bình 3 năm học
+    - scores_type=exam: Tính điểm từ kỳ thi THPT
+    
+    Mỗi môn học sẽ cung cấp ID hoặc tên và danh sách điểm tương ứng.
+    Hệ thống sẽ tính toán kết hợp các môn học theo các tổ hợp có sẵn và trả về
+    danh sách các tổ hợp có thể áp dụng với điểm tương ứng, sắp xếp theo thứ tự điểm giảm dần.
+    """
+    if data.scores_type not in ["semester", "year", "exam"]:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid scores_type. Must be 'semester' for 6 học kỳ, 'year' for 3 năm học, or 'exam' for điểm thi THPT"
+        )
+    
+    try:
+        combinations = calculate_admission_scores(db, data.scores_type, [s.dict() for s in data.subjects])
+        return {"combinations": combinations}
+    except ValueError as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+        )

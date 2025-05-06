@@ -420,3 +420,20 @@ class PointCountResponse(BaseModel):
     converted_priority: float
     total_score: float
 
+class SubjectScore(BaseModel):
+    subject_id: Optional[int] = None
+    subject_name: Optional[str] = None
+    scores: list[float]
+
+class ScoreCalculationRequest(BaseModel):
+    scores_type: str  # "semester" for 6 semesters, "year" for 3 years, "exam" for high school exam scores
+    subjects: list[SubjectScore]
+    
+class CombinationScore(BaseModel):
+    group_id: int
+    group_name: str
+    score: float
+    subjects: list[dict] = []  # Details of subjects used in this combination
+    
+class ScoreCalculationResponse(BaseModel):
+    combinations: list[CombinationScore]
