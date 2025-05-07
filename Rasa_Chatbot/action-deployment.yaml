@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: action-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: action
+  template:
+    metadata:
+      labels:
+        app: action
+    spec:
+      containers:
+      - name: action
+        image: universityadmission.azurecr.io/action-server:latest
+        ports:
+        - containerPort: 5055
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: action-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5055
+    targetPort: 5055
+  selector:
+    app: action

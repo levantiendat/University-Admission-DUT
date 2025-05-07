@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rasa-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rasa
+  template:
+    metadata:
+      labels:
+        app: rasa
+    spec:
+      containers:
+      - name: rasa
+        image: universityadmission.azurecr.io/rasa-server:latest
+        ports:
+        - containerPort: 5005
+        args: ["run", "--enable-api", "--cors", "*"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rasa-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 5005
+  selector:
+    app: rasa

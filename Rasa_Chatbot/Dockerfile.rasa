@@ -1,0 +1,18 @@
+# Dockerfile.rasa
+FROM rasa/rasa:3.6.2
+
+USER root
+
+# Sao chép toàn bộ mã nguồn vào container
+COPY . /app
+
+WORKDIR /app
+
+# Tùy chọn: Cài thêm thư viện Python nếu cần
+# RUN pip install -r requirements.txt
+
+# Mở cổng cho Rasa server
+EXPOSE 5005
+
+# Chạy Rasa server sử dụng model đã train, bật API và CORS, dùng endpoint cho K8s
+CMD ["rasa", "run", "--enable-api", "--model", "/app/models", "--cors", "*", "--port", "5005", "--endpoints", "endpoints.k8s.yml"]

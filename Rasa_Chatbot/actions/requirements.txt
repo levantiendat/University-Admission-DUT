@@ -1,0 +1,10 @@
+neo4j
+py2neo
+rasa-sdk
+# For environment variable loading
+python-dotenv
+
+# Optional but useful
+pandas
+numpy
+

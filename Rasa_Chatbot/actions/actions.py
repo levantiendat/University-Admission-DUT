@@ -1,8 +1,8 @@
 from typing import List, Dict, Optional
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from actions.graph_connector import GraphConnector
-from actions.mapping_utils import normalize_major, normalize_method, normalize_achievement_field, normalize_subject  # Import các hàm tiện ích
+from graph_connector import GraphConnector
+from mapping_utils import normalize_major, normalize_method, normalize_achievement_field, normalize_subject  # Import các hàm tiện ích
 import logging
 from rasa_sdk.events import SlotSet
 from rasa_sdk.events import FollowupAction
