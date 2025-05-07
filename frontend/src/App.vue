@@ -51,6 +51,7 @@
               </a>
               <ul class="custom-dropdown-menu">
                 <li><router-link class="dropdown-item" to="/admission">Thông tin tuyển sinh chung</router-link></li>
+                <li><router-link class="dropdown-item" to="/major">Danh sách ngành tuyển sinh</router-link></li>
                 <li><router-link class="dropdown-item" to="/admission/xettuyenthang">Xét tuyển thẳng theo quy chế của Bộ Giáo dục và đào tạo</router-link></li>
                 <li><router-link class="dropdown-item" to="/admission/xettuyenrieng">Xét tuyển riêng theo đề án tuyển sinh</router-link></li>
                 <li><router-link class="dropdown-item" to="/admission/totnghiep_thpt">Xét tuyển theo điểm thi tốt nghiệp THPT</router-link></li>

@@ -99,6 +99,9 @@ import ChatRasaView from '@/views/ChatRasaView.vue'
 import CalculateScoreHB from '@/views/CalculateScoreHB.vue'
 import CalculateScoreTHPT from '@/views/CalculateScoreTHPT.vue'
 
+import MajorList from '@/views/MajorList.vue'
+import MajorDetail from '@/views/MajorDetail.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -145,6 +148,19 @@ const normalRoutes = [
     name: 'CalculateScoreTHPT', 
     component: CalculateScoreTHPT, 
     meta: { title: 'Tính điểm xét tuyển thi THPT' } 
+  },
+  { 
+    path: '/major', 
+    name: 'MajorList', 
+    component: MajorList, 
+    meta: { title: 'Danh sách ngành tuyển sinh năm 2025' } 
+  },
+  { 
+    path: '/major/:id', 
+    name: 'MajorDetail', 
+    component: MajorDetail, 
+    props: true,
+    meta: { title: 'Chi tiết ngành tuyển sinh' } 
   },
 ]
 
