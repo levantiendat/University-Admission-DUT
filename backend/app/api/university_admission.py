@@ -25,7 +25,7 @@ from app.services.university_admission_service import create_subject_group_detai
 from app.services.university_admission_service import create_subject_score_method_major, get_subject_score_method_majors, get_subject_score_method_major, update_subject_score_method_major, delete_subject_score_method_major
 from app.services.university_admission_service import create_convert_point, get_convert_point, update_convert_point, delete_convert_point, get_convert_point_by_admission_method, get_convert_points
 from app.services.university_admission_service import create_previous_admission, get_previous_admission, update_previous_admission, delete_previous_admission, get_previous_admission_by_major, get_previous_admission_by_admission_method,get_previous_admission_by_major_and_admission_method, get_previous_admission_by_year, get_previous_admissions 
-from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions, get_major_by_subject_score_method_group, calculate_admission_scores, calculate_priority_points
+from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions, get_major_by_subject_score_method_group, calculate_admission_scores, calculate_priority_points, get_subject_score_method_major_by_major_and_admission_method, get_admission_description_by_major
 from app.services.priority_service import get_school_by_id
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
@@ -717,6 +717,14 @@ async def get_major_by_subject_score_method_group_endpoint(group_id: int, db: Se
     subject_score_method_majors = get_major_by_subject_score_method_group(db, group_id)
     return subject_score_method_majors
 
+@router.get("/subject-score-method-majors/major/{major_id}/admission-method/{admission_method_id}", response_model=list[SubjectScoreMethodMajorOut])
+async def get_subject_score_method_major_by_major_and_admission_method_endpoint(major_id: int, admission_method_id: int, db: Session = Depends(get_db)):
+    """
+    API lấy danh sách subject score method major theo major id và admission method id
+    """
+    subject_score_method_majors = get_subject_score_method_major_by_major_and_admission_method(db, major_id, admission_method_id)
+    return subject_score_method_majors
+
 @router.get("/convert-points", response_model=list[ConvertPointOut])
 async def get_convert_points_endpoint(db: Session = Depends(get_db)):
     """
@@ -990,6 +998,14 @@ async def get_admission_description_endpoint(admission_description_id: int, db: 
     if not admission_description:
         raise NotFoundException(detail="Admission description not found")
     return admission_description
+
+@router.get("/admission-descriptions/major/{major_id}", response_model=list[AdmissionDescriptionOut])
+async def get_admission_description_by_major_endpoint(major_id: int, db: Session = Depends(get_db)):
+    """
+    API để lấy danh sách các mô tả lĩnh vực / môn học ở tuyển thẳng và tuyển sinh riêng theo ngành
+    """
+    admission_descriptions = get_admission_description_by_major(db, major_id)
+    return admission_descriptions
 
 @router.post("/point-count", response_model=PointCountResponse)
 async def calculate_point_count(

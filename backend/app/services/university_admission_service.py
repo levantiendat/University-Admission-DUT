@@ -441,6 +441,42 @@ def get_major_by_subject_score_method_group(db: Session, group_id: int) -> list[
     
     return results
 
+def get_subject_score_method_major_by_major_and_admission_method(db: Session, major_id: int, admission_method_id: int) -> list[SubjectScoreMethodMajor]:
+    """
+    Lấy danh sách các tổ hợp môn xét tuyển (group_id) cho một ngành với một phương thức xét tuyển cụ thể
+    
+    Args:
+        db (Session): Database session
+        major_id (int): ID của ngành học
+        admission_method_id (int): ID của phương thức xét tuyển
+    
+    Returns:
+        list[SubjectScoreMethodMajor]: Danh sách các tổ hợp môn xét tuyển
+    """
+    # Kiểm tra sự tồn tại của ngành và phương thức xét tuyển
+    db_major = db.query(Major).filter(Major.id == major_id).first()
+    if not db_major:
+        raise NotFoundException("Major not found")
+        
+    db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
+    if not db_admission_method:
+        raise NotFoundException("Admission method not found")
+    
+    # Tìm admission_method_major_id (là bản ghi kết nối giữa ngành và phương thức xét tuyển)
+    db_admission_method_major = db.query(AdmissionMethodMajor).filter(
+        AdmissionMethodMajor.major_id == major_id,
+        AdmissionMethodMajor.admission_methods_id == admission_method_id
+    ).first()
+    
+    if not db_admission_method_major:
+        # Ngành này không áp dụng phương thức xét tuyển này
+        return []
+    
+    # Lấy danh sách các tổ hợp môn sử dụng admission_method_major_id
+    return db.query(SubjectScoreMethodMajor).filter(
+        SubjectScoreMethodMajor.admission_method_major_id == db_admission_method_major.id
+    ).all()
+
 def create_convert_point(db: Session, convert_point: ConvertPointCreate) -> ConvertPoint:
     db_convert_point = db.query(ConvertPoint).filter(
         ConvertPoint.admission_methods_id == convert_point.admission_methods_id,
@@ -583,6 +619,12 @@ def delete_admission_description(db: Session, admission_description_id: int) -> 
     db.delete(db_admission_description)
     db.commit()
     return db_admission_description
+
+def get_admission_description_by_major(db: Session, major_id: int) -> list[AdmissionDescription]:
+    db_major = db.query(Major).filter(Major.id == major_id).first()
+    if not db_major:
+        raise NotFoundException("Major not found")
+    return db.query(AdmissionDescription).filter(AdmissionDescription.major_id == major_id).all()
 
 
 def calculate_admission_scores(db: Session, scores_type: str, subjects: list[dict]) -> list[dict]:
