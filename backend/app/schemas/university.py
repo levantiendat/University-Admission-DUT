@@ -437,3 +437,16 @@ class CombinationScore(BaseModel):
     
 class ScoreCalculationResponse(BaseModel):
     combinations: list[CombinationScore]
+
+class PriorityCalculationRequest(BaseModel):
+    score: float  # Original score on 30-point scale
+    school_id: Optional[int] = None  # School ID (if provided, will be used to determine priority area)
+    priority_area: Optional[str] = None  # KV1, KV2, KV2NT, etc.
+    priority_object: str  # ĐT01, ĐT02, etc.
+
+class PriorityCalculationResponse(BaseModel):
+    origin_point: float  # Original score input
+    origin_priority: float  # Raw priority points before reduction
+    convert_priority: float  # Priority points after possible reduction
+    total_point: float  # Total score after adding priority
+    priority_area: str  # The priority area used in calculation

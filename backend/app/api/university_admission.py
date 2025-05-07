@@ -11,7 +11,7 @@ from app.schemas.university import SubjectScoreMethodGroupCreate, SubjectScoreMe
 from app.schemas.university import SubjectGroupDetailCreate, SubjectGroupDetailUpdate, ConvertPointCreate, ConvertPointUpdate, SubjectGroupDetailOut, ConvertPointOut
 from app.schemas.university import SubjectScoreMethodMajorCreate, SubjectScoreMethodMajorUpdate, SubjectScoreMethodMajorOut
 from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate, PreviousAdmissionOut, ScoreCalculationResponse
-from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut, PointCountRequest, PointCountResponse, ScoreCalculationRequest
+from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut, PointCountRequest, PointCountResponse, ScoreCalculationRequest, PriorityCalculationRequest, PriorityCalculationResponse
 
 
 
@@ -25,7 +25,7 @@ from app.services.university_admission_service import create_subject_group_detai
 from app.services.university_admission_service import create_subject_score_method_major, get_subject_score_method_majors, get_subject_score_method_major, update_subject_score_method_major, delete_subject_score_method_major
 from app.services.university_admission_service import create_convert_point, get_convert_point, update_convert_point, delete_convert_point, get_convert_point_by_admission_method, get_convert_points
 from app.services.university_admission_service import create_previous_admission, get_previous_admission, update_previous_admission, delete_previous_admission, get_previous_admission_by_major, get_previous_admission_by_admission_method,get_previous_admission_by_major_and_admission_method, get_previous_admission_by_year, get_previous_admissions 
-from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions, get_major_by_subject_score_method_group, calculate_admission_scores
+from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions, get_major_by_subject_score_method_group, calculate_admission_scores, calculate_priority_points
 from app.services.priority_service import get_school_by_id
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
@@ -1089,6 +1089,52 @@ async def calculate_admission_scores_endpoint(
             status_code=400,
             detail=str(e)
         )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+        )
+    
+@router.post("/calculate-priority", response_model=PriorityCalculationResponse)
+async def calculate_priority_endpoint(
+    data: PriorityCalculationRequest,
+    db: Session = Depends(get_db),
+):
+    """
+    API để tính điểm ưu tiên và tổng điểm xét tuyển
+    
+    Nhận điểm gốc (thang điểm 30), khu vực ưu tiên (hoặc ID trường) và đối tượng ưu tiên
+    Trả về điểm gốc, điểm ưu tiên gốc, điểm ưu tiên quy đổi, và tổng điểm
+    
+    Nếu cung cấp school_id thì sẽ xác định khu vực ưu tiên dựa trên trường,
+    nếu không thì sẽ dùng giá trị priority_area được cung cấp.
+    
+    Nếu điểm gốc > 22.5 thì điểm ưu tiên sẽ giảm dần theo công thức:
+    ((30 - điểm gốc)/7.5) * điểm ưu tiên gốc
+    """
+    try:
+        # Validate input
+        if data.score < 0 or data.score > 30:
+            raise HTTPException(
+                status_code=400,
+                detail="Score must be between 0 and 30"
+            )
+        
+        if not data.school_id and not data.priority_area:
+            raise HTTPException(
+                status_code=400,
+                detail="Either school_id or priority_area must be provided"
+            )
+        
+        result = calculate_priority_points(
+            db=db,
+            score=data.score,
+            priority_area=data.priority_area,
+            priority_object=data.priority_object,
+            school_id=data.school_id
+        )
+        
+        return result
     except Exception as e:
         raise HTTPException(
             status_code=500,

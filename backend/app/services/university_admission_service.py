@@ -727,3 +727,69 @@ def calculate_admission_scores(db: Session, scores_type: str, subjects: list[dic
     all_combinations.sort(key=lambda x: x["score"], reverse=True)
     
     return all_combinations
+
+def calculate_priority_points(db: Session, score: float, priority_area: str = None, priority_object: str = None, school_id: int = None) -> dict:
+    """
+    Calculate admission priority points and total score
+    
+    Args:
+        db (Session): Database session
+        score (float): Original score on 30-point scale
+        priority_area (str, optional): Priority area code (KV1, KV2, KV2NT, etc.)
+        priority_object (str, optional): Priority object code (ĐT01, ĐT02, etc.)
+        school_id (int, optional): School ID to determine priority area
+    
+    Returns:
+        dict: Dictionary containing original score, original priority points,
+              converted priority points, total score, and used priority area
+    """
+    # Determine priority area - either directly provided or look up by school_id
+    used_priority_area = priority_area
+    if school_id:
+        try:
+            from app.services.priority_service import get_school_by_id
+            school = get_school_by_id(db=db, school_id=school_id)
+            used_priority_area = school["priority_area"]
+        except Exception:
+            # If school not found or any error, fallback to provided priority_area
+            pass
+    
+    # Calculate area priority points
+    area_priority = {
+        "KV1": 0.75,
+        "KV2NT": 0.5,
+        "KV2": 0.25,
+        "KV3": 0.0  # KV3 has no priority points
+    }.get(used_priority_area, 0.0)
+    
+    # Calculate object priority points
+    if priority_object in ["ĐT01", "ĐT02", "ĐT03", "ĐT04"]:
+        object_priority = 2.0
+    elif priority_object in ["ĐT05", "ĐT06", "ĐT07"]:
+        object_priority = 1.0
+    else:
+        object_priority = 0.0
+    
+    # Calculate total original priority
+    origin_priority = area_priority + object_priority
+    
+    # Calculate converted priority based on score
+    if score <= 22.5:
+        convert_priority = origin_priority
+    else:
+        convert_priority = ((30 - score) / 7.5) * origin_priority
+    
+    # Round to 2 decimal places
+    convert_priority = round(convert_priority, 2)
+    
+    # Calculate total score
+    total_point = round(score + convert_priority, 2)
+    
+    # Return results
+    return {
+        "origin_point": round(score, 2),
+        "origin_priority": round(origin_priority, 2),
+        "convert_priority": convert_priority,
+        "total_point": total_point,
+        "priority_area": used_priority_area or "None" 
+    }
