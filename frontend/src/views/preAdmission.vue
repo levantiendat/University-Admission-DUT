@@ -1,8 +1,10 @@
 <template>
   <div class="pre-admission-container">
+    <!-- SEO-friendly header section -->
     <div class="header-section">
       <div class="container">
         <h1 class="main-title">Điểm Chuẩn Các Năm Trước</h1>
+        <meta name="description" content="Tham khảo điểm chuẩn các năm trường Đại học Bách khoa Đà Nẵng để chuẩn bị tốt nhất cho kỳ thi sắp tới">
         <p class="subtitle">Tham khảo điểm chuẩn các năm để chuẩn bị tốt nhất cho kỳ thi sắp tới</p>
         
         <div class="view-controls">
@@ -153,292 +155,321 @@
         </div>
       </div>
       
-      <!-- CHART VIEW -->
-      <div v-else-if="viewMode === 'chart'" class="chart-container">
-        <!-- Major Chart View -->
-        <div v-if="chartViewType === 'major'" class="major-charts">
-          <div class="filters mb-4">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="chart-major-select">Chọn ngành:</label>
-                  <select id="chart-major-select" class="form-select" v-model="selectedMajorForChart">
-                    <option v-for="major in combinedData" :key="major.id" :value="major.id">
-                      {{ major.name }} ({{ major.major_code }})
-                    </option>
-                  </select>
+      <!-- CHART VIEW with scrolling container -->
+      <div v-else-if="viewMode === 'chart'" class="charts-outer-container">
+        <div class="charts-scrollable-container" ref="chartsContainer">
+          <!-- Major Chart View -->
+          <div v-if="chartViewType === 'major'" class="major-charts">
+            <div class="filters mb-3">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="chart-major-select">Chọn ngành:</label>
+                    <select id="chart-major-select" class="form-select" v-model="selectedMajorForChart">
+                      <option v-for="major in combinedData" :key="major.id" :value="major.id">
+                        {{ major.name }} ({{ major.major_code }})
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="chart-method-select">Chọn phương thức xét tuyển:</label>
+                    <select id="chart-method-select" class="form-select" v-model="selectedMethodForChart">
+                      <option value="all">Tất cả phương thức</option>
+                      <option v-for="method in admissionMethods" :key="method.id" :value="method.id">
+                        {{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-2">
+                  <div class="form-group">
+                    <label for="chart-years-option">Hiển thị năm:</label>
+                    <div class="btn-group">
+                      <button 
+                        :class="['btn', showAllYears ? 'btn-outline-primary' : 'btn-primary']" 
+                        @click="showAllYears = false"
+                      >
+                        Theo từng năm
+                      </button>
+                      <button 
+                        :class="['btn', showAllYears ? 'btn-primary' : 'btn-outline-primary']" 
+                        @click="showAllYears = true"
+                      >
+                        Tất cả các năm
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="chart-method-select">Chọn phương thức xét tuyển:</label>
-                  <select id="chart-method-select" class="form-select" v-model="selectedMethodForChart">
-                    <option value="all">Tất cả phương thức</option>
-                    <option v-for="method in admissionMethods" :key="method.id" :value="method.id">
-                      {{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)
-                    </option>
-                  </select>
+            </div>
+            
+            <div v-if="selectedMajorForChart" class="chart-wrapper">
+              <h2 class="chart-title h5">
+                Biểu đồ điểm chuẩn ngành {{ getMajorById(selectedMajorForChart)?.name }}
+                <template v-if="selectedMethodForChart !== 'all'">
+                  - {{ getMethodById(selectedMethodForChart)?.name }}
+                </template>
+                <template v-if="showAllYears">
+                  (Tất cả các năm)
+                </template>
+              </h2>
+              
+              <!-- Display option: Show all years together -->
+              <div v-if="showAllYears" class="all-years-view">
+                <div v-if="selectedMethodForChart === 'all'" class="method-charts">
+                  <div v-for="method in displayedMethods" 
+                       :key="`major-chart-all-${method.id}`" 
+                       class="method-chart-container mb-4">
+                    <h3 class="h6">{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h3>
+                    <div class="chart-box">
+                      <canvas :id="`majorChartAllYears${method.id}`"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div v-else>
+                  <div class="chart-box">
+                    <canvas id="singleMethodAllYearsChart"></canvas>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-12 mt-3">
-                <div class="form-group">
-                  <label for="chart-years-option">Hiển thị năm:</label>
-                  <div class="btn-group">
-                    <button 
-                      :class="['btn', showAllYears ? 'btn-outline-primary' : 'btn-primary']" 
-                      @click="showAllYears = false"
-                    >
-                      Theo từng năm
-                    </button>
-                    <button 
-                      :class="['btn', showAllYears ? 'btn-primary' : 'btn-outline-primary']" 
-                      @click="showAllYears = true"
-                    >
-                      Tất cả các năm
-                    </button>
+              
+              <!-- Regular single/multi method chart view -->
+              <div v-else>
+                <!-- Multiple charts for each method -->
+                <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
+                  <div v-for="method in displayedMethods" 
+                       :key="`major-chart-${method.id}`" 
+                       class="method-chart-container mb-4">
+                    <h3 class="h6">{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h3>
+                    <div class="chart-box">
+                      <canvas :id="`majorChart${method.id}`"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <!-- Single chart for selected method -->
+                <div v-else>
+                  <div class="chart-box">
+                    <canvas id="singleMethodChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else class="no-data-message">
+              <p>Vui lòng chọn ngành để xem biểu đồ</p>
+            </div>
+          </div>
+          
+          <!-- Faculty Chart View -->
+          <div v-else-if="chartViewType === 'faculty'" class="faculty-charts">
+            <div class="filters mb-3">
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="chart-faculty-select">Chọn khoa:</label>
+                    <select id="chart-faculty-select" class="form-select" v-model="selectedFacultyForChart">
+                      <option v-for="faculty in faculties" :key="faculty.id" :value="faculty.id">
+                        {{ faculty.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="chart-year-select">Chọn năm:</label>
+                    <select id="chart-year-select" class="form-select" v-model="selectedYearForChart">
+                      <option v-for="year in availableYears" :key="year" :value="year">
+                        {{ year }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="chart-faculty-method-select">Chọn phương thức xét tuyển:</label>
+                    <select id="chart-faculty-method-select" class="form-select" v-model="selectedMethodForChart">
+                      <option value="all">Tất cả phương thức</option>
+                      <option v-for="method in admissionMethods" :key="method.id" :value="method.id">
+                        {{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-2">
+                  <div class="form-group">
+                    <label for="chart-years-option">Hiển thị năm:</label>
+                    <div class="btn-group">
+                      <button 
+                        :class="['btn', showAllYears ? 'btn-outline-primary' : 'btn-primary']" 
+                        @click="showAllYears = false"
+                      >
+                        Chỉ năm {{ selectedYearForChart }}
+                      </button>
+                      <button 
+                        :class="['btn', showAllYears ? 'btn-primary' : 'btn-outline-primary']" 
+                        @click="showAllYears = true"
+                      >
+                        Tất cả các năm
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div v-if="selectedFacultyForChart" class="chart-wrapper">
+              <h2 class="chart-title h5">
+                Biểu đồ điểm chuẩn {{ showAllYears ? 'tất cả các năm' : `năm ${selectedYearForChart}` }} - 
+                {{ getFacultyById(selectedFacultyForChart)?.name }}
+                <template v-if="selectedMethodForChart !== 'all'">
+                  - {{ getMethodById(selectedMethodForChart)?.name }}
+                </template>
+              </h2>
+              
+              <!-- All years view -->
+              <div v-if="showAllYears" class="all-years-view">
+                <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
+                  <div v-for="method in displayedMethods" 
+                       :key="`faculty-chart-all-years-${method.id}`" 
+                       class="method-chart-container mb-4">
+                    <h3 class="h6">{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h3>
+                    <div class="chart-box">
+                      <canvas :id="`facultyChartAllYears${method.id}`"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div v-else>
+                  <div class="chart-box">
+                    <canvas id="singleFacultyMethodAllYearsChart"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- Regular chart view -->
+              <div v-else>
+                <!-- Multiple charts for each method -->
+                <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
+                  <div v-for="method in displayedMethods" 
+                       :key="`faculty-chart-${method.id}`" 
+                       class="method-chart-container mb-4">
+                    <h3 class="h6">{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h3>
+                    <div class="chart-box">
+                      <canvas :id="`facultyChart${method.id}`"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <!-- Single chart for selected method -->
+                <div v-else>
+                  <div class="chart-box">
+                    <canvas id="singleFacultyMethodChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else class="no-data-message">
+              <p>Vui lòng chọn khoa để xem biểu đồ</p>
+            </div>
+          </div>
+          
+          <!-- University Chart View -->
+          <div v-else-if="chartViewType === 'university'" class="university-charts">
+            <div class="filters mb-3">
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="university-chart-year-select">Chọn năm:</label>
+                    <select id="university-chart-year-select" class="form-select" v-model="selectedYearForChart">
+                      <option v-for="year in availableYears" :key="year" :value="year">
+                        {{ year }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="chart-university-method-select">Chọn phương thức xét tuyển:</label>
+                    <select id="chart-university-method-select" class="form-select" v-model="selectedMethodForChart">
+                      <option value="all">Tất cả phương thức</option>
+                      <option v-for="method in admissionMethods" :key="method.id" :value="method.id">
+                        {{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-2">
+                  <div class="form-group">
+                    <label for="chart-years-option">Hiển thị năm:</label>
+                    <div class="btn-group">
+                      <button 
+                        :class="['btn', showAllYears ? 'btn-outline-primary' : 'btn-primary']" 
+                        @click="showAllYears = false"
+                      >
+                        Chỉ năm {{ selectedYearForChart }}
+                      </button>
+                      <button 
+                        :class="['btn', showAllYears ? 'btn-primary' : 'btn-outline-primary']" 
+                        @click="showAllYears = true"
+                      >
+                        Tất cả các năm
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="chart-wrapper">
+              <h2 class="chart-title h5">
+                Biểu đồ điểm chuẩn toàn trường {{ showAllYears ? 'tất cả các năm' : `năm ${selectedYearForChart}` }}
+                <template v-if="selectedMethodForChart !== 'all'">
+                  - {{ getMethodById(selectedMethodForChart)?.name }}
+                </template>
+              </h2>
+              
+              <!-- All years view -->
+              <div v-if="showAllYears" class="all-years-view">
+                <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
+                  <div v-for="method in displayedMethods" 
+                       :key="`university-chart-all-years-${method.id}`" 
+                       class="method-chart-container mb-4">
+                    <h3 class="h6">{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h3>
+                    <div class="chart-box">
+                      <canvas :id="`universityChartAllYears${method.id}`"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div v-else>
+                  <div class="chart-box">
+                    <canvas id="singleUniversityMethodAllYearsChart"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Regular chart view -->
+              <div v-else>
+                <!-- Multiple charts for each method -->
+                <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
+                  <div v-for="method in displayedMethods" 
+                       :key="`university-chart-${method.id}`" 
+                       class="method-chart-container mb-4">
+                    <h3 class="h6">{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h3>
+                    <div class="chart-box">
+                      <canvas :id="`universityChart${method.id}`"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <!-- Single chart for selected method -->
+                <div v-else>
+                  <div class="chart-box">
+                    <canvas id="singleUniversityMethodChart"></canvas>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          
-          <div v-if="selectedMajorForChart" class="chart-wrapper">
-            <h3 class="chart-title">
-              Biểu đồ điểm chuẩn ngành {{ getMajorById(selectedMajorForChart)?.name }}
-              <template v-if="selectedMethodForChart !== 'all'">
-                - {{ getMethodById(selectedMethodForChart)?.name }}
-              </template>
-              <template v-if="showAllYears">
-                (Tất cả các năm)
-              </template>
-            </h3>
-            
-            <!-- Display option: Show all years together -->
-            <div v-if="showAllYears" class="all-years-view">
-              <div v-if="selectedMethodForChart === 'all'" class="method-charts">
-                <div v-for="method in displayedMethods" 
-                     :key="`major-chart-all-${method.id}`" 
-                     class="method-chart-container mb-5">
-                  <h4>{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h4>
-                  <canvas :ref="`majorChartAllYears${method.id}`"></canvas>
-                </div>
-              </div>
-              <div v-else>
-                <canvas ref="singleMethodAllYearsChart"></canvas>
-              </div>
-            </div>
-            
-            <!-- Regular single/multi method chart view -->
-            <div v-else>
-              <!-- Multiple charts for each method -->
-              <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
-                <div v-for="method in displayedMethods" 
-                     :key="`major-chart-${method.id}`" 
-                     class="method-chart-container mb-4">
-                  <h4>{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h4>
-                  <canvas :ref="`majorChart${method.id}`"></canvas>
-                </div>
-              </div>
-              <!-- Single chart for selected method -->
-              <div v-else>
-                <canvas ref="singleMethodChart"></canvas>
-              </div>
-            </div>
-          </div>
-          <div v-else class="no-data-message">
-            <p>Vui lòng chọn ngành để xem biểu đồ</p>
-          </div>
-        </div>
-        
-        <!-- Faculty Chart View -->
-        <div v-else-if="chartViewType === 'faculty'" class="faculty-charts">
-          <div class="filters mb-4">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="chart-faculty-select">Chọn khoa:</label>
-                  <select id="chart-faculty-select" class="form-select" v-model="selectedFacultyForChart">
-                    <option v-for="faculty in faculties" :key="faculty.id" :value="faculty.id">
-                      {{ faculty.name }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="chart-year-select">Chọn năm:</label>
-                  <select id="chart-year-select" class="form-select" v-model="selectedYearForChart">
-                    <option v-for="year in availableYears" :key="year" :value="year">
-                      {{ year }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="chart-faculty-method-select">Chọn phương thức xét tuyển:</label>
-                  <select id="chart-faculty-method-select" class="form-select" v-model="selectedMethodForChart">
-                    <option value="all">Tất cả phương thức</option>
-                    <option v-for="method in admissionMethods" :key="method.id" :value="method.id">
-                      {{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-12 mt-3">
-                <div class="form-group">
-                  <label for="chart-years-option">Hiển thị năm:</label>
-                  <div class="btn-group">
-                    <button 
-                      :class="['btn', showAllYears ? 'btn-outline-primary' : 'btn-primary']" 
-                      @click="showAllYears = false"
-                    >
-                      Chỉ năm {{ selectedYearForChart }}
-                    </button>
-                    <button 
-                      :class="['btn', showAllYears ? 'btn-primary' : 'btn-outline-primary']" 
-                      @click="showAllYears = true"
-                    >
-                      Tất cả các năm
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div v-if="selectedFacultyForChart" class="chart-wrapper">
-            <h3 class="chart-title">
-              Biểu đồ điểm chuẩn {{ showAllYears ? 'tất cả các năm' : `năm ${selectedYearForChart}` }} - 
-              {{ getFacultyById(selectedFacultyForChart)?.name }}
-              <template v-if="selectedMethodForChart !== 'all'">
-                - {{ getMethodById(selectedMethodForChart)?.name }}
-              </template>
-            </h3>
-            
-            <!-- All years view -->
-            <div v-if="showAllYears" class="all-years-view">
-              <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
-                <div v-for="method in displayedMethods" 
-                     :key="`faculty-chart-all-years-${method.id}`" 
-                     class="method-chart-container mb-4">
-                  <h4>{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h4>
-                  <canvas :ref="`facultyChartAllYears${method.id}`"></canvas>
-                </div>
-              </div>
-              <div v-else>
-                <canvas ref="singleFacultyMethodAllYearsChart"></canvas>
-              </div>
-            </div>
-            <!-- Regular chart view -->
-            <div v-else>
-              <!-- Multiple charts for each method -->
-              <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
-                <div v-for="method in displayedMethods" 
-                     :key="`faculty-chart-${method.id}`" 
-                     class="method-chart-container mb-4">
-                  <h4>{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h4>
-                  <canvas :ref="`facultyChart${method.id}`"></canvas>
-                </div>
-              </div>
-              <!-- Single chart for selected method -->
-              <div v-else>
-                <canvas ref="singleFacultyMethodChart"></canvas>
-              </div>
-            </div>
-          </div>
-          <div v-else class="no-data-message">
-            <p>Vui lòng chọn khoa để xem biểu đồ</p>
-          </div>
-        </div>
-        
-        <!-- University Chart View -->
-        <div v-else-if="chartViewType === 'university'" class="university-charts">
-          <div class="filters mb-4">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="university-chart-year-select">Chọn năm:</label>
-                  <select id="university-chart-year-select" class="form-select" v-model="selectedYearForChart">
-                    <option v-for="year in availableYears" :key="year" :value="year">
-                      {{ year }}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="chart-university-method-select">Chọn phương thức xét tuyển:</label>
-                  <select id="chart-university-method-select" class="form-select" v-model="selectedMethodForChart">
-                    <option value="all">Tất cả phương thức</option>
-                    <option v-for="method in admissionMethods" :key="method.id" :value="method.id">
-                      {{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-12 mt-3">
-                <div class="form-group">
-                  <label for="chart-years-option">Hiển thị năm:</label>
-                  <div class="btn-group">
-                    <button 
-                      :class="['btn', showAllYears ? 'btn-outline-primary' : 'btn-primary']" 
-                      @click="showAllYears = false"
-                    >
-                      Chỉ năm {{ selectedYearForChart }}
-                    </button>
-                    <button 
-                      :class="['btn', showAllYears ? 'btn-primary' : 'btn-outline-primary']" 
-                      @click="showAllYears = true"
-                    >
-                      Tất cả các năm
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="chart-wrapper">
-            <h3 class="chart-title">
-              Biểu đồ điểm chuẩn toàn trường {{ showAllYears ? 'tất cả các năm' : `năm ${selectedYearForChart}` }}
-              <template v-if="selectedMethodForChart !== 'all'">
-                - {{ getMethodById(selectedMethodForChart)?.name }}
-              </template>
-            </h3>
-            
-            <!-- All years view -->
-            <div v-if="showAllYears" class="all-years-view">
-              <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
-                <div v-for="method in displayedMethods" 
-                     :key="`university-chart-all-years-${method.id}`" 
-                     class="method-chart-container mb-4">
-                  <h4>{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h4>
-                  <canvas :ref="`universityChartAllYears${method.id}`"></canvas>
-                </div>
-              </div>
-              <div v-else>
-                <canvas ref="singleUniversityMethodAllYearsChart"></canvas>
-              </div>
-            </div>
-            
-            <!-- Regular chart view -->
-            <div v-else>
-              <!-- Multiple charts for each method -->
-              <div v-if="selectedMethodForChart === 'all'" class="method-charts vertical-charts">
-                <div v-for="method in displayedMethods" 
-                     :key="`university-chart-${method.id}`" 
-                     class="method-chart-container mb-4">
-                  <h4>{{ method.name }} (thang {{ getMaxScoreForMethod(method.id) }} điểm)</h4>
-                  <canvas :ref="`universityChart${method.id}`"></canvas>
-                </div>
-              </div>
-              <!-- Single chart for selected method -->
-              <div v-else>
-                <canvas ref="singleUniversityMethodChart"></canvas>
-              </div>
-            </div>
-          </div>
+
+          <!-- Spacer element to ensure scrolling works properly -->
+          <div class="chart-footer-spacer"></div>
         </div>
       </div>
     </div>
@@ -469,9 +500,9 @@ export default {
       selectedMethodForChart: 'all', // 'all' or method id
       showAllYears: false, // New flag for showing all years
       charts: {},
-      currentUser: 'levantiendatcode',
-      currentDate: '2025-04-20 23:44:11',
-      chartHeight: '60vh' // Stored chart height value
+      currentUser: 'levantiendatBạn',
+      currentDate: '2025-05-08 17:35:59',
+      isScrolledToBottom: false
     }
   },
   computed: {
@@ -536,19 +567,33 @@ export default {
     }
     
     // Add resize event listener
-    window.addEventListener('resize', this.adjustChartSizes)
+    window.addEventListener('resize', this.handleResize)
+    
+    // Add scroll event listener for chart container
+    this.setupScrollListener()
+    
+    // Add schema.org structured data for SEO
+    this.addStructuredData()
   },
   beforeDestroy() {
-    // Cleanup resize listener when component is destroyed
-    window.removeEventListener('resize', this.adjustChartSizes)
+    // Cleanup event listeners
+    window.removeEventListener('resize', this.handleResize)
+    
+    const chartsContainer = this.$refs.chartsContainer
+    if (chartsContainer) {
+      chartsContainer.removeEventListener('scroll', this.handleScroll)
+    }
+    
+    // Destroy all charts to prevent memory leaks
+    this.destroyAllCharts()
   },
   watch: {
     viewMode() {
       // Xử lý khi chuyển đổi giữa các chế độ xem
       if (this.viewMode === 'chart') {
         this.$nextTick(() => {
+          this.setupScrollListener()
           this.renderCharts()
-          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -557,7 +602,6 @@ export default {
       if (this.viewMode === 'chart') {
         this.$nextTick(() => {
           this.renderCharts()
-          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -566,7 +610,6 @@ export default {
       if (this.viewMode === 'chart' && this.chartViewType === 'major') {
         this.$nextTick(() => {
           this.renderMajorChart()
-          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -575,7 +618,6 @@ export default {
       if (this.viewMode === 'chart' && this.chartViewType === 'faculty') {
         this.$nextTick(() => {
           this.renderFacultyChart()
-          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -588,7 +630,6 @@ export default {
           } else {
             this.renderUniversityChart()
           }
-          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -603,7 +644,6 @@ export default {
           } else {
             this.renderUniversityChart()
           }
-          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     },
@@ -618,38 +658,93 @@ export default {
           } else {
             this.renderUniversityChart()
           }
-          this.adjustChartSizes() // Adjust chart sizes after rendering
         })
       }
     }
   },
   methods: {
-    // Adjust chart sizes to ensure they don't exceed 60% of viewport height
-    adjustChartSizes() {
+    // SEO Enhancement
+    addStructuredData() {
+      const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "Điểm Chuẩn Đại Học Bách Khoa Đà Nẵng Các Năm",
+        "description": "Dữ liệu điểm chuẩn đại học theo từng phương thức xét tuyển qua các năm của trường Đại học Bách khoa Đà Nẵng",
+        "keywords": ["điểm chuẩn", "đại học bách khoa đà nẵng", "tuyển sinh", "xét tuyển"],
+        "temporalCoverage": "2018-2023"
+      }
+      
+      // Add structured data to page head
+      const script = document.createElement('script')
+      script.type = 'application/ld+json'
+      script.text = JSON.stringify(structuredData)
+      document.head.appendChild(script)
+      
+      // Update meta title and description
+      document.title = "Điểm Chuẩn Các Năm - Đại Học Bách Khoa Đà Nẵng"
+      
+      // Update meta description
+      let metaDescription = document.querySelector('meta[name="description"]')
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta')
+        metaDescription.name = "description"
+        document.head.appendChild(metaDescription)
+      }
+      metaDescription.content = "Tra cứu điểm chuẩn các ngành, khoa của Đại Học Bách Khoa Đà Nẵng qua các năm và theo từng phương thức xét tuyển."
+    },
+    
+    // Scroll handling
+    setupScrollListener() {
       this.$nextTick(() => {
-        // Calculate the maximum height (60% of viewport height)
-        const maxHeight = window.innerHeight * 0.6
-        
-        // Get all chart containers
-        const chartContainers = document.querySelectorAll('.chart-container')
-        
-        chartContainers.forEach(container => {
-          // Set height to 60% of viewport height
-          container.style.height = `${maxHeight}px`
-          container.style.maxHeight = '60vh'
+        const chartsContainer = this.$refs.chartsContainer
+        if (chartsContainer) {
+          chartsContainer.addEventListener('scroll', this.handleScroll)
           
-          // For single method charts, ensure they have proper width
-          if (container.classList.contains('single-method-chart')) {
-            container.style.width = '100%'
+          // Initially hide footer
+          const footer = document.querySelector('footer')
+          if (footer) {
+            footer.style.display = 'none'
           }
-          
-          // Force chart resize if it exists
-          const chartId = container.getAttribute('data-chart-id')
-          if (chartId && this.charts[chartId]) {
-            this.charts[chartId].resize()
-          }
-        })
+        }
       })
+    },
+    
+    handleScroll(event) {
+      const container = event.target
+      const isAtBottom = container.scrollHeight - container.scrollTop - 20 <= container.clientHeight
+      
+      // Show footer only when scrolled to the bottom
+      const footer = document.querySelector('footer')
+      if (footer) {
+        if (isAtBottom) {
+          footer.style.display = 'block'
+          footer.style.opacity = '1'
+          footer.style.transition = 'opacity 0.3s ease'
+        } else {
+          footer.style.opacity = '0'
+          setTimeout(() => {
+            if (!this.isScrolledToBottom) {
+              footer.style.display = 'none'
+            }
+          }, 300)
+        }
+      }
+      
+      // Store the scroll state
+      this.isScrolledToBottom = isAtBottom
+    },
+    
+    // Window resize handler
+    handleResize() {
+      if (this.viewMode === 'chart') {
+        this.$nextTick(() => {
+          Object.values(this.charts).forEach(chart => {
+            if (chart) {
+              chart.resize()
+            }
+          })
+        })
+      }
     },
     
     async fetchData() {
@@ -689,61 +784,88 @@ export default {
         this.loading = false
       }
     },
+    
     setViewMode(mode) {
       this.viewMode = mode
+      
+      // If switching to chart mode, ensure footer is initially hidden
+      if (mode === 'chart') {
+        const footer = document.querySelector('footer')
+        if (footer) {
+          footer.style.display = 'none'
+        }
+      } else {
+        // If not in chart mode, ensure footer is visible
+        const footer = document.querySelector('footer')
+        if (footer) {
+          footer.style.display = 'block'
+          footer.style.opacity = '1'
+        }
+      }
     },
+    
     setChartViewType(type) {
       this.chartViewType = type
     },
+    
     getScoreForMethodAndYear(major, methodId, year) {
       const methodData = major.admissionScores.find(m => m.methodId === methodId)
       if (!methodData || !methodData.years[year]) return '—'
       return methodData.years[year]
     },
+    
     hasScore(major, methodId, year) {
       const methodData = major.admissionScores.find(m => m.methodId === methodId)
       return methodData && methodData.years[year] ? true : false
     },
+    
     getMajorById(majorId) {
       return this.combinedData.find(major => major.id === majorId)
     },
+    
     getFacultyById(facultyId) {
       return this.faculties.find(faculty => faculty.id === facultyId)
     },
+    
     getMaxScoreForMethod(methodId) {
       return preAdmissionController.getMaxScoreForMethod(methodId)
     },
+    
     getMethodColor(methodId) {
-      // Cải thiện màu sắc để tươi tắn hơn
+      // Improved color palette for better visibility and accessibility
       const colors = {
-        2: 'rgba(52, 152, 219, 0.8)',  // Xanh dương tươi sáng
-        3: 'rgba(241, 196, 15, 0.8)',   // Vàng tươi sáng
-        4: 'rgba(46, 204, 113, 0.8)',   // Xanh lá tươi sáng
-        5: 'rgba(142, 68, 173, 0.8)',   // Tím tươi sáng
-        6: 'rgba(230, 126, 34, 0.8)'    // Cam tươi sáng
+        2: 'rgba(52, 152, 219, 0.8)',  // Bright blue
+        3: 'rgba(241, 196, 15, 0.8)',   // Bright yellow
+        4: 'rgba(46, 204, 113, 0.8)',   // Bright green
+        5: 'rgba(142, 68, 173, 0.8)',   // Bright purple
+        6: 'rgba(230, 126, 34, 0.8)'    // Bright orange
       }
       
       return colors[methodId] || 'rgba(201, 203, 207, 0.8)'
     },
+    
     getMethodBorderColor(methodId) {
-      // Màu viền đậm hơn cho các cột
+      // Darker border colors for better contrast
       const colors = {
-        2: 'rgba(41, 128, 185, 1)',    // Xanh dương đậm
-        3: 'rgba(243, 156, 18, 1)',    // Vàng đậm
-        4: 'rgba(39, 174, 96, 1)',     // Xanh lá đậm
-        5: 'rgba(142, 68, 173, 1)',    // Tím đậm
-        6: 'rgba(211, 84, 0, 1)'       // Cam đậm
+        2: 'rgba(41, 128, 185, 1)',    // Dark blue
+        3: 'rgba(243, 156, 18, 1)',    // Dark yellow
+        4: 'rgba(39, 174, 96, 1)',     // Dark green
+        5: 'rgba(142, 68, 173, 1)',    // Dark purple
+        6: 'rgba(211, 84, 0, 1)'       // Dark orange
       }
       
       return colors[methodId] || 'rgba(150, 150, 150, 1)'
     },
+    
     getMethodById(methodId) {
       return this.admissionMethods.find(m => m.id === parseInt(methodId))
     },
+    
     getCurrentDateTime() {
       return this.currentDate
     },
-    // Hủy tất cả các biểu đồ hiện có
+    
+    // Destroy all existing charts
     destroyAllCharts() {
       Object.values(this.charts).forEach(chart => {
         if (chart) {
@@ -752,10 +874,11 @@ export default {
       })
       this.charts = {}
     },
+    
     renderCharts() {
       this.destroyAllCharts()
       
-      // Render biểu đồ mới dựa trên loại hiện tại
+      // Render new charts based on current view type
       if (this.chartViewType === 'major') {
         this.renderMajorChart()
       } else if (this.chartViewType === 'faculty') {
@@ -764,6 +887,7 @@ export default {
         this.renderUniversityChart()
       }
     },
+    
     renderMajorChart() {
       if (!this.selectedMajorForChart) return
       
@@ -772,7 +896,7 @@ export default {
       
       this.destroyAllCharts()
       
-      // Nếu hiển thị tất cả các năm
+      // If showing all years
       if (this.showAllYears) {
         if (this.selectedMethodForChart === 'all') {
           this.displayedMethods.forEach(method => {
@@ -787,25 +911,26 @@ export default {
         return
       }
       
-      // Nếu chọn tất cả phương thức, tạo biểu đồ riêng cho từng phương thức
+      // If all methods selected, create separate chart for each method
       if (this.selectedMethodForChart === 'all') {
         this.displayedMethods.forEach(method => {
           this.renderSingleMethodMajorChart(majorData, method)
         })
       } else {
-        // Nếu chọn một phương thức cụ thể, chỉ hiển thị biểu đồ cho phương thức đó
+        // If specific method selected, only show chart for that method
         const method = this.getMethodById(this.selectedMethodForChart)
         if (method) {
           this.renderSingleMethodMajorChart(majorData, method, true)
         }
       }
     },
+    
     renderAllYearsMajorChart(majorData, method, isSingleMethod = false) {
       const methodId = method.id
       const methodData = majorData.admissionScores.find(m => m.methodId === methodId)
       if (!methodData) return
       
-      // Chuẩn bị dữ liệu cho biểu đồ
+      // Prepare data for chart
       const years = new Set()
       Object.keys(methodData.years).forEach(year => {
         years.add(parseInt(year))
@@ -813,12 +938,12 @@ export default {
       
       const sortedYears = Array.from(years).sort()
       
-      // Tạo nhãn kết hợp giữa năm và phương thức
+      // Create labels for combined year and method
       const labels = []
       const datasets = []
       const colors = []
       
-      // Tạo một cột cho mỗi năm
+      // Create one column for each year
       sortedYears.forEach(year => {
         labels.push(`Năm ${year}`)
         const score = methodData.years[year] || 0
@@ -826,7 +951,7 @@ export default {
         colors.push(this.getMethodColor(methodId))
       })
       
-      // Nếu không có dữ liệu cho bất kỳ năm nào, bỏ qua
+      // Skip if no data for any year
       if (datasets.every(score => score === 0)) return
       
       const chartData = {
@@ -840,26 +965,18 @@ export default {
         }]
       }
       
-      // Tạo biểu đồ
-      const refName = isSingleMethod ? 'singleMethodAllYearsChart' : `majorChartAllYears${methodId}`
-      const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
+      // Create chart with ID-based targeting
+      const chartId = isSingleMethod ? 'singleMethodAllYearsChart' : `majorChartAllYears${methodId}`
+      const canvas = document.getElementById(chartId)
       
-      if (ctx) {
-        // Add chart container class and data attribute
-        const chartContainer = ctx.canvas.parentNode
-        chartContainer.classList.add('chart-container')
-        if (isSingleMethod) {
-          chartContainer.classList.add('single-method-chart')
-        }
-        chartContainer.setAttribute('data-chart-id', refName)
-        
-        // Create chart with responsive and maintainAspectRatio: false
-        this.charts[refName] = new Chart(ctx, {
+      if (canvas) {
+        // Create chart
+        this.charts[chartId] = new Chart(canvas, {
           type: 'bar',
           data: chartData,
           options: {
             responsive: true,
-            maintainAspectRatio: false, // Essential for controlling size
+            maintainAspectRatio: false,
             scales: {
               y: {
                 beginAtZero: true,
@@ -901,27 +1018,18 @@ export default {
                   }
                 }
               }
-            },
-            // Add onResize callback to ensure chart fits within 60% of viewport height
-            onResize: (chart, size) => {
-              const maxHeight = window.innerHeight * 0.6
-              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
-        
-        // Set initial height for the chart container
-        const maxHeight = window.innerHeight * 0.6
-        chartContainer.style.height = `${maxHeight}px`
-        chartContainer.style.maxHeight = '60vh'
       }
     },
+    
     renderSingleMethodMajorChart(majorData, method, isSingleMethod = false) {
       const methodId = method.id
       const methodData = majorData.admissionScores.find(m => m.methodId === methodId)
       if (!methodData) return
       
-      // Chuẩn bị dữ liệu cho biểu đồ
+      // Prepare data for chart
       const years = new Set()
       Object.keys(methodData.years).forEach(year => {
         years.add(parseInt(year))
@@ -930,7 +1038,7 @@ export default {
       const sortedYears = Array.from(years).sort()
       const data = sortedYears.map(year => methodData.years[year] || null)
       
-      // Kiểm tra nếu không có dữ liệu nào cho phương thức này
+      // Skip if no data for this method
       if (data.every(score => score === null)) return
       
       const chartData = {
@@ -944,20 +1052,12 @@ export default {
         }]
       }
       
-      // Tạo biểu đồ
-      const refName = isSingleMethod ? 'singleMethodChart' : `majorChart${methodId}`
-      const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
+      // Create chart with ID-based targeting
+      const chartId = isSingleMethod ? 'singleMethodChart' : `majorChart${methodId}`
+      const canvas = document.getElementById(chartId)
       
-      if (ctx) {
-        // Add chart container class and data attribute
-        const chartContainer = ctx.canvas.parentNode
-        chartContainer.classList.add('chart-container')
-        if (isSingleMethod) {
-          chartContainer.classList.add('single-method-chart')
-        }
-        chartContainer.setAttribute('data-chart-id', refName)
-        
-        this.charts[refName] = new Chart(ctx, {
+      if (canvas) {
+        this.charts[chartId] = new Chart(canvas, {
           type: 'bar',
           data: chartData,
           options: {
@@ -1000,217 +1100,98 @@ export default {
                   }
                 }
               }
-            },
-            // Add onResize callback to ensure chart fits within 60% of viewport height
-            onResize: (chart, size) => {
-              const maxHeight = window.innerHeight * 0.6
-              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
-        
-        // Set initial height for the chart container
-        const maxHeight = window.innerHeight * 0.6
-        chartContainer.style.height = `${maxHeight}px`
-        chartContainer.style.maxHeight = '60vh'
       }
     },
+    
     renderFacultyChart() {
-      if (!this.selectedFacultyForChart || !this.selectedYearForChart) return
+      if (!this.selectedFacultyForChart) return
+      
+      this.destroyAllCharts()
       
       const faculty = this.getFacultyById(this.selectedFacultyForChart)
       if (!faculty) return
       
-      // Lọc các ngành thuộc khoa đã chọn
       const majors = this.majorsBySelectedFaculty
-      if (majors.length === 0) return
       
-      this.destroyAllCharts()
-      
-      // Nếu hiển thị tất cả các năm
       if (this.showAllYears) {
         if (this.selectedMethodForChart === 'all') {
           this.displayedMethods.forEach(method => {
-            this.renderAllYearsFacultyChart(majors, faculty, method)
+            this.renderAllYearsFacultyChart(faculty, majors, method)
           })
         } else {
           const method = this.getMethodById(this.selectedMethodForChart)
           if (method) {
-            this.renderAllYearsFacultyChart(majors, faculty, method, true)
+            this.renderAllYearsFacultyChart(faculty, majors, method, true)
           }
         }
-        return
-      }
-      
-      // Nếu chọn tất cả phương thức, tạo biểu đồ riêng cho từng phương thức
-      if (this.selectedMethodForChart === 'all') {
-        this.displayedMethods.forEach(method => {
-          this.renderSingleMethodFacultyChart(majors, faculty, method)
-        })
       } else {
-        // Nếu chọn một phương thức cụ thể, chỉ hiển thị biểu đồ cho phương thức đó
-        const method = this.getMethodById(this.selectedMethodForChart)
-        if (method) {
-          this.renderSingleMethodFacultyChart(majors, faculty, method, true)
-        }
-      }
-    },
-    renderAllYearsFacultyChart(majors, faculty, method, isSingleMethod = false) {
-      const methodId = method.id
-      
-      // Tạo thành 2 cột cho mỗi ngành - mỗi năm 1 cột
-      const labels = []
-      const datasets = []
-      const colors = []
-      const years = [...this.availableYears].sort()
-      
-      // Thêm dữ liệu cho từng ngành và từng năm
-      majors.forEach(major => {
-        const majorName = major.name
-        
-        years.forEach(year => {
-          labels.push(`${majorName} (${year})`)
-          
-          const methodData = major.admissionScores.find(m => m.methodId === methodId)
-          const score = methodData && methodData.years[year] ? methodData.years[year] : 0
-          
-          datasets.push(score)
-          colors.push(year === Math.min(...years) ? 
-                     this.getMethodColor(methodId).replace('0.8', '0.6') : 
-                     this.getMethodColor(methodId))
-        })
-      })
-      
-      // Nếu không có dữ liệu cho bất kỳ ngành nào, bỏ qua
-      if (datasets.every(score => score === 0)) return
-      
-      const chartData = {
-        labels: labels,
-        datasets: [{
-          label: method.name,
-          data: datasets,
-          backgroundColor: colors,
-          borderColor: this.getMethodBorderColor(methodId),
-          borderWidth: 2
-        }]
-      }
-      
-      // Tạo biểu đồ
-      const refName = isSingleMethod ? 'singleFacultyMethodAllYearsChart' : `facultyChartAllYears${methodId}`
-      const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
-      
-      if (ctx) {
-        // Add chart container class and data attribute
-        const chartContainer = ctx.canvas.parentNode
-        chartContainer.classList.add('chart-container')
-        if (isSingleMethod) {
-          chartContainer.classList.add('single-method-chart')
-        }
-        chartContainer.setAttribute('data-chart-id', refName)
-        
-        this.charts[refName] = new Chart(ctx, {
-          type: 'bar',
-          data: chartData,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                beginAtZero: true,
-                max: this.getMaxScoreForMethod(methodId),
-                title: {
-                  display: true,
-                  text: 'Điểm'
-                }
-              },
-              x: {
-                title: {
-                  display: true,
-                  text: 'Ngành theo năm'
-                },
-                ticks: {
-                  autoSkip: false,
-                  maxRotation: 90,
-                  minRotation: 45,
-                  font: {
-                    size: 10
-                  }
-                }
-              }
-            },
-            plugins: {
-              legend: {
-                display: false,
-              },
-              title: {
-                display: true,
-                text: `Điểm chuẩn ${faculty.name} qua các năm`,
-                font: {
-                  size: 16,
-                  weight: 'bold'
-                }
-              },
-              tooltip: {
-                callbacks: {
-                  label: function(context) {
-                    return `Điểm: ${context.raw}`
-                  }
-                }
-              }
-            },
-            // Add onResize callback to ensure chart fits within 60% of viewport height
-            onResize: (chart, size) => {
-              const maxHeight = window.innerHeight * 0.6
-              chart.canvas.parentNode.style.height = `${maxHeight}px`
-            }
+        if (this.selectedMethodForChart === 'all') {
+          this.displayedMethods.forEach(method => {
+            this.renderSingleYearFacultyChart(faculty, majors, method, this.selectedYearForChart)
+          })
+        } else {
+          const method = this.getMethodById(this.selectedMethodForChart)
+          if (method) {
+            this.renderSingleYearFacultyChart(faculty, majors, method, this.selectedYearForChart, true)
           }
-        })
-        
-        // Set initial height for the chart container
-        const maxHeight = window.innerHeight * 0.6
-        chartContainer.style.height = `${maxHeight}px`
-        chartContainer.style.maxHeight = '60vh'
+        }
       }
     },
-    renderSingleMethodFacultyChart(majors, faculty, method, isSingleMethod = false) {
+    
+    renderAllYearsFacultyChart(faculty, majors, method, isSingleMethod = false) {
       const methodId = method.id
       
-      // Lấy điểm của các ngành cho phương thức này
-      const data = majors.map(major => {
+      // Collect years data
+      const allYears = new Set()
+      majors.forEach(major => {
         const methodData = major.admissionScores.find(m => m.methodId === methodId)
-        return methodData && methodData.years[this.selectedYearForChart] 
-          ? methodData.years[this.selectedYearForChart] 
-          : null
+        if (methodData) {
+          Object.keys(methodData.years).forEach(year => {
+            allYears.add(parseInt(year))
+          })
+        }
       })
       
-      // Kiểm tra nếu không có dữ liệu nào cho phương thức này
-      if (data.every(score => score === null)) return
+      const sortedYears = Array.from(allYears).sort()
+      
+      // Skip if no years data found
+      if (sortedYears.length === 0) return
+      
+      // Create datasets for each year
+      const datasets = []
+      
+      sortedYears.forEach((year, index) => {
+        const yearData = {
+          label: `Năm ${year}`,
+          data: [],
+          backgroundColor: this.getYearColor(index),
+          borderColor: this.getYearBorderColor(index),
+          borderWidth: 1
+        }
+        
+        // Collect scores for each major in this year
+        majors.forEach(major => {
+          const methodData = major.admissionScores.find(m => m.methodId === methodId)
+          yearData.data.push(methodData && methodData.years[year] ? methodData.years[year] : null)
+        })
+        
+        datasets.push(yearData)
+      })
       
       const chartData = {
-        labels: majors.map(major => major.name),
-        datasets: [{
-          label: method.name,
-          data: data,
-          backgroundColor: this.getMethodColor(methodId),
-          borderColor: this.getMethodBorderColor(methodId),
-          borderWidth: 2
-        }]
+        labels: majors.map(m => m.name),
+        datasets: datasets
       }
       
-      // Tạo biểu đồ
-      const refName = isSingleMethod ? 'singleFacultyMethodChart' : `facultyChart${methodId}`
-      const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
+      // Create chart
+      const chartId = isSingleMethod ? 'singleFacultyMethodAllYearsChart' : `facultyChartAllYears${methodId}`
+      const canvas = document.getElementById(chartId)
       
-      if (ctx) {
-        // Add chart container class and data attribute
-        const chartContainer = ctx.canvas.parentNode
-        chartContainer.classList.add('chart-container')
-        if (isSingleMethod) {
-          chartContainer.classList.add('single-method-chart')
-        }
-        chartContainer.setAttribute('data-chart-id', refName)
-        
-        this.charts[refName] = new Chart(ctx, {
+      if (canvas) {
+        this.charts[chartId] = new Chart(canvas, {
           type: 'bar',
           data: chartData,
           options: {
@@ -1231,8 +1212,84 @@ export default {
                   text: 'Ngành'
                 },
                 ticks: {
-                  autoSkip: false,
-                  maxRotation: 90,
+                  maxRotation: 45,
+                  minRotation: 45
+                }
+              }
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: `Điểm chuẩn ${method.name} các ngành khoa ${faculty.name} qua các năm`,
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                }
+              }
+            }
+          }
+        })
+      }
+    },
+    
+    renderSingleYearFacultyChart(faculty, majors, method, year, isSingleMethod = false) {
+      const methodId = method.id
+      
+      // Collect data for the selected year
+      const data = []
+      const colors = []
+      
+      majors.forEach(major => {
+        const methodData = major.admissionScores.find(m => m.methodId === methodId)
+        const score = methodData && methodData.years[year] ? methodData.years[year] : null
+        data.push(score)
+        colors.push(this.getMethodColor(methodId))
+      })
+      
+      // Skip if no data for this year/method
+      if (data.every(score => score === null)) return
+      
+      const chartData = {
+        labels: majors.map(m => m.name),
+        datasets: [{
+          label: `${method.name} năm ${year}`,
+          data: data,
+          backgroundColor: colors,
+          borderColor: this.getMethodBorderColor(methodId),
+          borderWidth: 2
+        }]
+      }
+      
+      // Create chart
+      const chartId = isSingleMethod ? 'singleFacultyMethodChart' : `facultyChart${methodId}`
+      const canvas = document.getElementById(chartId)
+      
+      if (canvas) {
+        this.charts[chartId] = new Chart(canvas, {
+          type: 'bar',
+          data: chartData,
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: majors.length > 5 ? 'y' : 'x', // Use horizontal bar for many majors
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: this.getMaxScoreForMethod(methodId),
+                title: {
+                  display: true,
+                  text: majors.length > 5 ? 'Ngành' : 'Điểm'
+                }
+              },
+              x: {
+                beginAtZero: majors.length > 5,
+                max: majors.length > 5 ? this.getMaxScoreForMethod(methodId) : undefined,
+                title: {
+                  display: true,
+                  text: majors.length > 5 ? 'Điểm' : 'Ngành'
+                },
+                ticks: {
+                  maxRotation: 45,
                   minRotation: 45
                 }
               }
@@ -1243,42 +1300,21 @@ export default {
               },
               title: {
                 display: true,
-                text: isSingleMethod ? 
-                  `Điểm chuẩn năm ${this.selectedYearForChart} - ${faculty.name}` :
-                  ``,
+                text: `Điểm chuẩn ${method.name} các ngành khoa ${faculty.name} năm ${year}`,
                 font: {
-                  size: isSingleMethod ? 16 : 14,
+                  size: 14,
                   weight: 'bold'
                 }
-              },
-              tooltip: {
-                callbacks: {
-                  label: function(context) {
-                    return `Điểm: ${context.raw}`
-                  }
-                }
               }
-            },
-            // Add onResize callback to ensure chart fits within 60% of viewport height
-            onResize: (chart, size) => {
-              const maxHeight = window.innerHeight * 0.6
-              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
-        
-        // Set initial height for the chart container
-        const maxHeight = window.innerHeight * 0.6
-        chartContainer.style.height = `${maxHeight}px`
-        chartContainer.style.maxHeight = '60vh'
       }
     },
+    
     renderUniversityChart() {
-      if (!this.selectedYearForChart) return
-      
       this.destroyAllCharts()
       
-      // Nếu hiển thị tất cả các năm
       if (this.showAllYears) {
         if (this.selectedMethodForChart === 'all') {
           this.displayedMethods.forEach(method => {
@@ -1290,73 +1326,208 @@ export default {
             this.renderAllYearsUniversityChart(method, true)
           }
         }
-        return
-      }
-      
-      // Nếu chọn tất cả phương thức, tạo biểu đồ riêng cho từng phương thức
-      if (this.selectedMethodForChart === 'all') {
-        this.displayedMethods.forEach(method => {
-          this.renderSingleMethodUniversityChart(method)
-        })
       } else {
-        // Nếu chọn một phương thức cụ thể, chỉ hiển thị biểu đồ cho phương thức đó
-        const method = this.getMethodById(this.selectedMethodForChart)
-        if (method) {
-          this.renderSingleMethodUniversityChart(method, true)
+        if (this.selectedMethodForChart === 'all') {
+          this.displayedMethods.forEach(method => {
+            this.renderSingleYearUniversityChart(method, this.selectedYearForChart)
+          })
+        } else {
+          const method = this.getMethodById(this.selectedMethodForChart)
+          if (method) {
+            this.renderSingleYearUniversityChart(method, this.selectedYearForChart, true)
+          }
         }
       }
     },
+    
     renderAllYearsUniversityChart(method, isSingleMethod = false) {
       const methodId = method.id
-      const years = [...this.availableYears].sort()
       
-      const labels = []
-      const datasets = []
-      const colors = []
+      // Group by faculty to make chart more readable
+      const faculties = this.faculties
+      const facultyData = {}
       
-      // Tạo thành 2 cột cho mỗi ngành - mỗi năm 1 cột
-      this.combinedData.forEach(major => {
-        const majorName = major.name
-        
-        years.forEach(year => {
-          const methodData = major.admissionScores.find(m => m.methodId === methodId)
-          if (methodData && methodData.years[year]) {
-            labels.push(`${majorName} (${year})`)
-            datasets.push(methodData.years[year])
-            colors.push(year === Math.min(...years) ? 
-                       this.getMethodColor(methodId).replace('0.8', '0.6') : 
-                       this.getMethodColor(methodId))
-          }
-        })
+      // Initialize data structure
+      faculties.forEach(faculty => {
+        facultyData[faculty.id] = {
+          name: faculty.name,
+          years: {}
+        }
       })
       
-      if (datasets.length === 0) return
+      // Collect all years
+      const allYears = new Set()
+      
+      // Calculate average scores by faculty for each year
+      this.combinedData.forEach(major => {
+        const facultyId = major.faculty.id
+        if (facultyId && facultyData[facultyId]) {
+          const methodData = major.admissionScores.find(m => m.methodId === methodId)
+          if (methodData) {
+            Object.keys(methodData.years).forEach(year => {
+              const yearInt = parseInt(year)
+              allYears.add(yearInt)
+              
+              if (!facultyData[facultyId].years[yearInt]) {
+                facultyData[facultyId].years[yearInt] = {
+                  sum: 0,
+                  count: 0
+                }
+              }
+              
+              const score = methodData.years[year]
+              if (score) {
+                facultyData[facultyId].years[yearInt].sum += score
+                facultyData[facultyId].years[yearInt].count += 1
+              }
+            })
+          }
+        }
+      })
+      
+      const sortedYears = Array.from(allYears).sort()
+      
+      // Skip if no data
+      if (sortedYears.length === 0) return
+      
+      // Create datasets for each year
+      const datasets = []
+      
+      sortedYears.forEach((year, index) => {
+        const yearData = {
+          label: `Năm ${year}`,
+          data: [],
+          backgroundColor: this.getYearColor(index),
+          borderColor: this.getYearBorderColor(index),
+          borderWidth: 1
+        }
+        
+        // Calculate average for each faculty in this year
+        faculties.forEach(faculty => {
+          const facultyYearData = facultyData[faculty.id]?.years[year]
+          yearData.data.push(
+            facultyYearData && facultyYearData.count > 0 
+              ? Math.round((facultyYearData.sum / facultyYearData.count) * 100) / 100
+              : null
+          )
+        })
+        
+        datasets.push(yearData)
+      })
+      
+      const chartData = {
+        labels: faculties.map(f => f.name),
+        datasets: datasets
+      }
+      
+      // Create chart
+      const chartId = isSingleMethod ? 'singleUniversityMethodAllYearsChart' : `universityChartAllYears${methodId}`
+      const canvas = document.getElementById(chartId)
+      
+      if (canvas) {
+        this.charts[chartId] = new Chart(canvas, {
+          type: 'bar',
+          data: chartData,
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: this.getMaxScoreForMethod(methodId),
+                title: {
+                  display: true,
+                  text: 'Điểm trung bình'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Khoa'
+                },
+                ticks: {
+                  maxRotation: 45,
+                  minRotation: 45
+                }
+              }
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: `Điểm chuẩn trung bình ${method.name} theo khoa qua các năm`,
+                font: {
+                  size: 14,
+                  weight: 'bold'
+                }
+              }
+            }
+          }
+        })
+      }
+    },
+    
+    renderSingleYearUniversityChart(method, year, isSingleMethod = false) {
+      const methodId = method.id
+      
+      // Group faculties to make chart more readable
+      const faculties = this.faculties
+      const facultyScores = {}
+      
+      // Initialize
+      faculties.forEach(faculty => {
+        facultyScores[faculty.id] = {
+          name: faculty.name,
+          sum: 0,
+          count: 0
+        }
+      })
+      
+      // Calculate average for each faculty in this year
+      this.combinedData.forEach(major => {
+        const facultyId = major.faculty.id
+        if (facultyId && facultyScores[facultyId]) {
+          const methodData = major.admissionScores.find(m => m.methodId === methodId)
+          if (methodData && methodData.years[year]) {
+            facultyScores[facultyId].sum += methodData.years[year]
+            facultyScores[facultyId].count += 1
+          }
+        }
+      })
+      
+      // Prepare chart data
+      const data = []
+      const labels = []
+      const colors = []
+      
+      faculties.forEach(faculty => {
+        const facultyData = facultyScores[faculty.id]
+        if (facultyData.count > 0) {
+          labels.push(faculty.name)
+          data.push(Math.round((facultyData.sum / facultyData.count) * 100) / 100)
+          colors.push(this.getMethodColor(methodId))
+        }
+      })
+      
+      // Skip if no data
+      if (data.length === 0) return
       
       const chartData = {
         labels: labels,
         datasets: [{
-          label: method.name,
-          data: datasets,
+          label: `${method.name} năm ${year}`,
+          data: data,
           backgroundColor: colors,
           borderColor: this.getMethodBorderColor(methodId),
           borderWidth: 2
         }]
       }
       
-      // Tạo biểu đồ
-      const refName = isSingleMethod ? 'singleUniversityMethodAllYearsChart' : `universityChartAllYears${methodId}`
-      const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
+      // Create chart
+      const chartId = isSingleMethod ? 'singleUniversityMethodChart' : `universityChart${methodId}`
+      const canvas = document.getElementById(chartId)
       
-      if (ctx) {
-        // Add chart container class and data attribute
-        const chartContainer = ctx.canvas.parentNode
-        chartContainer.classList.add('chart-container')
-        if (isSingleMethod) {
-          chartContainer.classList.add('single-method-chart')
-        }
-        chartContainer.setAttribute('data-chart-id', refName)
-        
-        this.charts[refName] = new Chart(ctx, {
+      if (canvas) {
+        this.charts[chartId] = new Chart(canvas, {
           type: 'bar',
           data: chartData,
           options: {
@@ -1368,121 +1539,16 @@ export default {
                 max: this.getMaxScoreForMethod(methodId),
                 title: {
                   display: true,
-                  text: 'Điểm'
+                  text: 'Điểm trung bình'
                 }
               },
               x: {
                 title: {
                   display: true,
-                  text: 'Ngành theo năm'
+                  text: 'Khoa'
                 },
                 ticks: {
-                  autoSkip: false,
-                  maxRotation: 90,
-                  minRotation: 45,
-                  font: {
-                    size: 10
-                  }
-                }
-              }
-            },
-            plugins: {
-              legend: {
-                display: false,
-              },
-              title: {
-                display: true,
-                text: `Điểm chuẩn toàn trường qua các năm`,
-                font: {
-                  size: 16,
-                  weight: 'bold'
-                }
-              },
-              tooltip: {
-                callbacks: {
-                  label: function(context) {
-                    return `Điểm: ${context.raw}`
-                  }
-                }
-              }
-            },
-            // Add onResize callback to ensure chart fits within 60% of viewport height
-            onResize: (chart, size) => {
-              const maxHeight = window.innerHeight * 0.6
-              chart.canvas.parentNode.style.height = `${maxHeight}px`
-            }
-          }
-        })
-        
-        // Set initial height for the chart container
-        const maxHeight = window.innerHeight * 0.6
-        chartContainer.style.height = `${maxHeight}px`
-        chartContainer.style.maxHeight = '60vh'
-      }
-    },
-    renderSingleMethodUniversityChart(method, isSingleMethod = false) {
-      const methodId = method.id
-      
-      // Lọc các ngành có điểm cho phương thức này
-      const majorsWithData = this.combinedData.filter(major => {
-        const methodData = major.admissionScores.find(m => m.methodId === methodId)
-        return methodData && methodData.years[this.selectedYearForChart]
-      })
-      
-      if (majorsWithData.length === 0) return
-      
-      const data = majorsWithData.map(major => {
-        const methodData = major.admissionScores.find(m => m.methodId === methodId)
-        return methodData.years[this.selectedYearForChart]
-      })
-      
-      const chartData = {
-        labels: majorsWithData.map(major => major.name),
-        datasets: [{
-          label: method.name,
-          data: data,
-          backgroundColor: this.getMethodColor(methodId),
-          borderColor: this.getMethodBorderColor(methodId),
-          borderWidth: 2
-        }]
-      }
-      
-      // Tạo biểu đồ
-      const refName = isSingleMethod ? 'singleUniversityMethodChart' : `universityChart${methodId}`
-      const ctx = this.$refs[refName]?.[isSingleMethod ? 0 : this.$refs[refName].length - 1]?.getContext('2d')
-      
-      if (ctx) {
-        // Add chart container class and data attribute
-        const chartContainer = ctx.canvas.parentNode
-        chartContainer.classList.add('chart-container')
-        if (isSingleMethod) {
-          chartContainer.classList.add('single-method-chart')
-        }
-        chartContainer.setAttribute('data-chart-id', refName)
-        
-        this.charts[refName] = new Chart(ctx, {
-          type: 'bar',
-          data: chartData,
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                beginAtZero: true,
-                max: this.getMaxScoreForMethod(methodId),
-                title: {
-                  display: true,
-                  text: 'Điểm'
-                }
-              },
-              x: {
-                title: {
-                  display: true,
-                  text: 'Ngành'
-                },
-                ticks: {
-                  autoSkip: false,
-                  maxRotation: 90,
+                  maxRotation: 45,
                   minRotation: 45
                 }
               }
@@ -1493,224 +1559,204 @@ export default {
               },
               title: {
                 display: true,
-                text: isSingleMethod ? 
-                  `Điểm chuẩn toàn trường năm ${this.selectedYearForChart}` :
-                  ``,
+                text: `Điểm chuẩn trung bình ${method.name} theo khoa năm ${year}`,
                 font: {
-                  size: isSingleMethod ? 16 : 14,
+                  size: 14,
                   weight: 'bold'
                 }
-              },
-              tooltip: {
-                callbacks: {
-                  label: function(context) {
-                    return `Điểm: ${context.raw}`
-                  }
-                }
               }
-            },
-            // Add onResize callback to ensure chart fits within 60% of viewport height
-            onResize: (chart, size) => {
-              const maxHeight = window.innerHeight * 0.6
-              chart.canvas.parentNode.style.height = `${maxHeight}px`
             }
           }
         })
-        
-        // Set initial height for the chart container
-        const maxHeight = window.innerHeight * 0.6
-        chartContainer.style.height = `${maxHeight}px`
-        chartContainer.style.maxHeight = '60vh'
       }
+    },
+    
+    // Helper function to generate colors for years
+    getYearColor(index) {
+      const colors = [
+        'rgba(52, 152, 219, 0.7)',  // Blue
+        'rgba(46, 204, 113, 0.7)',  // Green
+        'rgba(155, 89, 182, 0.7)',  // Purple
+        'rgba(52, 73, 94, 0.7)',    // Dark Blue
+        'rgba(241, 196, 15, 0.7)',  // Yellow
+        'rgba(230, 126, 34, 0.7)',  // Orange
+        'rgba(231, 76, 60, 0.7)'    // Red
+      ]
+      return colors[index % colors.length]
+    },
+    
+    getYearBorderColor(index) {
+      const colors = [
+        'rgba(41, 128, 185, 1)',    // Blue
+        'rgba(39, 174, 96, 1)',     // Green
+        'rgba(142, 68, 173, 1)',    // Purple
+        'rgba(44, 62, 80, 1)',      // Dark Blue
+        'rgba(243, 156, 18, 1)',    // Yellow
+        'rgba(211, 84, 0, 1)',      // Orange
+        'rgba(192, 57, 43, 1)'      // Red
+      ]
+      return colors[index % colors.length]
     }
   }
 }
 </script>
 
 <style scoped>
+/* SEO-friendly and compact styles */
 .pre-admission-container {
-  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
-/* Header Section */
 .header-section {
-  background: linear-gradient(135deg, #003366 0%, #006699 100%);
-  color: white;
-  padding: 2.5rem 0 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
 }
 
 .main-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: #343a40;
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-  font-weight: 300;
+  color: #6c757d;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
 }
 
-/* View Controls */
 .view-controls {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1.5rem 0 0.5rem;
   flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.display-type, .chart-type {
-  margin: 0.5rem 0;
-}
-
-/* Content Section */
-.content-section {
-  flex: 1;
-  padding: 2rem 0;
-  background-color: #f8f9fa;
-}
-
-.loading-container, .error-container, .no-data-message {
-  text-align: center;
-  padding: 2rem;
-  margin: 2rem 0;
-}
-
-/* Table Styles */
-.filters {
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
+/* Table styles - kept as in original */
 .table-container {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-}
-
-.table {
-  width: 100%;
-  margin-bottom: 0;
-  border-collapse: collapse;
-}
-
-.table th, .table td {
-  vertical-align: middle;
-  text-align: center;
-  border: 1px solid #dee2e6;
-}
-
-.table th {
-  font-weight: 600;
-  background-color: #004d80;
-  color: white;
-}
-
-.method-header {
-  background-color: #004d80 !important;
-  color: white;
-}
-
-.year-header {
-  background-color: #0096c7 !important;
+  margin-bottom: 2rem;
 }
 
 .score-highlight {
-  font-weight: bold;
-  color: #007bff;
+  font-weight: 600;
+  color: #dc3545;
 }
 
-/* Chart Styles */
-.chart-container {
-  padding: 1rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+/* Chart container with scrolling functionality */
+.charts-outer-container {
+  position: relative;
+  width: 100%;
 }
 
+.charts-scrollable-container {
+  height: calc(100vh - 200px); /* Adjust based on your header height */
+  overflow-y: auto;
+  padding-bottom: 30px; /* Space for content below */
+  scrollbar-width: thin;
+  scrollbar-color: #6c757d #f1f1f1;
+}
+
+.charts-scrollable-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.charts-scrollable-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.charts-scrollable-container::-webkit-scrollbar-thumb {
+  background-color: #6c757d;
+  border-radius: 4px;
+}
+
+/* Chart styles */
 .chart-wrapper {
-  margin-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .chart-title {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
-  font-weight: 600;
-}
-
-.method-charts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Chuyển sang hiển thị dọc thay vì ma trận */
-.vertical-charts {
-  flex-direction: column;
-}
-
-/* Cải thiện container biểu đồ */
-.method-chart-container {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.method-chart-container:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-.method-chart-container h4 {
-  text-align: center;
+  color: #343a40;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.5rem;
   margin-bottom: 1rem;
-  font-weight: 600;
-  color: #333;
+  font-size: 1.2rem;
 }
 
-/* Sửa lại hiển thị xem tất cả các năm */
-.all-years-view {
+.chart-box {
+  height: 400px;
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 0.25rem;
+}
+
+.method-chart-container {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+}
+
+.method-chart-container h3 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #495057;
+}
+
+.filters {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Footer spacer to ensure scrolling before footer appears */
+.chart-footer-spacer {
+  height: 30px;
   width: 100%;
 }
 
-.no-copy {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-.no-copy::selection {
-  background: transparent;
-}
-
-.no-copy::-moz-selection {
-  background: transparent;
-}
-
-.no-copy td, .no-copy th {
-  -webkit-touch-callout: none;
-}
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
+  .main-title {
+    font-size: 1.5rem;
+  }
+  
+  .chart-box {
+    height: 300px; /* Smaller height on mobile */
+  }
+  
+  .charts-scrollable-container {
+    height: calc(100vh - 180px);
+  }
+  
   .method-chart-container {
-    width: 100%;
-    margin: 0 0 1.5rem 0;
+    padding: 0.75rem;
+  }
+}
+
+/* Accessibility improvements */
+.btn:focus, .form-control:focus, .form-select:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Print styles */
+@media print {
+  .charts-scrollable-container {
+    height: auto;
+    overflow: visible;
+  }
+  
+  .chart-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 1cm;
   }
 }
 </style>

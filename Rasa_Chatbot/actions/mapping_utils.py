@@ -843,3 +843,231 @@ def find_subjects_in_text(text: str) -> list:
                     break
     
     return found_subjects
+
+# Dictionary ánh xạ tên khoa
+FACULTY_MAPPING = {
+    # Công nghệ Nhiệt - Điện lạnh
+    "nhiệt": "104",
+    "công nghệ nhiệt": "104",
+    "công nghệ nhiệt điện lạnh": "104",
+    "điện lạnh": "104",
+    "nhiệt lạnh": "104",
+    "kỹ thuật nhiệt": "104",
+    
+    # Điện
+    "điện": "105",
+    "khoa điện": "105",
+    "kỹ thuật điện": "105",
+    "hệ thống điện": "105",
+    
+    # Môi trường
+    "môi trường": "117",
+    "khoa môi trường": "117",
+    "kỹ thuật môi trường": "117",
+    "công nghệ môi trường": "117",
+    
+    # Kiến trúc
+    "kiến trúc": "121",
+    "khoa kiến trúc": "121",
+    "kt": "121",
+    "kts": "121",
+    "thiết kế kiến trúc": "121",
+    
+    # Xây dựng Dân dụng và Công nghiệp
+    "xây dựng dân dụng và công nghiệp": "110",
+    "xd dân dụng": "110",
+    "xd công nghiệp": "110",
+    "xddd&cn": "110",
+    "xd dd&cn": "110",
+    "dân dụng": "110",
+    "xây dựng dân dụng": "110",
+    "dd&cn": "110",
+    
+    # Xây dựng Công trình thủy
+    "xây dựng công trình thủy": "111",
+    "công trình thủy": "111",
+    "xây dựng thủy": "111",
+    "ctt": "111",
+    "xdctt": "111",
+    "thủy lợi": "111",
+    
+    # Công nghệ thông tin
+    "công nghệ thông tin": "102",
+    "cntt": "102",
+    "it": "102",
+    "tin học": "102",
+    "khoa công nghệ thông tin": "102",
+    
+    # Điện tử viễn thông
+    "điện tử viễn thông": "106",
+    "đtvt": "106",
+    "điện tử": "106",
+    "viễn thông": "106",
+    "khoa điện tử": "106",
+    "kỹ thuật điện tử": "106",
+    "kỹ thuật điện tử viễn thông": "106",
+    
+    # Hóa
+    "hóa": "107",
+    "khoa hóa": "107",
+    "hóa học": "107",
+    "kỹ thuật hóa học": "107",
+    "công nghệ hóa": "107",
+    
+    # Xây dựng cầu đường
+    "xây dựng cầu đường": "109",
+    "cầu đường": "109",
+    "xdcđ": "109",
+    "công trình giao thông": "109",
+    "đường bộ": "109",
+    "xây dựng giao thông": "109",
+    
+    # Cơ khí
+    "cơ khí": "101",
+    "khoa cơ khí": "101",
+    "chế tạo máy": "101",
+    "kỹ thuật cơ khí": "101",
+    "cơ điện tử": "101",
+    
+    # Quản lý dự án
+    "quản lý dự án": "118",
+    "qldự án": "118",
+    "qlda": "118",
+    "quản lý xây dựng": "118",
+    "quản lý": "118",
+    "dự án": "118",
+    
+    # Khoa học Công nghệ tiên tiến
+    "khoa học công nghệ tiên tiến": "123",
+    "công nghệ tiên tiến": "123",
+    "khcn tiên tiến": "123",
+    "tiên tiến": "123",
+    "khoa học tiên tiến": "123",
+    
+    # Cơ khí Giao thông
+    "cơ khí giao thông": "103",
+    "ckgt": "103",
+    "kỹ thuật ô tô": "103",
+    "cơ khí động lực": "103",
+    "ô tô": "103",
+    "kỹ thuật tàu thủy": "103"
+}
+
+# Danh sách các từ khóa quan trọng để xác định khoa chính xác
+FACULTY_KEYWORDS = {
+    "104": ["nhiệt", "điện lạnh", "lạnh", "công nghệ nhiệt", "kỹ thuật nhiệt"],
+    "105": ["điện", "kỹ thuật điện", "hệ thống điện", "tự động hóa"],
+    "117": ["môi trường", "kỹ thuật môi trường", "tài nguyên"],
+    "121": ["kiến trúc", "thiết kế", "kts", "kiến trúc sư"],
+    "110": ["xây dựng dân dụng", "dân dụng", "công nghiệp", "xd", "dd&cn"],
+    "111": ["công trình thủy", "thủy", "thủy lợi", "đập", "hồ chứa"],
+    "102": ["công nghệ thông tin", "cntt", "lập trình", "phần mềm", "it"],
+    "106": ["điện tử", "viễn thông", "đtvt", "truyền thông", "kỹ thuật điện tử"],
+    "107": ["hóa", "hóa học", "công nghệ hóa", "vật liệu"],
+    "109": ["cầu đường", "giao thông", "xây dựng cầu", "đường bộ"],
+    "101": ["cơ khí", "chế tạo máy", "cơ điện tử", "kỹ thuật cơ khí"],
+    "118": ["quản lý dự án", "dự án", "quản lý xây dựng", "qlda"],
+    "123": ["tiên tiến", "công nghệ tiên tiến", "khoa học tiên tiến"],
+    "103": ["cơ khí giao thông", "ô tô", "tàu thủy", "động lực", "ckgt"]
+}
+
+# Từ điển phụ cho các biến thể cách viết khoa
+FACULTY_VARIANTS = {
+    "104": ["nhiệt", "điện lạnh", "công nghệ nhiệt - điện lạnh", "kỹ thuật nhiệt lạnh"],
+    "105": ["điện", "kỹ thuật điện", "khoa điện", "điện năng"],
+    "117": ["môi trường", "khoa môi trường", "kỹ thuật môi trường", "tài nguyên và môi trường"],
+    "121": ["kiến trúc", "khoa kiến trúc", "thiết kế kiến trúc", "kt"],
+    "110": ["xây dựng dân dụng và công nghiệp", "xddd&cn", "dân dụng và công nghiệp", "dd&cn"],
+    "111": ["xây dựng công trình thủy", "công trình thủy", "thủy lợi công trình", "xdctt"],
+    "102": ["công nghệ thông tin", "cntt", "tin học", "khoa cntt", "it"],
+    "106": ["điện tử viễn thông", "đtvt", "truyền thông", "kỹ thuật điện tử viễn thông"],
+    "107": ["hóa", "khoa hóa", "khoa hóa học", "kỹ thuật hóa học", "công nghệ hóa"],
+    "109": ["xây dựng cầu đường", "cầu đường", "xdcđ", "công trình giao thông", "kỹ thuật cầu đường"],
+    "101": ["cơ khí", "khoa cơ khí", "kỹ thuật cơ khí", "chế tạo máy", "cơ học"],
+    "118": ["quản lý dự án", "qlda", "quản lý công trình", "quản lý xây dựng"],
+    "123": ["khoa học công nghệ tiên tiến", "tiên tiến", "công nghệ tiên tiến", "khcn tiên tiến"],
+    "103": ["cơ khí giao thông", "ckgt", "kỹ thuật ô tô", "kỹ thuật tàu thủy", "động lực học"]
+}
+
+def normalize_faculty(text: Optional[str]) -> Optional[str]:
+    """
+    Chuẩn hóa và ánh xạ tên khoa từ văn bản đầu vào
+    
+    Args:
+        text (str): Tên khoa cần chuẩn hóa
+        
+    Returns:
+        str: ID hoặc tên khoa đã chuẩn hóa hoặc None nếu không nhận dạng được
+    """
+    if not text:
+        return None
+            
+    # Làm sạch và chuẩn hóa văn bản đầu vào
+    normalized_text = clean_text(text)
+    
+    # Thử tìm kiếm trực tiếp trong mapping
+    if normalized_text in FACULTY_MAPPING:
+        return FACULTY_MAPPING[normalized_text]
+    
+    # Tìm kiếm dựa trên từng từ khóa trong text và tính điểm khớp
+    match_scores = {}
+    for key, value in FACULTY_MAPPING.items():
+        # Tính điểm dựa trên có bao nhiêu từ của key có trong text
+        key_words = key.split()
+        score = sum(1 for word in key_words if word in normalized_text)
+        
+        # Cộng điểm nếu có từ khóa đặc biệt
+        for faculty_id, keywords in FACULTY_KEYWORDS.items():
+            if faculty_id == value and any(kw in normalized_text for kw in keywords):
+                score += 2
+        
+        # Cộng điểm nếu key là một phần của text
+        if key in normalized_text:
+            score += 3
+            
+        # Lưu điểm và ID khoa
+        if score > 0:
+            match_scores[value] = match_scores.get(value, 0) + score
+    
+    # Trả về kết quả có điểm cao nhất nếu có
+    if match_scores:
+        return max(match_scores.items(), key=lambda x: x[1])[0]
+    
+    # Thử tìm kiếm trong danh sách các biến thể
+    for faculty_id, variants in FACULTY_VARIANTS.items():
+        for variant in variants:
+            if variant in normalized_text:
+                return faculty_id
+            
+    return None
+
+def find_faculties_in_text(text: str) -> list:
+    """
+    Tìm tất cả các khoa có thể có trong một đoạn văn bản
+    
+    Args:
+        text (str): Đoạn văn bản cần tìm kiếm
+        
+    Returns:
+        list: Danh sách các ID khoa tìm thấy
+    """
+    if not text:
+        return []
+    
+    normalized_text = clean_text(text)
+    found_faculties = []
+    
+    # Kiểm tra các từ khóa chính xác
+    for key, value in FACULTY_MAPPING.items():
+        if key in normalized_text and value not in found_faculties:
+            found_faculties.append(value)
+    
+    # Kiểm tra các từ khóa đặc biệt
+    for faculty_id, keywords in FACULTY_KEYWORDS.items():
+        if faculty_id not in found_faculties:
+            for keyword in keywords:
+                if keyword in normalized_text:
+                    found_faculties.append(faculty_id)
+                    break
+    
+    return found_faculties

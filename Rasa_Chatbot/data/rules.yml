@@ -41,3 +41,18 @@ rules:
     steps:
     - intent: ask_major_by_subjects
     - action: action_suggest_major_by_subjects
+
+  - rule: ask_major_by_faculty
+    steps:
+    - intent: ask_major_by_faculty
+    - action: action_get_majors_by_faculty
+
+  - rule: Suggest major by score with method
+    steps:
+    - intent: ask_suggest_major_by_score_with_method
+    - action: action_suggest_major_by_score
+
+  - rule: Suggest major by score with method and faculty
+    steps:
+    - intent: ask_suggest_major_by_score_with_method_and_faculty
+    - action: action_suggest_major_by_score_with_method_and_faculty

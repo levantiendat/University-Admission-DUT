@@ -55,6 +55,9 @@ intents:
   - deny           # Thêm cho đầy đủ
   - request_human
   - ask_major_by_subjects
+  - ask_major_by_faculty
+  - ask_suggest_major_by_score_with_method
+  - ask_suggest_major_by_score_with_method_and_faculty
 
 entities:
   - major
@@ -62,6 +65,8 @@ entities:
   - achievement
   - contact
   - subject
+  - faculty
+  - score
 
 slots:
   major:
@@ -123,6 +128,16 @@ slots:
     mappings:
       - type: from_entity
         entity: contact
+  faculty:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: faculty
+  score:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: score
 
 responses:
 
@@ -374,6 +389,9 @@ actions:
   - action_handoff_to_human
   - action_default_fallback
   - action_suggest_major_by_subjects
+  - action_get_majors_by_faculty
+  - action_suggest_major_by_score
+  - action_suggest_major_by_score_with_method_and_faculty
 
 
 session_config:

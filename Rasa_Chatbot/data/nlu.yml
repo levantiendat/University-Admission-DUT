@@ -872,6 +872,54 @@ nlu:
     - Nếu tôi chọn môn [địa lý](subject) và [hóa học](subject) thì có thể xét tuyển vào ngành nào?
     - Tôi chọn môn [lịch sử](subject) và [công nghệ](subject) thì có thể đăng kí ngành nào?
     - Nếu tôi có thi [vẽ mỹ thuật](subject) thì có thể xét tuyển vào ngành nào?
+
+- intent: ask_major_by_faculty
+  examples: |
+    - Tôi muốn biết các ngành thuộc khoa [công nghệ thông tin](faculty) ?
+    - Các ngành thuộc khoa [điện](faculty) là gì?
+    - Khoa [hóa](faculty) có những ngành nào?
+    - Khoa [điện tử viễn thông](faculty) có ngành nào?
+    - Khoa [fast](faculty) có những ngành nào?
+    - Các ngành thuộc khoa [cơ khí](faculty) là gì?
+    - Khoa [cơ khí giao thông](faculty) có những ngành nào?
+    - Khoa [kiến trúc](faculty) có ngành nào?
+    - Khoa [công nghệ nhiệt điện lạnh](faculty) có những ngành nào?
+    - Các ngành thuộc khoa [xây dựng cầu đường](faculty) là gì?
+    - Khoa [xây dựng công trình thủy](faculty) có những ngành nào?
+    - Khoa [môi trường](faculty) có ngành nào?
+    - Khoa [khoa học công nghệ tiên tiến](faculty) có những ngành nào?
+    - Các ngành thuộc khoa [quản lý dự án](faculty) là gì?
+    - Khoa [xây dựng dân dụng công nghiệp](faculty) có những ngành nào?
+
+- intent: ask_suggest_major_by_score_with_method
+  examples: |
+    - em đạt được [26.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào?
+    - em đạt được [25.55](score) điểm ở phương thức [học bạ](method), em có thể đăng ký ngành nào?
+    - em đạt được [275](score) điểm ở phương thức [xét tuyển riêng](method), em có thể đăng ký ngành nào?
+    - em đạt được [23.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào?
+    - em đạt được [24.5](score) điểm ở phương thức [học bạ](method), em có thể đăng ký ngành nào?
+    - em đạt được [223.5](score) điểm ở phương thức [xét tuyển riêng](method), em có thể đăng ký ngành nào?
+    - em đạt được [56.67](score) điểm ở phương thức [đánh giá tư duy](method), em có thể đăng ký ngành nào?
+    - em đạt được [23.67](score) điểm ở phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào?
+    - với số điểm [22.67](score) ở phương thức [học bạ](method), em có thể đăng ký ngành nào?
+    - với số điểm [1026](score) điểm ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào?
+    - em đạt được [289.5](score) điểm ở phương thức [xét tuyển riêng](method) thì em có thể đăng ký ngành nào?
+    - với số điểm [434](score) ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào?
+
+- intent: ask_suggest_major_by_score_with_method_and_faculty
+  examples: |
+    - em đạt được [26.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin](faculty)?
+    - em đạt được [25.55](score) điểm ở phương thức [học bạ](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
+    - em đạt được [275](score) điểm ở phương thức [xét tuyển riêng](method), em có thể đăng ký ngành nào thuộc khoa [hóa](faculty)?
+    - em đạt được [23.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào thuộc khoa [điện tử viễn thông](faculty)?
+    - em đạt được [24.5](score) điểm ở phương thức [học bạ](method), em có thể đăng ký ngành nào thuộc khoa [cơ khí giao thông](faculty)?
+    - em đạt được [223.5](score) điểm ở phương thức [xét tuyển riêng](method), em có thể đăng ký ngành nào thuộc khoa [kiến trúc](faculty)?
+    - em đạt được [56.67](score) điểm ở phương thức [đánh giá tư duy](method), em có thể đăng ký ngành nào thuộc khoa [cơ khí giao thông](faculty)?
+    - em đạt được [23.67](score) điểm ở phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào thuộc khoa [xây dựng cầu đường](faculty)
+    - với số điểm [22.67](score) ở phương thức [học bạ](method), em có thể đăng ký ngành nào thuộc khoa [xây dựng công trình thủy](faculty) ?
+    - với số điểm [1026](score) điểm ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [môi trường](faculty)?
+    - em đạt được [289.5](score) điểm ở phương thức [xét tuyển riêng](method) thì em có thể đăng ký ngành nào thuộc khoa [quản lý dự án](faculty)?
+    - với số điểm [434](score) ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [xây dựng dân dụng công nghiệp](faculty)
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program
   examples: |
