@@ -66,7 +66,7 @@
               </a>
               <ul class="custom-dropdown-menu">
                 <li><router-link class="dropdown-item" to="/school-priority">Tra cứu điểm ưu tiên khu vực</router-link></li>
-                <li><router-link class="dropdown-item" to="/point-count">Tính điểm phương thức xét tuyển riêng</router-link></li>
+                <li><router-link class="dropdown-item" to="/calculatescore/xettuyenrieng">Tính điểm phương thức xét tuyển riêng</router-link></li>
                 <li><router-link class="dropdown-item" to="/calculatescore/hb">Tính điểm xét tuyển học bạ THPT</router-link></li>
                 <li><router-link class="dropdown-item" to="/calculatescore/thpt">Tính điểm xét tuyển thi THPT</router-link></li>
               </ul>

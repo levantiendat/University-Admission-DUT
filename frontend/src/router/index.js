@@ -111,7 +111,7 @@ const normalRoutes = [
   { path: '/district/:district_id', name: 'DistrictDetail', component: DistrictDetail , meta: { title: 'District Detail' } },
   { path: '/city/:city_id', name: 'CityDetail', component: CityDetail , meta: { title: 'City Detail' } },
   { path: '/ctdt/:id', name: 'CTDT', component: CTDT, meta: { title: 'Program' } },
-  { path: '/point-count', name: 'PointCount', component: PointCount, meta: { title: 'Point Count - ITF Help Student 2025' } },
+  { path: '/calculatescore/xettuyenrieng', name: 'PointCount', component: PointCount, meta: { title: 'Tính điểm xét tuyển riêng' } },
   { path: '/qa', name: 'QAList', component: QAList, meta: { requiresAuth: true, title: 'Q&A' } },
   { path: '/qa/:question_id', name: 'QADetail', component: QADetail, meta: { requiresAuth: true, title: 'Q&A - Chi tiết câu hỏi' } },
   { path: '/qa/create', name: 'QACreate', component: QACreate , meta: { requiresAuth: true, title: 'Q&A - Tạo câu hỏi' }},
