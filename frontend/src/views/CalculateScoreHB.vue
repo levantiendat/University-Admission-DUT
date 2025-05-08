@@ -268,7 +268,7 @@
                   v-model="priorityObject" 
                   data-live-search="true" 
                   data-width="100%"
-                  class="form-select form-select-sm" 
+                  class="form-select selectpicker" 
                   id="priority_object">
                   <option value="0" data-content="Không có đối tượng ưu tiên">Không có đối tượng ưu tiên</option>
                   <option value="ĐT01" data-content="Đối tượng 01:<br>Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú<br>trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu vực 1.">
