@@ -102,6 +102,8 @@ import CalculateScoreTHPT from '@/views/CalculateScoreTHPT.vue'
 import MajorList from '@/views/MajorList.vue'
 import MajorDetail from '@/views/MajorDetail.vue'
 
+import CTDTAll from '@/views/CTDTAll.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -161,6 +163,12 @@ const normalRoutes = [
     component: MajorDetail, 
     props: true,
     meta: { title: 'Chi tiết ngành tuyển sinh' } 
+  },
+  { 
+    path: '/ctdt', 
+    name: 'CTDTAll', 
+    component: CTDTAll, 
+    meta: { title: 'Khung Chương Trình Đào Tạo' } 
   },
 ]
 

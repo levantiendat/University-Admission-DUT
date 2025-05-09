@@ -37,13 +37,7 @@
           <ul class="navbar-nav ms-auto main-menu">
             <!-- Các mục luôn hiển thị -->
             <li class="nav-item dropdown menu-item">
-              <a class="nav-link dropdown-toggle custom-dropdown" href="#" role="button">
-                <i class="bi bi-house-fill me-1"></i> Home
-              </a>
-              <ul class="custom-dropdown-menu">
-                <li><router-link class="dropdown-item" to="/">Giới thiệu</router-link></li>
-                <li><router-link class="dropdown-item" to="/">Liên hệ</router-link></li>
-              </ul>
+              <router-link class="custom-dropdown dropdown-item" to="/"><i class="bi bi-house-fill me-1" ></i> Home</router-link>
             </li>
             <li class="nav-item dropdown menu-item">
               <a class="nav-link dropdown-toggle custom-dropdown" href="#" role="button">
@@ -85,6 +79,7 @@
                 <i class="bi bi-laptop-fill me-1"></i> Chương trình đào tạo
               </a>
               <ul class="custom-dropdown-menu">
+                <li><router-link class="dropdown-item" to="/ctdt">Danh sách chương trình đào tạo</router-link></li>
                 <li><router-link class="dropdown-item" to="/ctdt/1">Khoa Công nghệ thông tin</router-link></li>
               </ul>
             </li>
@@ -353,7 +348,7 @@ export default {
 <style scoped>
 /* CSS styles remain the same */
 .custom-header {
-  background-color: #efeff38f !important;
+  background-color: #efeff3f3 !important;
   position: sticky;
   top: 0;
   z-index: 1050;
@@ -362,12 +357,8 @@ export default {
 
 .custom-header.scrolled {
   backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.8) !important;
-  border-radius: 20px 20px 20px 20px;
+  background-color: rgba(197, 250, 250, 0.8) !important;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  top: 10px;
-  margin-left: 1%;
-  margin-right: 1%;
 }
 
 .px-5vw {
@@ -376,7 +367,7 @@ export default {
 }
 
 .header-logo {
-  height: 50px;
+  height: 40px;
   width: auto;
 }
 

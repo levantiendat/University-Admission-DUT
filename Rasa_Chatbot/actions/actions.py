@@ -42,7 +42,7 @@ class ActionCutoffScore(Action):
                 message = f"**Điểm chuẩn phương thức {rows[0]['method']} của ngành {rows[0]['major']}**:\n"
                 for row in rows:
                     message += f"- Năm {row['year']}: {row['score']}\n"
-                message += f"Thí sinh có thể tham khảo thêm thông tin chi tiết về ngành ở {rows[0]['majorUrl']}"
+                message += f"Thí sinh có thể tham khảo thêm thông tin chi tiết về ngành ở {rows[0]['majorUrl']} "
             else:
                 message = "❌ Không có dữ liệu cho ngành và phương thức bạn yêu cầu."
 
@@ -98,6 +98,7 @@ class ActionMajorByMethod(Action):
                 message = f"📌 **Các ngành có xét tuyển bằng phương thức {rows[0]['method']}**:\n"
                 for row in rows:
                     message += f"- {row['major']}\n"
+                message += f"\n💡 Bạn có thể tham khảo thêm thông tin chi tiết về phương thức xét tuyển ở {rows[0]['methodUrl']}"
             else:
                 message = "❌ Không tìm thấy ngành nào có phương thức tuyển sinh này."
         else:
@@ -131,7 +132,7 @@ class ActionCombinationMajor(Action):
                 message = f"📚 **Tổ hợp môn xét tuyển của ngành {combinations[0]['major']}**:\n\n"
                 for idx, combo in enumerate(combinations, 1):
                     message += f"{idx}. {combo['subject_combination']}\n"
-                message += f"\n💡 *Bạn có thể tham khảo thêm thông tin của ngành này ở {combinations[0]['majorUrl']}.*"
+                message += f"\n💡 *Bạn có thể tham khảo thêm thông tin của ngành này ở {combinations[0]['majorUrl']} .*"
             else:
                 message = f"❗ Không tìm thấy thông tin về tổ hợp môn xét tuyển cho ngành **{major_keyword}**.\n\nVui lòng kiểm tra lại tên ngành hoặc liên hệ với nhà trường để biết thêm thông tin."
         else:
@@ -305,7 +306,7 @@ class ActionSuggestMajorByAchievement(Action):
             for i, major_info in enumerate(majors, 1):
                 message += f"{i}. {major_info['major']}\n"
             
-            message += "\n💡 *Bạn có thể tìm hiểu thêm về điểm chuẩn, tổ hợp môn và phương thức xét tuyển của các ngành này.*"
+            message += "\n💡 *Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển riêng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang *"
         else:
             message = f"❗ Thành tích '{achievement_type} không tìm thấy ngành phù hợp'.\n\nVui lòng chia sẻ thêm về thành tích khác để tôi tư vấn tốt hơn."
         
@@ -487,7 +488,7 @@ class ActionSuggestMajorBySubjects(Action):
                 
             
             # Thêm gợi ý
-            message += "\n💡 *Bạn có thể hỏi thêm về điểm chuẩn hoặc thông tin chi tiết của từng ngành.*"
+            message += "\n💡 Bạn có thể xem chi tiết về phương thức xét điểm thi tốt nghiệp trung học phổ thông /admission/totnghiep_thpt"
         else:
             subjects_str = ", ".join(normalized_subjects)
             message = f"❌ Không tìm thấy ngành nào phù hợp với môn **{subjects_str}**.\n\n" \
@@ -557,11 +558,7 @@ class ActionGetMajorsByFaculty(Action):
         dispatcher.utter_message(text=message)
         
         # Lưu thông tin vào slot để sử dụng sau này
-        return [
-            SlotSet("faculty", faculty),
-            SlotSet("faculty_id", faculty_id),
-            SlotSet("faculty_name", faculty_name)
-        ]
+        return []
     
 class ActionSuggestMajorByScore(Action):
     def name(self) -> str:
@@ -784,12 +781,7 @@ class ActionSuggestMajorByScoreWithMethodAndFaculty(Action):
             
             dispatcher.utter_message(text=message)
             
-            return [
-                SlotSet("score", score_entity),
-                SlotSet("method", method_entity),
-                SlotSet("faculty", faculty_entity),
-                SlotSet("faculty_id", faculty_id)
-            ]
+            return []
             
         except ValueError:
             dispatcher.utter_message(text=f"❌ Điểm số '{score_entity}' không hợp lệ. Vui lòng nhập một số.")

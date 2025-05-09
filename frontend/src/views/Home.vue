@@ -43,11 +43,11 @@
         <div class="row g-4">
           <!-- Tính điểm xét tuyển -->
           <div class="col-md-4">
-            <router-link to="/point-count" class="function-card">
+            <router-link to="/calculatescore/xettuyenrieng" class="function-card">
               <div class="function-image-container">
-                <img src="/calculator.png" alt="Tính điểm xét tuyển" class="function-image">
+                <img src="/calculator.png" alt="Tính điểm xét tuyển phương thức xét tuyển riêng" class="function-image">
                 <div class="function-overlay">
-                  <h3 class="function-title">Tính điểm xét tuyển</h3>
+                  <h3 class="function-title">Tính điểm xét tuyển phương thức xét tuyển riêng</h3>
                 </div>
               </div>
             </router-link>

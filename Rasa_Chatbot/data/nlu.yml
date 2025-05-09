@@ -192,28 +192,22 @@ nlu:
 
 - intent: ask_direct_admission_detail
   examples: |
-    - chi tiết xét tuyển thẳng CNTT
-    - xét tuyển thẳng CNTT như thế nào?
-    - điều kiện xét tuyển thẳng CNTT là gì?
-    - yêu cầu xét tuyển thẳng CNTT
-    - yêu cầu xét tuyển thẳng công nghệ thông tin
-    - chi tiết xét tuyển thẳng công nghệ thông tin
-    - phương thức xét tuyển thẳng công nghệ thông tin
-    - phương thức xét tuyển thẳng cntt
+    - xét tuyển thẳng là gì?
+    - thông tin chi tiết phương thức xét tuyển thẳng
+    - thông tin phương thức xét tuyển thẳng
+    - điều kiện xét tuyển thẳng
+    - yêu cầu xét tuyển thẳng
+
 
 - intent: ask_xet_tuyen_rieng_detail
   examples: |
-    - chi tiết xét tuyển riêng CNTT là gì?
-    - chi tiết xét tuyển riêng CNTT
-    - chi tiết xét tuyển riêng công nghệ thông tin
-    - phương thức xét tuyển riêng cntt
-    - phương thức xét tuyển riêng công nghệ thông tin
-    - xét tuyển riêng CNTT như thế nào?
-    - xét tuyển riêng công nghệ thông tin như thế nào?
-    - điều kiện xét tuyển riêng CNTT
-    - điều kiện xét tuyển riêng công nghệ thông tin
-    - yêu cầu xét tuyển riêng CNTT
-    - yêu cầu xét tuyển riêng công nghệ thông tin
+    - chi tiết phương thức xét tuyển riêng
+    - thông tin phương thức xét tuyển riêng
+    - thông tin chi tiết phương thức xét tuyển riêng
+    - điều kiện xét tuyển riêng
+    - yêu cầu xét tuyển riêng
+    - phương thức xét tuyển riêng là gì?
+    - phương thức xét tuyển riêng là như thế nào?
 
 - intent: ask_diem_thi_TN_THPT
   examples: |
@@ -227,13 +221,17 @@ nlu:
 
 - intent: ask_admission_process
   examples: |
-    - quy trình xét tuyển CNTT như thế nào?
-    - cách thức xét tuyển CNTT ra sao?
-    - quy trình tuyển sinh CNTT
-    - quá trình xét tuyển CNTT là gì?
-    - cách thức xét tuyển
-    - quy trình xét tuyển công nghệ thông tin
-    - cách thức xét tuyển công nghệ thông tin
+    - các đăng kí xét tuyển như thế nào?
+    - cách đăng kí xét tuyển
+    - cách đăng kí xét tuyển theo phương thức xét tuyển riêng
+    - cách đăng kí xét tuyển theo phương thức xét tuyển thẳng
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi tốt nghiệp
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi đánh giá năng lực
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi đánh giá tư duy
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi TSA
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi VACT
+    - cách đăng kí xét tuyển vào trường đại học bách khoa
+    - cách đăng kí xét tuyển vào trường đại học bách khoa hà nội
 
 - intent: ask_dgnl
   examples: |
