@@ -153,7 +153,7 @@
                 <div class="fw-bold text-danger">TRƯỜNG ĐẠI HỌC BÁCH KHOA</div>
               </div>
             </div>
-            <p><i class="bi bi-geo-alt-fill me-2"></i> 54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</p>
+            <p><i class="bi bi-geo-alt-fill me-2"></i> 54 Nguyễn Lương Bằng, Phường Hòa Khánh Bắc, Quận Liên Chiểu, Thành Phố Đà Nẵng</p>
             <p><i class="bi bi-telephone-fill me-2"></i> 0888 477 377 - 0888 377 177 - 0888 577 277</p>
             <p><i class="bi bi-envelope-fill me-2"></i> tuyensinhbkdn@dut.udn.vn</p>
           </div>

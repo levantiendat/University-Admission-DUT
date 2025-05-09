@@ -223,7 +223,7 @@
                 </div>
               </div>
               
-              <!-- Điểm chuẩn các năm tab - Đã tối ưu, nổi bật hơn -->
+              <!-- Điểm chuẩn các năm tab - Đã được cập nhật để hiển thị động -->
               <div class="tab-pane fade" id="previous-scores" role="tabpanel" aria-labelledby="previous-scores-tab">
                 <h2 class="section-title">
                   <i class="bi bi-award me-2" aria-hidden="true"></i>
@@ -244,18 +244,15 @@
                     </div>
                   </div>
                   
-                  <!-- Bảng điểm chuẩn tổng hợp các năm - thiết kế nổi bật -->
+                  <!-- Bảng điểm chuẩn tổng hợp các năm - thiết kế động theo dữ liệu thực tế -->
                   <div class="benchmark-table">
                     <div class="table-responsive">
                       <table class="table table-hover table-bordered score-table">
                         <thead>
                           <tr>
                             <th scope="col" class="method-col">Phương thức xét tuyển</th>
-                            <th scope="col" class="year-col text-center">
-                              <span class="year-label">2023</span>
-                            </th>
-                            <th scope="col" class="year-col text-center">
-                              <span class="year-label">2024</span>
+                            <th v-for="year in sortedYears" :key="`year-header-${year}`" scope="col" class="year-col text-center">
+                              <span class="year-label">{{ year }}</span>
                             </th>
                           </tr>
                         </thead>
@@ -269,11 +266,10 @@
                                 <span>{{ method }}</span>
                               </div>
                             </td>
-                            <td class="text-center score-2023" :class="getScoreClass('2023', method)">
-                              {{ getScoreForYearAndMethod('2023', method) }}
-                            </td>
-                            <td class="text-center score-2024" :class="getScoreClass('2024', method)">
-                              {{ getScoreForYearAndMethod('2024', method) }}
+                            <td v-for="year in sortedYears" :key="`year-score-${year}-${methodIndex}`" 
+                              class="text-center" 
+                              :class="`score-${year} ${getScoreClass(year, method)}`">
+                              {{ getScoreForYearAndMethod(year, method) }}
                             </td>
                           </tr>
                         </tbody>
@@ -820,7 +816,7 @@ export default {
 }
 
 /* Score cells styling */
-.score-table td.score-2023, .score-table td.score-2024 {
+.score-table td[class*="score-2"] {
   font-weight: 700;
   font-size: 0.95rem;
   position: relative;
@@ -891,7 +887,7 @@ export default {
     font-size: 0.8rem;
   }
   
-  .score-table td.score-2023, .score-table td.score-2024 {
+  .score-table td[class*="score-2"] {
     font-size: 0.85rem;
   }
 }
