@@ -42,6 +42,7 @@ class ActionCutoffScore(Action):
                 message = f"**Điểm chuẩn phương thức {rows[0]['method']} của ngành {rows[0]['major']}**:\n"
                 for row in rows:
                     message += f"- Năm {row['year']}: {row['score']}\n"
+                message += f"Thí sinh có thể tham khảo thêm thông tin chi tiết về ngành ở {rows[0]['majorUrl']}"
             else:
                 message = "❌ Không có dữ liệu cho ngành và phương thức bạn yêu cầu."
 
@@ -54,6 +55,7 @@ class ActionCutoffScore(Action):
                     grouped.setdefault(row["method"], []).append(f"  - Năm {row['year']}: {row['score']}")
                 for method, scores in grouped.items():
                     message += f"\n👉 {method}:\n" + "\n".join(scores)
+                message += f"Bạn có thể tham khảo thêm thông tin chi tiết về ngành ở {rows[0]['majorUrl']}"
             else:
                 message = "❌ Không tìm thấy điểm chuẩn cho ngành bạn hỏi."
 
@@ -67,6 +69,7 @@ class ActionCutoffScore(Action):
                         current_major = row['major']
                         message += f"\n📌 {current_major}:\n"
                     message += f"- Năm {row['year']}: {row['score']}\n"
+                message += f"Bạn có thể tham khảo thêm thông tin điểm chuẩn các phương thức khác /statistics/previous-admission"
             else:
                 message = "❌ Không tìm thấy ngành nào có phương thức tuyển sinh này."
         else:
@@ -128,7 +131,7 @@ class ActionCombinationMajor(Action):
                 message = f"📚 **Tổ hợp môn xét tuyển của ngành {combinations[0]['major']}**:\n\n"
                 for idx, combo in enumerate(combinations, 1):
                     message += f"{idx}. {combo['subject_combination']}\n"
-                message += "\n💡 *Bạn có thể tham khảo điểm chuẩn của ngành này theo từng năm và phương thức xét tuyển.*"
+                message += f"\n💡 *Bạn có thể tham khảo thêm thông tin của ngành này ở {combinations[0]['majorUrl']}.*"
             else:
                 message = f"❗ Không tìm thấy thông tin về tổ hợp môn xét tuyển cho ngành **{major_keyword}**.\n\nVui lòng kiểm tra lại tên ngành hoặc liên hệ với nhà trường để biết thêm thông tin."
         else:
@@ -172,6 +175,7 @@ class ActionAskMethodsForMajor(Action):
                 
                 if len(methods) == 0:
                     message = f"❌ Không tìm thấy thông tin về phương thức xét tuyển cho ngành {major_input}."
+                message += f"💡 Bạn có thể xem thêm thông tin của ngành {results[0]['majorUrl']}"
             else:
                 message = f"❌ Không tìm thấy thông tin về phương thức xét tuyển cho ngành {major_input}."
         else:
@@ -207,11 +211,14 @@ class ActionAskIfMajorAcceptsMethod(Action):
             
             if result["exists"]:
                 message = f"✅ **Có, ngành {result['major_name']} có xét tuyển bằng phương thức {result['method_name']}.**"
+                message += f"\n\n💡 Bạn có thể xem thêm thông tin chi tiết về ngành ở {result['majorUrl']}"
             else:
                 if result["major_name"] and result["method_name"]:
                     message = f"❌ **Không, ngành {result['major_name']} không xét tuyển bằng phương thức {result['method_name']}.**"
+                    message += f"\n\n💡 Bạn có thể xem thêm các phương thức xét tuyển về ngành ở {result['majorUrl']}"
                 elif result["major_name"]:
                     message = f"❌ **Không tìm thấy phương thức xét tuyển \"{method_input}\" cho ngành {result['major_name']}.**"
+                    message += f"\n\n💡 Bạn có thể xem thêm thông tin chi tiết về ngành ở {result['majorUrl']}"
                 elif result["method_name"]:
                     message = f"❌ **Không tìm thấy ngành \"{major_input}\" có xét tuyển bằng phương thức {result['method_name']}.**"
                 else:
@@ -253,7 +260,7 @@ class ActionGetMajorQuota(Action):
             if result["found"]:
                 if result["quota"]:
                     message = f"📊 **Chỉ tiêu tuyển sinh ngành {result['name']}**: {result['quota']} sinh viên."
-                    message += "\n\n💡 *Lưu ý: Chỉ tiêu có thể thay đổi theo từng năm, đây là thông tin mới nhất mà tôi có.*"
+                    message += f"\n\n💡 *Lưu ý: Chỉ tiêu có thể thay đổi theo từng năm, bạn có thể tham khảo thêm chi tiết về ngành ở {result['majorUrl']}.*"
                 else:
                     message = f"❗ Ngành {result['name']} hiện chưa có thông tin về chỉ tiêu tuyển sinh."
             else:

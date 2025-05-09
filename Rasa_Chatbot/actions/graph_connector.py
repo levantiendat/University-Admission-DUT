@@ -14,6 +14,7 @@ class GraphConnector:
         WHERE m.id = $major
             AND c.method CONTAINS $method
         RETURN m.name AS major, 
+        m.major_url AS majorUrl,
         method.name AS method, 
         c.method AS methodId, 
         c.year AS year, 
@@ -30,6 +31,7 @@ class GraphConnector:
         MATCH (method:Method {id: c.method})
         WHERE m.id = $major
         RETURN m.name AS major, 
+        m.major_url AS majorUrl,
         method.name AS method, 
         c.method AS methodId, 
         c.year AS year, 
@@ -71,7 +73,7 @@ class GraphConnector:
         MATCH (m:Major)
         WHERE m.id = $major
         MATCH (m)-[:USES_COMBINATION]->(sc:SubjectCombination)
-        RETURN sc.name AS subject_combination , m.name AS major
+        RETURN sc.name AS subject_combination , m.name AS major, m.major_url AS majorUrl
         """
         with self.driver.session() as session:
             result = session.run(query, {"major": major_keyword})
@@ -81,7 +83,7 @@ class GraphConnector:
         query = """
         MATCH (m:Major)-[r:HAS_METHOD_2025]->(c:Method)
         WHERE m.id = $major
-        RETURN DISTINCT m.name as major, c.name AS method
+        RETURN DISTINCT m.name as major, m.major_url as majorUrl, c.name AS method
         """
         with self.driver.session() as session:
             result = session.run(query, {"major": major_keyword})
@@ -115,6 +117,7 @@ class GraphConnector:
     RETURN 
         m.id AS major_id, 
         m.name AS major_name,
+        m.major_url AS majorUrl,
         mt.id AS method_id,
         mt.name AS method_name,
         CASE WHEN r IS NULL THEN false ELSE true END AS exists
@@ -161,7 +164,7 @@ class GraphConnector:
         query = """
         MATCH (m:Major)
         WHERE m.id = $major
-        RETURN m.id AS major_id, m.name AS name, m.quota AS quota
+        RETURN m.id AS major_id, m.name AS name, m.major_url AS majorUrl, m.quota AS quota
         """
     
         with self.driver.session() as session:

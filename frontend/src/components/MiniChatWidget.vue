@@ -5,7 +5,7 @@
         class="chat-toggle-btn" 
         @click="toggleChat" 
         :class="{ 'active': isChatOpen }"
-        v-tooltip="isChatOpen ? 'Thu nhỏ' : 'Chat với trợ lý'"
+        :title="isChatOpen ? 'Thu nhỏ' : 'Chat với trợ lý'"
       >
         <i v-if="isChatOpen" class="bi bi-x-lg"></i>
         <i v-else class="bi bi-chat-dots-fill"></i>
@@ -20,10 +20,10 @@
             <div>Trợ lý tuyển sinh</div>
           </div>
           <div class="mini-chat-actions">
-            <button @click="resetChat" class="btn btn-sm btn-link text-white">
+            <button @click="resetChat" class="btn btn-sm btn-link text-white" title="Bắt đầu lại">
               <i class="bi bi-arrow-repeat"></i>
             </button>
-            <button @click="goToFullChat" class="btn btn-sm btn-link text-white">
+            <button @click="goToFullChat" class="btn btn-sm btn-link text-white" title="Mở rộng">
               <i class="bi bi-arrows-angle-expand"></i>
             </button>
           </div>
@@ -40,7 +40,15 @@
               <img v-else src="@/assets/dut_logo.jpg" alt="Bot" class="mini-bot-avatar" />
             </div>
             <div class="mini-message-content">
-              <div class="mini-message-text" v-html="formatMessage(message.text)"></div>
+              <div class="mini-message-text" v-html="formatMessage(message.visibleText)"></div>
+              
+              <!-- Document download section if applicable -->
+              <div v-if="message.documentContent" class="mini-document-download">
+                <p>Thông tin sẽ nằm ở file word, bạn có thể tải xuống</p>
+                <button @click="downloadDocument(message.documentContent, message.docFilename)" class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-download"></i> {{ message.docFilename }}
+                </button>
+              </div>
               
               <!-- Handle buttons if any -->
               <div v-if="message.buttons && message.buttons.length" class="mini-message-buttons">
@@ -140,7 +148,33 @@
         
         // Convert URLs to links
         const urlRegex = /(https?:\/\/[^\s]+)/g;
-        return text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`);
+        // Convert internal path links to router links
+        const internalLinkRegex = /\s(\/[a-zA-Z0-9\/\-_]+)(\s|$)/g;
+        
+        let formattedText = text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`);
+        formattedText = formattedText.replace(internalLinkRegex, (match, path, endChar) => {
+          return ` <a href="javascript:void(0)" onclick="window.dispatchEvent(new CustomEvent('navigate-to', {detail: '${path}'}))" class="internal-link">Tại đây</a>${endChar}`;
+        });
+        
+        return formattedText;
+      };
+      
+      // Create and download document
+      const downloadDocument = (content, filename) => {
+        // In a real implementation, you would use docx.js to create a properly formatted Word document
+        
+        // For now, create a basic document with header text
+        const headerText = "Đại Học Đà Nẵng - Trường Đại Học Bách Khoa\n\n";
+        const fullContent = headerText + content;
+        const blob = new Blob([fullContent], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       };
       
       // Scroll to bottom of message container
@@ -157,6 +191,7 @@
         loading.value = true;
         
         try {
+          // Get updated messages from controller (processing is done in the controller)
           messages.value = await ChatRasaController.sendMessage(newMessage.value.trim());
           newMessage.value = '';
         } catch (error) {
@@ -195,13 +230,18 @@
         });
       }, { deep: true });
       
+      // Listen for custom navigation events
+      onMounted(() => {
+        window.addEventListener('navigate-to', (event) => {
+          const path = event.detail;
+          router.push(path);
+        });
+      });
+      
       // Load existing chat history when mounted
       onMounted(() => {
         if (isAuthenticated.value) {
-          const existingMessages = ChatRasaController.getChatHistory();
-          if (existingMessages.length > 0) {
-            messages.value = existingMessages;
-          }
+          messages.value = ChatRasaController.getChatHistory();
         }
       });
       
@@ -218,7 +258,8 @@
         sendMessage,
         formatMessage,
         handleButtonClick,
-        resetChat
+        resetChat,
+        downloadDocument
       };
     }
   }
@@ -397,10 +438,32 @@
   }
   
   .mini-message-text {
-  word-break: break-word;
-  line-height: 1.3;
-  white-space: pre-wrap; /* This preserves line breaks */
-}
+    word-break: break-word;
+    line-height: 1.3;
+    white-space: pre-wrap; /* This preserves line breaks */
+  }
+  
+  .mini-message-text a {
+    color: inherit;
+    text-decoration: underline;
+  }
+  
+  .internal-link {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .mini-document-download {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+    font-size: 0.85rem;
+  }
+  
+  .mini-document-download p {
+    margin-bottom: 5px;
+  }
   
   .mini-message-buttons {
     display: flex;

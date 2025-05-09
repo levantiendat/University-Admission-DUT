@@ -20,7 +20,8 @@ export default {
         id: Date.now(),
         text: message,
         sender: 'user',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        visibleText: message
       };
       chatHistory.push(userMessage);
       
@@ -31,6 +32,8 @@ export default {
       if (response && response.length > 0) {
         if (response.length === 1) {
           // Single message response - handle normally
+          const processedMessage = this.processMessageContent(response[0].text || '');
+          
           const botMessage = {
             id: Date.now() + Math.random(),
             text: response[0].text || '',
@@ -38,7 +41,10 @@ export default {
             timestamp: new Date().toISOString(),
             buttons: response[0].buttons || [],
             image: response[0].image || null,
-            custom: response[0].custom || null
+            custom: response[0].custom || null,
+            visibleText: processedMessage.visibleText,
+            documentContent: processedMessage.documentContent,
+            docFilename: processedMessage.documentContent ? `data_${Date.now()}.docx` : null
           };
           chatHistory.push(botMessage);
         } else {
@@ -47,47 +53,73 @@ export default {
           let buttons = [];
           let image = null;
           let custom = null;
+          let hasDocument = false;
           
-          // Combine all messages from the response
-          response.forEach((msg, index) => {
-            // Add the message text, preserving all newlines
-            if (msg.text) {
-              // Only add separator between messages, not before the first one
-              if (consolidatedText !== '') {
-                consolidatedText += '\n\n'; // Double newline between separate messages
+          // Check if any message contains a document
+          for (const msg of response) {
+            if (msg.text && msg.text.includes('<document>')) {
+              hasDocument = true;
+              break;
+            }
+          }
+          
+          if (hasDocument) {
+            // If there's a document, only use that message
+            for (const msg of response) {
+              if (msg.text && msg.text.includes('<document>')) {
+                const processedMessage = this.processMessageContent(msg.text);
+                
+                const botMessage = {
+                  id: Date.now() + Math.random(),
+                  text: msg.text,
+                  sender: 'bot',
+                  timestamp: new Date().toISOString(),
+                  buttons: msg.buttons || [],
+                  image: msg.image || null,
+                  custom: msg.custom || null,
+                  visibleText: processedMessage.visibleText,
+                  documentContent: processedMessage.documentContent,
+                  docFilename: processedMessage.documentContent ? `data_${Date.now()}.docx` : null
+                };
+                chatHistory.push(botMessage);
+                break;
+              }
+            }
+          } else {
+            // No document, combine messages as before
+            response.forEach((msg) => {
+              if (msg.text) {
+                if (consolidatedText !== '') {
+                  consolidatedText += '\n\n';
+                }
+                consolidatedText += msg.text;
               }
               
-              // Add the message text as is, preserving all original line breaks
-              consolidatedText += msg.text;
-            }
+              if (msg.buttons && msg.buttons.length) {
+                buttons = [...buttons, ...msg.buttons];
+              }
+              
+              if (!image && msg.image) {
+                image = msg.image;
+              }
+              
+              if (msg.custom) {
+                custom = {...custom, ...msg.custom};
+              }
+            });
             
-            // Collect any buttons from any part of the response
-            if (msg.buttons && msg.buttons.length) {
-              buttons = [...buttons, ...msg.buttons];
-            }
-            
-            // Use the first image found (if any)
-            if (!image && msg.image) {
-              image = msg.image;
-            }
-            
-            // Merge custom data if present
-            if (msg.custom) {
-              custom = {...custom, ...msg.custom};
-            }
-          });
-          
-          // Create a single consolidated message
-          const botMessage = {
-            id: Date.now() + Math.random(),
-            text: consolidatedText,
-            sender: 'bot',
-            timestamp: new Date().toISOString(),
-            buttons: buttons.length > 0 ? buttons : null,
-            image: image,
-            custom: custom
-          };
-          chatHistory.push(botMessage);
+            const botMessage = {
+              id: Date.now() + Math.random(),
+              text: consolidatedText,
+              sender: 'bot',
+              timestamp: new Date().toISOString(),
+              buttons: buttons.length > 0 ? buttons : null,
+              image: image,
+              custom: custom,
+              visibleText: consolidatedText
+            };
+            chatHistory.push(botMessage);
+          }
         }
       } else {
         // Fallback if no response
@@ -95,7 +127,8 @@ export default {
           id: Date.now() + Math.random(),
           text: "Sorry, I'm having trouble connecting. Please try again later.",
           sender: 'bot',
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          visibleText: "Sorry, I'm having trouble connecting. Please try again later."
         });
       }
       
@@ -113,11 +146,35 @@ export default {
         text: "I'm sorry, something went wrong. Please try again later.",
         sender: 'bot',
         timestamp: new Date().toISOString(),
-        isError: true
+        isError: true,
+        visibleText: "I'm sorry, something went wrong. Please try again later."
       });
       ChatRasaServices.saveChatHistory(store.state.user?.id || 'anonymous', chatHistory);
       return chatHistory;
     }
+  },
+
+  /**
+   * Process message content to separate visible text from document content
+   * @param {string} messageText - Original message text
+   * @returns {Object} - Object with visibleText and documentContent
+   */
+  processMessageContent(messageText) {
+    if (!messageText) {
+      return { visibleText: '', documentContent: null };
+    }
+    
+    // Check if message contains <document> tag
+    const documentTagIndex = messageText.indexOf('<document>');
+    if (documentTagIndex === -1) {
+      return { visibleText: messageText, documentContent: null };
+    }
+    
+    // Split the message into visible text and document content
+    const visibleText = messageText.substring(0, documentTagIndex).trim();
+    const documentContent = messageText.substring(documentTagIndex + 10).trim(); // +10 to skip '<document>' tag
+    
+    return { visibleText, documentContent };
   },
 
   /**
@@ -126,7 +183,21 @@ export default {
    */
   getChatHistory() {
     const userId = store.state.user?.id || 'anonymous';
-    return ChatRasaServices.getChatHistory(userId);
+    const chatHistory = ChatRasaServices.getChatHistory(userId);
+    
+    // Process any existing messages to ensure they have visibleText property
+    return chatHistory.map(message => {
+      if (message.sender === 'bot' && !message.visibleText) {
+        const processedMessage = this.processMessageContent(message.text || '');
+        return {
+          ...message,
+          visibleText: processedMessage.visibleText,
+          documentContent: processedMessage.documentContent,
+          docFilename: processedMessage.documentContent ? `data_${Date.now()}.docx` : null
+        };
+      }
+      return message.visibleText ? message : { ...message, visibleText: message.text };
+    });
   },
 
   /**
@@ -152,11 +223,12 @@ export default {
         id: Date.now(),
         text: "Xin chào! Tôi là trợ lý ảo của Trường Đại học Bách Khoa - Đại Học Đà Nẵng. Tôi có thể giúp gì cho bạn về thông tin tuyển sinh?",
         sender: 'bot',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        visibleText: "Xin chào! Tôi là trợ lý ảo của Trường Đại học Bách Khoa - Đại Học Đà Nẵng. Tôi có thể giúp gì cho bạn về thông tin tuyển sinh?"
       }];
       ChatRasaServices.saveChatHistory(userId, chatHistory);
     }
     
-    return chatHistory;
+    return this.getChatHistory();
   }
 };

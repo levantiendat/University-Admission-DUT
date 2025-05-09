@@ -26,7 +26,15 @@
             <img v-else src="@/assets/dut_logo.jpg" alt="Bot" class="bot-avatar" />
           </div>
           <div class="message-content">
-            <div class="message-text" v-html="formatMessage(message.text)"></div>
+            <div class="message-text" v-html="formatMessage(message.visibleText)"></div>
+            
+            <!-- Document download section if applicable -->
+            <div v-if="message.documentContent" class="document-download-section">
+              <p>Thông tin sẽ nằm ở file word, bạn có thể tải xuống</p>
+              <button @click="downloadDocument(message.documentContent, message.docFilename)" class="btn btn-sm btn-primary">
+                <i class="bi bi-download"></i> {{ message.docFilename }}
+              </button>
+            </div>
             
             <!-- Handle buttons if any -->
             <div v-if="message.buttons && message.buttons.length" class="message-buttons">
@@ -84,11 +92,13 @@
   <script>
   import { ref, onMounted, nextTick, watch } from 'vue';
   import ChatRasaController from '@/controllers/ChatRasaController';
+  import { useRouter } from 'vue-router';
   
   export default {
     name: 'ChatRasaView',
     
     setup() {
+      const router = useRouter();
       const messages = ref([]);
       const newMessage = ref('');
       const loading = ref(false);
@@ -120,7 +130,80 @@
         
         // Convert URLs to links
         const urlRegex = /(https?:\/\/[^\s]+)/g;
-        return text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`);
+        // Convert internal path links to router links (replace with "Tại đây")
+        const internalLinkRegex = /\s(\/[a-zA-Z0-9\/\-_]+)(\s|$)/g;
+        
+        let formattedText = text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`);
+        formattedText = formattedText.replace(internalLinkRegex, (match, path, endChar) => {
+          return ` <a href="javascript:void(0)" onclick="window.dispatchEvent(new CustomEvent('navigate-to', {detail: '${path}'}))" class="internal-link">Tại đây</a>${endChar}`;
+        });
+        
+        return formattedText;
+      };
+      
+      // Create and download document
+      const downloadDocument = (content, filename) => {
+        // In a real implementation, you would use docx.js or a similar library to create
+        // a properly formatted Word document with Times New Roman font and proper margins
+        // For example (simplified version):
+        
+        /* 
+        import { Document, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel } from 'docx';
+        
+        // Create document with proper formatting
+        const doc = new Document({
+          sections: [{
+            properties: {},
+            children: [
+              new Paragraph({
+                heading: HeadingLevel.HEADING_1,
+                alignment: AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    text: "Đại Học Đà Nẵng - Trường Đại Học Bách Khoa",
+                    bold: true,
+                    font: "Times New Roman"
+                  })
+                ]
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: content,
+                    font: "Times New Roman",
+                    size: 24 // 12pt
+                  })
+                ]
+              })
+            ]
+          }]
+        });
+        
+        // Generate blob and download
+        Packer.toBlob(doc).then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+        */
+        
+        // For now, create a simple text file as a placeholder
+        const headerText = "Đại Học Đà Nẵng - Trường Đại Học Bách Khoa\n\n";
+        const fullContent = headerText + content;
+        const blob = new Blob([fullContent], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       };
       
       // Format timestamp to readable time
@@ -138,13 +221,21 @@
         loading.value = true;
         
         try {
-          messages.value = await ChatRasaController.sendMessage(newMessage.value.trim());
+          // Get updated messages from controller
+          const updatedMessages = await ChatRasaController.sendMessage(newMessage.value.trim());
           newMessage.value = '';
+          messages.value = updatedMessages;
         } catch (error) {
           console.error('Error sending message:', error);
         } finally {
           loading.value = false;
         }
+      };
+      
+      // Navigate to internal path (called from custom event)
+      const navigateToPath = (event) => {
+        const path = event.detail;
+        router.push(path);
       };
       
       // Handle button click
@@ -161,6 +252,11 @@
         }
       };
       
+      // Listen for custom navigation events
+      onMounted(() => {
+        window.addEventListener('navigate-to', navigateToPath);
+      });
+      
       return {
         messages,
         newMessage,
@@ -170,7 +266,8 @@
         formatMessage,
         formatTime,
         handleButtonClick,
-        resetChat
+        resetChat,
+        downloadDocument
       };
     }
   }
@@ -279,16 +376,27 @@
   }
   
   .message-text {
-  margin-bottom: 5px;
-  word-break: break-word;
-  line-height: 1.4;
-  white-space: pre-wrap; /* This preserves line breaks */
-}
-
+    margin-bottom: 5px;
+    word-break: break-word;
+    line-height: 1.4;
+    white-space: pre-wrap; /* This preserves line breaks */
+  }
+  
+  .document-download-section {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+  }
   
   .message-text a {
     color: inherit;
     text-decoration: underline;
+  }
+  
+  .internal-link {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
   }
   
   .message-buttons {
