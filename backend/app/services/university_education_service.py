@@ -14,7 +14,7 @@ from app.schemas.university import CoursePriorCourseOut, CoursePrerequisiteOut, 
 
 
 def create_course(db: Session, course: CourseCreate) -> Course:
-    db_course = db.query(Course).filter(Course.name == course.name).first()
+    db_course = db.query(Course).filter(Course.course_code == course.course_code).first()
     if db_course:
         raise AlreadyExistsException("Course already exists")
     db_course = Course(**course.dict())
