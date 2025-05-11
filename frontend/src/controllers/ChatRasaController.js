@@ -53,40 +53,77 @@ export default {
           let buttons = [];
           let image = null;
           let custom = null;
-          let hasDocument = false;
-          let documentContent = null;
-          let documentVisibleText = '';
-          let docFilename = null;
           
-          // Check if any message contains a document
-          for (const msg of response) {
-            if (msg.text && msg.text.includes('<document>')) {
+          // First pass: Analyze messages to detect document pattern
+          let hasDocument = false;
+          let documentBegins = -1;
+          let documentEnds = -1;
+          let visibleTextBeforeDoc = [];
+          let documentContent = [];
+          let visibleTextAfterDoc = [];
+          let currentState = 'before'; // 'before', 'document', 'after'
+          
+          for (let i = 0; i < response.length; i++) {
+            const msg = response[i];
+            if (!msg.text) continue;
+            
+            // Check for document tag marker
+            if (msg.text === '<document>') {
               hasDocument = true;
-              const processedContent = ChatRasaServices.processMessageContent(msg.text || '');
-              documentContent = processedContent.documentContent;
-              documentVisibleText = processedContent.visibleText;
-              docFilename = processedContent.docFilename;
-              break;
+              if (currentState === 'before') {
+                currentState = 'document';
+                documentBegins = i;
+              } else if (currentState === 'document') {
+                currentState = 'after';
+                documentEnds = i;
+              }
+              continue;
+            }
+            
+            // Add content to appropriate section based on current state
+            if (currentState === 'before') {
+              visibleTextBeforeDoc.push(msg.text);
+            } else if (currentState === 'document') {
+              documentContent.push(msg.text);
+            } else {
+              visibleTextAfterDoc.push(msg.text);
+            }
+            
+            // Collect any UI elements
+            if (msg.buttons && msg.buttons.length) {
+              buttons = [...buttons, ...msg.buttons];
+            }
+            
+            if (!image && msg.image) {
+              image = msg.image;
+            }
+            
+            if (msg.custom) {
+              custom = {...custom, ...msg.custom};
             }
           }
           
           if (hasDocument) {
-            // If there's a document, use the processed document message
+            // Consolidate document content and visible text
+            const combinedVisibleText = [...visibleTextBeforeDoc, ...visibleTextAfterDoc].join('\n\n');
+            const combinedDocContent = documentContent.join('\n\n');
+            
+            // Create message with document content
             const botMessage = {
               id: Date.now() + Math.random(),
-              text: documentVisibleText + '<document>' + documentContent,
+              text: `${combinedVisibleText}\n<document>${combinedDocContent}`,
               sender: 'bot',
               timestamp: new Date().toISOString(),
               buttons: buttons.length > 0 ? buttons : null,
               image: image,
               custom: custom,
-              visibleText: documentVisibleText,
-              documentContent: documentContent,
-              docFilename: docFilename
+              visibleText: combinedVisibleText,
+              documentContent: combinedDocContent,
+              docFilename: `data_${Date.now()}.docx`
             };
             chatHistory.push(botMessage);
           } else {
-            // No document, combine messages as before
+            // No document pattern detected, combine messages as before
             response.forEach((msg) => {
               if (msg.text) {
                 if (consolidatedText !== '') {

@@ -238,46 +238,6 @@ responses:
           • Toán, Vật Lý, Tiếng Nhật (Chỉ dùng cho ngành Công nghệ thông tin (Ngoại ngữ nhật))\n
           • Toán, Tin Học, Tiếng Nhật (Chỉ dùng cho ngành Công nghệ thông tin (Ngoại ngữ nhật))\n
           "
-  utter_admission_process:
-    - text: |
-        **📋 HƯỚNG DẪN ĐĂNG KÍ XÉT TUYỂN VÀO TRƯỜNG ĐẠI HỌC BÁCH KHOA - ĐẠI HỌC ĐÀ NẴNG năm 2025**
-        Đây là những thông tin cơ bản nhất về việc đăng kí xét tuyển
-        <document>
-        **📋 HƯỚNG DẪN ĐĂNG KÍ XÉT TUYỂN VÀO TRƯỜNG ĐẠI HỌC BÁCH KHOA - ĐẠI HỌC ĐÀ NẴNG năm 2025**
-        * Với phương thức xét tuyển thẳng:
-        - Thí sinh đăng kí xét tuyển tại đường dẫn https://tuyensinh.dut.udn.vn/
-        - Thí sinh sẽ chỉ đăng kí 01 hồ sơ xét tuyển thẳng vào tối đa 03 nguyện vọng vào 03 ngành học của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng.
-        - Thí sinh sẽ được xét tuyển theo thứ tự nguyện vọng từ trên xuống dưới. Khi đã trúng 01 nguyện vọng thì sẽ không được xét tiếp các nguyện vọng phía dưới.
-        - Thí sinh cung cấp thiếu thông tin trong hồ sơ xét tuyển thẳng sẽ không được xét tuyển. Thông tin minh chứng yêu cầu cần xác thực trong hồ sơ xét tuyển thẳng là thông tin bắt buộc.
-        * Với phương thức xét tuyển riêng:
-        - Thí sinh đăng kí nộp minh chứng thành tích tại đường dẫn https://tuyensinh.dut.udn.vn/
-        - Thí sinh đăng kí nguyện vọng vào thời điểm xét tuyển theo quy định của Bộ Giáo Dục và Đào Tạo.
-        - Thí sinh được đăng kí không giới hạn nguyện vọng vào các ngành học của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng.
-        - Yêu cầu cung cấp thông tin minh chứng thành tích trong hồ sơ xét tuyển riêng là thông tin bắt buộc.
-        - Thí sinh cần cung cấp đầy đủ minh chứng nếu muốn hưởng Điểm ưu tiên trong xét tuyển.
-        - Thí sinh sẽ được xét tuyển theo thứ tự nguyện vọng từ trên xuống dưới. Khi đã trúng 01 nguyện vọng thì sẽ không được xét tiếp các nguyện vọng phía dưới.
-        * Với phương thức xét tuyển theo kết quả thi tốt nghiệp Trung Học Phổ Thông:
-        - Thí sinh đăng kí nguyện vọng vào thời điểm xét tuyển theo quy định của Bộ Giáo Dục và Đào Tạo.
-        - Thí sinh được đăng kí không giới hạn nguyện vọng vào các ngành học của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng.
-        - Thí sinh cần cung cấp đầy đủ minh chứng nếu muốn hưởng Điểm ưu tiên trong xét tuyển.
-        - Thí sinh sẽ được xét tuyển theo thứ tự nguyện vọng từ trên xuống dưới. Khi đã trúng 01 nguyện vọng thì sẽ không được xét tiếp các nguyện vọng phía dưới.
-        * Với phương thức xét tuyển theo kết quả học tập cấp Trung Học Phổ Thông:
-        - Thí sinh đăng kí nguyện vọng vào thời điểm xét tuyển theo quy định của Bộ Giáo Dục và Đào Tạo.
-        - Thí sinh được đăng kí không giới hạn nguyện vọng vào các ngành học của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng.
-        - Thí sinh cần cung cấp đầy đủ minh chứng nếu muốn hưởng Điểm ưu tiên trong xét tuyển.
-        - Thí sinh sẽ được xét tuyển theo thứ tự nguyện vọng từ trên xuống dưới. Khi đã trúng 01 nguyện vọng thì sẽ không được xét tiếp các nguyện vọng phía dưới.
-        * Với phương thức xét tuyển theo kết quả thi đánh giá năng lực do Đại Học Quốc Gia Thành Phố Hồ Chí Minh tổ chức:
-        - Thí sinh đăng kí nguyện vọng vào thời điểm xét tuyển theo quy định của Bộ Giáo Dục và Đào Tạo.
-        - Thí sinh được đăng kí không giới hạn nguyện vọng vào các ngành học của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng.
-        - Thí sinh cần cung cấp đầy đủ minh chứng nếu muốn hưởng Điểm ưu tiên trong xét tuyển.
-        - Thí sinh sẽ được xét tuyển theo thứ tự nguyện vọng từ trên xuống dưới. Khi đã trúng 01 nguyện vọng thì sẽ không được xét tiếp các nguyện vọng phía dưới.
-        * Với phương thức xét tuyển theo kết quả thi đánh giá tư duy do Đại Học Bách Khoa Hà Nội tổ chức:
-        - Thí sinh đăng kí nguyện vọng vào thời điểm xét tuyển theo quy định của Bộ Giáo Dục và Đào Tạo.
-        - Thí sinh được đăng kí không giới hạn nguyện vọng vào các ngành học của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng.
-        - Thí sinh cần cung cấp đầy đủ minh chứng nếu muốn hưởng Điểm ưu tiên trong xét tuyển.
-        - Thí sinh sẽ được xét tuyển theo thứ tự nguyện vọng từ trên xuống dưới. Khi đã trúng 01 nguyện vọng thì sẽ không được xét tiếp các nguyện vọng phía dưới.
-        <document>
-        Thí sinh cần theo dõi thông tin tuyển sinh trên trang web tuyển sinh của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng tại đường dẫn https://tuyensinh.dut.udn.vn/ để biết thêm thông tin chi tiết về các phương thức xét tuyển và thời gian đăng kí xét tuyển.
 
 
   ## CHƯƠNG TRÌNH ĐÀO TẠO CHUNG
@@ -386,7 +346,6 @@ actions:
   - utter_direct_admission_detail
   - utter_xet_tuyen_rieng_detail
   - utter_diem_thi_TN_THPT
-  - utter_admission_process
   - utter_training_program
   - utter_standard_output_language
   - utter_faq_job_opportunities
@@ -423,6 +382,7 @@ actions:
   - action_get_majors_by_faculty
   - action_suggest_major_by_score
   - action_suggest_major_by_score_with_method_and_faculty
+  - action_get_admission_process_by_method
 
 
 session_config:

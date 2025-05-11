@@ -223,15 +223,24 @@ nlu:
   examples: |
     - các đăng kí xét tuyển như thế nào?
     - cách đăng kí xét tuyển
-    - cách đăng kí xét tuyển theo phương thức xét tuyển riêng
-    - cách đăng kí xét tuyển theo phương thức xét tuyển thẳng
-    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi tốt nghiệp
-    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi đánh giá năng lực
-    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi đánh giá tư duy
-    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi TSA
-    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng điểm thi VACT
+    - cách đăng kí xét tuyển theo phương thức [xét tuyển riêng](method)
+    - cách xét tuyển theo phương thức [xét tuyển riêng](method)
+    - cách đăng kí xét tuyển theo phương thức [xét tuyển thẳng](method)
+    - cách đăng kí xét tuyển vào trường theo phương thức [xét tuyển thẳng](method)
+    - cách đăng kí xét tuyển theo phương thức [điểm thi tốt nghiệp](method)
+    - cách đăng kí xét tuyển vào trường theo phương thức [điểm thi tốt nghiệp THPT](method)
+    - cách đăng kí xét tuyển theo phương thức [điểm thi TN THPT](method)
+    - cách đăng kí xét tuyển theo phương thức [học bạ](method)
+    - cách đăng kí xét tuyển theo phương thức [học bạ THPT](method)
+    - cách đăng kí xét tuyển theo phương thức [đánh giá năng lực](method)
+    - cách đăng kí xét tuyển theo phương thức [đánh giá tư duy](method)
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi TSA](method)
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi VACT](method)
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi đánh giá năng lực](method)
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi đánh giá tư duy](method)
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi TSA](method)
     - cách đăng kí xét tuyển vào trường đại học bách khoa
-    - cách đăng kí xét tuyển vào trường đại học bách khoa hà nội
+    
 
 - intent: ask_dgnl
   examples: |

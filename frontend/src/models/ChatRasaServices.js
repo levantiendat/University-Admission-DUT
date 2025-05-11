@@ -113,25 +113,27 @@ export default {
         children: [
           new Paragraph({
             heading: HeadingLevel.HEADING_1,
-            alignment: AlignmentType.CENTER,
+            alignment: AlignmentType.LEFT, // Căn trái thay vì căn giữa
             children: [
               new TextRun({
                 text: "ĐẠI HỌC ĐÀ NẴNG",
                 bold: true,
                 font: "Times New Roman",
-                size: 28 // 14pt
+                size: 28, // 14pt
+                color: "000000" // Màu đen
               })
             ]
           }),
           new Paragraph({
-            alignment: AlignmentType.CENTER,
+            alignment: AlignmentType.LEFT, // Căn trái thay vì căn giữa
             children: [
               new TextRun({
                 text: "TRƯỜNG ĐẠI HỌC BÁCH KHOA",
                 bold: true,
                 font: "Times New Roman",
                 size: 28, // 14pt
-                allCaps: true
+                allCaps: true,
+                color: "000080" // Màu xanh dương đậm (navy blue)
               })
             ],
             spacing: {

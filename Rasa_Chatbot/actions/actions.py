@@ -687,9 +687,9 @@ class ActionSuggestMajorByScore(Action):
         
         message += "💡 *Ghi chú: Các ngành được hiển thị đều áp dụng phương thức này trong năm học hiện tại. Kết quả dựa trên điểm chuẩn các năm trước.*\n\n"
         message += "Bạn có thể hỏi thêm về:\n"
-        message += "- Thông tin chi tiết về ngành cụ thể\n"
         message += "- Tổ hợp môn xét tuyển của ngành\n"
         message += "- Điểm chuẩn của ngành theo các năm"
+        
         
         return message
     
@@ -851,8 +851,234 @@ class ActionSuggestMajorByScoreWithMethodAndFaculty(Action):
         
         message += "💡 *Ghi chú: Các ngành được hiển thị đều áp dụng phương thức này trong năm học hiện tại. Kết quả dựa trên điểm chuẩn các năm trước.*\n\n"
         message += "Bạn có thể hỏi thêm về:\n"
-        message += "- Thông tin chi tiết về ngành cụ thể\n"
         message += "- Tổ hợp môn xét tuyển của ngành\n"
         message += "- Cơ hội việc làm của các ngành này"
         
         return message
+    
+class ActionGetAdmissionProcessByMethod(Action):
+    def name(self) -> str:
+        return "action_get_admission_process_by_method"
+
+    def __init__(self):
+        self.admission_processes = {
+            "xtt": self._get_xet_tuyen_thang_process(),
+            "xtr": self._get_xet_tuyen_rieng_process(),
+            "tn_thpt": self._get_tot_nghiep_thpt_process(),
+            "hb_thpt": self._get_hoc_ba_process(),
+            "dgnl": self._get_danh_gia_nang_luc_process(),
+            "dgtd": self._get_danh_gia_tu_duy_process()
+        }
+        
+        self.method_urls = {
+            "xtt": "/admission/xettuyenthang",
+            "xtr": "/admission/xettuyenrieng",
+            "tn_thpt": "/admission/totnghiep_thpt",
+            "hb_thpt": "/admission/hocba_thpt",
+            "dgnl": "/admission/danhgianangluc",
+            "dgtd": "/admission/danhgiatuduy"
+        }
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+            
+        # Lấy phương thức xét tuyển từ entity hoặc slot
+        method_entity = next(tracker.get_latest_entity_values("method"), None)
+        method_slot = tracker.get_slot("method")
+        
+        # Ưu tiên entity trong message hiện tại, nếu không có thì dùng slot
+        method = method_entity or method_slot
+        
+        if not method:
+            dispatcher.utter_message(text="❓ Vui lòng cho biết phương thức xét tuyển bạn muốn tìm hiểu quy trình đăng ký.")
+            return []
+        
+        # Chuẩn hóa method để lấy ID
+        method_id = normalize_method(method)
+        
+        if not method_id or method_id not in self.admission_processes:
+            message = (f"❌ Tôi không tìm thấy thông tin về quy trình đăng ký cho phương thức \"{method}\". "
+                      f"Vui lòng thử lại với các phương thức như: xét tuyển thẳng, xét tuyển riêng, "
+                      f"xét điểm thi tốt nghiệp, xét học bạ, đánh giá năng lực hoặc đánh giá tư duy.")
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Lấy quy trình đăng ký cho phương thức tương ứng
+        process_message = self.admission_processes[method_id]
+        
+        # Lấy URL tương ứng cho phương thức
+        method_url = self.method_urls.get(method_id, "")
+        
+        # Thêm thông tin chi tiết về đường dẫn sau phần document
+        additional_info = f"\n\nChi tiết các ngành xét tuyển bằng phương thức này tại {method_url}"
+        
+        # Gửi cả tin nhắn và thêm thông tin đường dẫn
+        dispatcher.utter_message(text=process_message + additional_info)
+        
+        # Lưu slot để sử dụng sau này
+        return []
+    
+    def _get_xet_tuyen_thang_process(self) -> str:
+        intro = "Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét tuyển thẳng:"
+        
+        document_content = """
+# Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét tuyển thẳng:
+
+## Quy trình đăng ký và nộp hồ sơ:
+
+1. **Đăng ký trực tuyến**: Thí sinh đăng ký trực tuyến tại đường dẫn https://tuyensinh.dut.udn.vn/
+
+2. **Số lượng nguyện vọng**: 
+   - Mỗi thí sinh chỉ được đăng ký duy nhất 01 hồ sơ xét tuyển thẳng
+   - Trong mỗi hồ sơ, thí sinh có thể đăng ký tối đa 03 nguyện vọng vào 03 ngành học khác nhau
+
+3. **Thứ tự xét tuyển**: 
+   - Các nguyện vọng sẽ được xét theo thứ tự ưu tiên từ trên xuống dưới
+   - Nếu trúng tuyển nguyện vọng đầu tiên, các nguyện vọng còn lại sẽ không được xét
+
+4. **Hồ sơ và minh chứng**:
+   - Cung cấp đầy đủ thông tin theo yêu cầu của trường
+   - Đặc biệt quan trọng: Thông tin minh chứng cho đối tượng xét tuyển thẳng phải đầy đủ và xác thực
+   - Hồ sơ thiếu thông tin hoặc thông tin không xác thực có thể dẫn đến việc không được xét tuyển
+
+💡 Lưu ý: Hãy kiểm tra kỹ các giấy tờ minh chứng trước khi nộp để đảm bảo quyền lợi xét tuyển của bạn.
+"""
+        
+        return intro + "\n\n<document>\n" + document_content + "\n<document>"
+
+    def _get_xet_tuyen_rieng_process(self) -> str:
+        intro = "Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét tuyển riêng:"
+        
+        document_content = """
+# Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét tuyển riêng:
+
+## Quy trình đăng ký và nộp hồ sơ:
+
+1. **Nộp minh chứng thành tích**: 
+   - Thí sinh nộp minh chứng thành tích (giải thưởng học thuật, chứng chỉ đặc biệt, v.v.) trực tuyến tại https://tuyensinh.dut.udn.vn/
+   - Việc cung cấp thông tin minh chứng thành tích khi nộp hồ sơ là bắt buộc
+
+2. **Đăng ký nguyện vọng chính thức**: 
+   - Đăng ký nguyện vọng vào các ngành học của trường vào thời điểm xét tuyển chung theo quy định của Bộ Giáo dục và Đào tạo
+
+3. **Số lượng nguyện vọng**: 
+   - Thí sinh được đăng ký không giới hạn số lượng nguyện vọng vào tất cả các ngành học của Trường
+
+4. **Điểm ưu tiên và minh chứng**:
+   - Để được hưởng điểm ưu tiên, thí sinh cần cung cấp đầy đủ giấy tờ minh chứng liên quan
+
+5. **Thứ tự xét tuyển**:
+   - Các nguyện vọng được xét theo thứ tự ưu tiên từ trên xuống dưới 
+   - Nếu trúng tuyển ở một nguyện vọng, các nguyện vọng còn lại sẽ không được xét
+
+💡 Lưu ý: Chất lượng minh chứng thành tích sẽ ảnh hưởng trực tiếp đến kết quả xét tuyển. Hãy đảm bảo cung cấp đầy đủ và chính xác các giấy tờ liên quan.
+"""
+        
+        return intro + "\n\n<document>\n" + document_content + "\n<document>"
+
+    def _get_tot_nghiep_thpt_process(self) -> str:
+        intro = "Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét điểm thi tốt nghiệp THPT:"
+        
+        document_content = """
+# Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét điểm thi tốt nghiệp THPT:
+
+## Quy trình đăng ký và nộp hồ sơ:
+
+1. **Đăng ký nguyện vọng**: 
+   - Thí sinh đăng ký nguyện vọng xét tuyển vào Trường Đại học Bách khoa - ĐHĐN trên hệ thống xét tuyển chung của Bộ Giáo dục và Đào tạo vào thời điểm quy định
+
+2. **Số lượng nguyện vọng**: 
+   - Thí sinh được đăng ký không giới hạn số lượng nguyện vọng vào các ngành học của trường
+
+3. **Điểm ưu tiên**: 
+   - Thí sinh cần cung cấp đầy đủ giấy tờ minh chứng để được hưởng điểm ưu tiên (nếu có)
+
+4. **Thứ tự xét tuyển**: 
+   - Các nguyện vọng được xét theo thứ tự ưu tiên từ cao xuống thấp
+   - Nếu đã trúng tuyển vào một nguyện vọng, các nguyện vọng tiếp theo sẽ không được xét
+
+💡 Lưu ý: Thời gian đăng ký xét tuyển theo phương thức này sẽ theo lịch chung của Bộ Giáo dục và Đào tạo. Hãy cập nhật thông tin thường xuyên trên trang web của Bộ và của Trường.
+"""
+        
+        return intro + "\n\n<document>\n" + document_content + "\n<document>"
+
+    def _get_hoc_ba_process(self) -> str:
+        intro = "Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét kết quả học tập THPT (Học bạ):"
+        
+        document_content = """
+# Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét kết quả học tập THPT (Học bạ):
+
+## Quy trình đăng ký và nộp hồ sơ:
+
+1. **Đăng ký nguyện vọng**: 
+   - Thí sinh đăng ký nguyện vọng xét tuyển bằng kết quả học tập THPT trên hệ thống xét tuyển chung của Bộ Giáo dục và Đào tạo vào thời điểm quy định
+
+2. **Số lượng nguyện vọng**: 
+   - Thí sinh được đăng ký không giới hạn số lượng nguyện vọng vào các ngành học của Trường
+
+3. **Điểm ưu tiên**: 
+   - Thí sinh cần cung cấp đầy đủ giấy tờ minh chứng để được hưởng điểm ưu tiên (nếu có)
+
+4. **Thứ tự xét tuyển**: 
+   - Các nguyện vọng được xét theo thứ tự ưu tiên từ cao xuống thấp
+   - Nếu đã trúng tuyển vào một nguyện vọng, các nguyện vọng tiếp theo sẽ không được xét
+
+💡 Lưu ý: Đảm bảo học bạ của bạn được xác nhận đầy đủ và chính xác. Việc tính điểm học bạ sẽ dựa trên quy định cụ thể của trường, hãy tham khảo thêm trên trang web tuyển sinh của Trường.
+"""
+        
+        return intro + "\n\n<document>\n" + document_content + "\n<document>"
+
+    def _get_danh_gia_nang_luc_process(self) -> str:
+        intro = "Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét kết quả thi đánh giá năng lực:"
+        
+        document_content = """
+# Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét kết quả thi đánh giá năng lực:
+
+## Quy trình đăng ký và nộp hồ sơ:
+
+1. **Đăng ký nguyện vọng**: 
+   - Thí sinh sử dụng kết quả kỳ thi đánh giá năng lực của Đại học Quốc gia TP.HCM để đăng ký xét tuyển
+   - Đăng ký trên hệ thống xét tuyển chung của Bộ Giáo dục và Đào tạo vào thời điểm quy định
+
+2. **Số lượng nguyện vọng**: 
+   - Thí sinh được đăng ký không giới hạn số lượng nguyện vọng vào các ngành học của trường
+
+3. **Điểm ưu tiên**: 
+   - Thí sinh cần cung cấp đầy đủ giấy tờ minh chứng để được hưởng điểm ưu tiên (nếu có)
+
+4. **Thứ tự xét tuyển**: 
+   - Các nguyện vọng được xét theo thứ tự ưu tiên từ cao xuống thấp
+   - Nếu đã trúng tuyển vào một nguyện vọng, các nguyện vọng tiếp theo sẽ không được xét
+
+💡 Lưu ý: Đảm bảo bạn đã tham gia kỳ thi đánh giá năng lực do Đại học Quốc gia TP.HCM tổ chức và có kết quả hợp lệ trong năm xét tuyển. Điểm đánh giá năng lực có thời hạn sử dụng theo quy định của đơn vị tổ chức thi.
+"""
+        
+        return intro + "\n\n<document>\n" + document_content + "\n<document>"
+
+    def _get_danh_gia_tu_duy_process(self) -> str:
+        intro = "Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét kết quả thi đánh giá tư duy:"
+        
+        document_content = """
+# Cách thức đăng kí xét tuyển vào Trường Đại Học Bách Khoa năm 2025 theo phương thức Xét kết quả thi đánh giá tư duy:
+
+## Quy trình đăng ký và nộp hồ sơ:
+
+1. **Đăng ký nguyện vọng**: 
+   - Thí sinh sử dụng kết quả kỳ thi đánh giá tư duy của Đại học Bách khoa Hà Nội để đăng ký xét tuyển
+   - Đăng ký trên hệ thống xét tuyển chung của Bộ Giáo dục và Đào tạo vào thời điểm quy định
+
+2. **Số lượng nguyện vọng**: 
+   - Thí sinh được đăng ký không giới hạn số lượng nguyện vọng vào các ngành học của trường
+
+3. **Điểm ưu tiên**: 
+   - Thí sinh cần cung cấp đầy đủ giấy tờ minh chứng để được hưởng điểm ưu tiên (nếu có)
+
+4. **Thứ tự xét tuyển**: 
+   - Các nguyện vọng được xét theo thứ tự ưu tiên từ cao xuống thấp
+   - Nếu đã trúng tuyển vào một nguyện vọng, các nguyện vọng tiếp theo sẽ không được xét
+
+💡 Lưu ý: Đảm bảo bạn đã tham gia kỳ thi đánh giá tư duy do Đại học Bách khoa Hà Nội tổ chức và có kết quả hợp lệ trong năm xét tuyển. Điểm đánh giá tư duy có thời hạn sử dụng theo quy định của đơn vị tổ chức thi.
+"""
+        
+        return intro + "\n\n<document>\n" + document_content + "\n<document>"

@@ -145,15 +145,7 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 19. Quy trình xét tuyển chung
-  - story: "Pair - Quy trình xét tuyển CNTT"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_admission_process
-      - action: utter_admission_process
-      - intent: goodbye
-      - action: utter_goodbye
+
 
 
 
@@ -375,10 +367,6 @@ stories:
       - intent: ask_xet_tuyen_rieng_detail
       - action: utter_xet_tuyen_rieng_detail
 
-  - story: "Direct Pair - Quy trình xét tuyển"
-    steps:
-      - intent: ask_admission_process
-      - action: utter_admission_process
 
 
   - story: "Direct Pair - Chương trình đào tạo chung CNTT"
@@ -474,12 +462,6 @@ stories:
       - intent: ask_xet_tuyen_rieng_detail
       - action: utter_xet_tuyen_rieng_detail
 
-  - story: "Pair - Phương thức: Quy trình xét tuyển"
-    steps:
-      - intent: ask_admission_methods
-      - action: utter_admission_methods
-      - intent: ask_admission_process
-      - action: utter_admission_process
 
 
   # ----------------------------
