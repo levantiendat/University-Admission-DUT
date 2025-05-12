@@ -61,3 +61,8 @@ rules:
     steps:
     - intent: ask_admission_process
     - action: action_get_admission_process_by_method
+
+  - rule: Ask calculate score
+    steps:
+    - intent: ask_calculate_score
+    - action: action_calculate_score

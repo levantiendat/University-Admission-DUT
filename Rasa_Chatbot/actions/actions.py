@@ -1082,3 +1082,88 @@ class ActionGetAdmissionProcessByMethod(Action):
 """
         
         return intro + "\n\n<document>\n" + document_content + "\n<document>"
+    
+class ActionCalculateScore(Action):
+    def name(self) -> str:
+        return "action_calculate_score"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        # Lấy tất cả các entity subject và score từ message
+        subject_entities = list(tracker.get_latest_entity_values("subject"))
+        score_entities = list(tracker.get_latest_entity_values("score"))
+        
+        logging.debug(f"Subject entities: {subject_entities}")
+        logging.debug(f"Score entities: {score_entities}")
+        
+        # Kiểm tra nếu không đủ thông tin
+        if not subject_entities or not score_entities:
+            dispatcher.utter_message(text="❓ Tôi cần thông tin rõ ràng về môn học và điểm tương ứng để tính toán. "
+                                         "Vui lòng cung cấp điểm cho từng môn học cụ thể.")
+            return []
+        
+        # Tạo dictionary môn học và điểm
+        subjects_scores = {}
+        
+        # Chuẩn hóa tên môn và điểm
+        for i, subject in enumerate(subject_entities):
+            if i >= len(score_entities):
+                break
+                
+            # Chuẩn hóa tên môn học
+            normalized_subject = normalize_subject(subject.lower())
+            if not normalized_subject:
+                continue
+                
+            # Chuyển điểm số thành float
+            try:
+                score = float(score_entities[i])
+                # Đảm bảo điểm nằm trong khoảng hợp lệ
+                if 0 <= score <= 10:
+                    # Làm tròn đến 2 chữ số thập phân
+                    subjects_scores[normalized_subject] = round(score, 2)
+            except ValueError:
+                continue
+        
+        # Nếu không có dữ liệu hợp lệ
+        if not subjects_scores:
+            dispatcher.utter_message(text="❌ Không thể tính toán điểm với dữ liệu đã cung cấp. "
+                                         "Vui lòng đảm bảo điểm số hợp lệ (từ 0 đến 10).")
+            return []
+            
+        if len(subjects_scores) > 8:
+            # Chỉ lấy 6 môn đầu tiên
+            limited_subjects = dict(list(subjects_scores.items())[:8])
+            subjects_scores = limited_subjects
+        
+        # Tạo URL để chia sẻ
+        share_url = self.create_share_url(subjects_scores)
+        
+        # Tạo câu trả lời
+        message = self.create_response_message(subjects_scores, share_url)
+        
+        dispatcher.utter_message(text=message)
+        
+        return []
+    
+    def create_share_url(self, subjects_scores: dict) -> str:
+        """Tạo URL chia sẻ để người dùng có thể truy cập tool tính điểm"""
+        params = []
+        for subject, score in subjects_scores.items():
+            params.append(f"{subject}={score}")
+        
+        return f"/calculatescore/thpt?{'&'.join(params)}"
+    
+    def create_response_message(self, subjects_scores: dict, share_url: str) -> str:
+        """Tạo thông báo phản hồi với kết quả tính toán"""
+        # Hiển thị thông tin môn học đã nhập
+        message = "📚 **Thông tin điểm các môn:**\n\n"
+        for subject, score in subjects_scores.items():
+            message += f"- {subject.capitalize()}: {score}\n"
+        
+        # Thêm URL cho công cụ tính toán chi tiết
+        message += f"\n💡 Điểm của các khối xét tuyển từ điểm của bạn có thể truy cập '{share_url}'"
+        
+        return message

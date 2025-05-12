@@ -144,46 +144,57 @@ export default {
     };
     
     // Format message text (handle links, etc.)
-    const formatMessage = (text) => {
-      if (!text) return '';
-      
-      // Phân tách và xử lý văn bản theo từng phần
-      const parts = [];
-      let remainingText = text;
-      
-      // Bước 1: Xử lý các URL đầy đủ
-      const externalUrlRegex = /(https?:\/\/[^\s]+)/g;
-      let match;
-      let lastIndex = 0;
-      
-      while ((match = externalUrlRegex.exec(text)) !== null) {
-        // Phần văn bản trước URL
-        if (match.index > lastIndex) {
-          parts.push(processInternalLinks(text.substring(lastIndex, match.index)));
-        }
-        
-        // URL đầy đủ - giữ nguyên dạng link
-        parts.push(`<a href="${match[0]}" target="_blank" rel="noopener noreferrer">${match[0]}</a>`);
-        
-        lastIndex = externalUrlRegex.lastIndex;
-      }
-      
-      // Phần văn bản còn lại
-      if (lastIndex < text.length) {
-        parts.push(processInternalLinks(text.substring(lastIndex)));
-      }
-      
-      return parts.join('');
-      
-      // Hàm xử lý các đường dẫn nội bộ
-      function processInternalLinks(text) {
-        // Tìm các đường dẫn bắt đầu bằng /
-        const internalLinkRegex = /(\s|^)(\/[a-zA-Z0-9\/\-_]+)(\s|$)/g;
-        return text.replace(internalLinkRegex, (match, before, path, after) => 
-          `${before}<a href="javascript:void(0)" onclick="window.dispatchEvent(new CustomEvent('navigate-to', {detail: '${path}'}))" class="internal-link">Tại đây</a>${after}`
-        );
-      }
-    };
+// Format message text (handle links, etc.)
+const formatMessage = (text) => {
+  if (!text) return '';
+  
+  // Phân tách và xử lý văn bản theo từng phần
+  const parts = [];
+  
+  // Bước 0: Xử lý các URL đặc biệt trong dấu ngoặc kép
+  const quotedUrlRegex = /'(\/[^"]+)'/g;
+  text = text.replace(quotedUrlRegex, (match, path) => {
+    // Mã hóa URL trong dấu ngoặc kép để xử lý đúng các ký tự đặc biệt và dấu tiếng Việt
+    const encodedPath = encodeURI(path);
+    return `<a href="javascript:void(0)" onclick="window.dispatchEvent(new CustomEvent('navigate-to', {detail: '${encodedPath}'}))" class="internal-link special-link">Tại đây</a>`;
+  });
+  
+  // Bước 1: Xử lý các URL đầy đủ
+  const externalUrlRegex = /(https?:\/\/[^\s]+)/g;
+  let match;
+  let lastIndex = 0;
+  
+  while ((match = externalUrlRegex.exec(text)) !== null) {
+    // Phần văn bản trước URL
+    if (match.index > lastIndex) {
+      parts.push(processInternalLinks(text.substring(lastIndex, match.index)));
+    }
+    
+    // URL đầy đủ - giữ nguyên dạng link
+    parts.push(`<a href="${match[0]}" target="_blank" rel="noopener noreferrer">${match[0]}</a>`);
+    
+    lastIndex = externalUrlRegex.lastIndex;
+  }
+  
+  // Phần văn bản còn lại
+  if (lastIndex < text.length) {
+    parts.push(processInternalLinks(text.substring(lastIndex)));
+  }
+  
+  return parts.join('');
+  
+  // Hàm xử lý các đường dẫn nội bộ
+  function processInternalLinks(text) {
+    // Nhận dạng các đường dẫn bắt đầu bằng / (nhưng không nằm trong dấu ngoặc kép, vì đã xử lý ở trên)
+    const internalLinkRegex = /(\s|^)(\/[a-zA-Z0-9\/\-_]+(?:\?[a-zA-Z0-9\/\-_&=%ạảãàáâậầấẩẫăắằặẳẵóòọõỏôộổỗồốơờớợởỡéèẻẹẽêếềệểễúùụủũưựữửừứíìịỉĩýỳỷỵỹđ\.]+)?)/gi;
+    
+    return text.replace(internalLinkRegex, (match, before, path) => {
+      // Mã hóa URL để xử lý đúng các ký tự đặc biệt và dấu tiếng Việt
+      const encodedPath = encodeURI(path);
+      return `${before}<a href="javascript:void(0)" onclick="window.dispatchEvent(new CustomEvent('navigate-to', {detail: '${encodedPath}'}))" class="internal-link">Tại đây</a>`;
+    });
+  }
+};
     
     // Download document
     const downloadDocument = (content, filename) => {
@@ -556,6 +567,15 @@ export default {
 .btn-primary:hover {
   background-color: #0B2942;
   border-color: #0B2942;
+}
+
+.internal-link.special-link {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #0066cc;
+  padding: 2px 5px;
+  background-color: #f0f8ff;
+  border-radius: 3px;
 }
 
 @keyframes typing {

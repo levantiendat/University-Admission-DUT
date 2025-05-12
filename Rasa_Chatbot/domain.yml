@@ -58,6 +58,7 @@ intents:
   - ask_major_by_faculty
   - ask_suggest_major_by_score_with_method
   - ask_suggest_major_by_score_with_method_and_faculty
+  - ask_calculate_score
 
 entities:
   - major
@@ -383,6 +384,7 @@ actions:
   - action_suggest_major_by_score
   - action_suggest_major_by_score_with_method_and_faculty
   - action_get_admission_process_by_method
+  - action_calculate_score
 
 
 session_config:

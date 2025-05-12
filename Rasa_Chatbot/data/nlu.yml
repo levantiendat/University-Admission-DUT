@@ -927,6 +927,22 @@ nlu:
     - với số điểm [1026](score) điểm ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [môi trường](faculty)?
     - em đạt được [289.5](score) điểm ở phương thức [xét tuyển riêng](method) thì em có thể đăng ký ngành nào thuộc khoa [quản lý dự án](faculty)?
     - với số điểm [434](score) ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [xây dựng dân dụng công nghiệp](faculty)
+
+- intent: ask_calculate_score
+  examples: |
+    - em đạt được điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), vậy điểm của em là bao nhiêu?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), môn [tin học](subject) là [9.75](score), vậy tổng điểm của em là bao nhiêu?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), vậy tổng điểm của em là bao nhiêu?
+    - em thi kỳ thi vừa rồi đạt điểm là [toán](subject) : [8.5](score), [vật lý](subject) : [7.5](score), [hóa học](subject) : [6.5](score), [ngữ văn](subject) : [5.75](score)
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [tiếng anh](subject) là [7.8](score), môn [ngữ văn](subject) là [5.75](score), vậy thì điểm của em là bao nhiêu?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [tin học](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score), vậy tổng điểm của em là bao nhiêu?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [tin học](subject) là [10](score), môn [hóa học](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score)
+    - em có điểm môn [lịch sử](subject): [8.5](score), môn [vật lý](subject): [7.5](score), môn [toán](subject) là [6.5](score), môn [ngữ văn](subject) là [8.00](score)
+    - em thi kỳ thi vừa rồi đạt điểm là [toán](subject) : [8.5](score), [vật lý](subject) : [7.5](score), [hóa học](subject) : [6.5](score), [ngữ văn](subject) : [5.75](score)
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score), vậy tổng điểm của em là bao nhiêu?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [địa lý](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score), vậy tổng điểm của em là bao nhiêu?
+    - em thi được môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [tiếng nhật](subject) là [6.5](score), môn [ngữ văn](subject) là [8.25](score)
+    
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program
   examples: |
