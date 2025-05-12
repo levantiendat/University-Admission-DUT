@@ -62,7 +62,7 @@
                                 @change="updateSubjectId(index)"
                                 aria-label="Chọn môn thi">
                             <option value="">-- Chọn môn thi --</option>
-                            <option v-for="sub in subjects" 
+                            <option v-for="sub in getAvailableSubjectsForRow(index)" 
                                   :key="sub.id" 
                                   :value="sub">
                               {{ sub.name }}
@@ -76,12 +76,12 @@
                                   v-model="subject.scores[0]" 
                                   min="0" 
                                   max="10" 
-                                  step="0.05"
+                                  step="0.01"
                                   @blur="formatExamScore(index)"
                                   placeholder="Nhập điểm (0-10)"
                                   aria-label="Điểm thi">
                           </div>
-                          <small class="form-text text-muted small">Làm tròn đến 0.05</small>
+                          <small class="form-text text-muted small">Làm tròn đến 0.01</small>
                         </td>
                         <td class="text-center align-middle">
                           <button type="button" class="btn btn-sm btn-outline-danger" 
@@ -215,79 +215,81 @@
 
               <!-- Chọn đối tượng ưu tiên -->
               <div class="mb-3 mt-3">
-                <h3 class="section-title h6">Chọn Ưu tiên đối tượng</h3>
-                <select 
-                  v-model="priorityObject" 
-                  class="form-select selectpicker" 
-                  id="priority_object"
-                  data-live-search="true" 
-                  data-width="100%">
-                  <option value="0" data-content="Không có đối tượng ưu tiên">Không có đối tượng ưu tiên</option>
-                  <option value="ĐT01" data-content="Đối tượng 01:<br>Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú<br>trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu vực 1.">
-                    Đối tượng 01
-                  </option>
-                  <option value="ĐT02" data-content="Đối tượng 02:<br>Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên,<br>trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp tỉnh trở lên<br>công nhận và cấp bằng khen.">
-                    Đối tượng 02
-                  </option>
-                  <option value="ĐT03" data-content="Đối tượng 03a:<br>Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh'.">
-                    Đối tượng 03a
-                  </option>
-                  <option value="ĐT03" data-content="Đối tượng 03b:<br>Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ<br>được cử đi học có thời gian phục vụ từ 12 tháng trở lên tại Khu vực 1.">
-                    Đối tượng 03b
-                  </option>
-                  <option value="ĐT03" data-content="Đối tượng 03c:<br>Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ<br>được cử đi học có thời gian phục vụ từ 18 tháng trở lên.">
-                    Đối tượng 03c
-                  </option>
-                  <option value="ĐT03" data-content="Đối tượng 03d:<br>Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân đã xuất ngũ,<br>được công nhận hoàn thành nghĩa vụ phục vụ tại ngũ theo quy định.">
-                    Đối tượng 03d
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04a:<br>Thân nhân liệt sĩ.">
-                    Đối tượng 04a
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04b:<br>Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh<br>bị suy giảm khả năng lao động từ 81% trở lên.">
-                    Đối tượng 04b
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04c:<br>Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học<br>bị suy giảm khả năng lao động 81% trở lên.">
-                    Đối tượng 04c
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04d:<br>Con của Anh hùng Lực lượng vũ trang nhân dân; con của Anh hùng Lao động trong thời kỳ kháng chiến.">
-                    Đối tượng 04d
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04đ:<br>Con của người hoạt động kháng chiến bị dị dạng, dị tật do hậu quả của chất độc hóa học<br>đang hưởng trợ cấp hàng tháng.">
-                    Đối tượng 04đ
-                  </option>
-                  <option value="ĐT05" data-content="Đối tượng 05a:<br>Thanh niên xung phong tập trung được cử đi học.">
-                    Đối tượng 05a
-                  </option>
-                  <option value="ĐT05" data-content="Đối tượng 05b:<br>Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ<br>được cử đi học có thời gian phục vụ dưới 12 tháng ở Khu vực 1 và dưới 18 tháng ở khu vực khác.">
-                    Đối tượng 05b
-                  </option>
-                  <option value="ĐT05" data-content="Đối tượng 05c:<br>Chỉ huy trưởng, Chỉ huy phó ban chỉ huy quân sự xã, phường, thị trấn;<br>Thôn đội trưởng, Trung đội trưởng Dân quân tự vệ nòng cốt, Dân quân tự vệ đã hoàn thành nghĩa vụ tham gia Dân quân tự vệ nòng cốt từ 12 tháng trở lên, dự thi vào ngành Quân sự cơ sở.<br>Thời hạn tối đa được hưởng ưu tiên là 18 tháng kể từ ngày ký quyết định xuất ngũ đến ngày ĐKXT.">
-                    Đối tượng 05c
-                  </option>
-                  <option value="ĐT06" data-content="Đối tượng 06a:<br>Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú ở ngoài khu vực đã quy định<br>thuộc đối tượng 01.">
-                    Đối tượng 06a
-                  </option>
-                  <option value="ĐT06" data-content="Đối tượng 06b:<br>Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh<br>bị suy giảm khả năng lao động dưới 81%.">
-                    Đối tượng 06b
-                  </option>
-                  <option value="ĐT06" data-content="Đối tượng 06c:<br>Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học<br>có tỷ lệ suy giảm khả năng lao động dưới 81%.">
-                    Đối tượng 06c
-                  </option>
-                  <option value="ĐT07" data-content="Đối tượng 07a:<br>Người khuyết tật nặng có giấy xác nhận khuyết tật của cơ quan có thẩm quyền cấp theo quy định<br>tại Thông tư liên tịch số 37/2012/TTLT‑BLĐTBXH‑BYT‑BTC‑BGDĐT ngày 28 tháng 12 năm 2012.">
-                    Đối tượng 07a
-                  </option>
-                  <option value="ĐT07" data-content="Đối tượng 07b:<br>Người lao động ưu tú thuộc tất cả thành phần kinh tế từ cấp tỉnh, cấp bộ trở lên được công nhận danh hiệu thợ giỏi, nghệ nhân,<br>được cấp bằng hoặc huy hiệu Lao động sáng tạo.">
-                    Đối tượng 07b
-                  </option>
-                  <option value="ĐT07" data-content="Đối tượng 07c:<br>Giáo viên đã giảng dạy đủ 3 năm trở lên dự tuyển vào các ngành đào tạo giáo viên.">
-                    Đối tượng 07c
-                  </option>
-                  <option value="ĐT07" data-content="Đối tượng 07d:<br>Y tá, dược tá, hộ lý, y sĩ, điều dưỡng viên, hộ sinh viên, kỹ thuật viên, người có bằng trung cấp Dược<br>đã công tác đủ 3 năm trở lên dự tuyển vào đúng ngành tốt nghiệp thuộc lĩnh vực sức khỏe.">
-                    Đối tượng 07d
-                  </option>
-                </select>
-              </div>
+  <h3 class="section-title h6">Chọn Ưu tiên đối tượng</h3>
+  <select 
+    v-model="priorityObject" 
+    data-live-search="true" 
+    data-width="100%"
+    class="form-select selectpicker form-select-sm" 
+    id="priority_object"
+    title="Chọn đối tượng ưu tiên"
+    data-size="10">
+    <option value="0" data-content="Không có đối tượng ưu tiên">Không có đối tượng ưu tiên</option>
+    <option value="ĐT01" data-content="<span class='small'>Đối tượng 01: Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu vực 1.</span>">
+      Đối tượng 01
+    </option>
+    <option value="ĐT02" data-content="<span class='small'>Đối tượng 02: Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp tỉnh trở lên công nhận và cấp bằng khen.</span>">
+      Đối tượng 02
+    </option>
+    <option value="ĐT03" data-content="<span class='small'>Đối tượng 03a: Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh'.</span>">
+      Đối tượng 03a
+    </option>
+    <option value="ĐT03" data-content="<span class='small'>Đối tượng 03b: Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 12 tháng trở lên tại Khu vực 1.</span>">
+      Đối tượng 03b
+    </option>
+    <option value="ĐT03" data-content="<span class='small'>Đối tượng 03c: Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 18 tháng trở lên.</span>">
+      Đối tượng 03c
+    </option>
+    <option value="ĐT03" data-content="<span class='small'>Đối tượng 03d: Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân đã xuất ngũ, được công nhận hoàn thành nghĩa vụ phục vụ tại ngũ theo quy định.</span>">
+      Đối tượng 03d
+    </option>
+    <option value="ĐT04" data-content="<span class='small'>Đối tượng 04a: Thân nhân liệt sĩ.</span>">
+      Đối tượng 04a
+    </option>
+    <option value="ĐT04" data-content="<span class='small'>Đối tượng 04b: Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động từ 81% trở lên.</span>">
+      Đối tượng 04b
+    </option>
+    <option value="ĐT04" data-content="<span class='small'>Đối tượng 04c: Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học bị suy giảm khả năng lao động 81% trở lên.</span>">
+      Đối tượng 04c
+    </option>
+    <option value="ĐT04" data-content="<span class='small'>Đối tượng 04d: Con của Anh hùng Lực lượng vũ trang nhân dân; con của Anh hùng Lao động trong thời kỳ kháng chiến.</span>">
+      Đối tượng 04d
+    </option>
+    <option value="ĐT04" data-content="<span class='small'>Đối tượng 04đ: Con của người hoạt động kháng chiến bị dị dạng, dị tật do hậu quả của chất độc hóa học đang hưởng trợ cấp hàng tháng.</span>">
+      Đối tượng 04đ
+    </option>
+    <option value="ĐT05" data-content="<span class='small'>Đối tượng 05a: Thanh niên xung phong tập trung được cử đi học.</span>">
+      Đối tượng 05a
+    </option>
+    <option value="ĐT05" data-content="<span class='small'>Đối tượng 05b: Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ dưới 12 tháng ở Khu vực 1 và dưới 18 tháng ở khu vực khác.</span>">
+      Đối tượng 05b
+    </option>
+    <option value="ĐT05" data-content="<span class='small'>Đối tượng 05c: Chỉ huy trưởng, Chỉ huy phó ban chỉ huy quân sự xã, phường, thị trấn; Thôn đội trưởng, Trung đội trưởng Dân quân tự vệ nòng cốt, Dân quân tự vệ đã hoàn thành nghĩa vụ tham gia Dân quân tự vệ nòng cốt từ 12 tháng trở lên, dự thi vào ngành Quân sự cơ sở.</span>">
+      Đối tượng 05c
+    </option>
+    <option value="ĐT06" data-content="<span class='small'>Đối tượng 06a: Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú ở ngoài khu vực đã quy định thuộc đối tượng 01.</span>">
+      Đối tượng 06a
+    </option>
+    <option value="ĐT06" data-content="<span class='small'>Đối tượng 06b: Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động dưới 81%.</span>">
+      Đối tượng 06b
+    </option>
+    <option value="ĐT06" data-content="<span class='small'>Đối tượng 06c: Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học có tỷ lệ suy giảm khả năng lao động dưới 81%.</span>">
+      Đối tượng 06c
+    </option>
+    <option value="ĐT07" data-content="<span class='small'>Đối tượng 07a: Người khuyết tật nặng có giấy xác nhận khuyết tật của cơ quan có thẩm quyền cấp theo quy định tại Thông tư liên tịch số 37/2012/TTLT‑BLĐTBXH‑BYT‑BTC‑BGDĐT ngày 28 tháng 12 năm 2012.</span>">
+      Đối tượng 07a
+    </option>
+    <option value="ĐT07" data-content="<span class='small'>Đối tượng 07b: Người lao động ưu tú thuộc tất cả thành phần kinh tế từ cấp tỉnh, cấp bộ trở lên được công nhận danh hiệu thợ giỏi, nghệ nhân, được cấp bằng hoặc huy hiệu Lao động sáng tạo.</span>">
+      Đối tượng 07b
+    </option>
+    <option value="ĐT07" data-content="<span class='small'>Đối tượng 07c: Giáo viên đã giảng dạy đủ 3 năm trở lên dự tuyển vào các ngành đào tạo giáo viên.</span>">
+      Đối tượng 07c
+    </option>
+    <option value="ĐT07" data-content="<span class='small'>Đối tượng 07d: Y tá, dược tá, hộ lý, y sĩ, điều dưỡng viên, hộ sinh viên, kỹ thuật viên, người có bằng trung cấp Dược đã công tác đủ 3 năm trở lên dự tuyển vào đúng ngành tốt nghiệp thuộc lĩnh vực sức khỏe.</span>">
+      Đối tượng 07d
+    </option>
+  </select>
+</div>
               
               <div class="d-flex justify-content-between mt-3">
                 <button type="button" class="btn btn-sm btn-outline-secondary" @click="goBackToScores">
@@ -450,7 +452,6 @@
 </template>
 
 <script>
-// Script section with updated URL processing
 import { ref, reactive, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import CalculateScoreController from '@/controllers/CalculateScoreController';
@@ -462,7 +463,8 @@ export default {
     const router = useRouter();
     
     // Form state
-    const subjects = ref([]);
+    const allSubjects = ref([]); // Danh sách tất cả các môn học từ API
+    const subjects = ref([]); // Giữ để tương thích với code cũ
     const subjectScores = ref([
       {
         selectedSubject: '',
@@ -504,6 +506,27 @@ export default {
       return '';
     });
     
+    // Phương thức để lấy danh sách môn học có thể chọn cho một dòng cụ thể
+    const getAvailableSubjectsForRow = (currentIndex) => {
+      // Lấy danh sách ID các môn học đã chọn, ngoại trừ môn đã chọn tại row hiện tại
+      const selectedSubjectIds = subjectScores.value
+        .filter((item, idx) => idx !== currentIndex && item.selectedSubject && item.subject_id)
+        .map(item => item.subject_id);
+      
+      // Trả về danh sách các môn học chưa được chọn + môn học đang chọn tại row hiện tại
+      const currentSubjectId = subjectScores.value[currentIndex].subject_id;
+      
+      if (currentSubjectId) {
+        // Nếu row hiện tại đã chọn môn, thêm môn này vào danh sách có thể chọn
+        return allSubjects.value.filter(subject => 
+          !selectedSubjectIds.includes(subject.id) || subject.id === currentSubjectId
+        );
+      } else {
+        // Nếu row hiện tại chưa chọn môn, chỉ hiển thị các môn chưa được chọn
+        return allSubjects.value.filter(subject => !selectedSubjectIds.includes(subject.id));
+      }
+    };
+    
     // Normalize subject name for URL processing
     const normalizeSubjectName = (name) => {
       return name.toLowerCase().trim();
@@ -511,7 +534,7 @@ export default {
     
     // Find a subject match based on normalized name
     const findSubjectMatch = (normalizedName) => {
-      return subjects.value.find(subject => 
+      return allSubjects.value.find(subject => 
         normalizeSubjectName(subject.name) === normalizedName
       );
     };
@@ -520,7 +543,7 @@ export default {
     const processUrlParams = async () => {
       try {
         // Đảm bảo danh sách môn học đã được tải
-        if (subjects.value.length === 0) {
+        if (allSubjects.value.length === 0) {
           await loadSubjects();
         }
         
@@ -540,7 +563,7 @@ export default {
           if (isSubjectId) {
             // Trích xuất ID từ key (s_123 -> 123)
             subjectId = key.substring(2);
-            matchedSubject = subjects.value.find(s => s.id.toString() === subjectId);
+            matchedSubject = allSubjects.value.find(s => s.id.toString() === subjectId);
           } else {
             // Trường hợp URL cũ sử dụng tên môn học
             const normalizedKey = normalizeSubjectName(key);
@@ -553,7 +576,7 @@ export default {
             
             if (!isNaN(score) && score >= 0 && score <= 10) {
               // Làm tròn đến 0.05
-              const roundedScore = Math.round(score * 20) / 20;
+              const roundedScore = Math.round(score * 100) / 100;
               
               urlSubjects.push({
                 selectedSubject: matchedSubject,
@@ -669,7 +692,7 @@ export default {
       const scoreValue = subjectScores.value[index].scores[0];
       if (scoreValue !== '' && !isNaN(parseFloat(scoreValue))) {
         // Round to nearest 0.05
-        const roundedValue = Math.round(parseFloat(scoreValue) * 20) / 20;
+        const roundedValue = Math.round(parseFloat(scoreValue) * 100) / 100;
         // Limit to at most 2 decimal places
         subjectScores.value[index].scores[0] = roundedValue.toFixed(2);
       }
@@ -717,7 +740,9 @@ export default {
     
     const loadSubjects = async () => {
       try {
-        subjects.value = await CalculateScoreController.getSubjects();
+        const subjectsData = await CalculateScoreController.getSubjects();
+        allSubjects.value = subjectsData;
+        subjects.value = subjectsData; // Giữ để tương thích với code cũ
       } catch (err) {
         error.value = 'Không thể tải danh sách môn học. Vui lòng thử lại sau.';
       }
@@ -875,6 +900,7 @@ export default {
       submitted.value = false;
       showPriorityStep.value = false;
       shareableUrl.value = '';
+      urlCopied.value = false;
       urlParseError.value = '';
     };
     
@@ -906,6 +932,7 @@ export default {
     
     return {
       // Form state
+      allSubjects,
       subjects,
       subjectScores,
       
@@ -948,7 +975,8 @@ export default {
       calculatePriorityScores,
       resetCalculator,
       generateShareableUrl,
-      copyUrlToClipboard
+      copyUrlToClipboard,
+      getAvailableSubjectsForRow // Thêm hàm lấy danh sách môn học khả dụng
     };
   }
 }
