@@ -8,6 +8,14 @@
       </div>
     </header>
 
+    <!-- Thông báo lỗi URL nếu có -->
+    <div v-if="urlParseError" class="container mt-2">
+      <div class="alert alert-warning py-2 px-3 small">
+        <i class="bi bi-exclamation-triangle me-1"></i>
+        {{ urlParseError }}
+      </div>
+    </div>
+
     <!-- Main Content - Cải thiện cấu trúc -->
     <main class="container my-3 my-md-4">
       <div class="card shadow-sm rounded">
@@ -204,6 +212,7 @@
                 </div>
               </div>
 
+
               <!-- Chọn đối tượng ưu tiên -->
               <div class="mb-3 mt-3">
                 <h3 class="section-title h6">Chọn Ưu tiên đối tượng</h3>
@@ -292,6 +301,13 @@
           </div>
           
           <!-- Hiển thị kết quả sau bước 1: Tính điểm -->
+          <div class="loading-indicator" v-if="loading">
+            <div class="spinner-border spinner-border-sm text-primary" role="status">
+              <span class="visually-hidden">Đang tải...</span>
+            </div>
+            <p class="small mb-0 mt-1">Đang tính toán...</p>
+          </div>
+          
           <div class="initial-results mt-3" v-if="initialCombinations.length > 0 && !showPriorityStep">
             <h3 class="h5 text-center mb-2">Kết quả tính điểm tổ hợp</h3>
             
@@ -326,6 +342,33 @@
                   </template>
                 </tbody>
               </table>
+            </div>
+            
+            <!-- Công cụ tạo URL chia sẻ -->
+            <div class="url-generator mt-3">
+              <hr>
+              <h4 class="h6 text-center">Chia sẻ kết quả</h4>
+              
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-sm btn-outline-info me-2" @click="generateShareableUrl">
+                  <i class="bi bi-link-45deg"></i> Tạo liên kết chia sẻ
+                </button>
+                
+                <button v-if="shareableUrl" class="btn btn-sm btn-outline-success" @click="copyUrlToClipboard">
+                  <i class="bi bi-clipboard"></i> Sao chép liên kết
+                </button>
+              </div>
+              
+              <div v-if="shareableUrl" class="mt-2 url-display p-2">
+                <small class="text-muted">Liên kết chia sẻ:</small>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control form-control-sm" readonly v-model="shareableUrl" />
+                  <button class="btn btn-sm btn-outline-secondary" @click="copyUrlToClipboard">
+                    <i class="bi bi-clipboard"></i>
+                  </button>
+                </div>
+                <small class="text-success" v-if="urlCopied">Đã sao chép vào bộ nhớ tạm!</small>
+              </div>
             </div>
             
             <div class="text-center mt-3">
@@ -407,13 +450,17 @@
 </template>
 
 <script>
-// Script section stays largely the same to maintain functionality
+// Script section with updated URL processing
 import { ref, reactive, computed, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import CalculateScoreController from '@/controllers/CalculateScoreController';
 
 export default {
   name: 'CalculateScoreTHPT',
   setup() {
+    const route = useRoute();
+    const router = useRouter();
+    
     // Form state
     const subjects = ref([]);
     const subjectScores = ref([
@@ -443,6 +490,11 @@ export default {
     const submitted = ref(false);
     const showPriorityStep = ref(false);
     
+    // URL sharing variables
+    const shareableUrl = ref('');
+    const urlCopied = ref(false);
+    const urlParseError = ref('');
+    
     // Computed properties
     const selectedSchoolPriority = computed(() => {
       if (schools.value.length && schoolId.value) {
@@ -451,6 +503,139 @@ export default {
       }
       return '';
     });
+    
+    // Normalize subject name for URL processing
+    const normalizeSubjectName = (name) => {
+      return name.toLowerCase().trim();
+    };
+    
+    // Find a subject match based on normalized name
+    const findSubjectMatch = (normalizedName) => {
+      return subjects.value.find(subject => 
+        normalizeSubjectName(subject.name) === normalizedName
+      );
+    };
+    
+    // Process URL parameters for automatic score calculation
+    const processUrlParams = async () => {
+      try {
+        // Đảm bảo danh sách môn học đã được tải
+        if (subjects.value.length === 0) {
+          await loadSubjects();
+        }
+        
+        // Kiểm tra xem có query params hay không
+        const query = route.query;
+        if (!query || Object.keys(query).length === 0) return;
+        
+        // Xử lý danh sách môn học và điểm từ URL
+        const urlSubjects = [];
+        const invalidSubjects = [];
+        
+        for (const key of Object.keys(query)) {
+          // Kiểm tra xem key có phải là định dạng s_ID không
+          const isSubjectId = key.startsWith('s_');
+          let subjectId, matchedSubject;
+          
+          if (isSubjectId) {
+            // Trích xuất ID từ key (s_123 -> 123)
+            subjectId = key.substring(2);
+            matchedSubject = subjects.value.find(s => s.id.toString() === subjectId);
+          } else {
+            // Trường hợp URL cũ sử dụng tên môn học
+            const normalizedKey = normalizeSubjectName(key);
+            matchedSubject = findSubjectMatch(normalizedKey);
+          }
+          
+          if (matchedSubject) {
+            // Xử lý điểm
+            const score = parseFloat(query[key]);
+            
+            if (!isNaN(score) && score >= 0 && score <= 10) {
+              // Làm tròn đến 0.05
+              const roundedScore = Math.round(score * 20) / 20;
+              
+              urlSubjects.push({
+                selectedSubject: matchedSubject,
+                subject_id: matchedSubject.id,
+                subject_name: matchedSubject.name,
+                scores: [roundedScore.toFixed(2)]
+              });
+            } else {
+              invalidSubjects.push(`${matchedSubject.name} (điểm không hợp lệ: ${query[key]})`);
+            }
+          } else if (!isSubjectId) {
+            // Chỉ báo lỗi cho trường hợp không phải định dạng s_ID
+            invalidSubjects.push(key);
+          }
+        }
+        
+        // Hiển thị thông báo về môn học không hợp lệ
+        if (invalidSubjects.length > 0) {
+          urlParseError.value = `Một số môn học không được nhận dạng hoặc có điểm không hợp lệ: ${invalidSubjects.join(', ')}`;
+        }
+        
+        // Nếu có ít nhất một môn hợp lệ
+        if (urlSubjects.length > 0) {
+          subjectScores.value = urlSubjects;
+          // Tự động tính điểm
+          setTimeout(() => {
+            calculateInitialScores();
+          }, 500);
+        }
+        
+      } catch (err) {
+        console.error('Error processing URL parameters:', err);
+        urlParseError.value = 'Có lỗi xảy ra khi xử lý thông tin từ URL.';
+      }
+    };
+    
+    // Generate shareable URL
+    const generateShareableUrl = () => {
+      try {
+        // Kiểm tra trước khi tạo URL
+        if (!subjectScores.value.length || !subjectScores.value[0].selectedSubject) {
+          return alert('Chưa có đủ thông tin điểm để tạo liên kết!');
+        }
+        
+        // Tạo base URL
+        const baseUrl = window.location.origin + window.location.pathname;
+        
+        // Tạo query params
+        const params = new URLSearchParams();
+        
+        // Thêm điểm cho từng môn - SỬ DỤNG ID THẾ CHO TÊN MÔN
+        subjectScores.value.forEach(subject => {
+          if (subject.selectedSubject && subject.scores[0] !== '') {
+            // Sử dụng subject_id thay vì subject_name để tránh vấn đề encoding
+            params.append(`s_${subject.subject_id}`, subject.scores[0]);
+          }
+        });
+        
+        // Tạo URL đầy đủ
+        shareableUrl.value = `${baseUrl}?${params.toString()}`;
+        urlCopied.value = false;
+      } catch (error) {
+        console.error('Error generating URL:', error);
+        alert('Có lỗi xảy ra khi tạo liên kết chia sẻ.');
+      }
+    };
+    
+    // Copy URL to clipboard
+    const copyUrlToClipboard = async () => {
+      try {
+        await navigator.clipboard.writeText(shareableUrl.value);
+        urlCopied.value = true;
+        
+        // Auto-hide message after 3 seconds
+        setTimeout(() => {
+          urlCopied.value = false;
+        }, 3000);
+      } catch (err) {
+        console.error('Failed to copy URL:', err);
+        alert('Không thể sao chép liên kết. Vui lòng thử lại.');
+      }
+    };
     
     // Methods
     const addSubject = () => {
@@ -479,13 +664,13 @@ export default {
       }
     };
     
-    // Format điểm thi theo yêu cầu (làm tròn đến 0.05, tối đa 2 chữ số thập phân)
+    // Format exam score to the nearest 0.05
     const formatExamScore = (index) => {
       const scoreValue = subjectScores.value[index].scores[0];
       if (scoreValue !== '' && !isNaN(parseFloat(scoreValue))) {
-        // Làm tròn đến 0.05 gần nhất
+        // Round to nearest 0.05
         const roundedValue = Math.round(parseFloat(scoreValue) * 20) / 20;
-        // Giới hạn số thập phân tối đa là 2
+        // Limit to at most 2 decimal places
         subjectScores.value[index].scores[0] = roundedValue.toFixed(2);
       }
     };
@@ -557,7 +742,7 @@ export default {
         return false;
       }
       
-      // Kiểm tra định dạng điểm và làm tròn
+      // Check score format and round
       let hasInvalidFormat = false;
       subjectScores.value.forEach((subject, index) => {
         formatExamScore(index);
@@ -625,7 +810,7 @@ export default {
       selectedCombinationIds.value = initialCombinations.value.map(comb => comb.group_id);
       showPriorityStep.value = true;
       
-      // Refresh bootstrap-select sau khi chuyển bước
+      // Refresh bootstrap-select after step change
       setTimeout(() => {
         if ($('.selectpicker').length) {
           $('.selectpicker').selectpicker('refresh');
@@ -689,6 +874,8 @@ export default {
       error.value = '';
       submitted.value = false;
       showPriorityStep.value = false;
+      shareableUrl.value = '';
+      urlParseError.value = '';
     };
     
     // Init
@@ -700,7 +887,10 @@ export default {
           loadCities()
         ]);
         
-        // Khởi tạo bootstrap-select nếu cần
+        // Process URL params after subjects are loaded
+        await processUrlParams();
+        
+        // Initialize bootstrap-select if needed
         setTimeout(() => {
           if ($('.selectpicker').length) {
             $('.selectpicker').selectpicker();
@@ -737,6 +927,11 @@ export default {
       submitted,
       showPriorityStep,
       
+      // URL sharing
+      shareableUrl,
+      urlCopied,
+      urlParseError,
+      
       // Computed properties
       selectedSchoolPriority,
       
@@ -751,7 +946,9 @@ export default {
       proceedToPriorityStep,
       goBackToScores,
       calculatePriorityScores,
-      resetCalculator
+      resetCalculator,
+      generateShareableUrl,
+      copyUrlToClipboard
     };
   }
 }
@@ -972,6 +1169,14 @@ export default {
   color: #f57c00;
 }
 
+/* URL Display */
+.url-display {
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+  border: 1px solid #dee2e6;
+  margin-top: 0.5rem;
+}
+
 /* Accessibility */
 .visually-hidden {
   position: absolute;
@@ -997,10 +1202,6 @@ export default {
   
   .form-control, .form-select {
     font-size: 0.9rem;
-  }
-  
-  .point-value {
-    font-size: 1.5rem;
   }
 }
 </style>
