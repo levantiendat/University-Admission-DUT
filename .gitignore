@@ -2,3 +2,4 @@ venv
 backend/.env
 Rasa_Chatbot/.rasa
 Rasa_Chatbot/tracker.db
+frontend/.env
