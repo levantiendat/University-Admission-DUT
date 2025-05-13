@@ -1179,3 +1179,126 @@ nlu:
     - chức năng của bạn là gì
     - bạn có thể trả lời những câu hỏi nào
     - khả năng của bạn là gì
+
+- intent: ask_career_guidance
+  examples: |
+    - em muốn được tư vấn chọn ngành học phù hợp với bản thân
+    - em nên học [ngành](subject) gì phù hợp với sở thích của em
+    - em [thích lập trình](student_interests) thì nên học ngành gì
+    - có thể tư vấn ngành học phù hợp với em không
+    - em [giỏi toán và lý](academic_strengths) thì nên học ngành nào
+    - với [sở thích về công nghệ](student_interests) thì em nên học ngành gì
+    - ngành nào phù hợp với người [thích giải quyết vấn đề](personality_traits)
+    - em [thích làm việc với máy tính](student_interests) và [giỏi toán](academic_strengths), nên học ngành gì ạ
+    - với [điểm mạnh là tư duy logic](personality_traits) thì em nên theo học ngành nào
+    - bạn có thể gợi ý ngành học phù hợp với em không
+    - tư vấn giúp em ngành học phù hợp với [sở thích thiết kế](student_interests) được không
+    - em [thích khoa học tự nhiên](student_interests) và [thường xuyên đạt điểm cao môn hóa](academic_strengths), nên học ngành nào
+    - học sinh [giỏi tin học](academic_strengths) nên chọn ngành nào để học
+    - em [thích sáng tạo và làm việc nhóm](personality_traits) thì nên học ngành gì
+    - ngành nào phù hợp với người [hướng nội](personality_traits) và [giỏi về lập trình](academic_strengths)
+    - định hướng nghề nghiệp cho học sinh [thích khám phá](student_interests) và [có tư duy phân tích](personality_traits)
+    - em [thích làm việc với số liệu](student_interests) và [giỏi về thống kê](academic_strengths), nên học ngành nào
+    - với [sở thích về xây dựng](student_interests), [kỹ năng vẽ tốt](academic_strengths) và [tư duy không gian tốt](personality_traits) thì nên học ngành gì
+    - em [thích thiết kế mạch điện](student_interests), nên học ngành nào ạ
+    - tôi [thích nghiên cứu](student_interests) và [có khả năng phân tích tốt](personality_traits), ngành nào phù hợp
+    - với [sở thích về robot](student_interests) và [giỏi toán lý](academic_strengths) thì ngành nào sẽ phù hợp 
+    - em [thích làm việc với môi trường](student_interests), nên chọn ngành gì
+    - ngành nào phù hợp với người [có năng khiếu nghệ thuật](academic_strengths) và [thích sáng tạo](student_interests)
+    - tôi [thích kinh doanh](student_interests) và [có khả năng giao tiếp tốt](personality_traits), nên học ngành nào
+    - em [giỏi hóa sinh](academic_strengths) và [thích nghiên cứu](student_interests), nên học ngành gì ạ
+    - với [sở thích về ô tô](student_interests) thì em nên học ngành nào
+    - ngành nào phù hợp với [tính cách cẩn thận tỉ mỉ](personality_traits) và [thích làm thực hành](student_interests)
+    - em [thích công nghệ thông tin](student_interests), [giỏi toán và tiếng Anh](academic_strengths), nên chọn ngành nào
+    - em [thường đạt điểm cao môn lý](academic_strengths) và [thích chế tạo máy móc](student_interests), nên học ngành gì
+    - em [giỏi các môn khoa học xã hội](academic_strengths) và [thích làm việc với con người](personality_traits), ngành nào phù hợp
+    - tư vấn ngành học phù hợp cho em với [sở thích về kiến trúc](student_interests)
+    - ngành nào phù hợp với [tính cách kiên nhẫn](personality_traits) và [thích làm thí nghiệm](student_interests)
+    - với [sở thích về lĩnh vực y tế](student_interests) và [điểm sinh học cao](academic_strengths), em nên học ngành gì
+    - em [giỏi vẽ](academic_strengths) và [thích thiết kế](student_interests), nên học ngành nào ạ
+    - tôi [thích làm việc với số liệu thống kê](student_interests) và [có khả năng phân tích tốt](personality_traits), ngành nào phù hợp
+    - em có [sở thích về điện tử](student_interests) và là người [thích tìm tòi](personality_traits), nên học ngành nào
+    - ngành nào phù hợp với [học sinh giỏi tiếng Anh](academic_strengths) và [thích giao tiếp](personality_traits)
+    - em [thích lập trình](student_interests) và [khá giỏi môn tin](academic_strengths), nên học ngành gì ạ
+    - với [khả năng tổng hợp thông tin tốt](personality_traits) và [sở thích viết lách](student_interests) thì nên học ngành nào
+    - em [thích nghiên cứu về môi trường](student_interests), nên chọn ngành gì ạ
+    - ngành nào phù hợp với người [thích thử thách](personality_traits) và [giỏi về hóa học](academic_strengths)
+    - em [thích công nghệ và máy tính](student_interests) thì nên học ngành gì
+    - tôi [giỏi các môn tự nhiên](academic_strengths) và [thích làm thí nghiệm](student_interests), ngành nào phù hợp
+    - em có [tư duy logic tốt](personality_traits) và [thích giải các bài toán](student_interests), nên học gì
+    - với [sở thích về xử lý dữ liệu](student_interests), em nên học ngành nào
+    - em [thích thiết kế web](student_interests) và [khá giỏi về mỹ thuật](academic_strengths), nên chọn ngành gì
+    - ngành nào phù hợp với người [thích học nhiều ngoại ngữ](student_interests)
+    - em [giỏi tiếng Nhật](academic_strengths) và [thích công nghệ](student_interests), nên học ngành gì ạ
+    - với [khả năng tổ chức](personality_traits) và [thích quản lý](student_interests) thì nên học ngành nào
+    - em [thích làm việc với máy móc, cơ khí](student_interests), nên chọn ngành gì ạ
+    - ngành nào phù hợp với người [thích tính toán](student_interests) và [tỉ mỉ](personality_traits)
+
+- intent: provide_student_interests
+  examples: |
+    - em [thích công nghệ và máy tính](student_interests)
+    - sở thích của em là [lập trình](student_interests)
+    - em có sở thích về [thiết kế web](student_interests)
+    - em [thích nghiên cứu về khoa học](student_interests)
+    - tôi [thích làm việc với số liệu và phân tích](student_interests)
+    - em [thích xây dựng và kiến trúc](student_interests)
+    - sở thích của em là [điện tử và robot](student_interests)
+    - em [thích nghiên cứu về môi trường](student_interests)
+    - tôi [thích kinh doanh và quản lý](student_interests)
+    - em [thích làm việc với máy móc](student_interests)
+    - sở thích của em là [khám phá và giải quyết vấn đề](student_interests)
+    - em [thích các công nghệ mới như AI](student_interests)
+    - tôi [thích thiết kế đồ họa](student_interests)
+    - em [thích làm thí nghiệm](student_interests)
+    - sở thích của em là [chế tạo và lắp ráp](student_interests)
+    - em [thích học ngoại ngữ](student_interests)
+    - em [thích làm game](student_interests)
+    - tôi [thích nghiên cứu về y sinh](student_interests)
+    - em [thích làm việc với dữ liệu lớn](student_interests)
+    - sở thích của em là [vẽ và thiết kế](student_interests)
+
+- intent: provide_academic_strengths
+  examples: |
+    - em [giỏi toán và lý](academic_strengths)
+    - điểm mạnh của em là [các môn khoa học tự nhiên](academic_strengths)
+    - em [có điểm cao về tin học](academic_strengths)
+    - tôi [giỏi hóa và sinh](academic_strengths)
+    - em [thường đạt điểm cao môn tiếng anh](academic_strengths)
+    - điểm mạnh của em là [vẽ kỹ thuật](academic_strengths)
+    - em [giỏi về thống kê và xác suất](academic_strengths)
+    - tôi [có năng khiếu về ngôn ngữ](academic_strengths)
+    - em [giỏi về môn lập trình](academic_strengths)
+    - điểm mạnh của em là [phân tích dữ liệu](academic_strengths)
+    - em [giỏi toán và tin học](academic_strengths)
+    - tôi [thường đạt điểm cao môn văn](academic_strengths)
+    - em [có kỹ năng thí nghiệm tốt](academic_strengths)
+    - điểm mạnh của em là [tiếng Nhật](academic_strengths)
+    - em [giỏi về thiết kế đồ họa](academic_strengths)
+    - tôi [thường đạt giải trong các cuộc thi toán](academic_strengths)
+    - em [có năng khiếu âm nhạc](academic_strengths)
+    - điểm mạnh của em là [lập trình và thuật toán](academic_strengths)
+    - em [giỏi vẽ và thiết kế](academic_strengths)
+    - tôi [có điểm số cao về sinh học](academic_strengths)
+
+- intent: provide_personality_traits
+  examples: |
+    - em là người [tỉ mỉ và cẩn thận](personality_traits)
+    - tính cách của em là [thích giải quyết vấn đề](personality_traits)
+    - em [có tư duy logic tốt](personality_traits)
+    - tôi [thích làm việc nhóm](personality_traits)
+    - em [là người hướng nội](personality_traits)
+    - tính cách của em là [kiên nhẫn](personality_traits)
+    - em [có khả năng tổ chức tốt](personality_traits)
+    - tôi [thích tìm tòi khám phá](personality_traits)
+    - em [là người sáng tạo](personality_traits)
+    - tính cách của em là [thích thử thách](personality_traits)
+    - em [có khả năng phân tích tốt](personality_traits)
+    - tôi [thích làm việc độc lập](personality_traits)
+    - em [là người chủ động](personality_traits)
+    - tính cách của em là [linh hoạt và thích nghi nhanh](personality_traits)
+    - em [có khả năng giao tiếp tốt](personality_traits)
+    - tôi [là người tỉ mỉ và chi tiết](personality_traits)
+    - em [có khả năng lãnh đạo](personality_traits)
+    - tính cách của em là [quyết đoán](personality_traits)
+    - em [có năng khiếu nghệ thuật](personality_traits)
+    - tôi [là người thực tế](personality_traits)

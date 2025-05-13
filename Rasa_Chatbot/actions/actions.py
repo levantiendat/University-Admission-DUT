@@ -1,8 +1,9 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Text, Any
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from actions.graph_connector import GraphConnector
 from actions.mapping_utils import normalize_major, normalize_method, normalize_achievement_field, normalize_subject, normalize_faculty  # Import các hàm tiện ích
+from actions.mapping_utils import normalize_student_interests, normalize_personality_strengths, normalize_achievement_field, normalize_subjects_strengths, comprehensive_major_suggestion, MAJOR_MAPPING
 import logging
 from rasa_sdk.events import SlotSet
 from rasa_sdk.events import FollowupAction
@@ -1167,3 +1168,139 @@ class ActionCalculateScore(Action):
         message += f"\n💡 Điểm của các khối xét tuyển từ điểm của bạn có thể truy cập '{share_url}'"
         
         return message
+    
+class ActionSuggestMajorsByStrengths(Action):
+    def name(self) -> Text:
+        return "action_suggest_majors_by_strengths"
+        
+    def __init__(self):
+        self.db = GraphConnector()
+        
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Lấy thông tin về sở thích từ slot
+        interests_text = tracker.get_slot("student_interests")
+        academic_strengths_text = tracker.get_slot("academic_strengths") 
+        personality_text = tracker.get_slot("personality_traits")
+        
+        # Nếu không có thông tin, yêu cầu người dùng nhập
+        if not interests_text and not academic_strengths_text and not personality_text:
+            message = (
+                "Để gợi ý ngành học phù hợp, hãy cho tôi biết về sở thích, "
+                "điểm mạnh học tập hoặc tính cách của bạn. Ví dụ:\n\n"
+                "• \"*Em thích lập trình, công nghệ và giải quyết vấn đề*\"\n" 
+                "• \"*Em giỏi toán, lý và thích làm việc với máy tính*\"\n"
+                "• \"*Em là người tỉ mỉ, kiên nhẫn và thích khám phá cái mới*\""
+            )
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Phân tích và chuẩn hóa dữ liệu đầu vào
+        interests = []
+        if interests_text:
+            interests = normalize_student_interests(interests_text)
+            
+        academic_strengths = []
+        if academic_strengths_text:
+            academic_strengths = normalize_subjects_strengths(academic_strengths_text)
+            
+        personality_traits = []
+        if personality_text:
+            personality_traits = normalize_personality_strengths(personality_text)
+        
+        # Ghi log cho việc debug
+        logging.debug(f"Sở thích: {interests}")
+        logging.debug(f"Điểm mạnh học tập: {academic_strengths}")
+        logging.debug(f"Tính cách: {personality_traits}")
+        
+        # Nếu không tìm thấy bất kỳ thông tin gợi ý nào
+        if not interests and not academic_strengths and not personality_traits:
+            message = (
+                "Tôi chưa thể xác định rõ sở thích và điểm mạnh của bạn. Hãy chia sẻ cụ thể hơn về:\n\n"
+                "• Các môn học bạn thích và giỏi (như toán, lý, hóa, sinh...)\n"
+                "• Sở thích (như lập trình, máy tính, xây dựng, thiết kế...)\n"
+                "• Tính cách và kỹ năng (như thích giải quyết vấn đề, làm việc nhóm, tỉ mỉ...)"
+            )
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Tạo gợi ý tổng hợp
+        suggestions = comprehensive_major_suggestion(
+            interests, 
+            academic_strengths, 
+            personality_traits
+        )
+        
+        if not suggestions:
+            message = (
+                "Tôi chưa tìm thấy ngành học phù hợp với thông tin bạn cung cấp. "
+                "Hãy cung cấp thêm thông tin về sở thích và điểm mạnh của bạn."
+            )
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Lấy thêm thông tin chi tiết về mỗi ngành học từ Neo4j
+        major_details = {}
+        for major_id in suggestions.keys():
+            # Lấy thông tin chi tiết từ Neo4j
+            details = self.db.get_major_quota_and_name(major_id)
+            if details and details["found"]:
+                major_details[major_id] = details
+        
+        # Tạo phản hồi
+        message = "📚 **Dựa vào thông tin của bạn, các ngành học phù hợp nhất là:**\n\n"
+        
+        suggested_major_ids = []  # Danh sách lưu ID của các ngành được gợi ý
+        
+        for i, (major_id, details) in enumerate(suggestions.items(), 1):
+            # Thông tin từ gợi ý
+            score = details['score']
+            
+            # Lấy thông tin chi tiết từ Neo4j nếu có
+            if major_id in major_details:
+                neo4j_details = major_details[major_id]
+                major_name = neo4j_details["name"]
+                quota = neo4j_details.get("quota", "Chưa cập nhật")
+                major_url = neo4j_details.get("majorUrl", "")
+                
+                # Thêm vào danh sách ngành gợi ý
+                suggested_major_ids.append(major_id)
+                
+                # Tạo thông tin hiển thị
+                message += f"{i}. **{major_name}** (Độ phù hợp: {score*100:.0f}%)\n"
+                if quota:
+                    message += f"   - Chỉ tiêu: {quota}\n"
+                
+                # Thêm giải thích
+                for explanation in details['explanation']:
+                    message += f"   - {explanation}\n"
+                
+                # Thêm link chi tiết ngành học
+                if major_url:
+                    message += f"   - [Xem chi tiết về ngành học]( {major_url} )\n"
+            else:
+                # Nếu không tìm thấy thông tin chi tiết, hiển thị tên ngành từ ID
+                # Viết hoa chữ cái đầu của mỗi từ trong tên ngành
+                major_name = ' '.join(word.capitalize() for word in major_id.split('_'))
+                message += f"{i}. **{major_name}** (Độ phù hợp: {score*100:.0f}%)\n"
+                
+                # Thêm giải thích
+                for explanation in details['explanation']:
+                    message += f"   - {explanation}\n"
+            
+            message += "\n"
+        
+        # Thêm gợi ý tiếp theo
+        message += (
+            "💡 Bạn có thể tìm hiểu thêm về các ngành này bằng cách hỏi tôi như:\n"
+            "• \"Cho em thông tin về ngành Công Nghệ Thông Tin\"\n"
+            "• \"Tổ hợp môn nào xét tuyển vào Kỹ thuật Điện tử?\"\n"
+            "• \"Ngành Kỹ thuật Xây dựng học những gì?\""
+        )
+        
+        dispatcher.utter_message(text=message)
+        
+        # Lưu các ngành được đề xuất vào slot để tiếp tục trò chuyện
+        return [SlotSet("suggested_majors", suggested_major_ids)]

@@ -1071,3 +1071,510 @@ def find_faculties_in_text(text: str) -> list:
                     break
     
     return found_faculties
+
+# Mapping sở thích và điểm mạnh với ngành học
+STUDENT_STRENGTH_MAPPING = {
+    # Sở thích về máy tính, công nghệ
+    "lập trình": ["cntt_htdn", "cntt_ai", "cntt_nnn", "ktmt"],
+    "máy tính": ["cntt_htdn", "cntt_ai", "cntt_nnn", "ktmt"],
+    "phần mềm": ["cntt_htdn", "cntt_ai", "cntt_nnn"],
+    "thiết kế web": ["cntt_htdn", "cntt_nnn"],
+    "thiết kế app": ["cntt_htdn", "cntt_nnn"],
+    "game": ["cntt_htdn", "cntt_ai"],
+    "trí tuệ nhân tạo": ["cntt_ai"],
+    "ai": ["cntt_ai"],
+    "dữ liệu": ["cntt_ai"],
+    "phân tích dữ liệu": ["cntt_ai"],
+    "data": ["cntt_ai"],
+    "công nghệ": ["cntt_htdn", "ktmt", "dtvt", "vidientu_vimach", "tien_tien_dtvt", "tien_tien_nhung_iot"],
+    
+    # Sở thích về khoa học tự nhiên
+    "vật lý": ["ktmt", "ck_dongluc", "ck_hk", "cdt", "ktnhiet", "ktdien", "dtvt", "vidientu_vimach", "tudonghoa"],
+    "toán học": ["cntt_ai", "ktmt", "ktdien", "dtvt", "tudonghoa"],
+    "hóa học": ["cnsinhhoc", "cnsinhhoc_yd", "vlxd", "daukhi", "kthh", "mt", "cntp"],
+    "sinh học": ["cnsinhhoc", "cnsinhhoc_yd", "mt", "cntp"],
+    
+    # Sở thích về kỹ thuật, cơ khí
+    "cơ khí": ["ck_dongluc", "ck_hk", "cdt", "ctm", "oto"],
+    "động cơ": ["ck_dongluc", "ckgt", "oto"],
+    "chế tạo": ["ctm", "cdt"],
+    "ô tô": ["oto", "ck_dongluc"],
+    "xe hơi": ["oto", "ck_dongluc"],
+    "máy móc": ["ctm", "ck_dongluc", "ck_hk", "cdt"],
+    "robot": ["cdt", "tudonghoa", "tien_tien_nhung_iot"],
+    "tự động hóa": ["tudonghoa", "cdt", "ktdien"],
+    "điện": ["ktdien", "tudonghoa"],
+    "điện tử": ["dtvt", "vidientu_vimach", "tudonghoa", "tien_tien_dtvt"],
+    "vi mạch": ["vidientu_vimach", "tien_tien_dtvt"],
+    
+    # Sở thích về xây dựng, kiến trúc
+    "xây dựng": ["xddc_cn", "thxd", "xdtttm", "bim_ai", "ctthuy", "ctgt", "duongsat", "ktxd", "cshatng"],
+    "kiến trúc": ["kientruc", "xddc_cn", "thxd"],
+    "thiết kế nhà": ["kientruc", "xddc_cn"],
+    "cầu đường": ["ctgt", "duongsat"],
+    "công trình": ["xddc_cn", "ctthuy", "ctgt", "duongsat", "ktxd", "cshatng"],
+    "đô thị": ["xdtttm", "ktxd"],
+    "hạ tầng": ["cshatng", "xddc_cn", "ctgt", "xdtttm"],
+    "bim": ["bim_ai", "thxd"],
+    
+    # Sở thích về môi trường, năng lượng
+    "môi trường": ["mt", "qltn_mt", "cnsinhhoc"],
+    "năng lượng": ["ktnqlnl", "ktnhiet"],
+    "tài nguyên": ["qltn_mt", "mt"],
+    "nhiệt": ["ktnhiet", "ktnqlnl"],
+    "điện lạnh": ["ktnhiet"],
+    
+    # Sở thích về hóa học, vật liệu
+    "vật liệu": ["vlxd", "kthh"],
+    "dầu khí": ["daukhi"],
+    "hóa dầu": ["daukhi", "kthh"],
+    
+    # Sở thích về thực phẩm
+    "thực phẩm": ["cntp", "cnsinhhoc"],
+    "chế biến": ["cntp"],
+    "dinh dưỡng": ["cntp", "cnsinhhoc_yd"],
+    
+    # Sở thích về sinh học, y dược
+    "y dược": ["cnsinhhoc_yd"],
+    "dược phẩm": ["cnsinhhoc_yd", "kthh"],
+    "công nghệ sinh học": ["cnsinhhoc", "cnsinhhoc_yd"],
+    
+    # Sở thích về quản lý
+    "quản lý": ["qlcn", "ktxd", "qltn_mt"],
+    "kinh tế": ["ktxd", "qlcn"],
+    "tổ chức": ["qlcn", "ktxd"],
+    "công nghiệp": ["qlcn", "htcn"],
+    
+    # Sở thích về biển, tàu thuyền
+    "tàu thủy": ["tauthuy"],
+    "biển": ["tauthuy", "ctthuy"],
+    "đóng tàu": ["tauthuy"],
+    
+    # Sở thích về ngoại ngữ
+    "tiếng nhật": ["cntt_nnn"],
+    "nhật bản": ["cntt_nnn"],
+    "ngoại ngữ": ["cntt_nnn"],
+    
+    # Sở thích về tiên tiến
+    "quốc tế": ["pfiev", "tien_tien_dtvt", "tien_tien_nhung_iot"],
+    "tiên tiến": ["pfiev", "tien_tien_dtvt", "tien_tien_nhung_iot"],
+    "việt pháp": ["pfiev"],
+    "pháp": ["pfiev"],
+    "việt mỹ": ["tien_tien_dtvt", "tien_tien_nhung_iot"],
+    "mỹ": ["tien_tien_dtvt", "tien_tien_nhung_iot"],
+    
+    # Điểm mạnh theo môn học
+    "giỏi toán": ["cntt_ai", "cntt_htdn", "ktmt", "tudonghoa", "dtvt", "ktdien"],
+    "giỏi lý": ["ck_dongluc", "dtvt", "ktmt", "ktdien", "tauthuy", "cdt", "ktnhiet"],
+    "giỏi hóa": ["cnsinhhoc", "cnsinhhoc_yd", "kthh", "daukhi", "mt"],
+    "giỏi sinh": ["cnsinhhoc", "cnsinhhoc_yd", "mt"],
+    "giỏi tin": ["cntt_htdn", "cntt_ai", "cntt_nnn", "ktmt", "thxd", "bim_ai"],
+    "giỏi anh": ["cntt_nnn", "tien_tien_dtvt", "tien_tien_nhung_iot", "pfiev"],
+    "giỏi vẽ": ["kientruc", "thxd", "xddc_cn"],
+    
+    # Điểm mạnh về kỹ năng
+    "tư duy logic": ["cntt_htdn", "cntt_ai", "ktmt", "tudonghoa", "dtvt"],
+    "tư duy sáng tạo": ["kientruc", "cntt_htdn", "cdt", "cntt_ai"],
+    "thích giải quyết vấn đề": ["cntt_ai", "cntt_htdn", "ktmt", "qlcn", "htcn"],
+    "thích thực hành": ["cntt_htdn", "cdt", "ctm", "ck_dongluc", "cntp", "tudonghoa"],
+    "thích làm việc nhóm": ["cntt_htdn", "qlcn", "ktxd", "xddc_cn"],
+    "thích làm việc độc lập": ["cntt_htdn", "ktmt", "tudonghoa", "cnsinhhoc"],
+    "kỹ năng giao tiếp": ["qlcn", "ktxd"],
+    "kỹ năng quản lý": ["qlcn", "ktxd", "qltn_mt"],
+    "tỉ mỉ": ["kientruc", "vidientu_vimach", "cdt", "cnsinhhoc_yd", "thxd"],
+    "kiên nhẫn": ["cnsinhhoc", "vidientu_vimach", "cntp", "kthh"],
+    "thích thể hiện bản thân": ["kientruc", "xddc_cn"],
+    
+    # Tính cách chung
+    "thích công nghệ": ["cntt_htdn", "cntt_ai", "cntt_nnn", "ktmt", "dtvt", "vidientu_vimach"],
+    "thích khám phá": ["cntt_ai", "cnsinhhoc", "mt", "qltn_mt", "daukhi"],
+    "thích tìm tòi": ["cntt_ai", "cnsinhhoc", "kthh", "qltn_mt"],
+    "thích sáng tạo": ["kientruc", "cntt_htdn", "cntt_ai", "cdt"],
+    "thích trải nghiệm": ["cntt_htdn", "ck_dongluc", "oto", "kientruc"],
+    "thích chính xác": ["ktmt", "vidientu_vimach", "bim_ai", "thxd"],
+    "thích thực tế": ["ck_dongluc", "oto", "cdt", "ctm", "qlcn"],
+    "thích mới mẻ": ["cntt_ai", "kientruc", "cnsinhhoc"],
+    "thích ổn định": ["ktdien", "xddc_cn", "qlcn", "ktxd"],
+    "hướng nội": ["cntt_htdn", "ktmt", "thxd"],
+    "hướng ngoại": ["qlcn", "ktxd", "kientruc"],
+}
+
+# Trọng số mức độ phù hợp của các sở thích/điểm mạnh với ngành
+STRENGTH_WEIGHT = {
+    # Sở thích và điểm mạnh chính của ngành CNTT
+    "lập trình": {"cntt_htdn": 1.0, "cntt_ai": 0.9, "cntt_nnn": 0.9, "ktmt": 0.8, "vidientu_vimach": 0.6},
+    "máy tính": {"cntt_htdn": 1.0, "ktmt": 0.9, "cntt_ai": 0.8, "cntt_nnn": 0.8, "dtvt": 0.6},
+    "phân tích dữ liệu": {"cntt_ai": 1.0, "cntt_htdn": 0.7, "ktmt": 0.5},
+    "giỏi toán": {"cntt_ai": 1.0, "cntt_htdn": 0.9, "ktmt": 0.9, "dtvt": 0.8, "tudonghoa": 0.8, "htcn": 0.7},
+    
+    # Sở thích và điểm mạnh chính của ngành kỹ thuật cơ khí
+    "cơ khí": {"ck_dongluc": 1.0, "ctm": 0.9, "ck_hk": 0.9, "cdt": 0.8, "oto": 0.9},
+    "máy móc": {"ctm": 1.0, "ck_dongluc": 0.9, "oto": 0.8, "cdt": 0.8},
+    "động cơ": {"oto": 1.0, "ck_dongluc": 0.9},
+    
+    # Sở thích và điểm mạnh chính của ngành xây dựng
+    "xây dựng": {"xddc_cn": 1.0, "ctthuy": 0.8, "ctgt": 0.8, "ktxd": 0.7, "cshatng": 0.8},
+    "kiến trúc": {"kientruc": 1.0, "xddc_cn": 0.7, "thxd": 0.5},
+    "thiết kế nhà": {"kientruc": 1.0, "xddc_cn": 0.8},
+    
+    # Sở thích và điểm mạnh chính của ngành điện
+    "điện": {"ktdien": 1.0, "tudonghoa": 0.8, "dtvt": 0.6},
+    "điện tử": {"dtvt": 1.0, "vidientu_vimach": 0.9, "tudonghoa": 0.7, "tien_tien_dtvt": 0.9},
+    
+    # Sở thích và điểm mạnh chính của ngành sinh học
+    "sinh học": {"cnsinhhoc": 1.0, "cnsinhhoc_yd": 0.9, "mt": 0.6, "cntp": 0.5},
+    "y dược": {"cnsinhhoc_yd": 1.0, "cnsinhhoc": 0.7},
+    "công nghệ sinh học": {"cnsinhhoc": 1.0, "cnsinhhoc_yd": 0.9},
+    
+    # Sở thích và điểm mạnh chính của ngành quản lý
+    "quản lý": {"qlcn": 1.0, "ktxd": 0.9, "qltn_mt": 0.8, "htcn": 0.7},
+    "kinh tế": {"ktxd": 1.0, "qlcn": 0.8},
+    
+    # Sở thích và điểm mạnh chính của ngành năng lượng, môi trường
+    "môi trường": {"mt": 1.0, "qltn_mt": 0.9, "cnsinhhoc": 0.5},
+    "năng lượng": {"ktnqlnl": 1.0, "ktnhiet": 0.9, "ktdien": 0.7},
+    
+    # Tính cách và kỹ năng
+    "tư duy logic": {"cntt_htdn": 1.0, "cntt_ai": 0.9, "ktmt": 0.9, "dtvt": 0.8, "tudonghoa": 0.8},
+    "kỹ năng quản lý": {"qlcn": 1.0, "ktxd": 0.9, "qltn_mt": 0.8},
+    "thích thực hành": {"ctm": 1.0, "cdt": 0.9, "oto": 0.9, "ck_dongluc": 0.8, "cntp": 0.8},
+    "tỉ mỉ": {"vidientu_vimach": 1.0, "kientruc": 0.9, "cnsinhhoc_yd": 0.9, "thxd": 0.8},
+    "thích sáng tạo": {"kientruc": 1.0, "cntt_ai": 0.8, "cdt": 0.7, "cntt_htdn": 0.7}
+}
+
+# Thêm danh sách ngành theo nhóm lĩnh vực
+FIELD_MAJOR_GROUPS = {
+    "công nghệ thông tin": ["cntt_htdn", "cntt_ai", "cntt_nnn", "ktmt", "tien_tien_nhung_iot"],
+    "kỹ thuật điện - điện tử": ["ktdien", "dtvt", "vidientu_vimach", "tudonghoa", "tien_tien_dtvt"],
+    "cơ khí - chế tạo": ["ck_dongluc", "ck_hk", "cdt", "ctm", "oto", "tauthuy"],
+    "xây dựng - kiến trúc": ["xddc_cn", "thxd", "xdtttm", "bim_ai", "ctthuy", "ctgt", "duongsat", "ktxd", "cshatng", "kientruc"],
+    "hóa - sinh học": ["cnsinhhoc", "cnsinhhoc_yd", "kthh", "cntp"],
+    "năng lượng - môi trường": ["ktnhiet", "ktnqlnl", "mt", "qltn_mt", "daukhi"],
+    "quản lý - kinh tế": ["qlcn", "htcn", "ktxd"]
+}
+
+# Lĩnh vực yêu thích - nhóm ngành phù hợp
+INTEREST_FIELD_MAPPING = {
+    "máy tính": "công nghệ thông tin",
+    "lập trình": "công nghệ thông tin",
+    "phần mềm": "công nghệ thông tin",
+    "ai": "công nghệ thông tin",
+    "điện tử": "kỹ thuật điện - điện tử",
+    "robot": "kỹ thuật điện - điện tử",
+    "viễn thông": "kỹ thuật điện - điện tử",
+    "cơ khí": "cơ khí - chế tạo",
+    "ô tô": "cơ khí - chế tạo",
+    "máy móc": "cơ khí - chế tạo",
+    "tàu biển": "cơ khí - chế tạo",
+    "xây dựng": "xây dựng - kiến trúc",
+    "kiến trúc": "xây dựng - kiến trúc",
+    "thiết kế nhà": "xây dựng - kiến trúc",
+    "cầu đường": "xây dựng - kiến trúc",
+    "sinh học": "hóa - sinh học",
+    "y dược": "hóa - sinh học",
+    "hóa học": "hóa - sinh học",
+    "thực phẩm": "hóa - sinh học",
+    "môi trường": "năng lượng - môi trường",
+    "năng lượng": "năng lượng - môi trường",
+    "nhiệt": "năng lượng - môi trường",
+    "quản lý": "quản lý - kinh tế",
+    "kinh tế": "quản lý - kinh tế"
+}
+
+# Môn học - nhóm ngành phù hợp
+SUBJECT_FIELD_MAPPING = {
+    "toán": ["công nghệ thông tin", "kỹ thuật điện - điện tử", "quản lý - kinh tế"],
+    "lý": ["kỹ thuật điện - điện tử", "cơ khí - chế tạo", "năng lượng - môi trường"],
+    "hóa": ["hóa - sinh học", "năng lượng - môi trường"],
+    "sinh": ["hóa - sinh học"],
+    "tin": ["công nghệ thông tin"],
+    "vẽ": ["xây dựng - kiến trúc", "cơ khí - chế tạo"]
+}
+
+def normalize_student_interests(interests_text):
+    """
+    Chuẩn hóa văn bản sở thích của học sinh thành danh sách các từ khóa
+    
+    Args:
+        interests_text (str): Văn bản mô tả sở thích của học sinh
+        
+    Returns:
+        list: Danh sách các từ khóa sở thích đã chuẩn hóa
+    """
+    if not interests_text:
+        return []
+    
+    interests_text = clean_text(interests_text)
+    found_interests = []
+    
+    # Tìm kiếm các từ khóa trong văn bản
+    for interest in STUDENT_STRENGTH_MAPPING.keys():
+        if interest in interests_text:
+            found_interests.append(interest)
+    
+    return found_interests
+
+def suggest_majors_by_interests(interests_list, max_results=5):
+    """
+    Gợi ý ngành học dựa trên sở thích của học sinh
+    
+    Args:
+        interests_list (list): Danh sách các sở thích
+        max_results (int): Số lượng ngành học tối đa trả về
+        
+    Returns:
+        dict: Từ điển các ngành học được gợi ý với điểm phù hợp
+    """
+    if not interests_list:
+        return {}
+    
+    # Tính điểm cho từng ngành dựa trên sở thích
+    major_scores = {}
+    
+    for interest in interests_list:
+        # Lấy danh sách ngành phù hợp với sở thích
+        if interest in STUDENT_STRENGTH_MAPPING:
+            related_majors = STUDENT_STRENGTH_MAPPING[interest]
+            
+            # Áp dụng trọng số nếu có
+            if interest in STRENGTH_WEIGHT:
+                weights = STRENGTH_WEIGHT[interest]
+                for major in related_majors:
+                    weight = weights.get(major, 0.5) # Mặc định 0.5 nếu không có trọng số cụ thể
+                    major_scores[major] = major_scores.get(major, 0) + weight
+            else:
+                # Nếu không có trọng số, gán điểm đồng đều cho tất cả ngành liên quan
+                for major in related_majors:
+                    major_scores[major] = major_scores.get(major, 0) + 0.5
+    
+    # Kiểm tra xem có lĩnh vực nổi trội không
+    field_scores = {}
+    for interest in interests_list:
+        if interest in INTEREST_FIELD_MAPPING:
+            field = INTEREST_FIELD_MAPPING[interest]
+            field_scores[field] = field_scores.get(field, 0) + 1
+    
+    # Tăng điểm cho ngành thuộc lĩnh vực được quan tâm nhiều
+    if field_scores:
+        dominant_field = max(field_scores.items(), key=lambda x: x[1])[0]
+        if dominant_field in FIELD_MAJOR_GROUPS:
+            for major in FIELD_MAJOR_GROUPS[dominant_field]:
+                major_scores[major] = major_scores.get(major, 0) + 0.5
+    
+    # Sắp xếp và giới hạn số lượng kết quả
+    sorted_majors = sorted(major_scores.items(), key=lambda x: x[1], reverse=True)
+    
+    # Chỉ trả về top majors với điểm phù hợp
+    return {major: score for major, score in sorted_majors[:max_results]}
+
+def normalize_subjects_strengths(text):
+    """
+    Phân tích văn bản để xác định điểm mạnh về môn học của học sinh
+    
+    Args:
+        text (str): Văn bản mô tả điểm mạnh về học tập
+        
+    Returns:
+        list: Danh sách môn học là điểm mạnh
+    """
+    if not text:
+        return []
+    
+    text = clean_text(text)
+    strong_subjects = []
+    
+    # Tìm các môn học là điểm mạnh
+    subject_patterns = {
+        "giỏi toán": ["giỏi toán", "mạnh về toán", "thích toán", "điểm cao toán", "học giỏi toán"],
+        "giỏi lý": ["giỏi lý", "mạnh về lý", "thích lý", "học giỏi vật lý", "điểm cao lý"],
+        "giỏi hóa": ["giỏi hóa", "mạnh về hóa", "thích hóa", "học giỏi hóa học", "điểm cao hóa"],
+        "giỏi sinh": ["giỏi sinh", "mạnh về sinh", "thích sinh", "học giỏi sinh học", "điểm cao sinh"],
+        "giỏi tin": ["giỏi tin", "mạnh về tin", "thích tin", "học giỏi tin học", "điểm cao tin"],
+        "giỏi anh": ["giỏi anh", "mạnh về anh", "thích tiếng anh", "học giỏi anh văn", "điểm cao anh"],
+        "giỏi vẽ": ["giỏi vẽ", "mạnh về vẽ", "thích vẽ", "học giỏi mỹ thuật", "vẽ đẹp"]
+    }
+    
+    for subject, patterns in subject_patterns.items():
+        if any(pattern in text for pattern in patterns):
+            strong_subjects.append(subject)
+    
+    return strong_subjects
+
+def suggest_majors_by_academic_strengths(subjects_list, max_results=5):
+    """
+    Gợi ý ngành học dựa trên điểm mạnh môn học của học sinh
+    
+    Args:
+        subjects_list (list): Danh sách các môn học là điểm mạnh
+        max_results (int): Số lượng ngành học tối đa trả về
+        
+    Returns:
+        dict: Từ điển các ngành học được gợi ý với điểm phù hợp
+    """
+    if not subjects_list:
+        return {}
+    
+    # Tính điểm cho từng ngành dựa trên điểm mạnh môn học
+    major_scores = {}
+    
+    for subject in subjects_list:
+        if subject in STUDENT_STRENGTH_MAPPING:
+            related_majors = STUDENT_STRENGTH_MAPPING[subject]
+            
+            # Áp dụng trọng số nếu có
+            if subject in STRENGTH_WEIGHT:
+                weights = STRENGTH_WEIGHT[subject]
+                for major in related_majors:
+                    weight = weights.get(major, 0.5)
+                    major_scores[major] = major_scores.get(major, 0) + weight
+            else:
+                # Nếu không có trọng số, gán điểm đồng đều
+                for major in related_majors:
+                    major_scores[major] = major_scores.get(major, 0) + 0.5
+    
+    # Kiểm tra các lĩnh vực phù hợp với môn học mạnh
+    field_scores = {}
+    for subject_key in subjects_list:
+        # Lấy tên môn học từ chuỗi "giỏi [môn học]"
+        if subject_key.startswith("giỏi "):
+            subject = subject_key.split(" ", 1)[1]
+            if subject in SUBJECT_FIELD_MAPPING:
+                for field in SUBJECT_FIELD_MAPPING[subject]:
+                    field_scores[field] = field_scores.get(field, 0) + 1
+    
+    # Tăng điểm cho ngành thuộc lĩnh vực phù hợp với môn học mạnh
+    if field_scores:
+        for field, score in field_scores.items():
+            if field in FIELD_MAJOR_GROUPS:
+                for major in FIELD_MAJOR_GROUPS[field]:
+                    major_scores[major] = major_scores.get(major, 0) + 0.3 * score
+    
+    # Sắp xếp và giới hạn số lượng kết quả
+    sorted_majors = sorted(major_scores.items(), key=lambda x: x[1], reverse=True)
+    
+    # Chỉ trả về top majors với điểm phù hợp
+    return {major: score for major, score in sorted_majors[:max_results]}
+
+def normalize_personality_strengths(text):
+    """
+    Phân tích văn bản để xác định tính cách và kỹ năng của học sinh
+    
+    Args:
+        text (str): Văn bản mô tả tính cách/kỹ năng
+        
+    Returns:
+        list: Danh sách tính cách/kỹ năng được xác định
+    """
+    if not text:
+        return []
+    
+    text = clean_text(text)
+    personality_traits = []
+    
+    # Danh sách các tính cách và kỹ năng cần tìm
+    personality_keywords = [
+        "tư duy logic", "tư duy sáng tạo", "thích giải quyết vấn đề",
+        "thích thực hành", "thích làm việc nhóm", "thích làm việc độc lập",
+        "kỹ năng giao tiếp", "kỹ năng quản lý", "tỉ mỉ", "kiên nhẫn",
+        "thích thể hiện bản thân", "thích công nghệ", "thích khám phá",
+        "thích tìm tòi", "thích sáng tạo", "thích trải nghiệm", "thích chính xác",
+        "thích thực tế", "thích mới mẻ", "thích ổn định", "hướng nội", "hướng ngoại"
+    ]
+    
+    for trait in personality_keywords:
+        if trait in text:
+            personality_traits.append(trait)
+    
+    return personality_traits
+
+def comprehensive_major_suggestion(interests, academic_strengths, personality_traits, max_results=5):
+    """
+    Gợi ý ngành học tổng hợp dựa trên sở thích, điểm mạnh học tập và tính cách
+    
+    Args:
+        interests (list): Danh sách sở thích
+        academic_strengths (list): Danh sách điểm mạnh học tập
+        personality_traits (list): Danh sách tính cách/kỹ năng
+        max_results (int): Số lượng ngành học tối đa trả về
+        
+    Returns:
+        dict: Từ điển các ngành học được gợi ý với điểm phù hợp và giải thích
+    """
+    # Tính điểm từ mọi nguồn
+    all_scores = {}
+    
+    # 1. Điểm từ sở thích - trọng số 0.4
+    if interests:
+        interest_scores = suggest_majors_by_interests(interests)
+        for major, score in interest_scores.items():
+            all_scores[major] = all_scores.get(major, 0) + score * 0.4
+    
+    # 2. Điểm từ điểm mạnh học tập - trọng số 0.4
+    if academic_strengths:
+        academic_scores = suggest_majors_by_academic_strengths(academic_strengths)
+        for major, score in academic_scores.items():
+            all_scores[major] = all_scores.get(major, 0) + score * 0.4
+    
+    # 3. Điểm từ tính cách - trọng số 0.2
+    if personality_traits:
+        trait_scores = {}
+        for trait in personality_traits:
+            if trait in STUDENT_STRENGTH_MAPPING:
+                majors = STUDENT_STRENGTH_MAPPING[trait]
+                
+                if trait in STRENGTH_WEIGHT:
+                    weights = STRENGTH_WEIGHT[trait]
+                    for major in majors:
+                        weight = weights.get(major, 0.5)
+                        trait_scores[major] = trait_scores.get(major, 0) + weight
+                else:
+                    for major in majors:
+                        trait_scores[major] = trait_scores.get(major, 0) + 0.5
+        
+        for major, score in trait_scores.items():
+            all_scores[major] = all_scores.get(major, 0) + score * 0.2
+    
+    # Sắp xếp ngành theo điểm tổng hợp
+    sorted_majors = sorted(all_scores.items(), key=lambda x: x[1], reverse=True)
+    
+    # Tạo kết quả với giải thích
+    result = {}
+    for major, score in sorted_majors[:max_results]:
+        # Tạo giải thích
+        explanation = []
+        
+        # Tìm các điểm phù hợp từ sở thích
+        matching_interests = []
+        for interest in interests:
+            if major in STUDENT_STRENGTH_MAPPING.get(interest, []):
+                matching_interests.append(interest)
+        
+        # Tìm các điểm phù hợp từ điểm mạnh học tập
+        matching_subjects = []
+        for subject in academic_strengths:
+            if major in STUDENT_STRENGTH_MAPPING.get(subject, []):
+                matching_subjects.append(subject)
+        
+        # Tìm các điểm phù hợp từ tính cách
+        matching_traits = []
+        for trait in personality_traits:
+            if major in STUDENT_STRENGTH_MAPPING.get(trait, []):
+                matching_traits.append(trait)
+        
+        # Tạo giải thích dựa trên điểm phù hợp
+        if matching_interests:
+            explanation.append(f"Phù hợp với sở thích: {', '.join(matching_interests)}")
+        
+        if matching_subjects:
+            explanation.append(f"Phù hợp với điểm mạnh học tập: {', '.join(matching_subjects)}")
+        
+        if matching_traits:
+            explanation.append(f"Phù hợp với tính cách: {', '.join(matching_traits)}")
+        
+        # Lưu kết quả
+        result[major] = {
+            "score": round(score, 2),
+            "explanation": explanation
+        }
+    
+    return result

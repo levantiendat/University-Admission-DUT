@@ -66,3 +66,23 @@ rules:
     steps:
     - intent: ask_calculate_score
     - action: action_calculate_score
+
+  - rule: Career guidance based on interests and strengths
+    steps:
+    - intent: ask_career_guidance
+    - action: action_suggest_majors_by_strengths
+
+  - rule: Follow-up with student interests
+    steps:
+    - intent: provide_student_interests
+    - action: action_suggest_majors_by_strengths
+
+  - rule: Follow-up with academic strengths
+    steps:
+    - intent: provide_academic_strengths
+    - action: action_suggest_majors_by_strengths
+
+  - rule: Follow-up with personality traits
+    steps:
+    - intent: provide_personality_traits
+    - action: action_suggest_majors_by_strengths

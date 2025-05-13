@@ -2190,3 +2190,151 @@ stories:
       - action: utter_major_info_khdl_ttnt
       - intent: thank
       - action: utter_thank
+
+  - story: "Direct Career Guidance Request"
+    steps:
+      - intent: ask_career_guidance
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Full Career Guidance Conversation"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_career_guidance
+      - action: action_suggest_majors_by_strengths
+      - intent: thank
+      - action: utter_thank
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - story: "Interests-based Career Guidance"
+    steps:
+      - intent: ask_career_guidance
+        entities:
+          - student_interests: "thích lập trình và công nghệ"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Academic Strengths-based Career Guidance"
+    steps:
+      - intent: ask_career_guidance
+        entities:
+          - academic_strengths: "giỏi toán và vật lý"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Personality-based Career Guidance"
+    steps:
+      - intent: ask_career_guidance
+        entities:
+          - personality_traits: "tỉ mỉ và thích giải quyết vấn đề"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Complete Profile Career Guidance"
+    steps:
+      - intent: ask_career_guidance
+        entities:
+          - student_interests: "thích công nghệ và máy tính"
+          - academic_strengths: "giỏi toán và tin học"
+          - personality_traits: "thích sáng tạo và làm việc nhóm"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Multi-turn Career Guidance - Interests First"
+    steps:
+      - intent: ask_career_guidance
+      - action: action_suggest_majors_by_strengths
+      - intent: provide_student_interests
+        entities:
+          - student_interests: "thích lập trình và công nghệ"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Multi-turn Career Guidance - Academic First"
+    steps:
+      - intent: ask_career_guidance
+      - action: action_suggest_majors_by_strengths
+      - intent: provide_academic_strengths
+        entities:
+          - academic_strengths: "giỏi toán và lý"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Multi-turn Career Guidance - Full Profile"
+    steps:
+      - intent: ask_career_guidance
+      - action: action_suggest_majors_by_strengths
+      - intent: provide_student_interests
+        entities:
+          - student_interests: "thích công nghệ và máy tính"
+      - action: action_suggest_majors_by_strengths
+      - intent: provide_academic_strengths
+        entities:
+          - academic_strengths: "giỏi toán và tin học"
+      - action: action_suggest_majors_by_strengths
+      - intent: provide_personality_traits
+        entities:
+          - personality_traits: "tỉ mỉ và thích giải quyết vấn đề"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Career Guidance Then Major Details"
+    steps:
+      - intent: ask_career_guidance
+        entities:
+          - student_interests: "thích công nghệ và máy tính"
+      - action: action_suggest_majors_by_strengths
+      - intent: ask_major_info
+        entities:
+          - major: "công nghệ thông tin" 
+      - action: utter_major_info
+
+  - story: "Career Guidance Then Cutoff Score"
+    steps:
+      - intent: ask_career_guidance
+        entities:
+          - student_interests: "thích công nghệ và máy tính"
+      - action: action_suggest_majors_by_strengths
+      - intent: ask_cutoff_score
+        entities:
+          - major: "công nghệ thông tin"
+      - action: action_cutoff_score
+
+  - story: "Career Guidance Then Subject Combinations"
+    steps:
+      - intent: ask_career_guidance
+        entities:
+          - student_interests: "thích công nghệ và máy tính"
+      - action: action_suggest_majors_by_strengths
+      - intent: ask_combination_major
+        entities:
+          - major: "công nghệ thông tin"
+      - action: action_combination_major
+
+  - story: "Direct Provide Student Interests"
+    steps:
+      - intent: provide_student_interests
+        entities:
+          - student_interests: "thích lập trình và thiết kế web"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Direct Provide Academic Strengths"
+    steps:
+      - intent: provide_academic_strengths
+        entities:
+          - academic_strengths: "giỏi toán và vật lý"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Direct Provide Personality Traits"
+    steps:
+      - intent: provide_personality_traits
+        entities:
+          - personality_traits: "tỉ mỉ và thích tìm tòi"
+      - action: action_suggest_majors_by_strengths
+
+  - story: "Career Guidance From Smalltalk"
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: smalltalk_bot_capabilities
+      - action: utter_smalltalk_bot_capabilities
+      - intent: ask_career_guidance
+        entities:
+          - student_interests: "thích công nghệ và máy tính"
+      - action: action_suggest_majors_by_strengths
+      - intent: thank
+      - action: utter_thank
