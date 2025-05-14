@@ -102,15 +102,16 @@
                   <i class="bi bi-person-circle me-1"></i><span>{{ userEmail }}</span>
                 </a>
                 <ul class="custom-dropdown-menu dropdown-menu-end">
-                  <li>
-                    <router-link class="dropdown-item" to="/profile">
-                      <i class="bi bi-person-vcard-fill me-1"></i> Thông tin cá nhân
-                    </router-link>
-                  </li>
+                  
                   <!-- Nếu người dùng có role là admin thì hiện thêm nút quản trị hệ thống -->
                   <li v-if="isAdmin">
                     <router-link class="dropdown-item" to="/admins">
                       <i class="bi bi-gear-fill me-1"></i> Quản trị hệ thống
+                    </router-link>
+                  </li>
+                  <li v-else>
+                    <router-link class="dropdown-item" to="/profile">
+                      <i class="bi bi-person-vcard-fill me-1"></i> Thông tin cá nhân
                     </router-link>
                   </li>
                   <li>

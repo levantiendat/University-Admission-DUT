@@ -406,7 +406,7 @@
 
         <!-- Course Management -->
         <div class="col-md-6 mb-4">
-          <div class="admin-card highlight-card">
+          <div class="admin-card">
             <div class="admin-card-header">
               <div class="admin-card-icon bg-blue">
                 <i class="bi bi-journals"></i>

@@ -320,7 +320,7 @@ export default {
     },
     // Hiển thị role dưới dạng text
     userRole() {
-      if (this.isInstructor) return 'Giảng viên'
+      if (this.isInstructor) return 'Tư vấn viên'
       if (this.isRegularUser) return 'Học sinh/Sinh viên'
       return this.user.role || 'Người dùng'
     },

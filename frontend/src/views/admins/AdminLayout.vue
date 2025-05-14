@@ -5,9 +5,20 @@
       <div class="container-fluid">
         <div class="row align-items-center">
           <div class="col">
-            <h1 class="admin-title">
-              <i class="bi bi-gear-fill me-2"></i>Quản trị hệ thống
-            </h1>
+            <div class="d-flex align-items-center">
+              <h1 class="admin-title">
+                <i class="bi bi-gear-fill me-2"></i>Quản trị hệ thống
+              </h1>
+              <!-- Thêm nút trở về trang chính và nút đăng xuất -->
+              <div class="header-actions ms-4">
+                <router-link to="/" class="header-action-btn" title="Trở về trang chính">
+                  <i class="bi bi-house-door"></i>
+                </router-link>
+                <button @click="logout" class="header-action-btn ms-3" title="Đăng xuất">
+                  <i class="bi bi-box-arrow-right"></i>
+                </button>
+              </div>
+            </div>
           </div>
           <div class="col-auto">
             <div class="dropdown">
@@ -16,13 +27,13 @@
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                 <li>
-                  <router-link class="dropdown-item" to="/">
-                    <i class="bi bi-house-door me-2"></i>Trở về trang chính
-                  </router-link>
+                  <a class="dropdown-item" href="#" @click.prevent="openProfileSettings">
+                    <i class="bi bi-person-gear me-2"></i>Thiết lập tài khoản
+                  </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#" @click.prevent="logout">
-                    <i class="bi bi-box-arrow-right me-2"></i>Đăng xuất
+                  <a class="dropdown-item" href="#" @click.prevent="openChangePassword">
+                    <i class="bi bi-key me-2"></i>Đổi mật khẩu
                   </a>
                 </li>
               </ul>
@@ -206,6 +217,34 @@ export default {
   color: #fff;
 }
 
+/* New styles for header action buttons */
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.header-action-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.header-action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Rest of existing styles */
 .admin-user-btn {
   background: none;
   border: none;
