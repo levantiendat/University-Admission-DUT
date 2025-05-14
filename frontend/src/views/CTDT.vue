@@ -1,17 +1,35 @@
 <template>
   <div class="ctdt-container">
-    <div class="container py-4">
+    <div class="container py-3">
+      <!-- Breadcrumb Navigation -->
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <router-link to="/" class="text-decoration-none">
+              <i class="fas fa-home"></i> Trang chủ
+            </router-link>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/ctdt" class="text-decoration-none">
+              Chương trình đào tạo
+            </router-link>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page" v-if="facultyName">
+            {{ facultyName }}
+          </li>
+        </ol>
+      </nav>
+      
+      <!-- Main Content -->
       <div class="row">
         <div class="col-12">
           <div class="card shadow border-0 ctdt-card">
-            <div class="card-header ctdt-header">
-              <h2 class="text-center text-white mb-0">
-                Chương Trình Đào Tạo
-                <small v-if="facultyName" class="d-block mt-2 fs-5">{{ facultyName }}</small>
-              </h2>
+            <div class="card-header ctdt-header d-flex align-items-center">
+              <h1 class="fs-4 text-white mb-0">Chương Trình Đào Tạo</h1>
             </div>
             
             <div class="card-body">
+              <!-- Filter Controls -->
               <div class="row mb-4">
                 <div class="col-md-5">
                   <div class="form-group">
@@ -59,10 +77,12 @@
                 </div>
               </div>
               
+              <!-- Alerts -->
               <div v-if="showAlert" class="alert mb-4" :class="alertClass" role="alert">
                 {{ alertMessage }}
               </div>
               
+              <!-- Course Details Table -->
               <div v-if="courseDetails.length" class="course-table-container">
                 <div class="table-responsive custom-scrollbar">
                   <table class="table table-bordered no-copy custom-table">
@@ -82,44 +102,54 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(detail, index) in courseDetails" :key="detail.id" :class="{'row-even': index % 2 === 0}">
-                        <td class="text-center">{{ index + 1 }}</td>
-                        <td class="text-center">{{ detail.semester }}</td>
-                        <td class="course-name">{{ detail.course?.name }}</td>
-                        <td class="text-center">{{ detail.course?.course_code }}</td>
-                        <td class="text-center">{{ detail.course?.credits }}</td>
-                        <td class="text-center">
-                          <span v-if="detail.elective_course" class="check-icon">✓</span>
-                        </td>
-                        <td class="text-center">
-                          <span v-if="detail.pre_capstone" class="check-icon">✓</span>
-                        </td>
-                        <td class="text-center">
-                          <span v-if="detail.mandatory_capstone" class="check-icon">✓</span>
-                        </td>
-                        <td class="relationship-cell">
-                          <div v-for="(prior, priorIndex) in detail.priorCourses" :key="'prior-' + priorIndex">
-                            {{ prior.code }} - {{ prior.name }}
-                          </div>
-                          <span v-if="!detail.priorCourses.length">-</span>
-                        </td>
-                        <td class="relationship-cell">
-                          <div v-for="(coreq, coreqIndex) in detail.corequisites" :key="'coreq-' + coreqIndex">
-                            {{ coreq.code }} - {{ coreq.name }}
-                          </div>
-                          <span v-if="!detail.corequisites.length">-</span>
-                        </td>
-                        <td class="relationship-cell">
-                          <div v-for="(prereq, prereqIndex) in detail.prerequisites" :key="'prereq-' + prereqIndex">
-                            {{ prereq.code }} - {{ prereq.name }}
-                          </div>
-                          <span v-if="!detail.prerequisites.length">-</span>
-                        </td>
-                      </tr>
+                      <template v-for="(groupedCourses, semester) in groupedBySemester">
+                        <!-- Semester Header -->
+                        <tr class="semester-header">
+                          <td colspan="11" class="bg-light fw-bold">
+                            Học kỳ {{ semester }}
+                          </td>
+                        </tr>
+                        <!-- Courses for this semester -->
+                        <tr v-for="(detail, index) in groupedCourses" :key="detail.id" :class="{'row-even': index % 2 === 0}">
+                          <td class="text-center">{{ getOverallIndex(semester, index) }}</td>
+                          <td class="text-center">{{ detail.semester }}</td>
+                          <td class="course-name">{{ detail.course?.name }}</td>
+                          <td class="text-center">{{ detail.course?.course_code }}</td>
+                          <td class="text-center">{{ detail.course?.credits }}</td>
+                          <td class="text-center">
+                            <span v-if="detail.elective_course" class="check-icon">✓</span>
+                          </td>
+                          <td class="text-center">
+                            <span v-if="detail.pre_capstone" class="check-icon">✓</span>
+                          </td>
+                          <td class="text-center">
+                            <span v-if="detail.mandatory_capstone" class="check-icon">✓</span>
+                          </td>
+                          <td class="relationship-cell">
+                            <div v-for="(prior, priorIndex) in detail.priorCourses" :key="'prior-' + priorIndex">
+                              {{ prior.code }} - {{ prior.name }}
+                            </div>
+                            <span v-if="!detail.priorCourses.length">-</span>
+                          </td>
+                          <td class="relationship-cell">
+                            <div v-for="(coreq, coreqIndex) in detail.corequisites" :key="'coreq-' + coreqIndex">
+                              {{ coreq.code }} - {{ coreq.name }}
+                            </div>
+                            <span v-if="!detail.corequisites.length">-</span>
+                          </td>
+                          <td class="relationship-cell">
+                            <div v-for="(prereq, prereqIndex) in detail.prerequisites" :key="'prereq-' + prereqIndex">
+                              {{ prereq.code }} - {{ prereq.name }}
+                            </div>
+                            <span v-if="!detail.prerequisites.length">-</span>
+                          </td>
+                        </tr>
+                      </template>
                     </tbody>
                   </table>
                 </div>
                 
+                <!-- Legend -->
                 <div class="legend mt-4">
                   <div class="d-flex flex-wrap">
                     <div class="me-4 mb-2">
@@ -135,6 +165,7 @@
                 </div>
               </div>
               
+              <!-- No Results Message -->
               <div v-else-if="hasSearched && !isLoading" class="text-center py-4">
                 <div class="alert alert-info">
                   <i class="fas fa-info-circle me-2"></i>
@@ -166,18 +197,65 @@ export default {
       hasSearched: false,
       showAlert: false,
       alertMessage: '',
-      alertClass: 'alert-info',
-      currentDate: '2025-04-25 13:33:37',
-      currentUser: 'levantiendatHiện'
+      alertClass: 'alert-info'
+    }
+  },
+  computed: {
+    /**
+     * Group course details by semester for better visualization
+     */
+    groupedBySemester() {
+      const groupedData = {};
+      
+      this.courseDetails.forEach(detail => {
+        const semester = detail.semester.toString();
+        if (!groupedData[semester]) {
+          groupedData[semester] = [];
+        }
+        groupedData[semester].push(detail);
+      });
+      
+      // Sort by semester number
+      return Object.keys(groupedData)
+        .sort((a, b) => parseInt(a) - parseInt(b))
+        .reduce((acc, key) => {
+          acc[key] = groupedData[key];
+          return acc;
+        }, {});
     }
   },
   async created() {
     await this.loadFacultyInfo()
     await this.loadMajors()
+    
+    // Set document title with faculty name for better SEO
+    if (this.facultyName) {
+      document.title = `Chương Trình Đào Tạo - ${this.facultyName} - Đại học Bách Khoa`;
+    } else {
+      document.title = 'Chương Trình Đào Tạo - Đại học Bách Khoa';
+    }
   },
   methods: {
     /**
-     * Tải thông tin khoa từ API
+     * Calculate the overall index for courses across semesters
+     */
+    getOverallIndex(semester, index) {
+      let count = 0;
+      
+      // Count all courses in previous semesters
+      Object.keys(this.groupedBySemester)
+        .sort((a, b) => parseInt(a) - parseInt(b))
+        .forEach(sem => {
+          if (parseInt(sem) < parseInt(semester)) {
+            count += this.groupedBySemester[sem].length;
+          }
+        });
+      
+      return count + index + 1;
+    },
+    
+    /**
+     * Load faculty information from API
      */
     async loadFacultyInfo() {
       try {
@@ -196,7 +274,7 @@ export default {
     },
     
     /**
-     * Tải danh sách ngành từ API
+     * Load majors list from API
      */
     async loadMajors() {
       try {
@@ -224,7 +302,7 @@ export default {
     },
     
     /**
-     * Xử lý khi chọn ngành thay đổi
+     * Handle major selection change
      */
     async onMajorChange() {
       this.majorCourses = []
@@ -253,7 +331,7 @@ export default {
     },
     
     /**
-     * Tìm kiếm chi tiết chương trình đào tạo
+     * Search for course details
      */
     async searchCourseDetails() {
       if (!this.selectedMajorCourseId) return
@@ -277,7 +355,7 @@ export default {
     },
     
     /**
-     * Hiển thị thông báo
+     * Show alert message
      */
     showAlertMessage(message, type = 'alert-info') {
       this.alertMessage = message
@@ -290,60 +368,75 @@ export default {
 
 <style scoped>
 .ctdt-container {
-  background-color: #f5f9ff;
+  background-color: #f8f9fa;
   min-height: 100vh;
-  padding-bottom: 2rem;
+}
+
+/* Breadcrumb styling */
+.breadcrumb {
+  background-color: transparent;
+  padding: 0.5rem 0;
+}
+
+.breadcrumb-item a {
+  color: #0a4275;
+  font-weight: 500;
+}
+
+.breadcrumb-item.active {
+  color: #495057;
+  font-weight: 600;
 }
 
 .ctdt-card {
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1) !important;
 }
 
 .ctdt-header {
   background-color: #0a4275;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-control, .form-select {
   border-radius: 6px;
-  padding: 0.6rem 1rem;
-  border: 1px solid #e0e6ed;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .form-control:focus, .form-select:focus {
   border-color: #4285f4;
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
 .btn-primary {
   background-color: #0a4275;
   border-color: #0a4275;
   border-radius: 6px;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 0.75rem;
   font-weight: 500;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
   background-color: #073561;
   border-color: #073561;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .course-table-container {
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   background-color: #ffffff;
   padding: 0.5rem;
 }
 
-/* Custom table styles */
+/* Table styling with semester grouping */
 .custom-table {
   margin-bottom: 0;
   border: none;
@@ -356,19 +449,30 @@ export default {
 }
 
 .table-header th {
-  padding: 1rem 0.75rem;
+  padding: 0.75rem 0.5rem;
   vertical-align: middle;
   border: 1px solid #1a5288;
+  font-size: 0.9rem;
+}
+
+.semester-header td {
+  background-color: #e9ecef !important;
+  font-weight: 600 !important;
+  color: #495057;
+  border: 1px solid #dee2e6 !important;
+  padding: 0.75rem 1rem !important;
+  border-bottom: 2px solid #0a4275 !important;
 }
 
 .row-even {
-  background-color: rgba(232, 240, 254, 0.4);
+  background-color: rgba(232, 240, 254, 0.2);
 }
 
 .custom-table td {
-  padding: 0.75rem;
+  padding: 0.625rem 0.5rem;
   vertical-align: middle;
   border: 1px solid #dee2e6;
+  font-size: 0.9rem;
 }
 
 .course-name {
@@ -377,7 +481,7 @@ export default {
 }
 
 .relationship-cell {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.4;
 }
 
@@ -391,18 +495,18 @@ export default {
 
 .check-icon {
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #28a745;
 }
 
 .legend {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: #495057;
   background-color: #f8f9fa;
   border-radius: 6px;
-  padding: 0.75rem 1rem;
-  border-left: 4px solid #0a4275;
+  padding: 0.625rem 0.75rem;
+  border-left: 3px solid #0a4275;
 }
 
 /* Custom scrollbar */
@@ -411,7 +515,7 @@ export default {
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  height: 8px;
+  height: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -429,8 +533,8 @@ export default {
 }
 
 .alert {
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: 6px;
+  padding: 0.75rem;
 }
 
 /* Prevent copying table content */
@@ -439,17 +543,5 @@ export default {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-}
-
-.no-copy::selection {
-  background: transparent;
-}
-
-.no-copy::-moz-selection {
-  background: transparent;
-}
-
-.no-copy td, .no-copy th {
-  -webkit-touch-callout: none;
 }
 </style>

@@ -31,7 +31,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
 def reset_password_endpoint(
     old_password: str = Body(...), 
     new_password: str = Body(...),
-    token: str = Depends(oauth2_scheme),  # 🔥 Token lấy từ header
+    token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
 ):
     credentials_exception = HTTPException(
@@ -52,8 +52,8 @@ def reset_password_endpoint(
     if not user.check_password(old_password):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Old password is incorrect")
     
-    # Update new password
-    user.password = get_password_hash(new_password)
+    # Update new password - SỬA CHỖ NÀY
+    user.hashed_password = get_password_hash(new_password)  # Cập nhật trực tiếp hashed_password
     db.commit()
     
     return {"msg": "Password updated successfully"}

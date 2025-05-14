@@ -104,6 +104,8 @@ import MajorDetail from '@/views/MajorDetail.vue'
 
 import CTDTAll from '@/views/CTDTAll.vue'
 
+import UserProfileView from '@/views/UserProfileView.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -169,6 +171,15 @@ const normalRoutes = [
     name: 'CTDTAll', 
     component: CTDTAll, 
     meta: { title: 'Khung Chương Trình Đào Tạo' } 
+  },
+  { 
+    path: '/profile', 
+    name: 'UserProfile', 
+    component: UserProfileView, 
+    meta: { 
+      requiresAuth: true, 
+      title: 'Thông tin cá nhân' 
+    } 
   },
 ]
 

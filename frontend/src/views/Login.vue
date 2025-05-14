@@ -20,6 +20,10 @@
             </router-link>
           </div>
         </div>
+        <div v-if="alertMessage" class="alert" :class="alertClass" role="alert">
+          <i :class="alertIcon" class="me-2"></i>
+          {{ alertMessage }}
+        </div>
       </div>
     </div>
   </div>
@@ -43,8 +47,25 @@ export default {
     onGoogleLogin() {
       const googleUrl = loginController.handleGoogleLogin()
       window.location.href = googleUrl
+    },
+    showAlert(message, alertClass, icon) {
+      this.alertMessage = message
+      this.alertClass = alertClass
+      this.alertIcon = icon
+      
+      // Tự động ẩn thông báo sau 5 giây
+      setTimeout(() => {
+        this.alertMessage = ''
+      }, 5000)
+    },
+  },
+  mounted() {
+    // Kiểm tra nếu có thông báo redirect từ trang đổi mật khẩu
+    const message = this.$route.query.message
+    if (message === 'password_changed') {
+      this.showAlert('Mật khẩu đã được thay đổi thành công. Vui lòng đăng nhập lại với mật khẩu mới.', 'alert-success', 'bi bi-check-circle-fill')
     }
-  }
+  },
 }
 </script>
 
