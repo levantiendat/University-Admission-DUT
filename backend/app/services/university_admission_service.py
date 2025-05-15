@@ -514,6 +514,97 @@ def delete_convert_point(db: Session, convert_point_id: int) -> ConvertPoint:
     db.commit()
     return db_convert_point
 
+def convert_score(db: Session, admission_method_id: int, origin_score: float) -> dict:
+    """
+    Quy đổi điểm từ điểm gốc sang thang điểm phương thức xét tuyển
+    
+    Args:
+        db (Session): Database session
+        admission_method_id (int): ID của phương thức xét tuyển
+        origin_score (float): Điểm gốc cần quy đổi
+    
+    Returns:
+        dict: Kết quả quy đổi điểm, bao gồm điểm gốc, điểm quy đổi và công thức tính
+    """
+    # Kiểm tra phương thức xét tuyển có tồn tại hay không
+    db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
+    if not db_admission_method:
+        raise NotFoundException("Phương thức xét tuyển không tồn tại")
+    
+    # Tìm khung điểm phù hợp (origin_min <= origin_score <= origin_max)
+    # Nếu có nhiều khung điểm thỏa mãn, ưu tiên khung có origin_max lớn hơn
+    matching_ranges = db.query(ConvertPoint).filter(
+        ConvertPoint.admission_methods_id == admission_method_id,
+        ConvertPoint.origin_min <= origin_score,
+        ConvertPoint.origin_max >= origin_score
+    ).order_by(ConvertPoint.origin_max.desc()).all()
+    
+    # Nếu không tìm thấy khung điểm phù hợp
+    if not matching_ranges:
+        return {
+            "success": False,
+            "message": "Điểm này không quy đổi được",
+            "origin_score": origin_score,
+            "admission_method": {
+                "id": db_admission_method.id,
+                "name": db_admission_method.name
+            },
+            "formula": None
+        }
+    
+    # Lấy khung điểm đầu tiên (đã sắp xếp theo origin_max giảm dần)
+    selected_range = matching_ranges[0]
+    
+    # Thực hiện quy đổi tuyến tính
+    # Công thức: convert_score = convert_score_min + (origin_score - origin_min) * (convert_score_max - convert_score_min) / (origin_max - origin_min)
+    
+    # Xử lý trường hợp phạm vi điểm gốc bằng 0 (origin_max = origin_min)
+    if selected_range.origin_max == selected_range.origin_min:
+        # Nếu phạm vi gốc bằng 0, lấy giá trị trung bình của phạm vi quy đổi
+        converted_score = (selected_range.convert_score_max + selected_range.convert_score_min) / 2
+        formula = f"y = {converted_score:.2f} (điểm cố định khi x = {selected_range.origin_min})"
+    else:
+        # Tính hệ số cho công thức tuyến tính y = ax + b
+        origin_range = selected_range.origin_max - selected_range.origin_min
+        convert_range = selected_range.convert_score_max - selected_range.convert_score_min
+        
+        a = convert_range / origin_range
+        b = selected_range.convert_score_min - a * selected_range.origin_min
+        
+        # Công thức quy đổi tuyến tính
+        position_ratio = (origin_score - selected_range.origin_min) / origin_range
+        converted_score = selected_range.convert_score_min + (position_ratio * convert_range)
+        
+        # Tạo chuỗi công thức
+        formula = f"y = {a:.4f}x + {b:.4f} (áp dụng cho {selected_range.origin_min} ≤ x ≤ {selected_range.origin_max})"
+        
+        # Tính toán chi tiết
+        calculation_detail = f"{selected_range.convert_score_min} + (x - {selected_range.origin_min}) * ({selected_range.convert_score_max} - {selected_range.convert_score_min}) / ({selected_range.origin_max} - {selected_range.origin_min})"
+    
+    # Làm tròn đến 2 chữ số thập phân
+    converted_score = round(converted_score, 2)
+    
+    # Trả về kết quả
+    return {
+        "success": True,
+        "message": "Quy đổi điểm thành công",
+        "origin_score": origin_score,
+        "converted_score": converted_score,
+        "admission_method": {
+            "id": db_admission_method.id,
+            "name": db_admission_method.name
+        },
+        "convert_range": {
+            "id": selected_range.id,
+            "origin_min": selected_range.origin_min,
+            "origin_max": selected_range.origin_max,
+            "convert_score_min": selected_range.convert_score_min,
+            "convert_score_max": selected_range.convert_score_max
+        },
+        "formula": formula,
+        "calculation_detail": calculation_detail if selected_range.origin_max != selected_range.origin_min else None
+    }
+
 def get_convert_point_by_admission_method(db: Session, admission_method_id: int) -> list[ConvertPoint]:
     db_admission_method = db.query(AdmissionMethod).filter(AdmissionMethod.id == admission_method_id).first()
     if not db_admission_method:

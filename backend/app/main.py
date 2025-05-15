@@ -15,13 +15,23 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Thiết lập CORS với các origins mặc định cho development
+default_origins = ["http://localhost:8080", "http://localhost:3000", "http://127.0.0.1:8080"]
+
+# Đọc thêm origins từ biến môi trường nếu có
 raw_origins = os.getenv("ALLOWED_ORIGINS", "[]")
 try:
-    allowed_origins = json.loads(raw_origins)
-    if not isinstance(allowed_origins, list):
-        allowed_origins = []
+    env_origins = json.loads(raw_origins)
+    if isinstance(env_origins, list):
+        # Kết hợp origins từ biến môi trường với origins mặc định
+        allowed_origins = default_origins + env_origins
+    else:
+        allowed_origins = default_origins
 except json.JSONDecodeError:
-    allowed_origins = []
+    allowed_origins = default_origins
+
+# Log để debug
+print(f"CORS allow_origins: {allowed_origins}")
 
 app.add_middleware(
     CORSMiddleware,

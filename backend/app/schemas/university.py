@@ -450,3 +450,17 @@ class PriorityCalculationResponse(BaseModel):
     convert_priority: float  # Priority points after possible reduction
     total_point: float  # Total score after adding priority
     priority_area: str  # The priority area used in calculation
+
+class ScoreConversionRequest(BaseModel):
+    admission_method_id: int
+    origin_score: float
+
+class ScoreConversionResponse(BaseModel):
+    success: bool
+    message: str
+    origin_score: float
+    converted_score: Optional[float] = None
+    admission_method: Optional[dict] = None
+    convert_range: Optional[dict] = None
+    formula: Optional[str] = None
+    calculation_detail: Optional[str] = None

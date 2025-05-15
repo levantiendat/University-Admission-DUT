@@ -11,7 +11,7 @@ from app.schemas.university import SubjectScoreMethodGroupCreate, SubjectScoreMe
 from app.schemas.university import SubjectGroupDetailCreate, SubjectGroupDetailUpdate, ConvertPointCreate, ConvertPointUpdate, SubjectGroupDetailOut, ConvertPointOut
 from app.schemas.university import SubjectScoreMethodMajorCreate, SubjectScoreMethodMajorUpdate, SubjectScoreMethodMajorOut
 from app.schemas.university import PreviousAdmissionCreate, PreviousAdmissionUpdate, PreviousAdmissionOut, ScoreCalculationResponse
-from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut, PointCountRequest, PointCountResponse, ScoreCalculationRequest, PriorityCalculationRequest, PriorityCalculationResponse
+from app.schemas.university import AdmissionDescriptionCreate, AdmissionDescriptionUpdate, AdmissionDescriptionOut, PointCountRequest, PointCountResponse, ScoreCalculationRequest, PriorityCalculationRequest, PriorityCalculationResponse, ScoreConversionRequest, ScoreConversionResponse
 
 
 
@@ -25,13 +25,14 @@ from app.services.university_admission_service import create_subject_group_detai
 from app.services.university_admission_service import create_subject_score_method_major, get_subject_score_method_majors, get_subject_score_method_major, update_subject_score_method_major, delete_subject_score_method_major
 from app.services.university_admission_service import create_convert_point, get_convert_point, update_convert_point, delete_convert_point, get_convert_point_by_admission_method, get_convert_points
 from app.services.university_admission_service import create_previous_admission, get_previous_admission, update_previous_admission, delete_previous_admission, get_previous_admission_by_major, get_previous_admission_by_admission_method,get_previous_admission_by_major_and_admission_method, get_previous_admission_by_year, get_previous_admissions 
-from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions, get_major_by_subject_score_method_group, calculate_admission_scores, calculate_priority_points, get_subject_score_method_major_by_major_and_admission_method, get_admission_description_by_major
+from app.services.university_admission_service import create_admission_description, get_admission_description, update_admission_description, delete_admission_description, get_admission_descriptions, get_major_by_subject_score_method_group, calculate_admission_scores, calculate_priority_points, get_subject_score_method_major_by_major_and_admission_method, get_admission_description_by_major, convert_score
 from app.services.priority_service import get_school_by_id
 from app.core.exceptions import NotFoundException, AlreadyExistsException, ForbiddenException
 from app.models.university import Faculty, Major, AdmissionMethod, AdmissionMethodMajor
 from app.models.university import Subject, SubjectScoreMethodGroup, SubjectGroupDetail, ConvertPoint
 from app.models.university import PreviousAdmission, Course, MajorCourse, MajorCourseDetail
 from app.models.university import CoursePriorCourse, CoursePrerequisite, CourseCorequisite
+from fastapi import Query
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 router = APIRouter()
@@ -804,12 +805,78 @@ async def get_convert_point_endpoint(convert_point_id: int, db: Session = Depend
     return convert_point
 
 @router.get("/convert-points/admission-method/{admission_method_id}", response_model=list[ConvertPointOut])
-async def get_convert_point_by_admission_method(admission_method_id: int, db: Session = Depends(get_db)):
+async def get_convert_point_by_admission_method_endpoints(admission_method_id: int, db: Session = Depends(get_db)):
     """
     API để lấy danh sách các bảng quy đổi điểm theo phương thức tuyển sinh
     """
     convert_points = get_convert_point_by_admission_method(db, admission_method_id)
     return convert_points
+
+@router.post("/convert-points/convert", response_model=ScoreConversionResponse)
+async def convert_score_endpoint(
+    data: ScoreConversionRequest,
+    db: Session = Depends(get_db)
+):
+    """
+    API để quy đổi điểm từ thang điểm gốc sang thang điểm của phương thức xét tuyển
+    
+    - Đầu vào là ID của phương thức xét tuyển và điểm gốc cần quy đổi
+    - Tìm khung điểm tương ứng (origin_min <= điểm <= origin_max)
+    - Nếu có nhiều khung điểm thỏa mãn, ưu tiên khung có origin_max lớn hơn
+    - Thực hiện quy đổi tuyến tính về convert_point
+    - Trả về kết quả quy đổi kèm công thức tính
+    """
+    try:
+        result = convert_score(
+            db=db, 
+            admission_method_id=data.admission_method_id, 
+            origin_score=data.origin_score
+        )
+        return result
+    except NotFoundException as e:
+        return ScoreConversionResponse(
+            success=False,
+            message=str(e),
+            origin_score=data.origin_score
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+        )
+
+# Thêm endpoint convenience GET với query parameters cho trường hợp sử dụng URL trực tiếp
+@router.get("/convert-points/convert", response_model=ScoreConversionResponse)
+async def convert_score_get_endpoint(
+    admission_method_id: int = Query(..., description="ID của phương thức xét tuyển"),
+    origin_score: float = Query(..., description="Điểm gốc cần quy đổi"),
+    db: Session = Depends(get_db)
+):
+    """
+    API GET để quy đổi điểm từ thang điểm gốc sang thang điểm của phương thức xét tuyển
+    
+    - Đầu vào là ID của phương thức xét tuyển và điểm gốc cần quy đổi
+    - Quy trình xử lý tương tự như endpoint POST
+    - Thuận tiện cho việc gọi trực tiếp từ URL
+    """
+    try:
+        result = convert_score(
+            db=db, 
+            admission_method_id=admission_method_id, 
+            origin_score=origin_score
+        )
+        return result
+    except NotFoundException as e:
+        return ScoreConversionResponse(
+            success=False,
+            message=str(e),
+            origin_score=origin_score
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"An error occurred: {str(e)}"
+        )
 
 @router.get("/previous-admissions", response_model=list[PreviousAdmissionOut])
 async def get_previous_admissions_endpoint(db: Session = Depends(get_db)):

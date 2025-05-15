@@ -106,6 +106,8 @@ import CTDTAll from '@/views/CTDTAll.vue'
 
 import UserProfileView from '@/views/UserProfileView.vue'
 
+import ConvertPointView from '@/views/ConvertPointView.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -180,6 +182,14 @@ const normalRoutes = [
       requiresAuth: true, 
       title: 'Thông tin cá nhân' 
     } 
+  },
+  { 
+  path: '/calculatescore/convert', 
+  name: 'ConvertPoint', 
+  component: ConvertPointView, 
+  meta: { 
+    requiresAuth: true, 
+    title: 'Quy đổi điểm tương đương' } 
   },
 ]
 

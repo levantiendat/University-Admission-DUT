@@ -21,7 +21,7 @@
               <label for="group" class="form-label">Chọn nhóm xét tuyển</label>
               <select 
                 v-model="form.group" 
-                class="form-select selectpicker" 
+                class="form-select" 
                 id="group" 
                 @change="toggleSections" 
                 data-live-search="true" 
@@ -43,7 +43,7 @@
               <label for="achievement" class="form-label">Chọn loại thành tích</label>
               <select 
                 v-model="form.achievement" 
-                class="form-select selectpicker" 
+                class="form-select" 
                 id="achievement" 
                 data-live-search="true" 
                 data-width="100%"
@@ -135,7 +135,7 @@
                 <label for="city" class="form-label">Chọn Tỉnh/Thành phố</label>
                 <select 
                   v-model="form.city_id" 
-                  class="form-select selectpicker" 
+                  class="form-select" 
                   id="city" 
                   @change="loadDistricts" 
                   data-live-search="true" 
@@ -155,7 +155,7 @@
                 <label for="district" class="form-label">Chọn Quận/Huyện</label>
                 <select 
                   v-model="form.district_id" 
-                  class="form-select selectpicker" 
+                  class="form-select" 
                   id="district" 
                   @change="loadSchools" 
                   :disabled="!districts.length" 
@@ -176,7 +176,7 @@
                 <label for="school" class="form-label">Chọn Trường THPT</label>
                 <select 
                   v-model="form.school_id" 
-                  class="form-select selectpicker" 
+                  class="form-select" 
                   id="school" 
                   :disabled="!schools.length" 
                   data-live-search="true" 
@@ -201,76 +201,70 @@
             <div class="mb-3 mt-4">
               <label for="priority_object" class="form-label">Chọn Ưu tiên đối tượng</label>
               <select 
-                v-model="form.priority_object" 
-                class="form-select selectpicker" 
-                id="priority_object" 
-                data-live-search="true" 
-                data-width="100%">
-                <option value="0" data-content="Không có đối tượng ưu tiên">Không có đối tượng ưu tiên</option>
-                  <option value="ĐT01" data-content="Đối tượng 01:<br>Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú<br>trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu vực 1.">
-                    Đối tượng 01
-                  </option>
-                  <option value="ĐT02" data-content="Đối tượng 02:<br>Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên,<br>trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp tỉnh trở lên<br>công nhận và cấp bằng khen.">
-                    Đối tượng 02
-                  </option>
-                  <option value="ĐT03" data-content="Đối tượng 03a:<br>Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh'.">
-                    Đối tượng 03a
-                  </option>
-                  <option value="ĐT03" data-content="Đối tượng 03b:<br>Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ<br>được cử đi học có thời gian phục vụ từ 12 tháng trở lên tại Khu vực 1.">
-                    Đối tượng 03b
-                  </option>
-                  <option value="ĐT03" data-content="Đối tượng 03c:<br>Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ<br>được cử đi học có thời gian phục vụ từ 18 tháng trở lên.">
-                    Đối tượng 03c
-                  </option>
-                  <option value="ĐT03" data-content="Đối tượng 03d:<br>Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân đã xuất ngũ,<br>được công nhận hoàn thành nghĩa vụ phục vụ tại ngũ theo quy định.">
-                    Đối tượng 03d
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04a:<br>Thân nhân liệt sĩ.">
-                    Đối tượng 04a
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04b:<br>Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh<br>bị suy giảm khả năng lao động từ 81% trở lên.">
-                    Đối tượng 04b
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04c:<br>Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học<br>bị suy giảm khả năng lao động 81% trở lên.">
-                    Đối tượng 04c
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04d:<br>Con của Anh hùng Lực lượng vũ trang nhân dân; con của Anh hùng Lao động trong thời kỳ kháng chiến.">
-                    Đối tượng 04d
-                  </option>
-                  <option value="ĐT04" data-content="Đối tượng 04đ:<br>Con của người hoạt động kháng chiến bị dị dạng, dị tật do hậu quả của chất độc hóa học<br>đang hưởng trợ cấp hàng tháng.">
-                    Đối tượng 04đ
-                  </option>
-                  <option value="ĐT05" data-content="Đối tượng 05a:<br>Thanh niên xung phong tập trung được cử đi học.">
-                    Đối tượng 05a
-                  </option>
-                  <option value="ĐT05" data-content="Đối tượng 05b:<br>Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ<br>được cử đi học có thời gian phục vụ dưới 12 tháng ở Khu vực 1 và dưới 18 tháng ở khu vực khác.">
-                    Đối tượng 05b
-                  </option>
-                  <option value="ĐT05" data-content="Đối tượng 05c:<br>Chỉ huy trưởng, Chỉ huy phó ban chỉ huy quân sự xã, phường, thị trấn;<br>Thôn đội trưởng, Trung đội trưởng Dân quân tự vệ nòng cốt, Dân quân tự vệ đã hoàn thành nghĩa vụ tham gia Dân quân tự vệ nòng cốt từ 12 tháng trở lên, dự thi vào ngành Quân sự cơ sở.<br>Thời hạn tối đa được hưởng ưu tiên là 18 tháng kể từ ngày ký quyết định xuất ngũ đến ngày ĐKXT.">
-                    Đối tượng 05c
-                  </option>
-                  <option value="ĐT06" data-content="Đối tượng 06a:<br>Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú ở ngoài khu vực đã quy định<br>thuộc đối tượng 01.">
-                    Đối tượng 06a
-                  </option>
-                  <option value="ĐT06" data-content="Đối tượng 06b:<br>Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh<br>bị suy giảm khả năng lao động dưới 81%.">
-                    Đối tượng 06b
-                  </option>
-                  <option value="ĐT06" data-content="Đối tượng 06c:<br>Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học<br>có tỷ lệ suy giảm khả năng lao động dưới 81%.">
-                    Đối tượng 06c
-                  </option>
-                  <option value="ĐT07" data-content="Đối tượng 07a:<br>Người khuyết tật nặng có giấy xác nhận khuyết tật của cơ quan có thẩm quyền cấp theo quy định<br>tại Thông tư liên tịch số 37/2012/TTLT‑BLĐTBXH‑BYT‑BTC‑BGDĐT ngày 28 tháng 12 năm 2012.">
-                    Đối tượng 07a
-                  </option>
-                  <option value="ĐT07" data-content="Đối tượng 07b:<br>Người lao động ưu tú thuộc tất cả thành phần kinh tế từ cấp tỉnh, cấp bộ trở lên được công nhận danh hiệu thợ giỏi, nghệ nhân,<br>được cấp bằng hoặc huy hiệu Lao động sáng tạo.">
-                    Đối tượng 07b
-                  </option>
-                  <option value="ĐT07" data-content="Đối tượng 07c:<br>Giáo viên đã giảng dạy đủ 3 năm trở lên dự tuyển vào các ngành đào tạo giáo viên.">
-                    Đối tượng 07c
-                  </option>
-                  <option value="ĐT07" data-content="Đối tượng 07d:<br>Y tá, dược tá, hộ lý, y sĩ, điều dưỡng viên, hộ sinh viên, kỹ thuật viên, người có bằng trung cấp Dược<br>đã công tác đủ 3 năm trở lên dự tuyển vào đúng ngành tốt nghiệp thuộc lĩnh vực sức khỏe.">
-                    Đối tượng 07d
-                  </option>
-              </select>
+    v-model="form.priority_object" 
+    class="form-select form-select-sm priority-select" 
+    id="priority_object">
+    <option value="0">Không có đối tượng ưu tiên</option>
+    <option value="ĐT01">ĐT01: Người dân tộc thiểu số tại KV1 (trên 18 tháng)</option>
+    <option value="ĐT02">ĐT02: Công nhân trực tiếp sản xuất (5 năm+, 2 năm CSTĐ)</option>
+    <option value="ĐT03">ĐT03a: Thương binh, bệnh binh, người hưởng chính sách như thương binh</option>
+    <option value="ĐT03">ĐT03b: Quân nhân, CA tại ngũ tại KV1 (12 tháng+)</option>
+    <option value="ĐT03">ĐT03c: Quân nhân, CA tại ngũ (18 tháng+)</option>
+    <option value="ĐT03">ĐT03d: Quân nhân, CA đã xuất ngũ, hoàn thành nghĩa vụ</option>
+    <option value="ĐT04">ĐT04a: Thân nhân liệt sĩ</option>
+    <option value="ĐT04">ĐT04b: Con thương, bệnh binh (suy giảm KNL 81%+)</option>
+    <option value="ĐT04">ĐT04c: Con người nhiễm chất độc hóa học (suy giảm KNL 81%+)</option>
+    <option value="ĐT04">ĐT04d: Con Anh hùng LLVT, Anh hùng Lao động thời kỳ kháng chiến</option>
+    <option value="ĐT04">ĐT04đ: Con người hoạt động kháng chiến bị dị dạng do chất độc hóa học</option>
+    <option value="ĐT05">ĐT05a: Thanh niên xung phong tập trung được cử đi học</option>
+    <option value="ĐT05">ĐT05b: Quân nhân, CA tại ngũ (dưới 12 tháng ở KV1, 18 tháng ở KV khác)</option>
+    <option value="ĐT05">ĐT05c: Chỉ huy trưởng, phó BCHQS xã, Dân quân tự vệ (12 tháng+)</option>
+    <option value="ĐT06">ĐT06a: Người dân tộc thiểu số ở khu vực khác ngoài KV1</option>
+    <option value="ĐT06">ĐT06b: Con thương, bệnh binh (suy giảm KNL dưới 81%)</option>
+    <option value="ĐT06">ĐT06c: Con người nhiễm chất độc hóa học (suy giảm KNL dưới 81%)</option>
+    <option value="ĐT07">ĐT07a: Người khuyết tật nặng có giấy xác nhận của cơ quan có thẩm quyền</option>
+    <option value="ĐT07">ĐT07b: Người lao động ưu tú (thợ giỏi, nghệ nhân, bằng/huy hiệu LĐ sáng tạo)</option>
+    <option value="ĐT07">ĐT07c: Giáo viên đã giảng dạy 3 năm+ (dự tuyển ngành đào tạo GV)</option>
+    <option value="ĐT07">ĐT07d: Y tá, dược tá, hộ lý, kỹ thuật viên y tế 3 năm+ (tuyển ngành y tế)</option>
+  </select>
+  <!-- Chi tiết đối tượng ưu tiên -->
+  <div v-if="form.priority_object !== '0'" class="mt-2 priority-detail py-2 px-3">
+    <div v-if="form.priority_object === 'ĐT01'" class="small">
+      <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu vực 1.
+    </div>
+    <div v-else-if="form.priority_object === 'ĐT02'" class="small">
+      <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp tỉnh trở lên công nhận và cấp bằng khen.
+    </div>
+    <div v-else-if="form.priority_object === 'ĐT03'" class="small">
+      <strong>Đối tượng 03a:</strong> Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh'.<br>
+      <strong>Đối tượng 03b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 12 tháng trở lên tại Khu vực 1.<br>
+      <strong>Đối tượng 03c:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 18 tháng trở lên.<br>
+      <strong>Đối tượng 03d:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân đã xuất ngũ, được công nhận hoàn thành nghĩa vụ phục vụ tại ngũ theo quy định.
+    </div>
+    <div v-else-if="form.priority_object === 'ĐT04'" class="small">
+      <strong>Đối tượng 04a:</strong> Thân nhân liệt sĩ.<br>
+      <strong>Đối tượng 04b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động từ 81% trở lên.<br>
+      <strong>Đối tượng 04c:</strong> Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học bị suy giảm khả năng lao động 81% trở lên.<br>
+      <strong>Đối tượng 04d:</strong> Con của Anh hùng Lực lượng vũ trang nhân dân; con của Anh hùng Lao động trong thời kỳ kháng chiến.<br>
+      <strong>Đối tượng 04đ:</strong> Con của người hoạt động kháng chiến bị dị dạng, dị tật do hậu quả của chất độc hóa học đang hưởng trợ cấp hàng tháng.
+    </div>
+    <div v-else-if="form.priority_object === 'ĐT05'" class="small">
+      <strong>Đối tượng 05a:</strong> Thanh niên xung phong tập trung được cử đi học.<br>
+      <strong>Đối tượng 05b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ dưới 12 tháng ở Khu vực 1 và dưới 18 tháng ở khu vực khác.<br>
+      <strong>Đối tượng 05c:</strong> Chỉ huy trưởng, Chỉ huy phó ban chỉ huy quân sự xã, phường, thị trấn; Thôn đội trưởng, Trung đội trưởng Dân quân tự vệ nòng cốt, Dân quân tự vệ đã hoàn thành nghĩa vụ tham gia Dân quân tự vệ nòng cốt từ 12 tháng trở lên, dự thi vào ngành Quân sự cơ sở.
+    </div>
+    <div v-else-if="form.priority_object === 'ĐT06'" class="small">
+      <strong>Đối tượng 06a:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú ở ngoài khu vực đã quy định thuộc đối tượng 01.<br>
+      <strong>Đối tượng 06b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động dưới 81%.<br>
+      <strong>Đối tượng 06c:</strong> Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học có tỷ lệ suy giảm khả năng lao động dưới 81%.
+    </div>
+    <div v-else-if="form.priority_object === 'ĐT07'" class="small">
+      <strong>Đối tượng 07a:</strong> Người khuyết tật nặng có giấy xác nhận khuyết tật của cơ quan có thẩm quyền cấp theo quy định tại Thông tư liên tịch số 37/2012/TTLT‑BLĐTBXH‑BYT‑BTC‑BGDĐT ngày 28 tháng 12 năm 2012.<br>
+      <strong>Đối tượng 07b:</strong> Người lao động ưu tú thuộc tất cả thành phần kinh tế từ cấp tỉnh, cấp bộ trở lên được công nhận danh hiệu thợ giỏi, nghệ nhân, được cấp bằng hoặc huy hiệu Lao động sáng tạo.<br>
+      <strong>Đối tượng 07c:</strong> Giáo viên đã giảng dạy đủ 3 năm trở lên dự tuyển vào các ngành đào tạo giáo viên.<br>
+      <strong>Đối tượng 07d:</strong> Y tá, dược tá, hộ lý, y sĩ, điều dưỡng viên, hộ sinh viên, kỹ thuật viên, người có bằng trung cấp Dược đã công tác đủ 3 năm trở lên dự tuyển vào đúng ngành tốt nghiệp thuộc lĩnh vực sức khỏe.
+    </div>
+  </div>
             </div>
             <div class="alert alert-danger mt-3" v-if="hasFormErrors && submitted" role="alert">
               <i class="fas fa-exclamation-circle me-2" aria-hidden="true"></i>
@@ -825,6 +819,20 @@ body {
   font-weight: 700;
   display: block;
   margin-top: 0.5rem;
+}
+
+.priority-select {
+  font-size: 0.85rem;
+}
+
+.priority-detail {
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+  border: 1px solid #e9ecef;
+  color: #495057;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
 }
 
 @media (min-width: 768px) {

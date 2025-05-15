@@ -63,6 +63,7 @@
                 <li><router-link class="dropdown-item" to="/calculatescore/xettuyenrieng">Tính điểm phương thức xét tuyển riêng</router-link></li>
                 <li><router-link class="dropdown-item" to="/calculatescore/hb">Tính điểm xét tuyển học bạ THPT</router-link></li>
                 <li><router-link class="dropdown-item" to="/calculatescore/thpt">Tính điểm xét tuyển thi THPT</router-link></li>
+                <li><router-link class="dropdown-item" to="/calculatescore/convert">Quy đổi điểm tương đương</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item">
