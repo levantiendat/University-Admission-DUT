@@ -440,6 +440,60 @@
                     </div>
                   </div>
                 </div>
+              <!-- Thêm nút gợi ý ngành học dựa trên kết quả -->
+                <div class="suggestion-actions mt-2 text-center">
+                  <button 
+                    class="btn btn-sm btn-outline-info" 
+                    @click="getMajorSuggestions(result)"
+                    :disabled="suggestionsLoading === result.group_id"
+                  >
+                    <i class="bi bi-lightbulb"></i> 
+                    <span v-if="suggestionsLoading !== result.group_id">Gợi ý ngành học phù hợp</span>
+                    <span v-else>Đang tải gợi ý...</span>
+                  </button>
+                </div>
+
+                <!-- Hiển thị kết quả gợi ý nếu có -->
+                <div v-if="suggestions[result.group_id]" class="suggestions-container mt-3">
+                  <div class="card">
+                    <div class="card-header bg-info bg-opacity-10 py-2">
+                      <h5 class="card-title mb-0 h6">
+                        <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+                        Gợi ý ngành học phù hợp với {{ result.group_name }} - Điểm {{ result.priority_points.total_point }}
+                      </h5>
+                    </div>
+                    <div class="card-body p-2">
+                      <div v-for="(category, catIndex) in suggestions[result.group_id]" :key="`cat-${result.group_id}-${catIndex}`" class="suggestion-category mb-3">
+                        <div class="category-title fw-bold mb-2" v-html="category.title"></div>
+                        
+                        <div class="table-responsive">
+                          <table class="table table-sm table-hover">
+                            <thead>
+                              <tr class="bg-light">
+                                <th style="width: 5%">STT</th>
+                                <th>Tên ngành</th>
+                                <th style="width: 20%" class="text-center">Chi tiết</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(major, majorIdx) in category.majors" :key="`major-${result.group_id}-${catIndex}-${majorIdx}`">
+                                <td>{{ majorIdx + 1 }}</td>
+                                <td>{{ major.name }}</td>
+                                <td class="text-center">
+                                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      
+                      <div class="suggestion-footer text-muted small fst-italic" v-if="suggestions[result.group_id].length > 0">
+                        <p v-html="suggestions[result.group_id][suggestions[result.group_id].length - 1]?.note"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <hr v-if="resultIndex < finalResults.length - 1" class="my-2">
             </template>
@@ -461,6 +515,7 @@
 // Cập nhật phần script, giữ nguyên phần template và style
 import { ref, reactive, computed, onMounted, watch } from 'vue';
 import CalculateScoreController from '@/controllers/CalculateScoreController';
+import ChatRasaController from '@/controllers/ChatRasaController';
 
 export default {
   name: 'CalculateScoreHB',
@@ -495,6 +550,10 @@ export default {
     const error = ref('');
     const submitted = ref(false);
     const showPriorityStep = ref(false);
+
+    // Gợi ý ngành học
+    const suggestions = ref({}); // Lưu trữ gợi ý cho từng tổ hợp: { group_id: [{title, majors}] }
+    const suggestionsLoading = ref(null); // ID của tổ hợp đang tải gợi ý
     
     // Computed property cho danh sách môn học có thể chọn
     const availableSubjects = computed(() => {
@@ -750,8 +809,44 @@ export default {
       error.value = '';
       submitted.value = false;
       showPriorityStep.value = false;
+      suggestions.value = {};
     };
     
+    const getMajorSuggestions = async (result) => {
+      const groupId = result.group_id;
+      
+      if (suggestionsLoading.value === groupId) {
+        return; // Already loading suggestions for this combination
+      }
+      
+      try {
+        suggestionsLoading.value = groupId;
+        
+        // Get subject names
+        const subjectNames = result.subjects.map(s => s.name);
+        const score = result.priority_points.total_point;
+        const method_key = false;
+        
+        // Use the specialized function for getting suggestions
+        const processedSuggestions = await ChatRasaController.getMajorSuggestions(subjectNames, score, method_key);
+        
+        // Check if we got valid suggestions
+        if (processedSuggestions && processedSuggestions.length > 0) {
+          suggestions.value = {
+            ...suggestions.value,
+            [groupId]: processedSuggestions
+          };
+        } else {
+          throw new Error('Không nhận được gợi ý phù hợp');
+        }
+        
+      } catch (err) {
+        console.error('Error getting major suggestions:', err);
+        alert('Có lỗi xảy ra khi lấy gợi ý ngành học: ' + (err.message || 'Vui lòng thử lại sau.'));
+      } finally {
+        suggestionsLoading.value = null;
+      }
+    };
     // Init
     onMounted(async () => {
       loading.value = true;
@@ -803,6 +898,10 @@ export default {
       // Computed properties
       selectedSchoolPriority,
       availableSubjects, // Thêm computed property
+
+      // Suggestions
+      suggestions,
+      suggestionsLoading,
       
       // Methods
       addSubject,
@@ -815,7 +914,10 @@ export default {
       proceedToPriorityStep,
       goBackToScores,
       calculatePriorityScores,
-      resetCalculator
+      resetCalculator,
+
+      getAvailableSubjectsForRow, // Thêm hàm lấy danh sách môn học khả dụng
+      getMajorSuggestions // Thêm hàm lấy gợi ý ngành học
     };
   }
 }
@@ -1097,6 +1199,81 @@ export default {
   margin-top: 0.5rem;
   font-size: 0.8rem;
   line-height: 1.4;
+}
+
+.suggestions-container {
+  margin-top: 15px;
+}
+
+.suggestions-container .card-header {
+  background-color: #0B2942 !important;
+  color: #ffffff !important;
+  border: none;
+}
+
+.suggestion-category {
+  margin-bottom: 15px;
+}
+
+.category-title {
+  color: #0b5394;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.suggestion-footer {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.suggestion-actions {
+  margin-top: 10px;
+}
+
+/* Thêm thiết kế responsive cho phần gợi ý */
+@media (max-width: 768px) {
+  .suggestion-category {
+    margin-bottom: 10px;
+  }
+}
+
+/* Nút gợi ý */
+.btn-outline-info {
+  color: #0dcaf0;
+  border-color: #0dcaf0;
+}
+
+.btn-outline-info:hover, .btn-outline-info:focus {
+  background-color: #0dcaf0;
+  color: white;
+}
+
+/* Bảng gợi ý */
+.suggestion-category .table-hover tbody tr:hover {
+  background-color: rgba(13, 202, 240, 0.05);
+}
+
+.suggestion-category .table-sm {
+  font-size: 0.9rem;
+}
+
+.suggestion-category .table-sm th {
+  font-weight: 600;
+  background-color: rgba(11, 83, 148, 0.05);
+}
+
+/* Link chi tiết ngành */
+.suggestion-category .btn-link {
+  color: #0b5394;
+  text-decoration: none;
+  padding: 0.1rem 0.5rem;
+}
+
+.suggestion-category .btn-link:hover {
+  text-decoration: underline;
+  background-color: rgba(11, 83, 148, 0.05);
+  border-radius: 0.25rem;
 }
 
 /* Responsive adjustments */

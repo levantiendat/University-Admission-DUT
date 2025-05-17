@@ -86,3 +86,8 @@ rules:
     steps:
     - intent: provide_personality_traits
     - action: action_suggest_majors_by_strengths
+
+  - rule: Ask suggestion for major from point, method and subject
+    steps:
+    - intent: ask_suggest_major_by_score_and_subjects
+    - action: action_suggest_major_by_score_and_subjects

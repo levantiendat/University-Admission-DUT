@@ -468,12 +468,14 @@ class ActionSuggestMajorBySubjects(Action):
                 # Lấy thông tin cơ bản
                 major_name = major_info.get('major')
                 major_id = major_info.get('major_id')
+                major_url = major_info.get('majorUrl')
+                
                 
                 if not major_name:
                     continue
                 
                 major_count += 1
-                message += f"{major_count}. **{major_name}**\n"
+                message += f"{major_count}. {major_name}\n"
                 
                 # Xử lý và hiển thị các tổ hợp môn
                 subject_combinations = major_info.get('subject_combinations', [])
@@ -485,7 +487,7 @@ class ActionSuggestMajorBySubjects(Action):
                 else:
                     message += "   *Tổ hợp môn*: Thông tin không có sẵn\n"
                 
-                message += "\n"
+                message += f"Xem chi tiết ngành này {major_url}\n"
                 
             
             # Thêm gợi ý
@@ -552,7 +554,7 @@ class ActionGetMajorsByFaculty(Action):
         message = f"🏫 **Các ngành đào tạo thuộc khoa {faculty_name}:**\n\n"
         
         for i, major in enumerate(majors, 1):
-            message += f"{i}. **{major['major']}**\n"
+            message += f"{i}. {major['major']}. Xem chi tiết ngành {major['majorUrl']}\n"
             
         message += "\n💡 *Bạn có thể hỏi thêm về điểm chuẩn, tổ hợp môn hoặc thông tin chi tiết của từng ngành.*"
         
@@ -673,24 +675,28 @@ class ActionSuggestMajorByScore(Action):
             "low": "⚠️ **Tỷ lệ đỗ thấp**"
         }
         
+        group_desc = {
+            "high": "*(Điểm chuẩn gần với điểm của bạn, chênh lệch rất ít)*",
+            "medium": "*(Điểm chuẩn cách điểm của bạn một khoảng vừa phải)*", 
+            "low": "*(Điểm chuẩn cách điểm của bạn khá xa)*"
+        }
+        
         for group in grouped_results:
             group_name = group["group"]
             majors = group["majors"]
             
             if majors:
-                message += f"{group_info.get(group_name, 'Khác')}:\n\n"
+                message += f"{group_info.get(group_name, 'Khác')} {group_desc.get(group_name, '')}:\n\n"
                 
                 for i, major in enumerate(majors, 1):
-                    message += f"{i}. **{major['major_name']}**\n"
-                    message += f"   - Điểm chuẩn: {major['cutoff']} ({major['year']})\n"
+                    message += f"{i}. {major['major_name']}. Xem chi tiết ngành {major['major_url']}\n"
                 
                 message += "\n"
         
-        message += "💡 *Ghi chú: Các ngành được hiển thị đều áp dụng phương thức này trong năm học hiện tại. Kết quả dựa trên điểm chuẩn các năm trước.*\n\n"
+        message += "💡 *Kết quả dựa trên điểm chuẩn quy đổi từ năm 2023 và 2024 với tỷ lệ 1:4. Các ngành được hiển thị đều áp dụng phương thức này trong năm học hiện tại.*\n\n"
         message += "Bạn có thể hỏi thêm về:\n"
         message += "- Tổ hợp môn xét tuyển của ngành\n"
         message += "- Điểm chuẩn của ngành theo các năm"
-        
         
         return message
     
@@ -832,9 +838,9 @@ class ActionSuggestMajorByScoreWithMethodAndFaculty(Action):
         }
         
         group_desc = {
-            "high": "*(Điểm của bạn >= điểm chuẩn)*",
-            "medium": "*(Điểm của bạn < điểm chuẩn, chênh lệch ít)*",
-            "low": "*(Điểm của bạn < điểm chuẩn, chênh lệch nhiều)*"
+            "high": "*(Điểm chuẩn gần với điểm của bạn, chênh lệch rất ít)*",
+            "medium": "*(Điểm chuẩn cách điểm của bạn một khoảng vừa phải)*", 
+            "low": "*(Điểm chuẩn cách điểm của bạn khá xa)*"
         }
         
         for group in grouped_results:
@@ -845,18 +851,190 @@ class ActionSuggestMajorByScoreWithMethodAndFaculty(Action):
                 message += f"{group_info.get(group_name, 'Khác')} {group_desc.get(group_name, '')}:\n\n"
                 
                 for i, major in enumerate(majors, 1):
-                    message += f"{i}. **{major['major_name']}**\n"
-                    message += f"   - Điểm chuẩn: {major['cutoff']} ({major['year']})\n"
+                    message += f"{i}. {major['major_name']}. Xem chi tiết ngành {major['major_url']}\n"
                 
                 message += "\n"
         
-        message += "💡 *Ghi chú: Các ngành được hiển thị đều áp dụng phương thức này trong năm học hiện tại. Kết quả dựa trên điểm chuẩn các năm trước.*\n\n"
+        message += "💡 *Kết quả dựa trên điểm chuẩn quy đổi từ năm 2023 và 2024 với tỷ lệ 1:4. Các ngành được hiển thị đều áp dụng phương thức này trong năm học hiện tại.*\n\n"
         message += "Bạn có thể hỏi thêm về:\n"
         message += "- Tổ hợp môn xét tuyển của ngành\n"
         message += "- Cơ hội việc làm của các ngành này"
         
         return message
+
+class ActionSuggestMajorByScoreAndSubjects(Action):
+    def name(self) -> str:
+        return "action_suggest_major_by_score_and_subjects"
+
+    def __init__(self):
+        self.db = GraphConnector()
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        # Lấy điểm số từ entity
+        score_entity = next(tracker.get_latest_entity_values("score"), None)
+        
+        # Lấy phương thức từ entity
+        method_entity = next(tracker.get_latest_entity_values("method"), None)
+        
+        # Lấy các môn học từ entity
+        subjects = list(tracker.get_latest_entity_values("subject"))
+        
+        # Kiểm tra các thông tin cần thiết
+        missing_info = []
+        if not score_entity:
+            missing_info.append("điểm số")
+        if not method_entity:
+            missing_info.append("phương thức xét tuyển")
+        if not subjects or len(subjects) == 0:
+            missing_info.append("các môn học/khối thi")
+            
+        if missing_info:
+            missing_str = ", ".join(missing_info)
+            message = f"❓ Vui lòng cung cấp {missing_str} để tôi có thể tư vấn ngành phù hợp."
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Chuẩn hóa các môn học
+        normalized_subjects = []
+        for subject in subjects:
+            normalized_subject = normalize_subject(subject)
+            if normalized_subject and normalized_subject not in normalized_subjects:
+                normalized_subjects.append(normalized_subject)
+        
+        logging.debug(f"Normalized subjects: {normalized_subjects}")
+        
+        if not normalized_subjects:
+            message = "❓ Vui lòng cung cấp tên các môn học hợp lệ để tôi có thể tư vấn ngành phù hợp."
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Giới hạn số lượng môn tối đa là 3 (khối thi thường gồm 3 môn)
+        if len(normalized_subjects) > 3:
+            normalized_subjects = normalized_subjects[:3]
+            logging.debug(f"Limited to 3 subjects for combination: {normalized_subjects}")
+        
+        try:
+            # Chuyển đổi điểm sang số
+            score = float(score_entity)
+            
+            # Chuẩn hóa phương thức
+            method_id = normalize_method(method_entity)
+            
+            if not method_id:
+                dispatcher.utter_message(text=f"❌ Tôi không nhận ra phương thức '{method_entity}'. "
+                                            f"Vui lòng thử lại với các phương thức như: xét điểm thi tốt nghiệp, "
+                                            f"xét học bạ, đánh giá năng lực, đánh giá tư duy hoặc xét tuyển riêng.")
+                return []
+            
+            # Lấy kết quả gợi ý ngành
+            results = self.db.get_majors_by_score_method_and_subjects(score, method_id, normalized_subjects)
+            
+            if not results:
+                subjects_str = ", ".join(normalized_subjects)
+                dispatcher.utter_message(text=f"❌ Không tìm thấy ngành nào phù hợp với điểm {score} "
+                                            f"theo phương thức {method_entity} "
+                                            f"và tổ hợp môn {subjects_str}.")
+                return []
+            
+            # Lọc kết quả để chỉ giữ lại các ngành vẫn áp dụng phương thức này trong năm hiện tại
+            results = self._filter_valid_majors(results, method_id)
+            
+            if not results:
+                subjects_str = ", ".join(normalized_subjects)
+                dispatcher.utter_message(text=f"❌ Tôi đã tìm thấy một số ngành phù hợp với điểm {score} "
+                                            f"và tổ hợp môn {subjects_str}, "
+                                            f"nhưng không có ngành nào còn áp dụng phương thức {method_entity} "
+                                            f"trong năm học hiện tại.")
+                return []
+            
+            # Tạo phản hồi
+            subjects_str = ", ".join(normalized_subjects)
+            message = self._create_response_message(results, score, method_entity, subjects_str)
+            
+            dispatcher.utter_message(text=message)
+            
+            return [
+                SlotSet("score", score_entity),
+                SlotSet("method", method_entity),
+                SlotSet("current_subjects", normalized_subjects)
+            ]
+            
+        except ValueError:
+            dispatcher.utter_message(text=f"❌ Điểm số '{score_entity}' không hợp lệ. Vui lòng nhập một số.")
+            return []
     
+    def _filter_valid_majors(self, grouped_results: list, method_id: str) -> list:
+        """
+        Lọc kết quả để chỉ giữ lại các ngành vẫn áp dụng phương thức này trong năm hiện tại
+        """
+        if not grouped_results:
+            return []
+        
+        filtered_groups = []
+        
+        for group in grouped_results:
+            valid_majors = []
+            for major in group["majors"]:
+                # Kiểm tra xem ngành có còn áp dụng phương thức này không
+                check_result = self.db.check_major_has_method(major["major_id"], method_id)
+                
+                # Nếu phương thức vẫn được áp dụng, giữ lại ngành này
+                if check_result["exists"]:
+                    valid_majors.append(major)
+                else:
+                    logging.debug(f"Major {major['major_name']} ({major['major_id']}) no longer uses method {method_id}")
+            
+            # Chỉ thêm nhóm vào kết quả nếu có ngành hợp lệ
+            if valid_majors:
+                filtered_groups.append({
+                    "group": group["group"],
+                    "majors": valid_majors
+                })
+        
+        return filtered_groups
+    
+    def _create_response_message(self, grouped_results: list, score: float, method: str, subjects_str: str) -> str:
+        """
+        Tạo thông điệp phản hồi từ kết quả đã nhóm
+        """
+        message = f"📊 **Các ngành phù hợp với điểm {score} theo phương thức {method} và tổ hợp môn {subjects_str}:**\n\n"
+        
+        # Thông tin về các nhóm
+        group_info = {
+            "high": "🔥 **Tỷ lệ đỗ cao**",
+            "medium": "⚡ **Tỷ lệ đỗ trung bình**",
+            "low": "⚠️ **Tỷ lệ đỗ thấp**"
+        }
+        
+        group_desc = {
+            "high": "*(Điểm chuẩn gần với điểm của bạn, chênh lệch rất ít)*",
+            "medium": "*(Điểm chuẩn cách điểm của bạn một khoảng vừa phải)*", 
+            "low": "*(Điểm chuẩn cách điểm của bạn khá xa)*"
+        }
+        
+        for group in grouped_results:
+            group_name = group["group"]
+            majors = group["majors"]
+            
+            if majors:
+                message += f"{group_info.get(group_name, 'Khác')} {group_desc.get(group_name, '')}:\n\n"
+                
+                for i, major in enumerate(majors, 1):
+                    message += f"{i}. {major['major_name']}. Xem chi tiết ngành {major['major_url']}\n"
+                
+                message += "\n"
+        
+        message += "💡 *Kết quả dựa trên điểm chuẩn quy đổi từ năm 2023 và 2024 với tỷ lệ 1:4 và tổ hợp môn phù hợp. Các ngành được hiển thị đều áp dụng phương thức này trong năm học hiện tại.*\n\n"
+        message += "Bạn có thể hỏi thêm về:\n"
+        message += "- Thông tin chi tiết về từng ngành\n"
+        message += "- Cơ hội việc làm của các ngành này\n"
+        message += "- Điểm chuẩn theo các năm"
+        
+        return message
+
 class ActionGetAdmissionProcessByMethod(Action):
     def name(self) -> str:
         return "action_get_admission_process_by_method"

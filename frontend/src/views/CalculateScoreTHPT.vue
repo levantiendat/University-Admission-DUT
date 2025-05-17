@@ -246,39 +246,39 @@
   <!-- Chi tiết đối tượng ưu tiên -->
   <div v-if="priorityObject !== '0'" class="mt-2 priority-detail py-2 px-3">
     <div v-if="priorityObject === 'ĐT01'" class="small">
-      <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu vực 1.
+      <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu [...]
     </div>
     <div v-else-if="priorityObject === 'ĐT02'" class="small">
-      <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp tỉnh trở lên công nhận và cấp bằng khen.
+      <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được c��[...]
     </div>
     <div v-else-if="priorityObject === 'ĐT03'" class="small">
       <strong>Đối tượng 03a:</strong> Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh'.<br>
-      <strong>Đối tượng 03b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 12 tháng trở lên tại Khu vực 1.<br>
-      <strong>Đối tượng 03c:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 18 tháng trở lên.<br>
-      <strong>Đối tượng 03d:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân đã xuất ngũ, được công nhận hoàn thành nghĩa vụ phục vụ tại ngũ theo quy định.
+      <strong>Đối tượng 03b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ [...]
+      <strong>Đối tượng 03c:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ [...]
+      <strong>Đối tượng 03d:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân đã xuất ngũ, được công nhận hoàn thành nghĩa vụ ph�[...]
     </div>
     <div v-else-if="priorityObject === 'ĐT04'" class="small">
       <strong>Đối tượng 04a:</strong> Thân nhân liệt sĩ.<br>
-      <strong>Đối tượng 04b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động từ 81% trở lên.<br>
+      <strong>Đối tượng 04b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động từ 81% tr[...]
       <strong>Đối tượng 04c:</strong> Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học bị suy giảm khả năng lao động 81% trở lên.<br>
       <strong>Đối tượng 04d:</strong> Con của Anh hùng Lực lượng vũ trang nhân dân; con của Anh hùng Lao động trong thời kỳ kháng chiến.<br>
-      <strong>Đối tượng 04đ:</strong> Con của người hoạt động kháng chiến bị dị dạng, dị tật do hậu quả của chất độc hóa học đang hưởng trợ cấp hàng tháng.
+      <strong>Đối tượng 04đ:</strong> Con của người hoạt động kháng chiến bị dị dạng, dị tật do hậu quả của chất độc hóa học đang hưởng trợ cấp hàn[...]
     </div>
     <div v-else-if="priorityObject === 'ĐT05'" class="small">
       <strong>Đối tượng 05a:</strong> Thanh niên xung phong tập trung được cử đi học.<br>
-      <strong>Đối tượng 05b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ dưới 12 tháng ở Khu vực 1 và dưới 18 tháng ở khu vực khác.<br>
-      <strong>Đối tượng 05c:</strong> Chỉ huy trưởng, Chỉ huy phó ban chỉ huy quân sự xã, phường, thị trấn; Thôn đội trưởng, Trung đội trưởng Dân quân tự vệ nòng cốt, Dân quân tự vệ đã hoàn thành nghĩa vụ tham gia Dân quân tự vệ nòng cốt từ 12 tháng trở lên, dự thi vào ngành Quân sự cơ sở.
+      <strong>Đối tượng 05b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ dư��[...]
+      <strong>Đối tượng 05c:</strong> Chỉ huy trưởng, Chỉ huy phó ban chỉ huy quân sự xã, phường, thị trấn; Thôn đội trưởng, Trung đội trưởng Dân quân tự v�[...]
     </div>
     <div v-else-if="priorityObject === 'ĐT06'" class="small">
       <strong>Đối tượng 06a:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú ở ngoài khu vực đã quy định thuộc đối tượng 01.<br>
-      <strong>Đối tượng 06b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động dưới 81%.<br>
+      <strong>Đối tượng 06b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động dưới 81%[...]
       <strong>Đối tượng 06c:</strong> Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học có tỷ lệ suy giảm khả năng lao động dưới 81%.
     </div>
     <div v-else-if="priorityObject === 'ĐT07'" class="small">
-      <strong>Đối tượng 07a:</strong> Người khuyết tật nặng có giấy xác nhận khuyết tật của cơ quan có thẩm quyền cấp theo quy định tại Thông tư liên tịch số 37/2012/TTLT‑BLĐTBXH‑BYT‑BTC‑BGDĐT ngày 28 tháng 12 năm 2012.<br>
-      <strong>Đối tượng 07b:</strong> Người lao động ưu tú thuộc tất cả thành phần kinh tế từ cấp tỉnh, cấp bộ trở lên được công nhận danh hiệu thợ giỏi, nghệ nhân, được cấp bằng hoặc huy hiệu Lao động sáng tạo.<br>
+      <strong>Đối tượng 07a:</strong> Người khuyết tật nặng có giấy xác nhận khuyết tật của cơ quan có thẩm quyền cấp theo quy định tại Thông tư liên tịch [...]
+      <strong>Đối tượng 07b:</strong> Người lao động ưu tú thuộc tất cả thành phần kinh tế từ cấp tỉnh, cấp bộ trở lên được công nhận danh hiệu thợ gi�[...]
       <strong>Đối tượng 07c:</strong> Giáo viên đã giảng dạy đủ 3 năm trở lên dự tuyển vào các ngành đào tạo giáo viên.<br>
-      <strong>Đối tượng 07d:</strong> Y tá, dược tá, hộ lý, y sĩ, điều dưỡng viên, hộ sinh viên, kỹ thuật viên, người có bằng trung cấp Dược đã công tác đủ 3 năm trở lên dự tuyển vào đúng ngành tốt nghiệp thuộc lĩnh vực sức khỏe.
+      <strong>Đối tượng 07d:</strong> Y tá, dược tá, hộ lý, y sĩ, điều dưỡng viên, hộ sinh viên, kỹ thuật viên, người có bằng trung cấp Dược đã công tác đ[...]
     </div>
   </div>
 </div>
@@ -426,6 +426,61 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Thêm nút gợi ý ngành học dựa trên kết quả -->
+                <div class="suggestion-actions mt-2 text-center">
+                  <button 
+                    class="btn btn-sm btn-outline-info" 
+                    @click="getMajorSuggestions(result)"
+                    :disabled="suggestionsLoading === result.group_id"
+                  >
+                    <i class="bi bi-lightbulb"></i> 
+                    <span v-if="suggestionsLoading !== result.group_id">Gợi ý ngành học phù hợp</span>
+                    <span v-else>Đang tải gợi ý...</span>
+                  </button>
+                </div>
+
+                <!-- Hiển thị kết quả gợi ý nếu có -->
+                <div v-if="suggestions[result.group_id]" class="suggestions-container mt-3">
+                  <div class="card">
+                    <div class="card-header bg-info bg-opacity-10 py-2">
+                      <h5 class="card-title mb-0 h6">
+                        <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+                        Gợi ý ngành học phù hợp với {{ result.group_name }} - Điểm {{ result.priority_points.total_point }}
+                      </h5>
+                    </div>
+                    <div class="card-body p-2">
+                      <div v-for="(category, catIndex) in suggestions[result.group_id]" :key="`cat-${result.group_id}-${catIndex}`" class="suggestion-category mb-3">
+                        <div class="category-title fw-bold mb-2" v-html="category.title"></div>
+                        
+                        <div class="table-responsive">
+                          <table class="table table-sm table-hover">
+                            <thead>
+                              <tr class="bg-light">
+                                <th style="width: 5%">STT</th>
+                                <th>Tên ngành</th>
+                                <th style="width: 20%" class="text-center">Chi tiết</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(major, majorIdx) in category.majors" :key="`major-${result.group_id}-${catIndex}-${majorIdx}`">
+                                <td>{{ majorIdx + 1 }}</td>
+                                <td>{{ major.name }}</td>
+                                <td class="text-center">
+                                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      
+                      <div class="suggestion-footer text-muted small fst-italic" v-if="suggestions[result.group_id].length > 0">
+                        <p v-html="suggestions[result.group_id][suggestions[result.group_id].length - 1]?.note"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <hr v-if="resultIndex < finalResults.length - 1" class="my-2">
             </template>
@@ -447,6 +502,7 @@
 import { ref, reactive, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import CalculateScoreController from '@/controllers/CalculateScoreController';
+import ChatRasaController from '@/controllers/ChatRasaController';
 
 export default {
   name: 'CalculateScoreTHPT',
@@ -488,6 +544,10 @@ export default {
     const shareableUrl = ref('');
     const urlCopied = ref(false);
     const urlParseError = ref('');
+    
+    // Gợi ý ngành học
+    const suggestions = ref({}); // Lưu trữ gợi ý cho từng tổ hợp: { group_id: [{title, majors}] }
+    const suggestionsLoading = ref(null); // ID của tổ hợp đang tải gợi ý
     
     // Computed properties
     const selectedSchoolPriority = computed(() => {
@@ -894,6 +954,42 @@ export default {
       shareableUrl.value = '';
       urlCopied.value = false;
       urlParseError.value = '';
+      suggestions.value = {};
+    };
+    
+    const getMajorSuggestions = async (result) => {
+      const groupId = result.group_id;
+      
+      if (suggestionsLoading.value === groupId) {
+        return; // Already loading suggestions for this combination
+      }
+      
+      try {
+        suggestionsLoading.value = groupId;
+        
+        // Get subject names
+        const subjectNames = result.subjects.map(s => s.name);
+        const score = result.priority_points.total_point;
+        
+        // Use the specialized function for getting suggestions
+        const processedSuggestions = await ChatRasaController.getMajorSuggestions(subjectNames, score);
+        
+        // Check if we got valid suggestions
+        if (processedSuggestions && processedSuggestions.length > 0) {
+          suggestions.value = {
+            ...suggestions.value,
+            [groupId]: processedSuggestions
+          };
+        } else {
+          throw new Error('Không nhận được gợi ý phù hợp');
+        }
+        
+      } catch (err) {
+        console.error('Error getting major suggestions:', err);
+        alert('Có lỗi xảy ra khi lấy gợi ý ngành học: ' + (err.message || 'Vui lòng thử lại sau.'));
+      } finally {
+        suggestionsLoading.value = null;
+      }
     };
     
     // Init
@@ -951,6 +1047,10 @@ export default {
       urlCopied,
       urlParseError,
       
+      // Suggestions
+      suggestions,
+      suggestionsLoading,
+      
       // Computed properties
       selectedSchoolPriority,
       
@@ -968,7 +1068,8 @@ export default {
       resetCalculator,
       generateShareableUrl,
       copyUrlToClipboard,
-      getAvailableSubjectsForRow // Thêm hàm lấy danh sách môn học khả dụng
+      getAvailableSubjectsForRow, // Thêm hàm lấy danh sách môn học khả dụng
+      getMajorSuggestions // Thêm hàm lấy gợi ý ngành học
     };
   }
 }
@@ -998,244 +1099,231 @@ export default {
   color: #ffffff;
   font-size: 0.9rem;
   max-width: 800px;
-  margin: 0 auto;
-  opacity: 0.9;
 }
 
-/* Card styling - thu gọn */
-.card {
-  background-color: #ffffff;
-  border: none;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
+/* Card styling */
 .card-header {
-  background-color: #0B2942 !important;
-  color: #ffffff !important;
-  border: none;
+  background-color: #0b5394;
+  border-bottom: none;
 }
 
-/* Section titles - thu gọn */
-.section-title {
-  color: #0B2942;
-  text-align: center;
-  margin-bottom: 0.75rem;
+.card-header h2 {
   font-weight: 600;
-  position: relative;
 }
 
-.section-title:after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 2px;
-  background: #4da0ff;
-  margin: 0.3rem auto 0.5rem;
-  border-radius: 1px;
-}
-
-/* Step indicator - thu gọn */
+/* Step indicator */
 .step-indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
 }
 
 .step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  opacity: 0.5;
-}
-
-.step.active {
-  opacity: 1;
+  width: 120px;
 }
 
 .step-number {
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background-color: #0B2942;
-  color: white;
+  background-color: #eaeaea;
+  color: #6c757d;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 0.8rem;
-  margin-bottom: 0.25rem;
+  margin-bottom: 5px;
 }
 
-.step-title {
-  font-weight: 600;
-  color: #0B2942;
+.step.active .step-number {
+  background-color: #0b5394;
+  color: white;
 }
 
 .step-line {
-  height: 2px;
-  background-color: #0B2942;
   flex-grow: 1;
-  margin: 0 0.75rem;
-  position: relative;
-  top: -5px;
+  height: 2px;
+  background-color: #eaeaea;
+  margin: 0 10px;
+  margin-bottom: 20px;
 }
 
-/* Form controls - thu gọn */
-.form-control, .form-select {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-}
-
-.form-control:focus, .form-select:focus {
-  box-shadow: 0 0 0 0.15rem rgba(13, 71, 161, 0.25);
-}
-
-/* Small text notes */
-.form-text {
-  font-size: 0.7rem;
-  margin-top: 0.1rem;
-}
-
-/* Nút tính điểm */
+/* Button styles */
 .btn-calculate {
-  background: linear-gradient(135deg, #3a7bd5, #0B2942);
-  color: #ffffff;
+  background-color: #0b5394;
+  color: white;
   border: none;
-  padding: 0.35rem 1rem;
-  transition: all 0.2s;
+  padding: 0.375rem 1rem;
 }
 
-.btn-calculate:hover {
-  background: linear-gradient(135deg, #4a8bf5, #1a3952);
-  transform: translateY(-1px);
+.btn-calculate:hover, .btn-calculate:focus {
+  background-color: #083d6f;
+  color: white;
+}
+
+/* Subject list */
+.subject-list {
+  margin-bottom: 20px;
+}
+
+.section-title {
+  color: #0b5394;
+  margin-bottom: 10px;
+  font-weight: 600;
+  border-left: 3px solid #0b5394;
+  padding-left: 10px;
 }
 
 /* School selection */
 .school-selection-container {
-  background-color: #f5f9ff;
-  border-radius: 0.5rem;
-  border: 1px solid #d0e1f9;
-}
-
-/* Table styles */
-.table {
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.table td, .table th {
-  padding: 0.3rem 0.5rem;
-  vertical-align: middle;
-}
-
-/* Results */
-.initial-results, .final-results-container {
   background-color: #f8f9fa;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  border: 1px solid #e9ecef;
+  border-radius: 6px;
 }
 
-/* Point cards */
-.point-card {
-  background-color: #f5f9ff;
-  border-radius: 0.5rem;
-  text-align: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.point-title {
-  font-weight: 600;
-  color: #495057;
-}
-
-.point-value {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #0B2942;
-  line-height: 1;
-  margin: 0.2rem 0;
-}
-
-.point-description {
-  color: #6c757d;
-  font-size: 0.7rem;
-}
-
-.point-card.original {
-  background-color: #e8f5ff;
-}
-
-.point-card.priority {
-  background-color: #e1f5ea;
-}
-
-.point-card.total {
-  background-color: #fff8e1;
-}
-
-.point-card.original .point-value {
-  color: #0d47a1;
-}
-
-.point-card.priority .point-value {
-  color: #388e3c;
-}
-
-.point-card.total .point-value {
-  color: #f57c00;
-}
-
-/* URL Display */
-.url-display {
-  background-color: #f8f9fa;
-  border-radius: 0.25rem;
-  border: 1px solid #dee2e6;
-  margin-top: 0.5rem;
-}
-
-/* Accessibility */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
+/* Priority object section */
 .priority-select {
-  font-size: 0.85rem;
+  margin-top: 5px;
 }
 
 .priority-detail {
   background-color: #f8f9fa;
-  border-radius: 0.25rem;
-  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  border-left: 3px solid #6c757d;
+}
+
+/* Combination results */
+.combination-row {
+  background-color: rgba(11, 83, 148, 0.1) !important;
+  font-weight: 500;
+}
+
+.combination-name {
+  color: #0b5394;
+  font-weight: 600;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* Point cards for final results */
+.point-summary {
+  margin: 15px 0;
+}
+
+.point-card {
+  border-radius: 6px;
+  text-align: center;
+  height: 100%;
+}
+
+.point-card.original {
+  background-color: #f0f4f8;
+  border-left: 3px solid #6c757d;
+}
+
+.point-card.priority {
+  background-color: #e6f2ff;
+  border-left: 3px solid #0d6efd;
+}
+
+.point-card.total {
+  background-color: #e7f5e7;
+  border-left: 3px solid #198754;
+}
+
+.point-title {
   color: #495057;
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  line-height: 1.4;
+  font-weight: 500;
+}
+
+.point-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.point-description {
+  color: #6c757d;
+}
+
+/* URL generator */
+.url-display {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+/* Loading indicator */
+.loading-indicator {
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Suggestions styling */
+.suggestions-container {
+  margin-top: 15px;
+}
+
+.suggestions-container .card-header {
+  background-color: rgba(11, 83, 148, 0.1);
+  color: #0b5394;
+}
+
+.suggestion-category {
+  margin-bottom: 15px;
+}
+
+.category-title {
+  color: #0b5394;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.suggestion-footer {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.suggestion-actions {
+  margin-top: 10px;
+}
+
+/* Table improvements */
+.table-sm {
+  font-size: 0.9rem;
+}
+
+.table-sm th {
+  font-weight: 600;
 }
 
 /* Responsive adjustments */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .hero-section h1 {
-    font-size: 1.75rem;
+    font-size: 1.3rem;
   }
   
-  .hero-section p {
-    font-size: 1rem;
+  .point-value {
+    font-size: 1.2rem;
   }
   
-  .form-control, .form-select {
-    font-size: 0.9rem;
+  .suggestion-category {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .step {
+    width: 90px;
+  }
+  
+  .point-card {
+    padding: 10px 5px !important;
+  }
+  
+  .point-value {
+    font-size: 1.1rem;
   }
 }
 </style>

@@ -1234,6 +1234,49 @@ nlu:
     - em [thích làm việc với máy móc, cơ khí](student_interests), nên chọn ngành gì ạ
     - ngành nào phù hợp với người [thích tính toán](student_interests) và [tỉ mỉ](personality_traits)
 
+- intent: ask_suggest_major_by_score_and_subjects
+  examples: |
+    - em đạt được [23.4](score) điểm ở khối thi [toán](subject), [vật lý](subject), [hóa học](subject) ở phương thức [điểm thi tốt nghiệp](method) thì có thể nộp đơn ngành nào
+    - Em thi khối thi [toán](subject) + [ngữ văn](subject) + [tiếng anh](subject) đạt được [26.77](score) điểm ở phương thức [điểm thi tốt nghiệp](method) thì có thể vào ngành nào
+    - Em [xét học bạ](method) khối thi [toán](subject) + [ngữ văn](subject) + [lịch sử](subject) đạt được [26.77](score) điểm thì có thể vào ngành nào
+    - Với khối [toán](subject), [sinh học](subject), [hóa học](subject) em được [25.4](score) điểm theo [điểm thi tốt nghiệp](method) điểm, em nên đăng ký ngành gì
+    - Em có tổng điểm [27.3](score) khối [toán](subject) [vật lý](subject) [tiếng anh](subject) xét [học bạ thpt](method), có thể vào ngành nào
+    - Em thi khối [ngữ văn](subject) [lịch sử](subject) [địa lý](subject) được [25.8](score) điểm theo [điểm thi tốt nghiệp](method), xin tư vấn các ngành phù hợp
+    - Tôi đạt [28.1](score) điểm khối [toán](subject) [hóa học](subject) [sinh học](subject) khi [xét học bạ](method), có ngành nào phù hợp không
+    - Em có điểm [24.6](score) ở khối [toán](subject) [ngữ văn](subject) [tiếng nhật](subject) theo phương thức [điểm thi tốt nghiệp](method), ngành nào phù hợp
+    - Khối [toán](subject) [vật lý](subject) [tin học](subject) em được [27.5](score) điểm, xét [học bạ](method) thì nên học ngành gì
+    - Em được [26.2](score) điểm khi thi [toán](subject) [ngữ văn](subject) [giáo dục kinh tế và pháp luật](subject) theo [điểm thi tốt nghiệp](method), nên đăng ký ngành nào
+    - Em xét [học bạ](method) khối [toán](subject) [vật lý](subject) [công nghệ công nghiệp](subject) được [25.9](score) điểm, ngành nào phù hợp
+    - Với [26.7](score) điểm ở khối [toán](subject) [hóa học](subject) [tiếng anh](subject) theo [điểm thi tốt nghiệp](method), em có thể học ngành gì
+    - Em muốn biết với [24.3](score) điểm khối [toán](subject) [sinh học](subject) [tiếng anh](subject) theo [học bạ](method) thì nên học ngành nào
+    - Em thi khối [toán](subject) [vật lý](subject) [địa lý](subject) được [23.8](score) điểm theo [điểm thi tốt nghiệp](method), ngành nào phù hợp ạ
+    - Em có [27.4](score) điểm với khối [toán](subject) [lịch sử](subject) [tiếng anh](subject) theo [học bạ thpt](method), xin hỏi nên học ngành gì
+    - Em thi [toán](subject), [ngữ văn](subject), [sinh học](subject) được [24.9](score) điểm theo [điểm thi tốt nghiệp](method), có thể đăng ký ngành nào
+    - Với [25.3](score) điểm khối [toán](subject) [vật lý](subject) [công nghệ công nghiệp](subject) theo [học bạ](method), em nên chọn ngành nào
+    - Em có điểm tổng [28.6](score) khối [toán](subject) [hóa học](subject) [tiếng anh](subject) xét theo [điểm thi tốt nghiệp](method), có ngành nào phù hợp không
+    - Khối [ngữ văn](subject) [lịch sử](subject) [tiếng nhật](subject) em được [24.2](score) điểm theo phương thức [học bạ](method), ngành nào lấy điểm này
+    - Em đạt [26.5](score) điểm với khối [toán](subject) [vật lý](subject) [tin học](subject) theo [điểm thi tốt nghiệp](method), nên chọn ngành gì ạ
+    - Em xét [học bạ](method) được [25.8](score) điểm khối [toán](subject) [địa lý](subject) [giáo dục kinh tế và pháp luật](subject), ngành nào phù hợp
+    - Với điểm [27.2](score) khối [toán](subject) [hóa học](subject) [sinh học](subject) theo [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào
+    - Em có điểm khối [toán](subject) [vật lý](subject) [hóa học](subject) là [26.9](score) theo [học bạ](method), xin tư vấn ngành phù hợp
+    - Em thi được [24.8](score) ở khối [toán](subject) [ngữ văn](subject) [tiếng anh](subject) theo [điểm thi tốt nghiệp](method), ngành nào lấy điểm này
+    - Em có [26.3](score) điểm khối [ngữ văn](subject) [lịch sử](subject) [địa lý](subject) xét theo [học bạ thpt](method), có thể học ngành gì
+    - Em đạt [25.7](score) điểm ở khối [toán](subject) [sinh học](subject) [công nghệ công nghiệp](subject) theo [điểm thi tốt nghiệp](method), ngành nào phù hợp ạ
+    - Với [28.2](score) điểm khối [toán](subject) [vật lý](subject) [tiếng anh](subject) theo [học bạ](method), em nên đăng ký ngành gì
+    - Em muốn biết với [24.5](score) điểm khối [toán](subject) [hóa học](subject) [tin học](subject) theo [điểm thi tốt nghiệp](method) thì ngành nào phù hợp
+    - Em đạt [26.8](score) điểm ở khối [toán](subject) [ngữ văn](subject) [lịch sử](subject) theo [học bạ](method), ngành nào lấy điểm này
+    - Khối [toán](subject) [tiếng anh](subject) [giáo dục kinh tế và pháp luật](subject) em được [25.4](score) điểm theo [điểm thi tốt nghiệp](method), nên học ngành gì
+    - Em có [27.6](score) điểm với khối [toán](subject) [địa lý](subject) [tiếng nhật](subject) theo [học bạ thpt](method), có thể đăng ký ngành nào
+    - Em được [24.7](score) điểm khi thi [toán](subject) [vật lý](subject) [sinh học](subject) theo [điểm thi tốt nghiệp](method), ngành nào phù hợp
+    - Em xét [học bạ](method) khối [ngữ văn](subject) [lịch sử](subject) [tiếng anh](subject) được [26.1](score) điểm, nên chọn ngành nào
+    - Với [25.6](score) điểm ở khối [toán](subject) [hóa học](subject) [công nghệ công nghiệp](subject) theo [điểm thi tốt nghiệp](method), em có thể học ngành gì
+    - Em có điểm [27.9](score) khối [toán](subject) [vật lý](subject) [tiếng anh](subject) xét theo [học bạ](method), xin tư vấn ngành phù hợp
+    - Em thi khối [toán](subject) [ngữ văn](subject) [địa lý](subject) được [24.5](score) điểm theo [điểm thi tốt nghiệp](method), em nên đăng ký ngành nào
+    - Khối [toán](subject) [lịch sử](subject) [giáo dục kinh tế và pháp luật](subject) em được [26.4](score) điểm theo [học bạ thpt](method), ngành nào phù hợp ạ
+    - Em đạt [25.2](score) điểm với khối [toán](subject) [sinh học](subject) [tiếng anh](subject) theo [điểm thi tốt nghiệp](method), có thể đăng ký ngành gì
+    - Với khối [toán](subject) [vật lý](subject) [hóa học](subject) em được [28.7](score) điểm khi [xét học bạ](method), ngành nào phù hợp với em
+    - Em có [24.1](score) điểm khối [ngữ văn](subject) [lịch sử](subject) [địa lý](subject) theo [điểm thi tốt nghiệp](method), xin hỏi nên học ngành gì
+
 - intent: provide_student_interests
   examples: |
     - em [thích công nghệ và máy tính](student_interests)

@@ -63,6 +63,7 @@ intents:
   - provide_student_interests  # Intent cung cấp sở thích
   - provide_academic_strengths # Intent cung cấp điểm mạnh học tập
   - provide_personality_traits
+  - ask_suggest_major_by_score_and_subjects
 
 entities:
   - major
@@ -420,6 +421,7 @@ actions:
   - action_get_admission_process_by_method
   - action_calculate_score
   - action_suggest_majors_by_strengths
+  - action_suggest_major_by_score_and_subjects
 
 
 session_config:
