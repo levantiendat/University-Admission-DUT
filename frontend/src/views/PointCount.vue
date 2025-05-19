@@ -1,31 +1,29 @@
 <template>
   <div>
-    <!-- Hero Section: Semantically improved with proper article structure -->
-    <header class="hero-section py-4 py-md-5 text-center text-white" aria-labelledby="page-title">
+    <!-- Hero Section - More compact like CalculateScoreTHPT -->
+    <header class="hero-section py-3 py-md-4 text-center text-white">
       <div class="container">
-        <h1 id="page-title" class="display-4 fw-bold">Tính Điểm Xét Tuyển</h1>
-        <p class="lead">Trường Đại học Bách Khoa - Đại học Đà Nẵng</p>
+        <h1 class="fw-bold mb-1">Tính Điểm Xét Tuyển</h1>
+        <p>Trường Đại học Bách Khoa - Đại học Đà Nẵng</p>
       </div>
     </header>
 
     <!-- Main Content: Improved accessibility and mobile responsiveness -->
-    <main class="container my-4 my-md-5">
-      <article class="card shadow rounded">
-        <header class="card-header text-white text-center">
+    <main class="container my-3 my-md-4">
+      <div class="card shadow-sm rounded">
+        <div class="card-header text-white text-center py-2">
           <h2 class="h5 mb-0">Tính điểm xét tuyển riêng - Trường ĐHBK - ĐHĐN</h2>
-        </header>
-        <div class="card-body px-3 px-md-5 py-4">
+        </div>
+        <div class="card-body p-2 p-md-3">
           <form @submit.prevent="calculatePoint" id="pointForm">
             <!-- Bước 1: Chọn nhóm xét tuyển -->
             <div class="mb-3">
-              <label for="group" class="form-label">Chọn nhóm xét tuyển</label>
+              <label for="group" class="form-label small mb-1">Chọn nhóm xét tuyển</label>
               <select 
                 v-model="form.group" 
-                class="form-select" 
+                class="form-select form-select-sm" 
                 id="group" 
-                @change="toggleSections" 
-                data-live-search="true" 
-                data-width="100%"
+                @change="toggleSections"
                 :class="{'is-invalid': errors.group && submitted}"
                 aria-describedby="group-feedback">
                 <option value="">-- Chọn nhóm --</option>
@@ -40,13 +38,11 @@
 
             <!-- Bước 2: Chọn loại thành tích (nếu có) -->
             <div class="mb-3" v-if="showAchievement">
-              <label for="achievement" class="form-label">Chọn loại thành tích</label>
+              <label for="achievement" class="form-label small mb-1">Chọn loại thành tích</label>
               <select 
                 v-model="form.achievement" 
-                class="form-select" 
-                id="achievement" 
-                data-live-search="true" 
-                data-width="100%"
+                class="form-select form-select-sm" 
+                id="achievement"
                 :class="{'is-invalid': errors.achievement && submitted}"
                 aria-describedby="achievement-feedback">
                 <option value="">-- Chọn loại giải --</option>
@@ -62,248 +58,252 @@
 
             <!-- Bước 3: Nhập điểm học bạ (nếu có) -->
             <div class="mb-3" v-if="showAchievement">
-              <fieldset>
-                <legend class="form-label">Điểm tổng kết</legend>
-                <div class="row g-2">
-                  <div class="col-12 col-sm-4">
-                    <label for="score10" class="visually-hidden">Điểm lớp 10</label>
+              <label class="form-label small mb-1">Điểm tổng kết</label>
+              <div class="row g-2">
+                <div class="col-12 col-sm-4">
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text">Lớp 10</span>
                     <input 
                       type="number" 
                       step="0.1" 
                       min="0" 
                       max="10" 
-                      class="form-control" 
+                      class="form-control form-control-sm" 
                       id="score10"
                       v-model.number="form.score10" 
-                      placeholder="Lớp 10"
                       @input="validateScore('score10')"
                       :class="{'is-invalid': errors.score10}"
                       aria-describedby="score10-feedback">
-                    <div id="score10-feedback" class="invalid-feedback" v-if="errors.score10">
-                      {{ errors.score10 }}
-                    </div>
                   </div>
-                  <div class="col-12 col-sm-4">
-                    <label for="score11" class="visually-hidden">Điểm lớp 11</label>
+                  <div id="score10-feedback" class="invalid-feedback" v-if="errors.score10">
+                    {{ errors.score10 }}
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text">Lớp 11</span>
                     <input 
                       type="number" 
                       step="0.1" 
                       min="0" 
                       max="10" 
-                      class="form-control" 
+                      class="form-control form-control-sm" 
                       id="score11"
                       v-model.number="form.score11" 
-                      placeholder="Lớp 11"
                       @input="validateScore('score11')"
                       :class="{'is-invalid': errors.score11}"
                       aria-describedby="score11-feedback">
-                    <div id="score11-feedback" class="invalid-feedback" v-if="errors.score11">
-                      {{ errors.score11 }}
-                    </div>
                   </div>
-                  <div class="col-12 col-sm-4">
-                    <label for="score12" class="visually-hidden">Điểm lớp 12</label>
+                  <div id="score11-feedback" class="invalid-feedback" v-if="errors.score11">
+                    {{ errors.score11 }}
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text">Lớp 12</span>
                     <input 
                       type="number" 
                       step="0.1" 
                       min="0" 
                       max="10" 
-                      class="form-control"
+                      class="form-control form-control-sm"
                       id="score12" 
                       v-model.number="form.score12" 
-                      placeholder="Lớp 12"
                       @input="validateScore('score12')"
                       :class="{'is-invalid': errors.score12}"
                       aria-describedby="score12-feedback">
-                    <div id="score12-feedback" class="invalid-feedback" v-if="errors.score12">
-                      {{ errors.score12 }}
-                    </div>
+                  </div>
+                  <div id="score12-feedback" class="invalid-feedback" v-if="errors.score12">
+                    {{ errors.score12 }}
                   </div>
                 </div>
-                <!-- Thông báo lỗi chung cho điểm số -->
-                <div class="alert alert-warning mt-2" v-if="hasScoreErrors" role="alert">
-                  <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
-                  Vui lòng kiểm tra lại điểm số. Điểm phải nằm trong khoảng từ 0 đến 10 và có tối đa 1 chữ số thập phân.
-                </div>
-              </fieldset>
+              </div>
+              <!-- Thông báo lỗi chung cho điểm số -->
+              <div class="alert alert-warning mt-2 py-1 px-2 small" v-if="hasScoreErrors" role="alert">
+                <i class="bi bi-exclamation-triangle me-1" aria-hidden="true"></i>
+                Vui lòng kiểm tra lại điểm số. Điểm phải nằm trong khoảng từ 0 đến 10 và có tối đa 1 chữ số thập phân.
+              </div>
             </div>
 
             <!-- Bước 4: Chọn trường (xác định khu vực ưu tiên) -->
-            <h3 class="section-title h5 mt-4">Chọn trường</h3>
-            <div class="school-selection-container">
-              <div class="form-group">
-                <label for="city" class="form-label">Chọn Tỉnh/Thành phố</label>
-                <select 
-                  v-model="form.city_id" 
-                  class="form-select" 
-                  id="city" 
-                  @change="loadDistricts" 
-                  data-live-search="true" 
-                  data-width="100%"
-                  :class="{'is-invalid': errors.city_id && submitted}"
-                  aria-describedby="city-feedback">
-                  <option value="">-- Chọn Tỉnh/Thành phố --</option>
-                  <option v-for="city in cities" :key="city.id" :value="city.id">
-                    {{ city.name }}
-                  </option>
-                </select>
-                <div id="city-feedback" class="invalid-feedback" v-if="errors.city_id && submitted">
-                  {{ errors.city_id }}
+            <h3 class="section-title h6 mt-3 mb-2">Chọn trường</h3>
+            <div class="school-selection-container p-2 p-md-3">
+              <div class="row g-2">
+                <div class="col-12">
+                  <label for="city" class="form-label small mb-1">Tỉnh/Thành phố</label>
+                  <select 
+                    v-model="form.city_id" 
+                    class="form-select form-select-sm" 
+                    id="city" 
+                    @change="loadDistricts"
+                    :class="{'is-invalid': errors.city_id && submitted}"
+                    aria-describedby="city-feedback">
+                    <option value="">-- Chọn Tỉnh/Thành phố --</option>
+                    <option v-for="city in cities" :key="city.id" :value="city.id">
+                      {{ city.name }}
+                    </option>
+                  </select>
+                  <div id="city-feedback" class="invalid-feedback" v-if="errors.city_id && submitted">
+                    {{ errors.city_id }}
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="district" class="form-label small mb-1">Quận/Huyện</label>
+                  <select 
+                    v-model="form.district_id" 
+                    class="form-select form-select-sm" 
+                    id="district" 
+                    @change="loadSchools" 
+                    :disabled="!districts.length"
+                    :class="{'is-invalid': errors.district_id && submitted}"
+                    aria-describedby="district-feedback">
+                    <option value="">-- Chọn Quận/Huyện --</option>
+                    <option v-for="district in districts" :key="district.id" :value="district.id">
+                      {{ district.name }}
+                    </option>
+                  </select>
+                  <div id="district-feedback" class="invalid-feedback" v-if="errors.district_id && submitted">
+                    {{ errors.district_id }}
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="school" class="form-label small mb-1">Trường THPT</label>
+                  <select 
+                    v-model="form.school_id" 
+                    class="form-select form-select-sm" 
+                    id="school" 
+                    :disabled="!schools.length"
+                    :class="{'is-invalid': errors.school_id && submitted}"
+                    aria-describedby="school-feedback">
+                    <option value="">-- Chọn Trường THPT --</option>
+                    <option v-for="school in schools" :key="school.id" :value="school.id" :data-priority="school.priority_area">
+                      {{ school.name }}
+                    </option>
+                  </select>
+                  <div id="school-feedback" class="invalid-feedback" v-if="errors.school_id && submitted">
+                    {{ errors.school_id }}
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="district" class="form-label">Chọn Quận/Huyện</label>
-                <select 
-                  v-model="form.district_id" 
-                  class="form-select" 
-                  id="district" 
-                  @change="loadSchools" 
-                  :disabled="!districts.length" 
-                  data-live-search="true" 
-                  data-width="100%"
-                  :class="{'is-invalid': errors.district_id && submitted}"
-                  aria-describedby="district-feedback">
-                  <option value="">-- Chọn Quận/Huyện --</option>
-                  <option v-for="district in districts" :key="district.id" :value="district.id">
-                    {{ district.name }}
-                  </option>
-                </select>
-                <div id="district-feedback" class="invalid-feedback" v-if="errors.district_id && submitted">
-                  {{ errors.district_id }}
-                </div>
+              <div class="mt-2 text-center" v-if="selectedSchoolPriority">
+                <p class="small fw-bold mb-0">Khu vực ưu tiên: {{ selectedSchoolPriority }}</p>
               </div>
-              <div class="form-group">
-                <label for="school" class="form-label">Chọn Trường THPT</label>
-                <select 
-                  v-model="form.school_id" 
-                  class="form-select" 
-                  id="school" 
-                  :disabled="!schools.length" 
-                  data-live-search="true" 
-                  data-width="100%"
-                  :class="{'is-invalid': errors.school_id && submitted}"
-                  aria-describedby="school-feedback">
-                  <option value="">-- Chọn Trường THPT --</option>
-                  <option v-for="school in schools" :key="school.id" :value="school.id" :data-priority="school.priority_area">
-                    {{ school.name }}
-                  </option>
-                </select>
-                <div id="school-feedback" class="invalid-feedback" v-if="errors.school_id && submitted">
-                  {{ errors.school_id }}
-                </div>
-              </div>
-            </div>
-            <div class="mt-3 text-center" v-if="selectedSchoolPriority">
-              <p class="fw-bold">Khu vực ưu tiên: {{ selectedSchoolPriority }}</p>
             </div>
 
             <!-- Bước 5: Chọn đối tượng ưu tiên -->
-            <div class="mb-3 mt-4">
-              <label for="priority_object" class="form-label">Chọn Ưu tiên đối tượng</label>
+            <div class="mb-3 mt-3">
+              <h3 class="section-title h6 mb-2">Chọn Ưu tiên đối tượng</h3>
               <select 
-    v-model="form.priority_object" 
-    class="form-select form-select-sm priority-select" 
-    id="priority_object">
-    <option value="0">Không có đối tượng ưu tiên</option>
-    <option value="ĐT01">ĐT01: Người dân tộc thiểu số tại KV1 (trên 18 tháng)</option>
-    <option value="ĐT02">ĐT02: Công nhân trực tiếp sản xuất (5 năm+, 2 năm CSTĐ)</option>
-    <option value="ĐT03">ĐT03a: Thương binh, bệnh binh, người hưởng chính sách như thương binh</option>
-    <option value="ĐT03">ĐT03b: Quân nhân, CA tại ngũ tại KV1 (12 tháng+)</option>
-    <option value="ĐT03">ĐT03c: Quân nhân, CA tại ngũ (18 tháng+)</option>
-    <option value="ĐT03">ĐT03d: Quân nhân, CA đã xuất ngũ, hoàn thành nghĩa vụ</option>
-    <option value="ĐT04">ĐT04a: Thân nhân liệt sĩ</option>
-    <option value="ĐT04">ĐT04b: Con thương, bệnh binh (suy giảm KNL 81%+)</option>
-    <option value="ĐT04">ĐT04c: Con người nhiễm chất độc hóa học (suy giảm KNL 81%+)</option>
-    <option value="ĐT04">ĐT04d: Con Anh hùng LLVT, Anh hùng Lao động thời kỳ kháng chiến</option>
-    <option value="ĐT04">ĐT04đ: Con người hoạt động kháng chiến bị dị dạng do chất độc hóa học</option>
-    <option value="ĐT05">ĐT05a: Thanh niên xung phong tập trung được cử đi học</option>
-    <option value="ĐT05">ĐT05b: Quân nhân, CA tại ngũ (dưới 12 tháng ở KV1, 18 tháng ở KV khác)</option>
-    <option value="ĐT05">ĐT05c: Chỉ huy trưởng, phó BCHQS xã, Dân quân tự vệ (12 tháng+)</option>
-    <option value="ĐT06">ĐT06a: Người dân tộc thiểu số ở khu vực khác ngoài KV1</option>
-    <option value="ĐT06">ĐT06b: Con thương, bệnh binh (suy giảm KNL dưới 81%)</option>
-    <option value="ĐT06">ĐT06c: Con người nhiễm chất độc hóa học (suy giảm KNL dưới 81%)</option>
-    <option value="ĐT07">ĐT07a: Người khuyết tật nặng có giấy xác nhận của cơ quan có thẩm quyền</option>
-    <option value="ĐT07">ĐT07b: Người lao động ưu tú (thợ giỏi, nghệ nhân, bằng/huy hiệu LĐ sáng tạo)</option>
-    <option value="ĐT07">ĐT07c: Giáo viên đã giảng dạy 3 năm+ (dự tuyển ngành đào tạo GV)</option>
-    <option value="ĐT07">ĐT07d: Y tá, dược tá, hộ lý, kỹ thuật viên y tế 3 năm+ (tuyển ngành y tế)</option>
-  </select>
-  <!-- Chi tiết đối tượng ưu tiên -->
-  <div v-if="form.priority_object !== '0'" class="mt-2 priority-detail py-2 px-3">
-    <div v-if="form.priority_object === 'ĐT01'" class="small">
-      <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu vực 1.
-    </div>
-    <div v-else-if="form.priority_object === 'ĐT02'" class="small">
-      <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp tỉnh trở lên công nhận và cấp bằng khen.
-    </div>
-    <div v-else-if="form.priority_object === 'ĐT03'" class="small">
-      <strong>Đối tượng 03a:</strong> Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh'.<br>
-      <strong>Đối tượng 03b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 12 tháng trở lên tại Khu vực 1.<br>
-      <strong>Đối tượng 03c:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 18 tháng trở lên.<br>
-      <strong>Đối tượng 03d:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân đã xuất ngũ, được công nhận hoàn thành nghĩa vụ phục vụ tại ngũ theo quy định.
-    </div>
-    <div v-else-if="form.priority_object === 'ĐT04'" class="small">
-      <strong>Đối tượng 04a:</strong> Thân nhân liệt sĩ.<br>
-      <strong>Đối tượng 04b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động từ 81% trở lên.<br>
-      <strong>Đối tượng 04c:</strong> Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học bị suy giảm khả năng lao động 81% trở lên.<br>
-      <strong>Đối tượng 04d:</strong> Con của Anh hùng Lực lượng vũ trang nhân dân; con của Anh hùng Lao động trong thời kỳ kháng chiến.<br>
-      <strong>Đối tượng 04đ:</strong> Con của người hoạt động kháng chiến bị dị dạng, dị tật do hậu quả của chất độc hóa học đang hưởng trợ cấp hàng tháng.
-    </div>
-    <div v-else-if="form.priority_object === 'ĐT05'" class="small">
-      <strong>Đối tượng 05a:</strong> Thanh niên xung phong tập trung được cử đi học.<br>
-      <strong>Đối tượng 05b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ dưới 12 tháng ở Khu vực 1 và dưới 18 tháng ở khu vực khác.<br>
-      <strong>Đối tượng 05c:</strong> Chỉ huy trưởng, Chỉ huy phó ban chỉ huy quân sự xã, phường, thị trấn; Thôn đội trưởng, Trung đội trưởng Dân quân tự vệ nòng cốt, Dân quân tự vệ đã hoàn thành nghĩa vụ tham gia Dân quân tự vệ nòng cốt từ 12 tháng trở lên, dự thi vào ngành Quân sự cơ sở.
-    </div>
-    <div v-else-if="form.priority_object === 'ĐT06'" class="small">
-      <strong>Đối tượng 06a:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú ở ngoài khu vực đã quy định thuộc đối tượng 01.<br>
-      <strong>Đối tượng 06b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động dưới 81%.<br>
-      <strong>Đối tượng 06c:</strong> Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học có tỷ lệ suy giảm khả năng lao động dưới 81%.
-    </div>
-    <div v-else-if="form.priority_object === 'ĐT07'" class="small">
-      <strong>Đối tượng 07a:</strong> Người khuyết tật nặng có giấy xác nhận khuyết tật của cơ quan có thẩm quyền cấp theo quy định tại Thông tư liên tịch số 37/2012/TTLT‑BLĐTBXH‑BYT‑BTC‑BGDĐT ngày 28 tháng 12 năm 2012.<br>
-      <strong>Đối tượng 07b:</strong> Người lao động ưu tú thuộc tất cả thành phần kinh tế từ cấp tỉnh, cấp bộ trở lên được công nhận danh hiệu thợ giỏi, nghệ nhân, được cấp bằng hoặc huy hiệu Lao động sáng tạo.<br>
-      <strong>Đối tượng 07c:</strong> Giáo viên đã giảng dạy đủ 3 năm trở lên dự tuyển vào các ngành đào tạo giáo viên.<br>
-      <strong>Đối tượng 07d:</strong> Y tá, dược tá, hộ lý, y sĩ, điều dưỡng viên, hộ sinh viên, kỹ thuật viên, người có bằng trung cấp Dược đã công tác đủ 3 năm trở lên dự tuyển vào đúng ngành tốt nghiệp thuộc lĩnh vực sức khỏe.
-    </div>
-  </div>
+                v-model="form.priority_object" 
+                class="form-select form-select-sm priority-select" 
+                id="priority_object">
+                <option value="0">Không có đối tượng ưu tiên</option>
+                <option value="ĐT01">ĐT01: Người dân tộc thiểu số tại KV1 (trên 18 tháng)</option>
+                <option value="ĐT02">ĐT02: Công nhân trực tiếp sản xuất (5 năm+, 2 năm CSTĐ)</option>
+                <option value="ĐT03">ĐT03a: Thương binh, bệnh binh, người hưởng chính sách như thương binh</option>
+                <option value="ĐT03">ĐT03b: Quân nhân, CA tại ngũ tại KV1 (12 tháng+)</option>
+                <option value="ĐT03">ĐT03c: Quân nhân, CA tại ngũ (18 tháng+)</option>
+                <option value="ĐT03">ĐT03d: Quân nhân, CA đã xuất ngũ, hoàn thành nghĩa vụ</option>
+                <option value="ĐT04">ĐT04a: Thân nhân liệt sĩ</option>
+                <option value="ĐT04">ĐT04b: Con thương, bệnh binh (suy giảm KNL 81%+)</option>
+                <option value="ĐT04">ĐT04c: Con người nhiễm chất độc hóa học (suy giảm KNL 81%+)</option>
+                <option value="ĐT04">ĐT04d: Con Anh hùng LLVT, Anh hùng Lao động thời kỳ kháng chiến</option>
+                <option value="ĐT04">ĐT04đ: Con người hoạt động kháng chiến bị dị dạng do chất độc hóa học</option>
+                <option value="ĐT05">ĐT05a: Thanh niên xung phong tập trung được cử đi học</option>
+                <option value="ĐT05">ĐT05b: Quân nhân, CA tại ngũ (dưới 12 tháng ở KV1, 18 tháng ở KV khác)</option>
+                <option value="ĐT05">ĐT05c: Chỉ huy trưởng, phó BCHQS xã, Dân quân tự vệ (12 tháng+)</option>
+                <option value="ĐT06">ĐT06a: Người dân tộc thiểu số ở khu vực khác ngoài KV1</option>
+                <option value="ĐT06">ĐT06b: Con thương, bệnh binh (suy giảm KNL dưới 81%)</option>
+                <option value="ĐT06">ĐT06c: Con người nhiễm chất độc hóa học (suy giảm KNL dưới 81%)</option>
+                <option value="ĐT07">ĐT07a: Người khuyết tật nặng có giấy xác nhận của cơ quan có thẩm quyền</option>
+                <option value="ĐT07">ĐT07b: Người lao động ưu tú (thợ giỏi, nghệ nhân, bằng/huy hiệu LĐ sáng tạo)</option>
+                <option value="ĐT07">ĐT07c: Giáo viên đã giảng dạy 3 năm+ (dự tuyển ngành đào tạo GV)</option>
+                <option value="ĐT07">ĐT07d: Y tá, dược tá, hộ lý, kỹ thuật viên y tế 3 năm+ (tuyển ngành y tế)</option>
+              </select>
+              <!-- Chi tiết đối tượng ưu tiên -->
+              <div v-if="form.priority_object !== '0'" class="mt-2 priority-detail py-2 px-3">
+                <div v-if="form.priority_object === 'ĐT01'" class="small">
+                  <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu [...]
+                </div>
+                <div v-else-if="form.priority_object === 'ĐT02'" class="small">
+                  <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp [...]
+                </div>
+                <div v-else-if="form.priority_object === 'ĐT03'" class="small">
+                  <strong>Đối tượng 03:</strong> Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh', Quân nhân tại ngũ với các điều kiện cụ thể [...]
+                </div>
+                <div v-else-if="form.priority_object === 'ĐT04'" class="small">
+                  <strong>Đối tượng 04:</strong> Thân nhân liệt sĩ, con thương binh, bệnh binh suy giảm KNL từ 81% trở lên, con của người hoạt động kháng chiến bị nhiễm chất độc hóa học [...]
+                </div>
+                <div v-else-if="form.priority_object === 'ĐT05'" class="small">
+                  <strong>Đối tượng 05:</strong> Thanh niên xung phong, quân nhân tại ngũ dưới 12 tháng ở KV1 hoặc 18 tháng ở khu vực khác, Chỉ huy trưởng quân sự xã [...]
+                </div>
+                <div v-else-if="form.priority_object === 'ĐT06'" class="small">
+                  <strong>Đối tượng 06:</strong> Người dân tộc thiểu số ở khu vực khác ngoài KV1, con thương binh, bệnh binh suy giảm KNL dưới 81% [...]
+                </div>
+                <div v-else-if="form.priority_object === 'ĐT07'" class="small">
+                  <strong>Đối tượng 07:</strong> Người khuyết tật nặng, người lao động ưu tú, giáo viên đã giảng dạy 3 năm trở lên, y tá, dược tá, hộ lý [...]
+                </div>
+              </div>
             </div>
-            <div class="alert alert-danger mt-3" v-if="hasFormErrors && submitted" role="alert">
-              <i class="fas fa-exclamation-circle me-2" aria-hidden="true"></i>
+            
+            <div class="alert alert-danger mt-2 py-1 px-2 small" v-if="hasFormErrors && submitted" role="alert">
+              <i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>
               Vui lòng điền đầy đủ thông tin và sửa các lỗi trước khi tính điểm.
             </div>
 
-            <button type="submit" class="btn btn-primary w-100 mt-4">Tính điểm</button>
+            <button type="submit" class="btn btn-calculate btn-sm w-100 mt-3">
+              <i class="bi bi-calculator me-1"></i> Tính điểm
+            </button>
           </form>
   
+          <!-- Loading indicator -->
+          <div v-if="loading" class="loading-indicator my-2 text-center">
+            <div class="spinner-border spinner-border-sm text-primary" role="status">
+              <span class="visually-hidden">Đang tải...</span>
+            </div>
+            <p class="small mb-0 mt-1">Đang tính toán...</p>
+          </div>
+          
           <!-- Hiển thị kết quả -->
-          <section class="result-container mt-4" v-if="result" aria-labelledby="result-heading">
-            <h3 id="result-heading" class="text-center">Kết quả:</h3>
-            <ul class="list-group">
-              <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                <span>🎖 Điểm thành tích:</span>
-                <strong>{{ result.achievement_points }}</strong>
-              </li>
-              <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                <span>📚 Điểm học tập:</span>
-                <strong>{{ result.academic_score }}</strong>
-              </li>
-              <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                <span>⭐ Điểm ưu tiên sau quy đổi:</span>
-                <strong>{{ result.converted_priority }}</strong>
-              </li>
-              <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                <span>🏆 Tổng điểm xét tuyển:</span>
-                <strong class="fs-5 text-primary">{{ result.total_score }}</strong>
-              </li>
-            </ul>
+          <section class="result-container mt-3" v-if="result" aria-labelledby="result-heading">
+            <h3 id="result-heading" class="h5 text-center mb-2">Kết quả:</h3>
+            <div class="point-summary my-2">
+              <div class="row g-2">
+                <div class="col-6 col-md-3">
+                  <div class="point-card p-2">
+                    <div class="point-title small">Điểm thành tích</div>
+                    <div class="point-value">{{ result.achievement_points }}</div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="point-card p-2">
+                    <div class="point-title small">Điểm học tập</div>
+                    <div class="point-value">{{ result.academic_score }}</div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="point-card priority p-2">
+                    <div class="point-title small">Điểm ưu tiên</div>
+                    <div class="point-value">{{ result.converted_priority }}</div>
+                    <div class="point-description small">(Đã quy đổi)</div>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="point-card total p-2">
+                    <div class="point-title small">Tổng điểm</div>
+                    <div class="point-value">{{ result.total_score }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
-      </article>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
-// Script section remains the same as original
 import axios from 'axios'
 import config from '@/config/apiConfig';
 const BASE_API_URL = config?.BASE_API_URL;
@@ -316,6 +316,7 @@ export default {
       cities: [],
       districts: [],
       schools: [],
+      loading: false,
       form: {
         group: '',
         achievement: '',
@@ -452,19 +453,12 @@ export default {
         this.errors.score11 = ''
         this.errors.score12 = ''
       }
-      
-      this.$nextTick(() => {
-        $('.selectpicker').selectpicker('refresh')
-      })
     },
     
     loadCities() {
       axios.get(`${BASE_API_URL}/priorities/cities`)
         .then(res => {
           this.cities = res.data
-          this.$nextTick(() => {
-            $('.selectpicker').selectpicker('refresh')
-          })
         })
         .catch(err => {
           console.error('Lỗi khi tải danh sách tỉnh/thành phố:', err)
@@ -482,9 +476,6 @@ export default {
         axios.get(`${BASE_API_URL}/priorities/cities/${this.form.city_id}/districts`)
           .then(res => {
             this.districts = res.data
-            this.$nextTick(() => {
-              $('.selectpicker').selectpicker('refresh')
-            })
           })
           .catch(err => {
             console.error('Lỗi khi tải danh sách quận/huyện:', err)
@@ -502,9 +493,6 @@ export default {
         axios.get(`${BASE_API_URL}/priorities/districts/${this.form.district_id}/schools`)
           .then(res => {
             this.schools = res.data
-            this.$nextTick(() => {
-              $('.selectpicker').selectpicker('refresh')
-            })
           })
           .catch(err => {
             console.error('Lỗi khi tải danh sách trường:', err)
@@ -532,6 +520,8 @@ export default {
         this.form.priority_area = selectedSchool.priority_area || ''
       }
       
+      this.loading = true
+      
       try {
         const response = await axios.post(`${BASE_API_URL}/university-admissions/point-count`, {
           group: this.form.group,
@@ -555,316 +545,174 @@ export default {
       } catch (error) {
         console.error('Lỗi khi tính điểm:', error)
         alert('Đã xảy ra lỗi khi tính điểm. Vui lòng thử lại sau.')
+      } finally {
+        this.loading = false
       }
     }
   },
   mounted() {
     this.loadCities()
-    this.$nextTick(() => {
-      $('.selectpicker').selectpicker()
-    })
   }
 }
 </script>
 
 <style scoped>
-/* Base variables */
-:root {
-  --primary-color: #0e4c92;
-  --primary-dark: #083878;
-  --secondary-color: #3a7bd5;
-  --accent-color: #d0e1f9;
-  --light-bg: #f0f2f5;
-  --dark-gray: #4a5568;
-  --white: #ffffff;
-  --text-color: #333333;
-  --success-color: #28a745;
-  --danger-color: #dc3545;
-  --warning-color: #ffc107;
-  --border-radius: 12px;
-}
-
-/* Reset and Base Styles */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  background-color: var(--light-bg);
-  color: var(--text-color);
-  font-family: 'Roboto', Arial, sans-serif;
-  line-height: 1.6;
-}
-
-/* Hero Section */
+/* Hero Section - Simplified like CalculateScoreTHPT */
 .hero-section {
   background: linear-gradient(135deg, rgba(14, 76, 146, 0.95), rgba(31, 64, 104, 0.95));
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  border-bottom: 5px solid var(--secondary-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 .hero-section h1 {
-  color: var(--white);
-  font-weight: 800;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  margin-bottom: 0.5rem;
-  letter-spacing: 1px;
-  font-size: calc(1.5rem + 1vw); /* Responsive font size */
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.hero-section p.lead {
-  color: var(--white);
-  font-size: calc(1rem + 0.25vw);
-  max-width: 800px;
-  margin: 0 auto;
-  opacity: 0.9;
+.hero-section p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
 }
 
-/* Card Structure */
-.card {
-  background-color: var(--white);
-  border: none;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  margin: 1rem 0;
-}
-
+/* Card Headers */
 .card-header {
-  background-color: var(--primary-color) !important;
-  color: var(--white) !important;
-  padding: 1rem 1.25rem;
-  border: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
-  font-weight: 600;
-  font-size: calc(1rem + 0.25vw);
+  background-color: #0e4c92 !important;
+  padding: 0.75rem;
 }
 
-.card-body {
-  padding: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .card-body {
-    padding: 2.5rem;
-  }
-}
-
-/* Section Titles */
+/* Section titles */
 .section-title {
-  color: var(--primary-color);
+  color: #0e4c92;
+  font-weight: 600;
   text-align: center;
-  margin: 1.5rem 0;
-  font-weight: 700;
+  margin-bottom: 0.5rem;
   position: relative;
 }
 
 .section-title:after {
   content: "";
   display: block;
-  width: 60px;
-  height: 3px;
-  background: var(--secondary-color);
-  margin: 0.5rem auto 0;
-  border-radius: 2px;
+  width: 40px;
+  height: 2px;
+  background: #3a7bd5;
+  margin: 0.3rem auto 0;
 }
 
-/* Form Elements */
-.form-label {
-  font-weight: 600;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-.form-select, 
-.form-control {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  height: auto;
-  border-radius: 0.5rem;
-  border: 2px solid #dce0e5;
-  background-color: var(--white);
-  transition: all 0.3s ease;
-  margin-bottom: 1rem;
-}
-
-@media (min-width: 768px) {
-  .form-select, 
-  .form-control {
-    padding: 1rem 1.25rem;
-    font-size: 1.1rem;
-  }
-}
-
-/* Invalid Feedback */
-.is-invalid {
-  border-color: var(--danger-color) !important;
-}
-
-.invalid-feedback {
-  display: none;
-  width: 100%;
-  margin-top: -0.75rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--danger-color);
-}
-
-.is-invalid ~ .invalid-feedback {
-  display: block;
-}
-
-/* School Selection Container */
+/* School selection container */
 .school-selection-container {
-  background-color: var(--accent-color);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  border: 2px solid var(--primary-color);
-}
-
-@media (min-width: 768px) {
-  .school-selection-container {
-    padding: 2rem;
-  }
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group:last-child {
-  margin-bottom: 0;
-}
-
-/* Submit Button */
-.btn-primary {
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-  color: var(--white);
-  font-weight: 700;
-  font-size: 1.1rem;
-  padding: 0.75rem 1.5rem;
-  border: none;
+  background-color: rgba(208, 225, 249, 0.3);
   border-radius: 0.5rem;
-  transition: all 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 6px 20px rgba(14, 76, 146, 0.3);
+  border: 1px solid #d0e1f9;
 }
 
-@media (min-width: 768px) {
-  .btn-primary {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-  }
+/* Form controls */
+.form-label {
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.25rem;
 }
 
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(14, 76, 146, 0.4);
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-dark));
+.form-select, .form-control {
+  font-size: 0.875rem;
 }
 
-/* Results Container */
-.result-container {
-  background: linear-gradient(145deg, var(--white), var(--accent-color));
-  border-radius: var(--border-radius);
-  padding: 1.5rem !important;
-  margin: 1.5rem auto;
-  box-shadow: 0 8px 25px rgba(14, 76, 146, 0.15);
-  border-left: 5px solid var(--primary-color);
+.form-control {
+  border-color: #dce0e5;
 }
 
-@media (min-width: 768px) {
-  .result-container {
-    padding: 2rem !important;
-  }
+.input-group-text {
+  background-color: #f0f2f5;
+  border-color: #dce0e5;
+  color: #4a5568;
+  font-size: 0.875rem;
 }
 
-.result-container h3 {
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-}
-
-/* List Results */
-.list-group-item {
-  background-color: var(--white);
-  border-radius: 10px !important;
-  padding: 1rem;
-  font-size: 1rem;
-  border-left: 5px solid var(--secondary-color) !important;
-  margin-bottom: 0.75rem;
-  transition: transform 0.3s;
-}
-
-@media (min-width: 768px) {
-  .list-group-item {
-    padding: 1.25rem;
-    font-size: 1.1rem;
-  }
-}
-
-.list-group-item strong {
-  color: var(--primary-color);
-  font-weight: 700;
-  display: block;
-  margin-top: 0.5rem;
-}
-
-.priority-select {
-  font-size: 0.85rem;
-}
-
+/* Priority details */
 .priority-detail {
   background-color: #f8f9fa;
   border-radius: 0.25rem;
   border: 1px solid #e9ecef;
   color: #495057;
-  margin-top: 0.5rem;
   font-size: 0.8rem;
   line-height: 1.4;
 }
 
-@media (min-width: 768px) {
-  .list-group-item strong {
-    margin-top: 0;
-  }
+/* Calculate Button */
+.btn-calculate {
+  background: linear-gradient(135deg, #3a7bd5, #0e4c92);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 3px 5px rgba(14, 76, 146, 0.2);
+  border: none;
+  transition: all 0.3s;
 }
 
-.list-group-item:last-child {
-  background-color: #eef6ff;
-  border-left: 5px solid var(--primary-color) !important;
-  margin-top: 0.5rem;
+.btn-calculate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(14, 76, 146, 0.3);
+  background: linear-gradient(135deg, #3a7bd5, #083878);
 }
 
-/* Alerts */
-.alert {
-  position: relative;
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
+/* Results styling */
+.point-card {
+  background-color: #f8f9fa;
   border-radius: 0.5rem;
+  border: 1px solid #e9ecef;
+  text-align: center;
+  height: 100%;
 }
 
-.alert-warning {
-  color: #856404;
-  background-color: #fff3cd;
-  border-color: #ffeeba;
+.point-title {
+  color: #4a5568;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
 }
 
-.alert-danger {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
+.point-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0e4c92;
+}
+
+.point-description {
+  color: #6c757d;
+  font-size: 0.75rem;
+}
+
+.point-card.priority {
+  background-color: #ebf5ff;
+  border-color: #bfdeff;
+}
+
+.point-card.total {
+  background-color: #e6f4ff;
+  border-color: #91caff;
+}
+
+.point-card.total .point-value {
+  color: #1677ff;
+  font-size: 1.5rem;
+}
+
+/* Loading indicator */
+.loading-indicator {
+  text-align: center;
+  color: #0e4c92;
+  padding: 1rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+  .card-body {
+    padding: 0.75rem;
+  }
+  
+  .point-value {
+    font-size: 1.1rem;
+  }
+  
+  .point-card.total .point-value {
+    font-size: 1.3rem;
+  }
 }
 </style>
