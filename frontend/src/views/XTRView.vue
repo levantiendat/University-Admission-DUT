@@ -1,71 +1,109 @@
 <template>
-  <div class="xtr-container bg-light">
-    <div class="container-fluid py-4">
-      <div class="card main-card shadow no-copy">
-        <div class="card-header bg-primary text-white">
+  <div class="xtr-container">
+    <div class="container-fluid py-2 py-md-3">
+      <article class="card main-card shadow-sm">
+        <!-- Header Section with improved accessibility -->
+        <header class="card-header bg-primary text-white" aria-labelledby="xtr-title">
           <div class="d-flex justify-content-center align-items-center">
-            <div class="header-icon me-3">
+            <div class="header-icon me-2" aria-hidden="true">
               <i class="bi bi-journal-check"></i>
             </div>
-            <h2 class="mb-0">XÉT TUYỂN RIÊNG THEO ĐỀ ÁN TUYỂN SINH</h2>
+            <h1 id="xtr-title" class="mb-0 fs-5">XÉT TUYỂN RIÊNG THEO ĐỀ ÁN TUYỂN SINH</h1>
           </div>
-        </div>
+        </header>
         
-        <div class="announcement-section p-3 border-bottom">
+        <!-- Description Section - simplified and more accessible -->
+        <div class="description-section bg-light p-2 border-bottom">
           <div class="container">
-            <h5 class="fw-bold mb-3">Trường Đại học Bách khoa, Đại học Đà Nẵng thông báo tuyển sinh đào tạo trình độ đại học hệ chính quy năm 2025 theo phương thức xét tuyển sinh riêng như sau:</h5>
+            <p class="description-text mb-1">
+              <strong>Trường Đại học Bách khoa, Đại học Đà Nẵng thông báo tuyển sinh đào tạo trình độ đại học hệ chính quy năm 2025 theo phương thức xét tuyển riêng.</strong>
+            </p>
             
-            <div class="mb-3">
-              <h6 class="fw-bold">1. Ngành tuyển sinh, mã tuyển sinh</h6>
-              <p class="mb-1">Xem Bảng trong danh sách</p>
-            </div>
-            
-            <div class="mb-3">
-              <h6 class="fw-bold">2. Đối tượng xét tuyển</h6>
-              <p class="mb-1">Thí sinh tốt nghiệp THPT năm 2025 thuộc các nhóm:</p>
-              
-              <p class="mb-1"><strong>a) Nhóm 1:</strong> Thí sinh đoạt giải Khuyến khích cuộc thi học sinh giỏi cấp quốc gia các môn Toán, Vật lý, Hóa học, Sinh học, Tin học; giải Khuyến khích cuộc thi khoa học, kỹ thuật cấp quốc gia. Thời gian đoạt giải không quá 3 năm tính tới thời điểm xét tuyển.</p>
-              
-              <p class="mb-1"><em>- Ngành xét tuyển:</em></p>
-              <p class="mb-1">Thí sinh đoạt giải tại cuộc thi học sinh giỏi quốc gia được xét tuyển vào một trong số các ngành của Trường, tuỳ thuộc môn thi đoạt giải của thí sinh (xem Phụ lục II).</p>
-              <p class="mb-1">Thí sinh đoạt giải tại cuộc thi khoa học, kỹ thuật cấp quốc gia được xét tuyển vào một trong số các ngành tuỳ thuộc lĩnh vực đoạt giải của thí sinh (xem Phụ lục III).</p>
-              
-              <p class="mb-1"><strong>b) Nhóm 2:</strong> Thí sinh đoạt giải Nhất, Nhì, Ba, Khuyến khích (Giải Tư) tại cuộc thi học sinh giỏi các môn Toán, Vật lý, Hoá học, Sinh học, Tin học cấp tỉnh, thành phố trực thuộc trung ương. Thời gian đoạt giải không quá 3 năm tính tới thời điểm xét tuyển.</p>
-              
-              <p class="mb-1"><em>- Ngành xét tuyển:</em> Thí sinh được xét trúng tuyển vào một trong các ngành của Trường tuỳ thuộc môn thi đoạt giải của thí sinh (xem Phụ lục II).</p>
-              
-              <p class="mb-1"><strong>c) Nhóm 3:</strong> Thí sinh đoạt giải Nhất, Nhì, Ba, Khuyến khích (Giải Tư) tại cuộc thi Khoa học kỹ thuật cấp tỉnh, thành phố trực thuộc trung ương. Thời gian đoạt giải không quá 3 năm tính tới thời điểm xét tuyển.</p>
-              
-              <p class="mb-1"><em>- Ngành xét tuyển:</em> Thí sinh được xét tuyển vào một trong số các ngành tuỳ thuộc lĩnh vực đoạt giải của thí sinh (xem Phụ lục III).</p>
-              
-              <p class="mb-1"><strong>Lưu ý:</strong> Thí sinh đăng ký xét tuyển ngành Kiến trúc phải dự thi môn năng khiếu Vẽ mỹ thuật do Trường Đại học Bách khoa, Đại học Đà Nẵng tổ chức năm 2025, có điểm thi đạt từ 5,00 điểm trở lên.</p>
+            <div class="announcement-content">
+              <!-- Accordion for collapsible content -->
+              <div class="accordion accordion-flush" id="announcementAccordion">
+                <!-- 1. Ngành tuyển sinh -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed p-2 fs-7" type="button" data-bs-toggle="collapse" data-bs-target="#section1" aria-expanded="false" aria-controls="section1">
+                      <strong>1. Ngành tuyển sinh, mã tuyển sinh</strong>
+                    </button>
+                  </h2>
+                  <div id="section1" class="accordion-collapse collapse" data-bs-parent="#announcementAccordion">
+                    <div class="accordion-body p-2 fs-7">
+                      <p class="mb-1">Xem Bảng trong danh sách</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- 2. Đối tượng xét tuyển -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed p-2 fs-7" type="button" data-bs-toggle="collapse" data-bs-target="#section2" aria-expanded="false" aria-controls="section2">
+                      <strong>2. Đối tượng xét tuyển</strong>
+                    </button>
+                  </h2>
+                  <div id="section2" class="accordion-collapse collapse" data-bs-parent="#announcementAccordion">
+                    <div class="accordion-body p-2 fs-7">
+                      <p class="mb-1">Thí sinh tốt nghiệp THPT năm 2025 thuộc các nhóm:</p>
+                      
+                      <div class="mb-2">
+                        <p class="mb-1"><strong>a) Nhóm 1:</strong> Thí sinh đoạt giải Khuyến khích cuộc thi học sinh giỏi cấp quốc gia các môn Toán, Vật lý, Hóa học, Sinh học, Tin học.</p>
+                        
+                        <p class="mb-1"><em>- Ngành xét tuyển:</em></p>
+                        <p class="mb-1">Thí sinh đoạt giải tại cuộc thi học sinh giỏi quốc gia được xét tuyển vào một trong số các ngành của Trường (xem Phụ lục II)</p>
+                        <p class="mb-1">Thí sinh đoạt giải tại cuộc thi khoa học, kỹ thuật cấp quốc gia được xét tuyển vào một trong số các ngành (xem Phụ lục III)</p>
+                      </div>
+                      
+                      <div class="mb-2">
+                        <p class="mb-1"><strong>b) Nhóm 2:</strong> Thí sinh đoạt giải Nhất, Nhì, Ba, Khuyến khích tại cuộc thi học sinh giỏi các môn học cấp tỉnh, thành phố.</p>
+                        
+                        <p class="mb-1"><em>- Ngành xét tuyển:</em> Thí sinh được xét trúng tuyển vào một trong các ngành của Trường (xem Phụ lục II)</p>
+                      </div>
+                      
+                      <div class="mb-2">
+                        <p class="mb-1"><strong>c) Nhóm 3:</strong> Thí sinh đoạt giải Nhất, Nhì, Ba, Khuyến khích tại cuộc thi Khoa học kỹ thuật cấp tỉnh, thành phố.</p>
+                        
+                        <p class="mb-1"><em>- Ngành xét tuyển:</em> Thí sinh được xét tuyển vào một trong số các ngành tuỳ thuộc lĩnh vực đoạt giải (xem Phụ lục III)</p>
+                      </div>
+                      
+                      <p class="mb-1 fst-italic"><strong>Lưu ý:</strong> Thí sinh đăng ký xét tuyển ngành Kiến trúc phải dự thi môn năng khiếu Vẽ mỹ thuật.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
-        <div class="card-body">
-          <div v-if="loading" class="text-center py-4">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Đang tải...</span>
-            </div>
-            <p class="mt-3">Đang tải dữ liệu xét tuyển RIÊNG...</p>
+        <!-- Main Content Section with improved loading states -->
+        <div class="card-body py-2">
+          <!-- Loading State -->
+          <div v-if="loading" class="text-center py-3" role="status" aria-live="polite">
+            <div class="spinner-border text-primary" aria-hidden="true"></div>
+            <p class="mt-2 fs-6">Đang tải dữ liệu xét tuyển riêng...</p>
           </div>
           
+          <!-- Error State -->
           <div v-else-if="error" class="alert alert-danger" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <i class="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i>
             {{ error }}
           </div>
           
+          <!-- Content when data is loaded -->
           <div v-else>
-            <!-- Bộ lọc và tìm kiếm -->
-            <div class="filter-section mb-3">
+            <!-- Search and Filter Section -->
+            <section class="filter-section mb-3" aria-labelledby="filter-heading">
+              <h2 id="filter-heading" class="visually-hidden">Tìm kiếm và lọc ngành học</h2>
               <div class="row g-2">
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                   <div class="input-group search-box">
-                    <span class="input-group-text bg-primary text-white">
+                    <span class="input-group-text bg-primary text-white" aria-hidden="true">
                       <i class="bi bi-search"></i>
                     </span>
+                    <label for="search-input" class="visually-hidden">Tìm kiếm ngành học</label>
                     <input 
+                      id="search-input"
                       type="text" 
                       class="form-control" 
                       placeholder="Tìm kiếm ngành học..." 
@@ -74,42 +112,42 @@
                   </div>
                 </div>
                 
-                <div class="col-md-6">
+                <div class="col-12 col-md-6">
                   <div class="input-group">
-                    <span class="input-group-text bg-primary text-white">
+                    <span class="input-group-text bg-primary text-white" aria-hidden="true">
                       <i class="bi bi-filter"></i>
                     </span>
-                    <select class="form-select" v-model="selectedFaculty">
+                    <label for="faculty-filter" class="visually-hidden">Lọc theo khoa</label>
+                    <select id="faculty-filter" class="form-select" v-model="selectedFaculty">
                       <option value="all">Tất cả các khoa</option>
-                      <option v-for="faculty in faculties" :key="faculty.id" :value="faculty.falculty_id">
+                      <option v-for="faculty in faculties" :key="faculty.falculty_id" :value="faculty.falculty_id">
                         {{ faculty.faculty_code }} - {{ faculty.faculty_name }}
                       </option>
                     </select>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
             
-            <!-- Bảng thông tin tuyển sinh -->
-            <div class="table-responsive">
-              <table class="table table-hover border">
-                <thead>
-                  <tr class="bg-primary text-white">
-                    <th scope="col" class="text-center" style="width: 5%">STT</th>
-                    <th scope="col" style="width: 12%">Mã ngành</th>
-                    <th scope="col" style="width: 23%">Tên ngành</th>
-                    <th scope="col" style="width: 30%">Môn học đạt giải HSG (Phụ lục II)</th>
-                    <th scope="col" style="width: 30%">Lĩnh vực KHKT đạt giải (Phụ lục III)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <template v-for="(major, index) in filteredMajors" :key="major.id">
-                    <tr>
-                      <td class="text-center">{{ index + 1 }}</td>
-                      <td>{{ major.major_code }}</td>
-                      <td>{{ major.major_name }}</td>
-                      <td>
-                        <div class="d-flex flex-wrap gap-1">
+            <!-- Major List Table with responsive design -->
+            <section class="table-container mb-3" aria-labelledby="xtr-table-heading">
+              <h2 id="xtr-table-heading" class="visually-hidden">Danh sách ngành xét tuyển riêng</h2>
+              
+              <!-- Mobile card view (shows on small screens) -->
+              <div class="d-md-none">
+                <div v-for="(major, index) in filteredMajors" :key="major.id" class="major-card mb-2">
+                  <div class="card">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-1">
+                      <span class="badge bg-light text-dark">{{ index + 1 }}</span>
+                      <h3 class="h6 mb-0 text-truncate small">{{ major.major_name }}</h3>
+                    </div>
+                    <div class="card-body p-2">
+                      <div class="mb-1 small">
+                        <span class="fw-bold">Mã ngành:</span> {{ major.major_code }}
+                      </div>
+                      <div class="mb-2 small">
+                        <span class="fw-bold">Môn học đạt giải HSG:</span>
+                        <div class="d-flex flex-wrap gap-1 mt-1">
                           <span 
                             v-for="(subject, sIndex) in getSubjects(major.admission_fields)" 
                             :key="sIndex"
@@ -120,10 +158,14 @@
                           >
                             {{ subject.field_or_subject_name }}
                           </span>
+                          <span v-if="getSubjects(major.admission_fields).length === 0" class="text-muted fst-italic">
+                            Không có
+                          </span>
                         </div>
-                      </td>
-                      <td>
-                        <div class="d-flex flex-wrap gap-1">
+                      </div>
+                      <div class="mb-1 small">
+                        <span class="fw-bold">Lĩnh vực KHKT đạt giải:</span>
+                        <div class="d-flex flex-wrap gap-1 mt-1">
                           <span 
                             v-for="(field, fIndex) in getFields(major.admission_fields)" 
                             :key="fIndex"
@@ -134,50 +176,107 @@
                           >
                             {{ field.field_or_subject_name }}
                           </span>
+                          <span v-if="getFields(major.admission_fields).length === 0" class="text-muted fst-italic">
+                            Không có
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Desktop table view -->
+              <div class="table-responsive d-none d-md-block">
+                <table class="table table-hover border table-sm">
+                  <caption class="visually-hidden">Danh sách ngành xét tuyển riêng tại Trường ĐH Bách Khoa</caption>
+                  <thead>
+                    <tr class="bg-primary text-white">
+                      <th scope="col" class="text-center" style="width: 5%">STT</th>
+                      <th scope="col" style="width: 12%">Mã ngành</th>
+                      <th scope="col" style="width: 23%">Tên ngành</th>
+                      <th scope="col" style="width: 30%">Môn học đạt giải HSG (Phụ lục II)</th>
+                      <th scope="col" style="width: 30%">Lĩnh vực KHKT đạt giải (Phụ lục III)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template v-for="(major, index) in filteredMajors" :key="major.id">
+                      <tr>
+                        <td class="text-center">{{ index + 1 }}</td>
+                        <td>{{ major.major_code }}</td>
+                        <td>{{ major.major_name }}</td>
+                        <td>
+                          <div class="d-flex flex-wrap gap-1">
+                            <span 
+                              v-for="(subject, sIndex) in getSubjects(major.admission_fields)" 
+                              :key="sIndex"
+                              class="badge subject-combo"
+                              :class="getSubjectBadgeClass(sIndex)"
+                              data-bs-toggle="tooltip"
+                              :title="getSubjectDescription(subject, 'subject')"
+                            >
+                              {{ subject.field_or_subject_name }}
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="d-flex flex-wrap gap-1">
+                            <span 
+                              v-for="(field, fIndex) in getFields(major.admission_fields)" 
+                              :key="fIndex"
+                              class="badge subject-combo"
+                              :class="getFieldBadgeClass(fIndex)"
+                              data-bs-toggle="tooltip"
+                              :title="getSubjectDescription(field, 'field')"
+                            >
+                              {{ field.field_or_subject_name }}
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+                    </template>
+                    
+                    <!-- No results message -->
+                    <tr v-if="filteredMajors.length === 0">
+                      <td colspan="5" class="text-center py-3 my-2">
+                        <div class="no-results">
+                          <i class="bi bi-search fs-4 text-muted" aria-hidden="true"></i>
+                          <p class="mt-2 fs-6">Không tìm thấy ngành phù hợp với tiêu chí tìm kiếm.</p>
+                          <button class="btn btn-outline-primary btn-sm mt-1" @click="resetFilters">
+                            <i class="bi bi-arrow-counterclockwise me-2" aria-hidden="true"></i>
+                            Đặt lại bộ lọc
+                          </button>
                         </div>
                       </td>
                     </tr>
-                  </template>
-                  
-                  <tr v-if="filteredMajors.length === 0">
-                    <td colspan="5" class="text-center py-4">
-                      <div class="no-results">
-                        <i class="bi bi-search fs-6 text-muted"></i>
-                        <p class="mt-2">Không tìm thấy ngành phù hợp với tiêu chí tìm kiếm.</p>
-                        <button class="btn btn-outline-primary mt-2 btn-sm" @click="resetFilters">
-                          <i class="bi bi-arrow-counterclockwise me-1"></i>
-                          Đặt lại bộ lọc
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                  </tbody>
+                </table>
+              </div>
+            </section>
             
-            <!-- Thông tin liên hệ -->
-            <div class="contact-section mt-4">
+            <!-- Contact Information -->
+            <section class="contact-section mt-3" aria-labelledby="contact-heading">
               <div class="card bg-light">
-                <div class="card-body">
-                  <h6 class="card-title fw-bold">
-                    <i class="bi bi-info-circle me-2"></i>
+                <div class="card-body p-2">
+                  <h2 id="contact-heading" class="card-title fs-6 mb-2">
+                    <i class="bi bi-info-circle me-2" aria-hidden="true"></i>
                     3. Thông tin liên hệ:
-                  </h6>
-                  <div class="mt-2">
+                  </h2>
+                  <div class="mt-1">
                     <ul class="contact-list">
-                      <li>Muốn biết thêm chi tiết, thí sinh vui lòng truy cập trang Tuyển sinh của Trường Đại học Bách khoa tại địa chỉ: <a href="https://tuyensinh.dut.udn.vn/" target="_blank">https://tuyensinh.dut.udn.vn/</a> hoặc trang Tuyển sinh của Đại học Đà Nẵng tại địa chỉ <a href="http://ts.udn.vn" target="_blank">http://ts.udn.vn</a>.</li>
-                      <li>Hoặc liên hệ với bộ phận Tuyển sinh của Trường Đại học Bách khoa, số 54 Nguyễn Lương Bằng, TP. Đà Nẵng qua số hotline: 0888 477 377; 0888 377 177; 0888 577 277; 0236 36 20 999;</li>
-                      <li>Email: <a href="mailto:tuyensinhbkdn@dut.udn.vn">tuyensinhbkdn@dut.udn.vn</a>;</li>
-                      <li>Fanpage: <a href="https://www.facebook.com/DUTpage" target="_blank">https://www.facebook.com/DUTpage</a>;</li>
-                      <li>Hoặc liên hệ với Ban Đào tạo, Đại học Đà Nẵng, số 41 Lê Duẩn, TP. Đà Nẵng.</li>
+                      <li>Muốn biết thêm chi tiết, thí sinh vui lòng truy cập trang Tuyển sinh của Trường Đại học Bách khoa tại địa chỉ: <a href="https://tuyensinh.dut.udn.vn/" target="_blank" rel="noopener noreferrer">https://tuyensinh.dut.udn.vn</a></li>
+                      <li>Hotline: <a href="tel:0888477377">0888 477 377</a>; <a href="tel:0888477533">0888 477 533</a></li>
+                      <li>Email: <a href="mailto:tuyensinhbkdn@dut.udn.vn">tuyensinhbkdn@dut.udn.vn</a></li>
+                      <li>Fanpage: <a href="https://www.facebook.com/DUTpage" target="_blank" rel="noopener noreferrer">https://www.facebook.com/DUTpage</a></li>
+                      <li>Địa chỉ: Trường Đại học Bách khoa, 54 Nguyễn Lương Bằng, TP. Đà Nẵng.</li>
                     </ul>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
 </template>
@@ -254,6 +353,7 @@ export default {
       this.faculties = Object.values(uniqueFaculties)
       
       this.initializeTooltips()
+      this.initializeAccordion()
     } catch (error) {
       this.error = 'Đã xảy ra lỗi khi tải dữ liệu xét tuyển riêng. Vui lòng thử lại sau.'
       console.error(error)
@@ -271,6 +371,13 @@ export default {
             html: true
           })
         })
+      })
+    },
+    
+    initializeAccordion() {
+      // Khởi tạo accordion nếu cần
+      this.$nextTick(() => {
+        // Bootstrap 5 tự khởi tạo accordion
       })
     },
 
@@ -316,90 +423,123 @@ export default {
 </script>
 
 <style scoped>
+/* Base Container */
 .xtr-container {
   min-height: 100vh;
   background-color: #f5f5f5;
-  margin: 0 5vw;
+  margin: 0;
+  padding: 0 5px;
 }
 
+@media (min-width: 768px) {
+  .xtr-container {
+    margin: 0 2vw;
+    padding: 0;
+  }
+}
+
+/* Main Card */
 .main-card {
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1) !important;
 }
 
+/* Header */
 .card-header {
   background-color: #0d47a1 !important;
-  padding: 1rem;
-}
-
-.card-header h2 {
-  font-size: 1.3rem;
-  margin: 0;
-  color: #fff;
+  padding: 0.6rem;
 }
 
 .header-icon {
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 
-.announcement-section {
+/* Description Section */
+.description-section {
   background-color: #e8f1ff !important;
   border-bottom: 1px solid #dee2e6;
-  font-size: 0.9rem;
 }
 
-.announcement-section h5 {
-  font-size: 1.1rem;
+.description-text {
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: #495057;
 }
 
-.announcement-section h6 {
-  font-size: 0.95rem;
+/* Accordion Styling */
+.accordion-button {
+  font-size: 0.85rem;
 }
 
+.accordion-button:not(.collapsed) {
+  background-color: rgba(13, 110, 253, 0.1);
+  color: #0d47a1;
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Filter Section */
 .filter-section {
   background-color: #f8f9fa;
   padding: 0.75rem;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
 }
 
-.search-box .form-control:focus {
-  border-color: #0d47a1;
-  box-shadow: 0 0 0 0.2rem rgba(13, 71, 161, 0.25);
+.form-control, .form-select {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
 }
 
-/* Smaller font sizes for table */
-.table th {
-  vertical-align: middle;
-  white-space: normal;
-  font-size: 0.9rem;
-  padding: 0.6rem;
+.input-group-text {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
 }
 
-.table td {
-  font-size: 0.85rem;
-  vertical-align: middle;
-  padding: 0.6rem;
-}
-
-/* Hiệu ứng hover cho các dòng */
-.table tbody tr:hover {
-  background-color: rgba(13, 71, 161, 0.05);
-}
-
-/* Thiết kế nhỏ gọn hơn cho các subject combo */
-.subject-combo {
+/* Table Styling */
+.table {
   font-size: 0.8rem;
-  padding: 0.3rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.table th,
+.table td {
+  padding: 0.4rem 0.5rem;
+  vertical-align: middle;
+}
+
+/* Mobile Card View */
+.major-card .card {
+  border: none;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.major-card .card-header {
+  padding: 0.4rem 0.75rem;
+}
+
+.major-card .badge {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+}
+
+/* Subject & Field Badges */
+.subject-combo {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.4rem;
   border-radius: 4px;
   font-weight: 500;
   margin-bottom: 0.2rem;
   cursor: help;
 }
 
-/* Các màu cho môn học (Phụ lục II) */
+/* Badge Colors for Subjects */
 .badge-blue {
   background-color: rgba(13, 110, 253, 0.15);
   color: #0d6efd;
@@ -430,7 +570,7 @@ export default {
   border: 1px solid rgba(111, 66, 193, 0.3);
 }
 
-/* Các màu cho lĩnh vực KHKT (Phụ lục III) */
+/* Badge Colors for Fields */
 .badge-yellow {
   background-color: rgba(255, 193, 7, 0.15);
   color: #664d03;
@@ -461,20 +601,20 @@ export default {
   border: 1px solid rgba(165, 42, 42, 0.3);
 }
 
+/* Contact Section */
 .contact-section .card {
   border: none;
-  border-radius: 8px;
-  background-color: #f8f9fa;
+  border-radius: 6px;
 }
 
 .contact-list {
   padding-left: 1rem;
   margin-bottom: 0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .contact-list li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .contact-list a {
@@ -486,73 +626,53 @@ export default {
   text-decoration: underline;
 }
 
+/* No Results */
 .no-results {
-  padding: 1rem 0;
+  padding: 0.75rem;
 }
 
-.no-copy {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
+/* Loading & Error States */
+.spinner-border {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
-.no-copy::selection {
-  background: transparent;
+/* Font size utility */
+.fs-7 {
+  font-size: 0.75rem !important;
 }
 
-.no-copy::-moz-selection {
-  background: transparent;
-}
-
-.no-copy td, .no-copy th {
-  -webkit-touch-callout: none;
+/* Accessibility Helpers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-  .card-header h2 {
-    font-size: 1.0rem;
-  }
-  
+@media (max-width: 576px) {
   .header-icon {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
   
-  .announcement-section {
-    font-size: 0.8rem;
+  #xtr-title {
+    font-size: 0.95rem !important;
   }
   
-  .announcement-section h5 {
-    font-size: 1rem;
-  }
-  
-  .announcement-section h6 {
-    font-size: 0.85rem;
-  }
-  
-  .table th, .table td {
+  .description-text, 
+  .accordion-button,
+  .contact-list {
     font-size: 0.75rem;
-    padding: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .card-header h2 {
-    font-size: 0.85rem;
-  }
-  
-  .announcement-section {
-    font-size: 0.75rem;
-  }
-  
-  .table th, .table td {
-    font-size: 0.7rem;
-    padding: 0.4rem;
   }
   
   .subject-combo {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     padding: 0.2rem 0.3rem;
   }
 }
