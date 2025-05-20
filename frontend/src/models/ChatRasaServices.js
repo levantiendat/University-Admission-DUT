@@ -3,7 +3,11 @@ import config from '@/config/apiConfig';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, BorderStyle } from 'docx';
 import { saveAs } from 'file-saver';
 
-const RASA_ENDPOINT = 'http://localhost:5005/webhooks/rest/webhook';
+// Define the endpoints
+const RASA_ENDPOINTS = {
+  PRIMARY: 'https://cockatoo-cheerful-factually.ngrok-free.app/webhooks/rest/webhook',
+  FALLBACK: 'http://localhost:5005/webhooks/rest/webhook'
+};
 
 export default {
   /**
@@ -13,16 +17,35 @@ export default {
    * @returns {Promise} - Promise with the Rasa response
    */
   async sendMessage(message, userId) {
+    let lastError = null;
+    
+    // Try primary endpoint first
     try {
-      const response = await axios.post(RASA_ENDPOINT, {
+      const response = await axios.post(RASA_ENDPOINTS.PRIMARY, {
         sender: userId,
         message: message
       });
       
       return response.data;
-    } catch (error) {
-      console.error('Error sending message to Rasa:', error);
-      throw error;
+    } catch (primaryError) {
+      console.warn('Error connecting to primary Rasa endpoint:', primaryError.message);
+      lastError = primaryError;
+      
+      // If primary fails, try fallback endpoint
+      try {
+        console.log('Attempting to connect to fallback endpoint...');
+        const response = await axios.post(RASA_ENDPOINTS.FALLBACK, {
+          sender: userId,
+          message: message
+        });
+        
+        return response.data;
+      } catch (fallbackError) {
+        console.error('Error connecting to fallback Rasa endpoint:', fallbackError.message);
+        // Combine error message for better debugging
+        const errorMessage = `Failed to connect to both endpoints. Primary: ${primaryError.message}, Fallback: ${fallbackError.message}`;
+        throw new Error(errorMessage);
+      }
     }
   },
 
