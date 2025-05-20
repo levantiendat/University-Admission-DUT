@@ -3,15 +3,23 @@ import { reactive } from 'vue'
 
 const STORAGE_KEY = 'token'
 
+// Khởi tạo từ localStorage, nhưng cũng đồng bộ với sessionStorage
+const token = localStorage.getItem(STORAGE_KEY) || ''
+if (token) {
+  // Đồng bộ với sessionStorage để mã code cũ vẫn hoạt động
+  sessionStorage.setItem(STORAGE_KEY, token)
+}
+
 const state = reactive({
-  token: sessionStorage.getItem(STORAGE_KEY) || '',
+  token: token,
   user: {}
 })
 
-// Lưu token vào store và sessionStorage
+// Lưu token vào store và cả hai storages
 function setToken(token) {
   state.token = token
-  sessionStorage.setItem(STORAGE_KEY, token)
+  localStorage.setItem(STORAGE_KEY, token)
+  sessionStorage.setItem(STORAGE_KEY, token) // Đảm bảo mã cũ vẫn hoạt động
   initUser()
 }
 
@@ -19,7 +27,8 @@ function setToken(token) {
 function clearToken() {
   state.token = ''
   state.user = {}
-  sessionStorage.removeItem(STORAGE_KEY)
+  localStorage.removeItem(STORAGE_KEY)
+  sessionStorage.removeItem(STORAGE_KEY) // Đảm bảo mã cũ vẫn hoạt động
 }
 
 // Giải mã token JWT (không xác thực chữ ký)
@@ -69,6 +78,23 @@ function checkTokenOrRedirect(router) {
     router.push({ name: 'Login' })
   }
 }
+
+// Lắng nghe thay đổi từ các tab khác
+window.addEventListener('storage', (event) => {
+  if (event.key === STORAGE_KEY) {
+    if (event.newValue) {
+      // Token được cập nhật từ tab khác
+      state.token = event.newValue
+      sessionStorage.setItem(STORAGE_KEY, event.newValue) // Cập nhật để mã cũ vẫn hoạt động
+      initUser()
+    } else {
+      // Token bị xóa từ tab khác (đăng xuất)
+      state.token = ''
+      state.user = {}
+      sessionStorage.removeItem(STORAGE_KEY)
+    }
+  }
+})
 
 // Khi app khởi động, tự init thông tin
 initUser()
