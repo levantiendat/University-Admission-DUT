@@ -1,0 +1,247 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - xin chào
+    - hi
+    - chào bạn
+    - alo
+    - hế lô
+
+- intent: goodbye
+  examples: |
+    - tạm biệt
+    - bye bye
+    - chào tạm biệt
+    - hẹn gặp lại
+
+- intent: thank
+  examples: |
+    - cảm ơn
+    - thanks
+    - cảm ơn bạn
+
+- intent: ask_major_info
+  examples: |
+    - ngành CNTT là gì?
+    - cho tôi biết thông tin chung về ngành CNTT
+    - thông tin về ngành công nghệ thông tin
+    - CNTT là gì?
+
+- intent: ask_enrollment_quota_uni
+  examples: |
+    - tổng chỉ tiêu tuyển sinh của trường là bao nhiêu?
+    - chỉ tiêu tuyển sinh năm 2025
+    - bách khoa tuyển bao nhiêu sinh viên
+
+- intent: ask_major_dthtdn_info
+  examples: |
+    - ngành CNTT đặc thù là gì?
+    - CNTT đặc thù hợp tác doanh nghiệp là gì?
+    - cntt dthtdn là gì?
+    - ngành công nghệ thông tin đặc thù hợp tác doanh nghiệp
+
+- intent: ask_training_program_major_dthtdn
+  examples: |
+    - chương trình đào tạo CNTT đặc thù là gì?
+    - cntt dthtdn học như thế nào?
+    - đào tạo CNTT DTHTDN ra sao?
+
+- intent: ask_standard_output_language_major_dthtdn
+  examples: |
+    - chuẩn ngoại ngữ CNTT đặc thù là gì?
+    - yêu cầu ngoại ngữ CNTT đặc thù?
+    - chuẩn đầu ra ngoại ngữ của CNTT đặc thù
+
+- intent: ask_major_nnn_info
+  examples: |
+    - ngành CNTT ngoại ngữ nhật là gì?
+    - cntt nnn là gì?
+    - ngành công nghệ thông tin ngoại ngữ nhật là gì?
+
+- intent: ask_training_program_major_nnn
+  examples: |
+    - chương trình đào tạo CNTT ngoại ngữ nhật là gì?
+    - đào tạo CNTT ngoại ngữ nhật ra sao?
+    - cntt NNN học ra sao?
+
+- intent: ask_standard_output_language_major_nnn
+  examples: |
+    - chuẩn ngoại ngữ cntt nnn
+    - yêu cầu ngoại ngữ cntt nnn
+    - chuẩn ngoại ngữ CNTT ngoại ngữ nhật
+
+- intent: ask_major_khdl_ttnt_info
+  examples: |
+    - ngành CNTT TTNT là gì?
+    - CNTT TTNT ra sao?
+    - cntt ttnt là gì?
+    - ngành cntt khoa học dữ liệu
+
+- intent: ask_training_program_major_khdl_ttnt
+  examples: |
+    - chương trình đào tạo cntt khdl ttnt
+    - đào tạo CNTT TTNT ra sao?
+    - chương trình đào tạo CNTT TTNT?
+
+- intent: ask_standard_output_language_major_khdl_ttnt
+  examples: |
+    - chuẩn ngoại ngữ CNTT TTNT là gì?
+    - yêu cầu ngoại ngữ đầu ra cntt ttnt
+    - yêu cầu ngoại ngữ cntt khdl ttnt
+
+- intent: ask_admission_methods
+  examples: |
+    - có những hình thức xét tuyển CNTT nào?
+    - xét tuyển CNTT như thế nào?
+
+- intent: ask_admission_method_uni
+  examples: |
+    - các phương thức xét tuyển trường đại học bách khoa?
+    - phương thức tuyển sinh bách khoa
+    - tuyển sinh năm 2025 ra sao
+
+- intent: ask_direct_admission_detail
+  examples: |
+    - xét tuyển thẳng là gì?
+    - thông tin chi tiết phương thức xét tuyển thẳng
+    - điều kiện xét tuyển thẳng
+
+- intent: ask_xet_tuyen_rieng_detail
+  examples: |
+    - chi tiết phương thức xét tuyển riêng
+    - phương thức xét tuyển riêng là gì?
+    - điều kiện xét tuyển riêng
+
+- intent: ask_diem_thi_TN_THPT
+  examples: |
+    - phương thức xét tuyển bằng điểm thi tốt nghiệp thpt
+    - xét tuyển điểm thi tn thpt
+    - xét điểm thi tốt nghiệp thpt
+
+- intent: ask_admission_process
+  examples: |
+    - các đăng kí xét tuyển như thế nào?
+    - cách đăng kí xét tuyển
+    - cách đăng kí xét tuyển theo phương thức [xét tuyển riêng]
+
+- intent: ask_dgnl
+  examples: |
+    - phương thức xét điểm đánh giá năng lực
+    - xét tuyển bằng điểm đánh giá năng lực
+    - điểm thi đánh giá năng lực
+
+- intent: ask_dgtd
+  examples: |
+    - phương thức xét điểm thi đánh giá tư duy
+    - xét tuyển bằng điểm thi đánh giá tư duy
+    - điểm thi đánh giá tư duy
+
+- intent: ask_cntt_luu_y
+  examples: |
+    - năm nay công nghệ thông tin có gì mới không?
+    - có gì mới trong năm nay?
+    - có gì khác biệt trong năm nay không?
+
+- intent: ask_cutoff_score
+  examples: |
+    - Điểm chuẩn ngành [CNTT HTDN] theo [xét tuyển riêng] là bao nhiêu?
+    - Cho điểm ngành [CNTT AI] bằng [điểm tốt nghiệp THPT].
+    - Điểm chuẩn ngành [CNTT đặc thù] theo [xét tuyển riêng] là bao nhiêu?
+
+- intent: ask_list_major_by_method
+  examples: |
+    - những ngành nào xét tuyển bằng [điểm thi tốt nghiệp THPT]?
+    - ngành nào xét tuyển bằng [điểm thi đánh giá năng lực]?
+    - em có [điểm thi TSA], em có thể xét tuyển vào ngành nào?
+
+- intent: ask_combination_major
+  examples: |
+    - Tổ hợp môn xét tuyển ngành [công nghệ thông tin đặc thù] là gì?
+    - [cntt htdn] lấy điểm những môn gì?
+    - [cntt nhật] xét tuyển những tổ hợp môn gì?
+
+- intent: ask_methods_for_major
+  examples: |
+    - [công nghệ thông tin] xét tuyển bằng những phương thức nào?
+    - ngành [kỹ thuật điện] xét tuyển bằng những phương thức gì?
+    - phương thức xét tuyển của ngành [công nghệ thông tin] là gì?
+
+- intent: ask_if_major_accepts_method
+  examples: |
+    - ngành [công nghệ thông tin] có xét tuyển bằng [điểm thi tốt nghiệp thpt] không?
+    - [cntt htdn] có xét bằng [học bạ] không?
+    - em có [điểm thi tốt nghiệp thpt], em có thể xét vào ngành [cntt] không?
+
+- intent: ask_quotas_for_major
+  examples: |
+    - chỉ tiêu của ngành [công nghệ thông tin] là bao nhiêu?
+    - ngành [công nghệ thông tin đặc thù] có chỉ tiêu tuyển sinh là bao nhiêu?
+    - [cntt htdn] năm nay tuyển bao nhiêu sinh viên?
+
+- intent: ask_major_by_achievement
+  examples: |
+    - Tôi đạt giải học sinh giỏi cấp quốc gia môn [toán], có thể xét tuyển ngành nào?
+    - Nếu em có giải học sinh giỏi cấp tỉnh môn [vật lý] thì phù hợp với ngành nào?
+    - Với thành tích giải ba môn [tin học] trong kỳ thi học sinh giỏi cấp tỉnh, em nên chọn ngành nào?
+
+- intent: ask_major_by_subjects
+  examples: |
+    - Tôi đăng kí tự chọn môn [vật lý] và [hóa học] thì có thể học ngành nào?
+    - tôi chọn môn [toán], [vật lý] và [hóa học] thì có thể xét tuyển vào ngành nào?
+    - Nếu tôi chọn môn [tiếng nhật] và [vật lý] thì có thể xét tuyển vào ngành nào?
+
+- intent: ask_major_by_faculty
+  examples: |
+    - Tôi muốn biết các ngành thuộc khoa [công nghệ thông tin] ?
+    - Khoa [hóa] có những ngành nào?
+    - Các ngành thuộc khoa [cơ khí] là gì?
+
+- intent: ask_suggest_major_by_score_with_method
+  examples: |
+    - em đạt được [26.5] điểm ở phương thức [điểm thi tốt nghiệp], em có thể đăng ký ngành nào?
+    - với số điểm [22.67] ở phương thức [học bạ], em có thể đăng ký ngành nào?
+    - em đạt được [289.5] điểm ở phương thức [xét tuyển riêng] thì em có thể đăng ký ngành nào?
+
+- intent: ask_suggest_major_by_score_with_method_and_faculty
+  examples: |
+    - em đạt được [26.5] điểm ở phương thức [điểm thi tốt nghiệp], em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin]?
+    - em đạt được [25.55] điểm ở phương thức [học bạ], em có thể đăng ký ngành nào thuộc khoa [điện]?
+    - với số điểm [1026] điểm ở phương thức [đánh giá năng lực], em có thể đăng ký ngành nào thuộc khoa [môi trường]?
+
+- intent: ask_calculate_score
+  examples: |
+    - em đạt được điểm môn [toán] là [8.5], môn [vật lý] là [7.5], môn [hóa học] là [6.5], vậy điểm của em là bao nhiêu?
+    - em thi kỳ thi vừa rồi đạt điểm là [toán] : [8.5], [vật lý] : [7.5], [hóa học] : [6.5], [ngữ văn] : [5.75]
+    - em có điểm môn [toán] là [8.5], môn [tin học] là [10], môn [hóa học] là [6.5], môn [ngữ văn] là [5.75]
+
+- intent: ask_training_program
+  examples: |
+    - chương trình đào tạo CNTT ra sao?
+    - học CNTT như thế nào?
+    - đào tạo CNTT có gì đặc biệt?
+
+- intent: ask_standard_output_language
+  examples: |
+    - chuẩn ngoại ngữ đầu ra của các ngành là gì?
+    - chuẩn đầu ra ngoại ngữ của trường là gì?
+    - yêu cầu ngoại ngữ đầu ra
+
+- intent: ask_faq_job_opportunities
+  examples: |
+    - sau khi học CNTT làm được gì?
+    - cơ hội việc làm CNTT là gì?
+    - việc làm công nghệ thông tin ra sao
+
+- intent: ask_faq_detail_specialized
+  examples: |
+    - CNTT có mấy chuyên ngành?
+    - chuyên ngành CNTT gồm những gì?
+    - các chuyên ngành công nghệ thông tin
+
+- intent: ask_faq_attt
+  examples: |
+    - việc làm chuyên ngành An Toàn Thông Tin là gì?
+    - cơ hội nghề nghiệp An Toàn Thông Tin?
+    - học an toàn thông tin làm gì?

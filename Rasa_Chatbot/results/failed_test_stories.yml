@@ -1,0 +1,70 @@
+version: "3.1"
+stories:
+- story: Test language requirements for CNTT programs (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_standard_output_language  # predicted: ask_standard_output_language_major_dthtdn: chuẩn ngoại ngữ của CNTT là gì?
+  - action: utter_standard_output_language
+- story: Test general admission methods information (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_admission_methods  # predicted: ask_methods_for_major: các phương thức xét tuyển của [CNTT]{"entity": "major", "value": "cntt"} là gì?
+  - action: utter_admission_methods
+- story: Test direct admission details (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_direct_admission_detail  # predicted: ask_direct_admission_detail: xét tuyển thẳng [CNTT]{"entity": "major", "value": "cntt"} cần [điều kiện](major) gì?
+  - action: utter_direct_admission_detail
+- story: Test information about information security (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_faq_attt  # predicted: ask_faq_attt: chuyên ngành [An](major) Toàn [Thông](major) [Tin](subject) học những gì?
+  - action: utter_faq_attt
+- story: Test cutoff score by method only (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_cutoff_score  # predicted: ask_cutoff_score: điểm chuẩn theo phương thức [đánh giá năng lực](method) là bao nhiêu?
+  - action: action_cutoff_score
+- story: Test cutoff score by major only (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_cutoff_score  # predicted: ask_cutoff_score: điểm chuẩn ngành [CNTT Đặc thù]{"entity": "major", "value": "CNTT \u0111\u1eb7c th\u00f9"} là bao nhiêu?
+  - action: action_cutoff_score
+- story: Test cutoff score with both major and method (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_cutoff_score  # predicted: ask_cutoff_score: điểm chuẩn [CNTT AI](major) theo [đánh giá tư duy](method) là bao nhiêu?
+  - action: action_cutoff_score
+- story: Test listing majors by specific method (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_list_major_by_method  # predicted: ask_list_major_by_method: có những ngành nào xét tuyển bằng [đánh giá năng lực](method)?
+  - action: action_major_by_method  # predicted: action_default_fallback
+- story: Test subject combinations for IT (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_combination_major  # predicted: ask_combination_major: tổ hợp môn xét tuyển ngành [CNTT]{"entity": "major", "value": "cntt"} là gì?
+  - action: action_combination_major  # predicted: action_default_fallback
+- story: Test subject combinations for specialized IT (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_combination_major  # predicted: ask_combination_major: [CNTT Nhật](major) xét tuyển những môn nào?
+  - action: action_combination_major  # predicted: action_default_fallback
+- story: Test career guidance (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_career_guidance  # predicted: ask_career_guidance: tôi nên học [ngành](subject) gì phù hợp với sở thích?
+  - action: action_suggest_majors_by_strengths
+- story: Test major suggestion by subjects (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_major_by_subjects  # predicted: ask_career_guidance: tôi [giỏi toán lý hoá](academic_strengths) nên học ngành gì?
+  - action: action_suggest_major_by_subjects
+- story: Test major suggestion by score (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_suggest_major_by_score_with_method  # predicted: ask_suggest_major_by_score_and_subjects: với [25](score) điểm thì nên học ngành gì?
+  - action: action_suggest_major_by_score
+- story: Test bot challenge (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: bot_challenge  # predicted: iamabot: bạn là ai?
+  - action: utter_iamabot
+- story: Test general major information (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_major_info  # predicted: nlu_fallback: ngành CNTT của trường như thế nào?
+  - action: utter_major_info
+- story: Test CNTT Japanese language program (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_major_nnn_info  # predicted: ask_training_program_major_nnn: CNTT ngoại ngữ nhật là chương trình như thế nào?
+  - action: utter_major_info_nnn
+- story: Test general training program information (D:\DUT_Folder\DUT_20242025\DATN\TVTS_Rasa_Chatbot\Rasa_Chatbot\tests\test_stories.yml)
+  steps:
+  - intent: ask_training_program  # predicted: nlu_fallback: chương trình đào tạo của CNTT như thế nào?
+  - action: utter_training_program
