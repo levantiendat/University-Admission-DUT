@@ -115,40 +115,6 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 16. Phương thức xét tuyển chung
-  - story: "Pair - Phương thức xét tuyển chung CNTT"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_admission_methods
-      - action: utter_admission_methods
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 17. Xét tuyển thẳng (chi tiết)
-  - story: "Pair - Xét tuyển thẳng CNTT"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_direct_admission_detail
-      - action: utter_direct_admission_detail
-      - intent: goodbye
-      - action: utter_goodbye
-
-  # 18. Xét tuyển riêng (chi tiết)
-  - story: "Pair - Xét tuyển riêng CNTT"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_xet_tuyen_rieng_detail
-      - action: utter_xet_tuyen_rieng_detail
-      - intent: goodbye
-      - action: utter_goodbye
-
-
-
-
-
   # 35. Chương trình đào tạo chung CNTT
   - story: "Pair - Chương trình đào tạo chung CNTT"
     steps:
@@ -352,20 +318,6 @@ stories:
       - intent: ask_standard_output_language_major_khdl_ttnt
       - action: utter_standard_output_language_major_khdl_ttnt
 
-  - story: "Direct Pair - Phương thức xét tuyển"
-    steps:
-      - intent: ask_admission_methods
-      - action: utter_admission_methods
-
-  - story: "Direct Pair - Xét tuyển thẳng (chi tiết)"
-    steps:
-      - intent: ask_direct_admission_detail
-      - action: utter_direct_admission_detail
-
-  - story: "Direct Pair - Xét tuyển riêng (chi tiết)"
-    steps:
-      - intent: ask_xet_tuyen_rieng_detail
-      - action: utter_xet_tuyen_rieng_detail
 
 
 
@@ -445,22 +397,6 @@ stories:
       - action: utter_thank
 
 
-  # ----------------------------
-  # Nhóm Phương Thức Xét Tuyển (Buttons)
-  # ----------------------------
-  - story: "Pair - Phương thức: Xét tuyển thẳng"
-    steps:
-      - intent: ask_admission_methods
-      - action: utter_admission_methods
-      - intent: ask_direct_admission_detail
-      - action: utter_direct_admission_detail
-
-  - story: "Pair - Phương thức: Xét tuyển theo phương thức riêng"
-    steps:
-      - intent: ask_admission_methods
-      - action: utter_admission_methods
-      - intent: ask_xet_tuyen_rieng_detail
-      - action: utter_xet_tuyen_rieng_detail
 
 
 
@@ -519,15 +455,6 @@ stories:
       - intent: ask_admission_method_uni
       - action: utter_admission_methods_uni
   
-  - story: "Xét tuyển bằng đánh giá năng lực"
-    steps:
-      - intent: ask_dgnl
-      - action: utter_dgnl
-  
-  - story: "Xét tuyển bằng đánh giá tư duy"
-    steps:
-      - intent: ask_dgtd
-      - action: utter_dgtd
   
   - story: "Lưu ý xét tuyển"
     steps:
@@ -1213,10 +1140,6 @@ stories:
           - major: "Kinh tế xây dựng"
       - action: action_combination_major
 
-  - story: Xem phương thức điểm thi THPT
-    steps:
-      - intent: ask_diem_thi_TN_THPT
-      - action: utter_diem_thi_TN_THPT
   
   - story: Điểm CNTT ĐẶC THÙ theo xét tuyển riêng
     steps:

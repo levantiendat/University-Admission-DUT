@@ -91,3 +91,8 @@ rules:
     steps:
     - intent: ask_suggest_major_by_score_and_subjects
     - action: action_suggest_major_by_score_and_subjects
+  
+  - rule: Ask admission method Details
+    steps:
+    - intent: ask_method_detail
+    - action: action_detail_method

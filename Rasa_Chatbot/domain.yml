@@ -15,11 +15,7 @@ intents:
   - ask_major_khdl_ttnt_info
   - ask_training_program_major_khdl_ttnt
   - ask_standard_output_language_major_khdl_ttnt
-  - ask_admission_methods
   - ask_admission_method_uni
-  - ask_direct_admission_detail
-  - ask_xet_tuyen_rieng_detail
-  - ask_diem_thi_TN_THPT
   - ask_admission_process
   - ask_training_program
   - ask_standard_output_language
@@ -36,8 +32,6 @@ intents:
   - out_of_scope
   - iamabot
   - thank
-  - ask_dgnl
-  - ask_dgtd
   - ask_cntt_luu_y
   - ask_cutoff_score
   - ask_list_major_by_method
@@ -64,6 +58,7 @@ intents:
   - provide_academic_strengths # Intent cung cấp điểm mạnh học tập
   - provide_personality_traits
   - ask_suggest_major_by_score_and_subjects
+  - ask_method_detail
 
 entities:
   - major
@@ -229,38 +224,7 @@ responses:
           - Xét tuyển theo kết quả thi đánh giá năng lực do Đại Học Quốc Gia Thành Phố Hồ Chí Minh tổ chức\n
           - Xét tuyển theo kết quả thi đánh giá tư duy do Đại Học Bách Khoa Hà Nội tổ chức
       "
-  utter_admission_methods:
-    - text: "Các phương thức xét tuyển ngành Công nghệ Thông Tin bao gồm: \n
-        - Xét tuyển thẳng (theo quy chế của Bộ GD&ĐT)\n
-        - Xét tuyển theo phương thức xét tuyển riêng\n
-        - Xét tuyển qua kết quả thi tốt nghiệp Trung Học Phổ Thông \n
-        Thay đổi từ năm 2025: Không sử dụng hình thức đánh giá năng lực của Đại học Quốc Gia TPHCM và điểm đánh giá Tư Duy của Đại Học Bách Khoa Hà Nội."
-  utter_direct_admission_detail:
-    - text: "Thí sinh đạt một trong ba điều kiện sau sẽ được xét tuyển thẳng:\n 
-          a) Anh hùng Lao Động, Anh hùng Lực Lượng Vũ Trang Nhân Dân, Chiến sĩ Thi Đua Toàn Quốc.\n 
-          b) Đạt giải Nhất, Nhì, Ba trong kỳ thi chọn Học Sinh Giỏi Quốc Gia/Quốc Tế (Toán, Vật Lý, Hóa Học, Sinh Học, Tin Học) do Bộ GD&ĐT tổ chức; thời gian không quá 3 năm.\n 
-          c) Đạt giải Nhất, Nhì, Ba trong kỳ thi Khoa Học Kỹ Thuật cấp Quốc Gia/Quốc Tế do Bộ GD&ĐT tổ chức; thời gian không quá 3 năm.
-          Thông tin chi tiết về việc danh mục ngành và chi tiết phương thức xét tuyển thẳng /admission/xettuyenthang"
-  utter_xet_tuyen_rieng_detail:
-    - text: "Thí sinh đạt một trong ba nhóm sau sẽ được đăng kí xét tuyển riêng theo đề án tuyển sinh của Trường Đại Học Bách Khoa:\n
-          • Nhóm 1: Giải Khuyến Khích HSG cấp Quốc Gia (Toán, Vật Lý, Hóa Học, Sinh Học, Tin Học); thời gian không quá 3 năm.\n
-          • Nhóm 2: Giải Nhất, Nhì, Ba, Khuyến Khích (Giải Tư) HSG cấp Tỉnh/Thành phố trực thuộc Trung Ương; thời gian không quá 3 năm.\n
-          • Nhóm 3: Giải Nhất, Nhì, Ba, Khuyến Khích (Giải Tư) cuộc thi Khoa Học Kỹ Thuật cấp Tỉnh/Thành phố; thời gian không quá 3 năm.\n
-          Thông tin chi tiết về các ngành và nhóm thành tích được đăng kí xét tuyển riêng vào các ngành của Trường Đại Học Bách Khoa, thí sinh tham khảo /admission/xettuyenrieng"
-  utter_diem_thi_TN_THPT:
-    - text: "Thí sinh đăng ký xét tuyển dựa vào kết quả thi Tốt Nghiệp THPT theo tổ hợp được công bố trên trang web tuyển sinh của trường \n
-        -Bạn có thể đặt câu hỏi như Tổ hợp xét tuyển của ngành ... để xem tổ hợp xét tuyển của một ngành"
-  utter_dgnl:
-    - text: "Thí sinh sử dụng kết quả thi đánh giá năng lực (V-ACT) của Đại Học Quốc Gia thành phố Hồ Chí Minh tổ chức năm 2025 để đăng kí xét tuyển \n
-          - Điểm xét tuyển bằng điểm thi đánh giá năng lực quy đổi + điểm ưu tiên \n
-          - Thông tin chi tiết về phương thức này /admission/danhgianangluc \n
-          "
-  utter_dgtd:
-    - text: "Thí sinh sử dụng kết quả thi đánh giá tư duy (TSA) của Đại Học Bách Khoa Hà Nội tổ chức năm 2024, 2025 để đăng kí xét tuyển \n
-          - Điểm xét tuyển bằng điểm thi đánh giá tư duy quy đổi + điểm ưu tiên \n
-          - Thông tin chi tiết về phương thức này /admission/danhgiatuduy \n
-          
-          "
+
   utter_cntt_luu_y:
     - text: "Năm 2025, Một số điểm lưu ý khi đăng kí vào ngành công nghệ thông tin: \n
           - Không sử dụng hình thức đánh giá năng lực của Đại học Quốc Gia TPHCM và điểm đánh giá Tư Duy của Đại Học Bách Khoa Hà Nội.\n
@@ -378,10 +342,6 @@ actions:
   - utter_training_program_major_khdl_ttnt
   - utter_standard_output_language_major_khdl_ttnt
   - utter_admission_methods_uni
-  - utter_admission_methods
-  - utter_direct_admission_detail
-  - utter_xet_tuyen_rieng_detail
-  - utter_diem_thi_TN_THPT
   - utter_training_program
   - utter_standard_output_language
   - utter_faq_job_opportunities
@@ -397,8 +357,6 @@ actions:
   - utter_out_of_scope
   - utter_iamabot
   - utter_thank
-  - utter_dgnl
-  - utter_dgtd
   - utter_cntt_luu_y
   - action_cutoff_score
   - action_major_by_method
@@ -422,6 +380,7 @@ actions:
   - action_calculate_score
   - action_suggest_majors_by_strengths
   - action_suggest_major_by_score_and_subjects
+  - action_detail_method
 
 
 session_config:

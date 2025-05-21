@@ -74,24 +74,6 @@ stories:
         intent: ask_standard_output_language
       - action: utter_standard_output_language
 
-  # Admission methods tests
-  - story: Test general admission methods information
-    steps:
-      - user: "các phương thức xét tuyển của CNTT là gì?"
-        intent: ask_admission_methods
-      - action: utter_admission_methods
-
-  - story: Test direct admission details
-    steps:
-      - user: "xét tuyển thẳng CNTT cần điều kiện gì?"
-        intent: ask_direct_admission_detail
-      - action: utter_direct_admission_detail
-
-  - story: Test special admission details
-    steps:
-      - user: "xét tuyển riêng CNTT là gì?"
-        intent: ask_xet_tuyen_rieng_detail
-      - action: utter_xet_tuyen_rieng_detail
 
   # FAQ tests
   - story: Test job opportunities information

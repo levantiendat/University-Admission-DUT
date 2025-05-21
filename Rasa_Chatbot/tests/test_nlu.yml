@@ -91,52 +91,17 @@ nlu:
     - yêu cầu ngoại ngữ đầu ra cntt ttnt
     - yêu cầu ngoại ngữ cntt khdl ttnt
 
-- intent: ask_admission_methods
-  examples: |
-    - có những hình thức xét tuyển CNTT nào?
-    - xét tuyển CNTT như thế nào?
-
 - intent: ask_admission_method_uni
   examples: |
     - các phương thức xét tuyển trường đại học bách khoa?
     - phương thức tuyển sinh bách khoa
     - tuyển sinh năm 2025 ra sao
 
-- intent: ask_direct_admission_detail
-  examples: |
-    - xét tuyển thẳng là gì?
-    - thông tin chi tiết phương thức xét tuyển thẳng
-    - điều kiện xét tuyển thẳng
-
-- intent: ask_xet_tuyen_rieng_detail
-  examples: |
-    - chi tiết phương thức xét tuyển riêng
-    - phương thức xét tuyển riêng là gì?
-    - điều kiện xét tuyển riêng
-
-- intent: ask_diem_thi_TN_THPT
-  examples: |
-    - phương thức xét tuyển bằng điểm thi tốt nghiệp thpt
-    - xét tuyển điểm thi tn thpt
-    - xét điểm thi tốt nghiệp thpt
-
 - intent: ask_admission_process
   examples: |
     - các đăng kí xét tuyển như thế nào?
     - cách đăng kí xét tuyển
     - cách đăng kí xét tuyển theo phương thức [xét tuyển riêng]
-
-- intent: ask_dgnl
-  examples: |
-    - phương thức xét điểm đánh giá năng lực
-    - xét tuyển bằng điểm đánh giá năng lực
-    - điểm thi đánh giá năng lực
-
-- intent: ask_dgtd
-  examples: |
-    - phương thức xét điểm thi đánh giá tư duy
-    - xét tuyển bằng điểm thi đánh giá tư duy
-    - điểm thi đánh giá tư duy
 
 - intent: ask_cntt_luu_y
   examples: |

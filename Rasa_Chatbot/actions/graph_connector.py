@@ -67,6 +67,16 @@ class GraphConnector:
         with self.driver.session() as session:
             result = session.run(query, {"method": method_keyword})
             return list(result)
+        
+    def get_detail_method(self, method_keyword: str):
+        query = """
+        MATCH (m:Method)
+        WHERE m.id = $method
+        RETURN m.name AS method, m.method_url AS methodUrl, m.description AS description, m.application_process AS application_process
+        """
+        with self.driver.session() as session:
+            result = session.run(query, {"method": method_keyword})
+            return list(result)
     
     def get_combination_subjects(self, major_keyword: str):
         query = """

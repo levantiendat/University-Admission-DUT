@@ -172,10 +172,6 @@ nlu:
     - yêu cầu ngoại ngữ cntt trí tuệ nhân tạo
 
 # ---------- PHƯƠNG THỨC XÉT TUYỂN & TỔ HỢP THI CHUNG ----------
-- intent: ask_admission_methods
-  examples: |
-    - có những hình thức xét tuyển CNTT nào?
-    - xét tuyển CNTT như thế nào?
 
 - intent: ask_admission_method_uni
   examples: |
@@ -189,35 +185,6 @@ nlu:
     - tuyển sinh năm 2025 ra sao
     - tuyển sinh năm 2025
     - tuyển sinh năm nay
-
-- intent: ask_direct_admission_detail
-  examples: |
-    - xét tuyển thẳng là gì?
-    - thông tin chi tiết phương thức xét tuyển thẳng
-    - thông tin phương thức xét tuyển thẳng
-    - điều kiện xét tuyển thẳng
-    - yêu cầu xét tuyển thẳng
-
-
-- intent: ask_xet_tuyen_rieng_detail
-  examples: |
-    - chi tiết phương thức xét tuyển riêng
-    - thông tin phương thức xét tuyển riêng
-    - thông tin chi tiết phương thức xét tuyển riêng
-    - điều kiện xét tuyển riêng
-    - yêu cầu xét tuyển riêng
-    - phương thức xét tuyển riêng là gì?
-    - phương thức xét tuyển riêng là như thế nào?
-
-- intent: ask_diem_thi_TN_THPT
-  examples: |
-    - phương thức xét tuyển bằng điểm thi tốt nghiệp thpt
-    - phương thức xét tuyển bằng điểm thi TN THPT
-    - xét tuyển bằng điểm thi tn thpt
-    - xét tuyển điểm thi tn thpt
-    - xét điểm thi tốt nghiệp thpt
-    - xét điểm thi tốt nghiệp trung học phổ thông
-    - xét tuyển bằng điểm thi tốt nghiệp trung học phổ thông
 
 - intent: ask_admission_process
   examples: |
@@ -240,43 +207,22 @@ nlu:
     - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi đánh giá tư duy](method)
     - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi TSA](method)
     - cách đăng kí xét tuyển vào trường đại học bách khoa
-    
 
-- intent: ask_dgnl
+- intent: ask_method_detail
   examples: |
-    - phương thức xét điểm đánh giá năng lực
-    - xét điểm đánh giá năng lực
-    - cách xét tuyển bằng điểm đánh giá năng lực
-    - xét tuyển bằng điểm đánh giá năng lực
-    - xét tuyển bằng điểm thi đánh giá năng lực
-    - xét tuyển bằng điểm thi đánh giá năng lực của đại học quốc gia
-    - xét tuyển bằng điểm thi đánh giá năng lực của đại học quốc gia tp.hcm
-    - xét điểm bằng điểm thi đánh giá năng lực
-    - xét điểm bằng điểm thi dgnl
-    - điểm thi đánh giá năng lực
-    - điểm thi dgnl
-    - điểm thi vact
-    - điểm thi dgnl của đại học quốc gia
-    - điểm thi dgnl của đại học quốc gia tp.hcm
-    - điểm thi vact của đại học quốc gia
-    - điểm thi vact của đại học quốc gia tp.hcm
-    - điểm thi vact của đại học quốc gia tp.hcm năm 2025
-
-- intent: ask_dgtd
-  examples: |
-    - phương thức xét điểm thi đánh giá tư duy
-    - xét điểm thi đánh giá tư duy
-    - cách xét tuyển bằng điểm thi đánh giá tư duy
-    - xét tuyển bằng điểm thi đánh giá tư duy
-    - xét tuyển bằng điểm thi đánh giá tư duy của đại học bách khoa hà nội
-    - xét tuyển bằng điểm thi đánh giá tư duy của đại học bách khoa hà nội năm 2025
-    - điểm thi đánh giá tư duy
-    - điểm thi đánh giá tư duy của đại học bách khoa hà nội
-    - điểm thi dgtd
-    - xét điểm thi dgtd
-    - xét điểm thi tsa
-    - phương thức xét điểm thi tsa
-    - phương thức xét điểm thi dgtd
+    - phương thức xét tuyển [điểm tốt nghiệp thpt](method)
+    - phương thức xét tuyển [học bạ thpt](method)
+    - phương thức xét tuyển theo [xét tuyển thẳng](method)
+    - phương thức xét tuyển theo [đánh giá tư duy](method)
+    - phương thức xét tuyển theo [đánh giá năng lực](method)
+    - phương thức xét tuyển theo [xét tuyển riêng](method)
+    - chi tiết phương thức xét tuyển theo [điểm tốt nghiệp thpt](method)
+    - chi tiết phương thức xét tuyển theo [học bạ thpt](method)
+    - chi tiết về xét tuyển theo [đánh giá năng lực](method)
+    - chi tiết về xét tuyển theo [đánh giá tư duy](method)
+    - chi tiết về xét tuyển theo [tsa](method)
+    - chi tiết về xét tuyển theo [xét tuyển riêng](method)
+    - chi tiết về xét tuyển theo [vact](method)
 
 - intent: ask_cntt_luu_y
   examples: |

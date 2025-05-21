@@ -4,7 +4,7 @@ import time
 import socket
 import requests
 
-MODEL_PATH = "models/20250517-204322-leather-phantasm.tar.gz"
+MODEL_PATH = "models/20250521-232311-booming-quetzal.tar.gz"
 NGROK_AUTH_TOKEN = "2vn6H02jcPXaZY8MnH7ziimHO0v_4eyF1uzWGLXHCCKod2ceG"
 NGROK_DOMAIN = "cockatoo-cheerful-factually.ngrok-free.app"
 RASA_PORT = 5005
