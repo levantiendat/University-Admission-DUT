@@ -79,7 +79,8 @@
                   <tr class="bg-primary text-white">
                     <th scope="col" class="text-center" style="width: 5%">STT</th>
                     <th scope="col" style="width: 10%">Mã ngành</th>
-                    <th scope="col" style="width: 25%">Tên ngành</th>
+                    <th scope="col" style="width: 20%">Tên ngành</th>
+                    <th scope="col" class="text-center" style="width: 5%">Thao tác</th>
                     <th scope="col" class="text-center" style="width: 10%">Chỉ tiêu</th>
                     <template v-for="method in admissionMethods" :key="method.id">
                       <th scope="col" class="text-center" style="width: auto">
@@ -97,6 +98,15 @@
                       <td class="text-center">{{ index + 1 }}</td>
                       <td>{{ major.major_code }}</td>
                       <td class="fw-medium">{{ major.name }}</td>
+                      <td class="text-center">
+                        <router-link 
+                          :to="{ name: 'MajorDetail', params: { id: major.id }}" 
+                          class="btn btn-sm btn-info text-white info-button"
+                          aria-label="Xem thông tin chi tiết về ngành"
+                        >
+                          <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
+                        </router-link>
+                      </td>
                       <td class="text-center fw-bold">
                         {{ major.seats }}
                       </td>
@@ -244,9 +254,14 @@
 
 <script>
 import AdmissionController from '@/controllers/admissionController'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'AdmissionView',
+  setup() {
+    const router = useRouter()
+    return { router }
+  },
   data() {
     return {
       majors: [],
@@ -487,6 +502,26 @@ export default {
   padding: 1rem 0;
 }
 
+/* Nút thông tin mới được thêm vào */
+.info-button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0d47a1;
+  border-color: #0d47a1;
+  transition: all 0.2s;
+}
+
+.info-button:hover, .info-button:focus {
+  background-color: #083378;
+  border-color: #083378;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
 /* Accessibility - hidden visually but available for screen readers */
 .visually-hidden {
   position: absolute;
@@ -517,6 +552,11 @@ export default {
     font-size: 1rem;
     width: 1.75rem;
     height: 1.75rem;
+  }
+  
+  .info-button {
+    width: 24px;
+    height: 24px;
   }
 }
 </style>
