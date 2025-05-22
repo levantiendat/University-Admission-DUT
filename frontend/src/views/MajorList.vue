@@ -104,7 +104,7 @@
                       </div>
                       <div class="d-grid gap-1">
                         <div class="btn-group btn-group-sm">
-                          <button class="btn btn-outline-primary btn-sm py-0" @click="showMajorQuickView(major.id)">
+                          <button class="btn btn-outline-primary btn-sm py-0" @click="showMajorInfo(major.id)">
                             <i class="bi bi-eye" aria-hidden="true"></i> Xem
                           </button>
                           <router-link :to="{ name: 'MajorDetail', params: { id: major.id }}" class="btn btn-primary btn-sm py-0">
@@ -149,7 +149,7 @@
                         </td>
                         <td class="text-center">
                           <div class="d-flex justify-content-center flex-wrap gap-1">
-                            <button class="btn btn-sm btn-outline-primary py-0" @click="showMajorQuickView(major.id)">
+                            <button class="btn btn-sm btn-outline-primary py-0" @click="showMajorInfo(major.id)">
                               <i class="bi bi-eye" aria-hidden="true"></i> Xem
                             </button>
                             <router-link :to="{ name: 'MajorDetail', params: { id: major.id }}" class="btn btn-sm btn-primary py-0">
@@ -234,126 +234,25 @@
       </article>
     </div>
     
-    <!-- Improved Quick View Modal -->
-    <div class="modal fade" id="majorQuickViewModal" tabindex="-1" aria-labelledby="majorModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg modal-fullscreen-md-down">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white py-2">
-            <h2 class="modal-title h6" id="majorModalLabel">
-              <i class="bi bi-mortarboard-fill me-1" aria-hidden="true"></i>
-              {{ selectedMajor ? selectedMajor.name : 'Thông tin ngành' }}
-            </h2>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body p-0">
-            <!-- Loading State -->
-            <div v-if="loadingMajorDetail" class="text-center p-3" role="status" aria-live="polite">
-              <div class="spinner-border text-primary spinner-border-sm" aria-hidden="true"></div>
-              <p class="mt-2 small">Đang tải thông tin chi tiết ngành...</p>
-            </div>
-            
-            <!-- Major Detail Content -->
-            <div v-else-if="selectedMajor" class="p-2 p-md-3">
-              <!-- Major Header Info -->
-              <div class="row g-2 mb-3">
-                <div class="col-md-8">
-                  <h3 class="major-name mb-1 fs-5">{{ selectedMajor.name }}</h3>
-                  <p class="mb-1">
-                    <span class="badge bg-secondary me-1">Mã: {{ selectedMajor.major_code }}</span>
-                    <span class="badge bg-info">Khoa: {{ selectedMajor.faculty_name }}</span>
-                  </p>
-                  <div class="major-description mt-2">
-                    <h4 class="text-primary mb-1 fs-6">Mô tả ngành:</h4>
-                    <p class="small">{{ selectedMajor.description || 'Chưa có mô tả cho ngành này.' }}</p>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="detail-card quota mb-2">
-                    <div class="detail-card-title">
-                      <i class="bi bi-people-fill me-1" aria-hidden="true"></i> Chỉ tiêu 2025
-                    </div>
-                    <div class="detail-card-value">{{ selectedMajor.seats }}</div>
-                  </div>
-                  <div class="detail-card methods">
-                    <div class="detail-card-title">
-                      <i class="bi bi-check2-square me-1" aria-hidden="true"></i> Phương thức xét tuyển
-                    </div>
-                    <div class="detail-card-value">{{ majorMethods?.length || 0 }}</div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Phương thức xét tuyển -->
-              <section class="quick-view-section" aria-labelledby="admission-methods-heading">
-                <h4 id="admission-methods-heading" class="section-heading fs-6">
-                  <i class="bi bi-list-check me-1" aria-hidden="true"></i>
-                  Các phương thức xét tuyển
-                </h4>
-                <div class="method-cards">
-                  <div v-for="method in majorMethods" :key="method.admission_methods_id" class="method-card">
-                    <div class="method-name small">{{ method.name }}</div>
-                  </div>
-                </div>
-              </section>
-              
-              <!-- Tổ hợp xét tuyển -->
-              <section class="quick-view-section" aria-labelledby="subject-groups-heading">
-                <h4 id="subject-groups-heading" class="section-heading fs-6">
-                  <i class="bi bi-grid-3x3-gap me-1" aria-hidden="true"></i>
-                  Tổ hợp xét tuyển
-                </h4>
-                <div class="subject-groups">
-                  <div v-for="(groupInfo, idx) in majorSubjectGroups" :key="idx" class="subject-group-section">
-                    <h5 class="method-name mb-1 small fw-bold">{{ groupInfo.method_name }}</h5>
-                    <div class="group-cards">
-                      <div v-for="group in groupInfo.groups" :key="group.id" class="group-card">
-                        {{ group.name }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              
-              <!-- Điểm chuẩn các năm trước -->
-              <section class="quick-view-section" aria-labelledby="previous-scores-heading">
-                <h4 id="previous-scores-heading" class="section-heading fs-6">
-                  <i class="bi bi-bar-chart-line me-1" aria-hidden="true"></i>
-                  Điểm chuẩn các năm trước
-                </h4>
-                <div class="previous-scores">
-                  <div v-for="(scores, year) in majorPreviousScores" :key="year" class="score-year-section">
-                    <h5 class="year-title small fw-bold">Năm {{ year }}</h5>
-                    <div class="score-cards">
-                      <div v-for="(score, idx) in scores" :key="idx" class="score-card">
-                        <div class="method-name small">{{ score.method_name }}</div>
-                        <div class="score-value">{{ score.score }}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              
-              <!-- View Detail Button -->
-              <div class="text-center mt-3">
-                <router-link :to="{ name: 'MajorDetail', params: { id: selectedMajor.id }}" class="btn btn-primary btn-sm">
-                  <i class="bi bi-info-circle-fill me-1" aria-hidden="true"></i> Xem thông tin chi tiết
-                </router-link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Information Widget (Replaces the Modal) -->
+    <MajorInfoWidget 
+      :majorId="selectedMajorId" 
+      :visible="showInfoWidget"
+      @close="hideInfoWidget"
+    />
   </div>
 </template>
 
 <script>
-// Script section remains the same as original
 import { ref, computed, onMounted } from 'vue'
 import DetailMajorController from '@/controllers/DetailMajorController'
+import MajorInfoWidget from '@/components/MajorQuickView.vue'
 
 export default {
   name: 'MajorList',
+  components: {
+    MajorInfoWidget
+  },
   setup() {
     // States
     const majors = ref([])
@@ -363,13 +262,9 @@ export default {
     const loading = ref(true)
     const error = ref(null)
     
-    // Quick view state
-    const selectedMajor = ref(null)
-    const majorMethods = ref([])
-    const majorSubjectGroups = ref([])
-    const majorPreviousScores = ref({})
-    const majorAdmissionDescriptions = ref(null)
-    const loadingMajorDetail = ref(false)
+    // Info widget state (replaces modal state)
+    const selectedMajorId = ref(null)
+    const showInfoWidget = ref(false)
     
     // Computed properties
     const filteredMajors = computed(() => {
@@ -432,69 +327,16 @@ export default {
       }
     }
     
-    const showMajorQuickView = async (majorId) => {
-      try {
-        loadingMajorDetail.value = true
-        
-        // Lấy thông tin chi tiết để hiển thị trong modal
-        const majorDetail = await DetailMajorController.getMajorDetail(majorId)
-        selectedMajor.value = majorDetail
-        
-        // Lấy các phương thức xét tuyển
-        majorMethods.value = await DetailMajorController.getMajorAdmissionMethods(majorId)
-        
-        // Lấy điểm chuẩn các năm trước
-        majorPreviousScores.value = await DetailMajorController.getPreviousAdmissionScores(majorId)
-        
-        // Lấy tổ hợp thi cho phương thức xét tuyển điểm thi THPT và học bạ
-        const thptMethod = majorMethods.value.find(m => m.admission_methods_id === 6)
-        const hocbaMethod = majorMethods.value.find(m => m.admission_methods_id === 3)
-        
-        const subjectGroupsPromises = []
-        if (thptMethod) {
-          subjectGroupsPromises.push(
-            DetailMajorController.getMajorSubjectGroups(majorId, 6)
-              .then(groups => ({
-                admission_method_id: 6,
-                method_name: thptMethod.name,
-                groups
-              }))
-              .catch(() => ({
-                admission_method_id: 6,
-                method_name: thptMethod.name,
-                groups: []
-              }))
-          )
-        }
-        
-        if (hocbaMethod) {
-          subjectGroupsPromises.push(
-            DetailMajorController.getMajorSubjectGroups(majorId, 3)
-              .then(groups => ({
-                admission_method_id: 3,
-                method_name: hocbaMethod.name,
-                groups
-              }))
-              .catch(() => ({
-                admission_method_id: 3,
-                method_name: hocbaMethod.name,
-                groups: []
-              }))
-          )
-        }
-        
-        majorSubjectGroups.value = await Promise.all(subjectGroupsPromises)
-        
-        // Hiển thị modal
-        const modal = new bootstrap.Modal(document.getElementById('majorQuickViewModal'))
-        modal.show()
-        
-      } catch (err) {
-        console.error('Lỗi khi lấy thông tin chi tiết ngành:', err)
-        error.value = 'Đã xảy ra lỗi khi tải thông tin chi tiết ngành.'
-      } finally {
-        loadingMajorDetail.value = false
-      }
+    // Show info widget (replaces showMajorQuickView)
+    const showMajorInfo = (majorId) => {
+      selectedMajorId.value = majorId
+      showInfoWidget.value = true
+    }
+    
+    // Hide info widget
+    const hideInfoWidget = () => {
+      showInfoWidget.value = false
+      selectedMajorId.value = null
     }
     
     const resetFilters = () => {
@@ -517,13 +359,10 @@ export default {
       filteredMajors,
       totalSeats,
       resetFilters,
-      showMajorQuickView,
-      selectedMajor,
-      majorMethods,
-      majorSubjectGroups,
-      majorPreviousScores,
-      majorAdmissionDescriptions,
-      loadingMajorDetail
+      selectedMajorId,
+      showInfoWidget,
+      showMajorInfo,
+      hideInfoWidget
     }
   }
 }
