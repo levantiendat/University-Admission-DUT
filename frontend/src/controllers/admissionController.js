@@ -37,6 +37,7 @@ const AdmissionController = {
 
         // Trả về thông tin ngành kèm trạng thái phương thức và thông tin khoa
         return {
+          id: major.id,
           major_code: major.major_code,
           name: major.name,
           seats: major.seats,
