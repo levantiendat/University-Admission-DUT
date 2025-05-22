@@ -1033,19 +1033,19 @@ class ActionSuggestMajorByScoreAndSubjects(Action):
         """
         Tạo thông điệp phản hồi từ kết quả đã nhóm
         """
-        message = f"📊 **Các ngành phù hợp với điểm {score} theo phương thức {method} và tổ hợp môn {subjects_str}:**\n\n"
+        message = f"📊 Các ngành phù hợp với điểm {score} theo phương thức {method} và tổ hợp môn {subjects_str}:\n\n"
         
         # Thông tin về các nhóm
         group_info = {
-            "high": "🔥 **Tỷ lệ đỗ cao**",
-            "medium": "⚡ **Tỷ lệ đỗ trung bình**",
-            "low": "⚠️ **Tỷ lệ đỗ thấp**"
+            "high": "🔥 Tỷ lệ đỗ cao",
+            "medium": "⚡ Tỷ lệ đỗ trung bình",
+            "low": "⚠️ Tỷ lệ đỗ thấp"
         }
         
         group_desc = {
-            "high": "*(Điểm chuẩn gần với điểm của bạn, chênh lệch rất ít)*",
-            "medium": "*(Điểm chuẩn cách điểm của bạn một khoảng vừa phải)*", 
-            "low": "*(Điểm chuẩn cách điểm của bạn khá xa)*"
+            "high": "(Điểm chuẩn gần với điểm của bạn, chênh lệch rất ít)",
+            "medium": "(Điểm chuẩn cách điểm của bạn một khoảng vừa phải)", 
+            "low": "(Điểm chuẩn cách điểm của bạn khá xa)"
         }
         
         for group in grouped_results:

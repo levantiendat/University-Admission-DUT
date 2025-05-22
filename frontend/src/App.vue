@@ -104,21 +104,15 @@
                 <li><router-link class="dropdown-item" to="/statistics/pre-admitted-student" @click="closeMainMenu">Thống kê sinh viên nhập học</router-link></li>
               </ul>
             </li>
-            <li class="nav-item dropdown menu-item" :class="{'open': activeSubmenu === 'ctdt'}">
-              <a 
-                class="nav-link dropdown-toggle custom-dropdown" 
-                href="#" 
-                role="button" 
-                aria-expanded="false" 
-                aria-haspopup="true"
-                @click.prevent="toggleSubmenu('ctdt')"
+            <li class="nav-item menu-item">
+              <router-link 
+                class="nav-link custom-nav-link" 
+                to="/ctdt" 
+                aria-label="Chương trình đào tạo" 
+                @click="closeMainMenu"
               >
                 <i class="bi bi-laptop-fill me-1"></i> <span>CTĐT</span>
-              </a>
-              <ul class="custom-dropdown-menu" :class="{'show-mobile': activeSubmenu === 'ctdt'}">
-                <li><router-link class="dropdown-item" to="/ctdt" @click="closeMainMenu">Danh sách chương trình đào tạo</router-link></li>
-                <li><router-link class="dropdown-item" to="/ctdt/1" @click="closeMainMenu">Khoa Công nghệ thông tin</router-link></li>
-              </ul>
+              </router-link>
             </li>
 
             <!-- Nếu đã đăng nhập -->

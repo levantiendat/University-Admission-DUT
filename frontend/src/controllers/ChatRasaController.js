@@ -244,7 +244,7 @@ export default {
       if (!text) continue;
       
       // Check if this is a header
-      if (text.includes('**Các ngành phù hợp với điểm')) {
+      if (text.includes('Các ngành phù hợp với điểm')) {
         // Create first category for introduction
         currentCategory = {
           title: text,
@@ -254,7 +254,7 @@ export default {
       }
       
       // Check if this is a category header (high/medium chance)
-      else if (text.includes('**Tỷ lệ đỗ cao**') || text.includes('**Tỷ lệ đỗ trung bình**')) {
+      else if (text.includes('Tỷ lệ đỗ cao') || text.includes('Tỷ lệ đỗ trung bình')) {
         // Start a new category
         currentCategory = {
           title: text,
