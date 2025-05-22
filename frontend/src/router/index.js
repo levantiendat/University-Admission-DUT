@@ -24,34 +24,22 @@ import Admission_DGTD from '@/views/DGTDView.vue'
 import preAdmission from '@/views/preAdmission.vue'
 import preAdmittedStudent from '@/views/preAdmittedStudent.vue'
 import UserController from '@/controllers/userController'
-
-// Admin pages import
 import AdminLayout from '@/views/admins/AdminLayout.vue'
 import AdminHome from '@/views/admins/AdminHome.vue'
-
-// Admin User Management
 import AdminUsers from '@/views/admins/AdminUsers.vue'
 import AdminUserDetail from '@/views/admins/AdminUserDetail.vue'
 import AdminUserCreate from '@/views/admins/AdminUserCreate.vue'
-
-// Admin Faculty Management
 import AdminFaculties from '@/views/admins/AdminFaculties.vue'
 import AdminFacultyDetail from '@/views/admins/AdminFacultyDetail.vue'
 import AdminFacultyCreate from '@/views/admins/AdminFacultyCreate.vue'
-
-// Admin Major Management
 import AdminMajors from '@/views/admins/AdminMajors.vue'
 import AdminMajorDetail from '@/views/admins/AdminMajorDetail.vue'
 import AdminMajorCreate from '@/views/admins/AdminMajorCreate.vue'
-
-// Add these import lines after the existing imports
 import AdminAdmissionMethods from '@/views/admins/AdminAdmissionMethods.vue'
 import AdminAdmissionMethodDetail from '@/views/admins/AdminAdmissionMethodDetail.vue'
 import AdminAdmissionMethodCreate from '@/views/admins/AdminAdmissionMethodCreate.vue'
 import AdminAdmissionMethodMajors from '@/views/admins/AdminAdmissionMethodMajors.vue'
 import AdminMajorAdmissionMethods from '@/views/admins/AdminMajorAdmissionMethods.vue'
-
-// Add these import lines
 import AdminSubjects from '@/views/admins/AdminSubjects.vue'
 import AdminSubjectCreate from '@/views/admins/AdminSubjectCreate.vue'
 import AdminSubjectDetail from '@/views/admins/AdminSubjectDetail.vue'
@@ -147,13 +135,13 @@ const normalRoutes = [
     path: '/calculatescore/hb', 
     name: 'CalculateScoreHB', 
     component: CalculateScoreHB, 
-    meta: { title: 'Tính điểm xét tuyển học bạ THPT' } 
+    meta: {requiresAuth: true, title: 'Tính điểm xét tuyển học bạ THPT' } 
   },
   { 
     path: '/calculatescore/thpt', 
     name: 'CalculateScoreTHPT', 
     component: CalculateScoreTHPT, 
-    meta: { title: 'Tính điểm xét tuyển thi THPT' } 
+    meta: {requiresAuth: true, title: 'Tính điểm xét tuyển thi THPT' } 
   },
   { 
     path: '/major', 
