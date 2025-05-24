@@ -10,13 +10,13 @@
         <div class="view-controls">
           <div class="display-type">
             <button 
-              :class="['btn', viewMode === 'table' ? 'btn-primary' : 'btn-outline-primary']" 
+              :class="['btn', viewMode === 'table' ? 'btn-success' : 'btn-outline-success']" 
               @click="setViewMode('table')"
             >
               <i class="fas fa-table"></i> Xem dạng bảng
             </button>
             <button 
-              :class="['btn', viewMode === 'chart' ? 'btn-primary' : 'btn-outline-primary']" 
+              :class="['btn', viewMode === 'chart' ? 'btn-success' : 'btn-outline-success']" 
               @click="setViewMode('chart')"
             >
               <i class="fas fa-chart-bar"></i> Xem dạng biểu đồ
@@ -1609,7 +1609,7 @@ export default {
 }
 
 .header-section {
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg,#2a8eec , #6d4d08, #0820f3);
   padding: 1rem 0;
   margin-bottom: 1rem;
   border-bottom: 1px solid #e9ecef;
@@ -1618,11 +1618,11 @@ export default {
 .main-title {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
-  color: #343a40;
+  color: #bfc794;
 }
 
 .subtitle {
-  color: #6c757d;
+  color: #eff2f5;
   margin-bottom: 1rem;
   font-size: 0.95rem;
 }
@@ -1758,5 +1758,213 @@ export default {
     page-break-inside: avoid;
     margin-bottom: 1cm;
   }
+}
+
+/* Styles cho bảng dữ liệu điểm chuẩn - Phong cách du lịch giáo dục */
+.table-responsive {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.table {
+  font-family: 'Quicksand', 'Segoe UI', sans-serif;
+  background-color: #ffffff;
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Thiết kế tiêu đề chính */
+.table thead tr:first-child th {
+  background: linear-gradient(135deg, #1a6fc4, #0d4e8d);
+  color: #ffffff;
+  padding: 15px 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  border: none;
+}
+
+/* Thiết kế tiêu đề năm */
+.table thead tr.bg-info th {
+  background: linear-gradient(135deg, #ffd146, #ffbd00) !important;
+  color: #2d3748 !important;
+  font-weight: bold;
+  padding: 10px 8px;
+  font-size: 0.9rem;
+  border: none;
+  position: relative;
+}
+
+/* Hiệu ứng gợn sóng cho tiêu đề năm */
+.table thead tr.bg-info th::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, 
+    rgba(255,255,255,0.1) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(255,255,255,0.1) 50%, 
+    rgba(255,255,255,0.1) 75%, 
+    transparent 75%, 
+    transparent);
+  background-size: 6px 6px;
+}
+
+/* Tiêu đề phương thức */
+.method-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.method-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Định dạng các hàng trong bảng */
+.table tbody tr {
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(232, 244, 253, 0.7) !important;
+  border-left: 3px solid #1a6fc4;
+  transform: translateX(2px);
+}
+
+/* Định dạng các ô trong bảng */
+.table tbody td {
+  padding: 12px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  font-size: 0.95rem;
+}
+
+/* Kiểu cho cột STT */
+.table tbody td:first-child {
+  font-weight: bold;
+  background-color: #f8fafc;
+  text-align: center;
+}
+
+/* Kiểu cho cột tên ngành */
+.table tbody td:nth-child(2) {
+  min-width: 200px;
+  font-weight: 500;
+  color: #1a6fc4;
+}
+
+/* Kiểu cho cột mã ngành */
+.table tbody td:nth-child(3) {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #2d3748;
+  background-color: #f8fafc;
+  text-align: center;
+}
+
+/* Định dạng điểm số */
+.score-highlight {
+  font-weight: bold;
+  color: #1334f3;
+  font-size: 1.05rem;
+  background: linear-gradient(to bottom, #fff176, #ffd54f);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Thêm hiệu ứng khung nổi cho điểm */
+.table tbody td:nth-child(n+4):hover {
+  background-color: #ebf8ff;
+}
+
+/* Thêm biểu tượng cho những bản ghi không có điểm */
+.table td span:empty::before {
+  content: "—";
+  color: #a0aec0;
+}
+
+/* Bổ sung hiệu ứng màu sắc xen kẽ theo ngành */
+.table tbody tr:nth-child(4n+1),
+.table tbody tr:nth-child(4n+2) {
+  background-color: #ffffff;
+}
+
+.table tbody tr:nth-child(4n+3),
+.table tbody tr:nth-child(4n+4) {
+  background-color: #f7fafc;
+}
+
+/* Thêm biểu tượng cho phần lọc */
+.filters {
+  background: linear-gradient(to right, #e6f2ff, #ffffff);
+  border-left: 5px solid #1a6fc4;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Làm đẹp cho các phần tử lọc */
+.form-select, .form-control {
+  border-radius: 6px;
+  border: 1px solid #cbd5e0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  font-family: 'Quicksand', 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.form-select:focus, .form-control:focus {
+  border-color: #1a6fc4;
+  box-shadow: 0 0 0 3px rgba(26, 111, 196, 0.2);
+}
+
+/* Định dạng nhãn Form */
+.form-group label {
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+/* Thiết kế responsive */
+@media (max-width: 992px) {
+  .table {
+    font-size: 0.9rem;
+  }
+  
+  .table thead tr:first-child th {
+    padding: 10px 5px;
+    font-size: 0.9rem;
+  }
+  
+  .score-highlight {
+    padding: 2px 4px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Thêm animation cho điểm nổi bật khi hover */
+.score-highlight {
+  transition: all 0.2s ease;
+}
+
+.score-highlight:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 </style>
