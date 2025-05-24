@@ -96,3 +96,16 @@ rules:
     steps:
     - intent: ask_method_detail
     - action: action_detail_method
+
+
+  - rule: Handle subject scores queries alternative
+    steps:
+    - intent: ask_check_major_admission_with_subject_scores
+    - action: action_check_major_admission_with_subject_scores
+
+  - rule: Restart after multiple fallbacks
+    condition:
+    - slot_was_set:
+        - fallback_count: 3
+    steps:
+    - action: action_restart

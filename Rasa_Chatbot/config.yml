@@ -21,7 +21,7 @@ pipeline:
   - name: ResponseSelector
     epochs: 200
   - name: FallbackClassifier
-    threshold: 0.35
+    threshold: 0.6
     ambiguity_threshold: 0.1
     fallback_intent_name: "nlu_fallback"
 

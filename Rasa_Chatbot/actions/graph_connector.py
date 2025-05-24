@@ -1,4 +1,5 @@
 from neo4j import GraphDatabase
+import re
 
 class GraphConnector:
     def __init__(self):
@@ -186,6 +187,7 @@ class GraphConnector:
                     "major_id": record["major_id"],
                     "name": record["name"],
                     "quota": record["quota"],
+                    "majorUrl": record["majorUrl"],
                     "found": True
                 }
         
@@ -194,6 +196,7 @@ class GraphConnector:
                 "major_id": major_id,
                 "name": None,
                 "quota": None,
+                "majorUrl": None,
                 "found": False
             }
         
@@ -609,6 +612,31 @@ class GraphConnector:
     
         return result
     
+    def get_faculty_name_by_id(self, faculty_id: int) -> str:
+        """
+        Lấy tên khoa từ ID khoa
+    
+        Args:
+            faculty_id (int): ID của khoa
+        
+        Returns:
+            str: Tên của khoa hoặc None nếu không tìm thấy
+        """
+        query = """
+        MATCH (f:Faculty)
+        WHERE f.id = $faculty_id
+        RETURN f.name AS faculty_name
+        """
+    
+        try:
+            with self.driver.session() as session:
+                result = session.run(query, {"faculty_id": faculty_id})
+                record = result.single()
+                return record["faculty_name"] if record else None
+        except Exception as e:
+            print(f"Error querying faculty name: {str(e)}")
+            return None
+    
     def get_majors_by_score_method_and_faculty(self, score: float, method_id: str, faculty_id: str) -> list:
         """
         Gợi ý các ngành thuộc một khoa cụ thể phù hợp với điểm số của thí sinh dựa trên phương thức xét tuyển
@@ -639,40 +667,40 @@ class GraphConnector:
     
         # Truy vấn để lấy các ngành thuộc khoa cụ thể và quy đổi điểm chuẩn theo tỷ lệ 1:4
         query = """
-        MATCH (f:Faculty)<-[:MajorInFaculty]-(m:Major)-[r:HAS_CUTOFF]->(c:Cutoff)
-        WHERE f.id = $faculty_id
-        AND c.method = $method_id 
-        AND c.year IN [2023, 2024]
-    
-        WITH m, c, f,
-         CASE 
-             WHEN c.year = 2023 THEN c.score * 0.2  // 20% trọng số cho 2023
-             WHEN c.year = 2024 THEN c.score * 0.8  // 80% trọng số cho 2024
-             ELSE 0
-         END AS weighted_score
-    
-        WITH m.id AS major_id, 
-         m.name AS major_name,
-            m.major_url AS majorUrl,
-         f.name AS faculty_name,
-         SUM(weighted_score) AS avg_cutoff
-    
-        RETURN 
-            major_id, 
-            major_name,
-            majorUrl,
-            faculty_name,
-            avg_cutoff,
-            ABS(avg_cutoff - $score) AS score_diff
-        ORDER BY score_diff
-        """
+    MATCH (f:Faculty)<-[:MajorInFaculty]-(m:Major)-[r:HAS_CUTOFF]->(c:Cutoff)
+    WHERE f.id = $faculty_id
+    AND c.method = $method_id 
+    AND c.year IN [2023, 2024]
+
+    WITH m, c,
+    CASE 
+        WHEN c.year = 2023 THEN c.score * 0.2
+        WHEN c.year = 2024 THEN c.score * 0.8
+        ELSE 0
+    END AS weighted_score
+
+    WITH m.id AS major_id, 
+        m.name AS major_name,
+        m.major_url AS majorUrl,
+        SUM(weighted_score) AS avg_cutoff
+
+    // Thêm LIMIT để giảm số lượng kết quả
+    RETURN 
+        major_id, 
+        major_name,
+        majorUrl,
+        avg_cutoff,
+        ABS(avg_cutoff - $score) AS score_diff
+    ORDER BY score_diff
+    LIMIT 15
+    """
     
         try:
             with self.driver.session() as session:
                 result = session.run(query, {
                     "faculty_id": faculty_id,
                     "method_id": method_id, 
-                    "score": score
+                    "score": score,
                 })
                 results = list(result)
             

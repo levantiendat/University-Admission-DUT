@@ -5,8 +5,7 @@ from actions.graph_connector import GraphConnector
 from actions.mapping_utils import normalize_major, normalize_method, normalize_achievement_field, normalize_subject, normalize_faculty  # Import các hàm tiện ích
 from actions.mapping_utils import normalize_student_interests, normalize_personality_strengths, normalize_achievement_field, normalize_subjects_strengths, comprehensive_major_suggestion, MAJOR_MAPPING
 import logging
-from rasa_sdk.events import SlotSet
-from rasa_sdk.events import FollowupAction
+from rasa_sdk.events import SlotSet, FollowupAction, AllSlotsReset, ActionExecuted
 
 # Cấu hình logging
 logging.basicConfig(
@@ -348,39 +347,31 @@ class ActionSuggestMajorByAchievement(Action):
         return []
 
 class ActionDefaultFallback(Action):
-    def name(self) -> str:
+    def name(self) -> Text:
         return "action_default_fallback"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict) -> List[Dict]:
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        # Lấy giá trị hiện tại của fallback_count, mặc định là 0
+        current_count = tracker.get_slot("fallback_count") or 0
         
-        # Đếm số lần fallback liên tiếp
-        fallback_count = 0
-        for event in reversed(tracker.events):
-            if event.get("name") == "action_default_fallback":
-                fallback_count += 1
-            elif event.get("name") not in ["action_listen", None]:
-                break
+        # Tăng counter
+        new_count = current_count + 1
         
-        if fallback_count >= 2:
-            # Nếu fallback nhiều lần liên tiếp -> đề nghị chuyển người hỗ trợ
-            dispatcher.utter_message(
-                text="Có vẻ như tôi không thể trả lời câu hỏi của bạn. "
-                     "Bạn muốn được kết nối với cán bộ tư vấn tuyển sinh không?")
-            
-            # Đặt một slot để theo dõi yêu cầu handoff
-            return [SlotSet("handoff_requested", True)]
+        # Phản hồi tùy theo số lần fallback
+        if new_count >= 3:
+            message = "Có vẻ như tôi không thể hiểu được nhiều câu hỏi liên tiếp. Tôi sẽ khởi động lại cuộc trò chuyện."
         else:
-            # Fallback thông thường với gợi ý
-            dispatcher.utter_message(
-                text="Xin lỗi, tôi không hiểu ý của bạn. Bạn có thể thử các câu hỏi như:\n"
-                     "- Điểm chuẩn ngành Công nghệ thông tin năm 2024?\n"
-                     "- Ngành CNTT đặc thù là gì?\n"
-                     "- Tổ hợp môn xét tuyển ngành CNTT?\n"
-                     "- Các phương thức xét tuyển năm nay là gì?")
-            
-            return []
+            message = "Xin lỗi, tôi không hiểu ý của bạn. Bạn có thể thử các câu hỏi như:\n- Điểm chuẩn ngành CNTT?\n- Ngành nào phù hợp với tôi?"
+        
+        dispatcher.utter_message(text=message)
+        
+        # Trả về new_count để cập nhật slot
+        return [SlotSet("fallback_count", new_count)]
 
 # Thêm action handoff đã điều chỉnh
 class ActionHandoffToHuman(Action):
@@ -1201,6 +1192,239 @@ class ActionCalculateScore(Action):
         
         return message
     
+class ActionCheckMajorAdmissionWithSubjectScores(Action):
+    def name(self) -> str:
+        return "action_check_major_admission_with_subject_scores"
+
+    def __init__(self):
+        self.db = GraphConnector()
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        # Lấy tên ngành từ entity
+        major_entity = next(tracker.get_latest_entity_values("major"), None)
+        
+        # Lấy phương thức từ entity hoặc slot
+        method_entity = next(tracker.get_latest_entity_values("method"), None)
+        method_slot = tracker.get_slot("method")
+        method = method_entity or method_slot
+        
+        # Lấy điểm các môn từ entities
+        subject_entities = list(tracker.get_latest_entity_values("subject"))
+        score_entities = list(tracker.get_latest_entity_values("score"))
+            
+        # Kiểm tra nếu thiếu thông tin
+        missing_info = []
+        if not major_entity:
+            missing_info.append("tên ngành cụ thể bạn muốn kiểm tra")
+        if not method:
+            missing_info.append("phương thức xét tuyển")
+        if not subject_entities or len(subject_entities) < 3:
+            missing_info.append("ít nhất 3 môn học trong tổ hợp")
+        if not score_entities or len(score_entities) < 3:
+            missing_info.append("điểm số tương ứng cho mỗi môn")
+            
+        if missing_info:
+            missing_str = ", ".join(missing_info)
+            message = f"❓ Vui lòng cung cấp {missing_str} để tôi có thể đánh giá khả năng trúng tuyển."
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Chuẩn hóa method để lấy ID
+        method_id = normalize_method(method)
+        
+        if not method_id:
+            method_str = method if method else "không xác định"
+            message = f"❌ Tôi không nhận ra phương thức '{method_str}'. Vui lòng thử lại với phương thức xét điểm thi tốt nghiệp hoặc xét học bạ."
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Chuẩn hóa tên ngành để lấy ID
+        major_keyword = normalize_major(major_entity)
+        
+        if not major_keyword:
+            message = f"❌ Không tìm thấy thông tin về ngành \"{major_entity}\". Vui lòng kiểm tra lại tên ngành."
+            dispatcher.utter_message(text=message)
+            return []
+        
+        # Chuẩn hóa các môn học và tính tổng điểm
+        normalized_subjects = []
+        subject_scores = {}  # Dictionary môn học và điểm
+        
+        # Chuẩn hóa tên môn và điểm
+        for i, subject in enumerate(subject_entities):
+            if i >= len(score_entities):
+                break
+                
+            # Chuẩn hóa tên môn học
+            normalized_subject = normalize_subject(subject)
+            if not normalized_subject:
+                continue
+                
+            # Chuyển điểm số thành float
+            try:
+                score = float(score_entities[i])
+                # Đảm bảo điểm nằm trong khoảng hợp lệ (0-10)
+                if 0 <= score <= 10:
+                    # Làm tròn đến 2 chữ số thập phân
+                    subject_scores[normalized_subject] = round(score, 2)
+                    if normalized_subject not in normalized_subjects:
+                        normalized_subjects.append(normalized_subject)
+            except ValueError:
+                continue
+        
+        # Nếu không có đủ 3 môn hợp lệ
+        if len(subject_scores) < 3 or len(normalized_subjects) < 3:
+            dispatcher.utter_message(text="❌ Cần ít nhất 3 môn học có điểm hợp lệ (từ 0-10) để đánh giá khả năng trúng tuyển.")
+            return []
+        
+        # Giới hạn chỉ lấy 3 môn đầu tiên
+        if len(normalized_subjects) > 3:
+            normalized_subjects = normalized_subjects[:3]
+        
+        # Tính điểm tổng theo phương thức xét tuyển
+        total_score = 0
+        for subject in normalized_subjects:
+            if subject in subject_scores:
+                total_score += subject_scores[subject]
+        
+        # Làm tròn điểm tổng
+        total_score = round(total_score, 2)
+        
+        try:
+            # Sử dụng hàm get_majors_by_score_method_and_subjects để lấy kết quả
+            results = self.db.get_majors_by_score_method_and_subjects(total_score, method_id, normalized_subjects)
+            
+            if not results:
+                subjects_str = ", ".join([f"{subj}: {subject_scores.get(subj, 'N/A')}" for subj in normalized_subjects])
+                dispatcher.utter_message(text=f"❌ Không tìm thấy ngành nào phù hợp với điểm các môn ({subjects_str}) "
+                                            f"theo phương thức {method}.")
+                return []
+            
+            # Lọc kết quả để chỉ giữ lại các ngành vẫn áp dụng phương thức này trong năm hiện tại
+            results = self._filter_valid_majors(results, method_id)
+            
+            if not results:
+                subjects_str = ", ".join(normalized_subjects)
+                dispatcher.utter_message(text=f"❌ Tôi đã tìm thấy một số ngành phù hợp với điểm các môn của bạn, "
+                                            f"nhưng không có ngành nào còn áp dụng phương thức {method} "
+                                            f"trong năm học hiện tại.")
+                return []
+            
+            # Lấy thông tin chi tiết về ngành từ Neo4j
+            major_detail = self.db.get_major_quota_and_name(major_keyword)
+            
+            # Kiểm tra xem ngành được hỏi có trong kết quả không
+            major_found = False
+            major_group = None
+            major_data = None
+            
+            for group in results:
+                for major in group["majors"]:
+                    if major["major_id"] == major_keyword:
+                        major_found = True
+                        major_group = group["group"]
+                        major_data = major
+                        break
+                if major_found:
+                    break
+            
+            # Xử lý phản hồi
+            if major_detail and major_detail["found"]:
+                major_name = major_detail["name"]
+                major_url = major_detail["majorUrl"]
+                
+                subjects_str = ", ".join([f"**{subj}**: {subject_scores.get(subj, 'N/A')}" for subj in normalized_subjects])
+                
+                # Nếu tìm thấy ngành trong kết quả đề xuất
+                if major_found:
+                    # Hiển thị khả năng đỗ
+                    if major_group == "high":
+                        message = f"🔥 **Ngành {major_name} là lựa chọn rất phù hợp với điểm của bạn!**\n\n"
+                        message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn có khả năng đỗ rất cao vào ngành này.\n\n"
+                    elif major_group == "medium":
+                        message = f"⚡ **Ngành {major_name} có thể là lựa chọn khá tốt cho bạn**\n\n"
+                        message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn có khả năng đỗ khá cao vào ngành này.\n\n"
+                    else:  # low
+                        message = f"⚠️ **Ngành {major_name} nằm trong khả năng của bạn**\n\n"
+                        message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn vẫn có cơ hội đỗ vào ngành này, nhưng không quá an toàn.\n\n"
+                    
+                    # Hiển thị chi tiết thông tin
+                    message += f"• [Xem chi tiết ngành {major_url}]\n\n"
+                else:
+                    # Ngành không nằm trong danh sách đề xuất
+                    message = f"⚠️ **Ngành {major_name} không nằm trong danh sách phù hợp với điểm của bạn**\n\n"
+                    message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), khả năng đỗ vào ngành {major_name} **không an toàn**.\n"
+                    message += "Bạn nên xem xét các ngành sau đây:\n\n"
+                
+                # Thêm danh sách đề xuất cho cả hai trường hợp
+                message += "**Các ngành phù hợp với điểm của bạn:**\n\n"
+                
+                # Lấy tối đa 5 ngành từ kết quả, ưu tiên theo nhóm (high -> medium -> low)
+                suggestions_added = 0
+                for group in results:
+                    for major in group["majors"]:
+                        # Bỏ qua ngành đang kiểm tra nếu đã tìm thấy
+                        if major_found and major["major_id"] == major_keyword:
+                            continue
+                            
+                        message += f"{suggestions_added+1}. **{major['major_name']}**\n"
+                        message += f"   - [Xem chi tiết ngành {major['major_url']} ]\n\n"
+                        
+                        suggestions_added += 1
+                        if suggestions_added >= 5:
+                            break
+                    
+                    if suggestions_added >= 5:
+                        break
+                
+                message += "💡 *Kết quả dựa trên điểm chuẩn quy đổi từ năm 2023 và 2024. Bạn nên tìm hiểu thêm thông tin chi tiết về các ngành và phương thức xét tuyển trước khi quyết định.*"
+            
+            else:
+                message = f"❌ Không tìm thấy thông tin về ngành \"{major_entity}\". Vui lòng kiểm tra lại tên ngành."
+            
+            dispatcher.utter_message(text=message)
+            
+            return []
+            
+        except Exception as e:
+            logging.error(f"Error in action_check_major_admission_with_subject_scores: {str(e)}")
+            dispatcher.utter_message(text=f"❌ Đã xảy ra lỗi khi xử lý yêu cầu của bạn. Vui lòng thử lại sau.")
+            return []
+    
+    def _filter_valid_majors(self, grouped_results: list, method_id: str) -> list:
+        """
+        Lọc kết quả để chỉ giữ lại các ngành vẫn áp dụng phương thức này trong năm hiện tại
+        """
+        if not grouped_results:
+            return []
+        
+        filtered_groups = []
+        
+        for group in grouped_results:
+            valid_majors = []
+            for major in group["majors"]:
+                # Kiểm tra xem ngành có còn áp dụng phương thức này không
+                check_result = self.db.check_major_has_method(major["major_id"], method_id)
+                
+                # Nếu phương thức vẫn được áp dụng, giữ lại ngành này
+                if check_result["exists"]:
+                    valid_majors.append(major)
+                else:
+                    logging.debug(f"Major {major['major_name']} ({major['major_id']}) no longer uses method {method_id}")
+            
+            # Chỉ thêm nhóm vào kết quả nếu có ngành hợp lệ
+            if valid_majors:
+                filtered_groups.append({
+                    "group": group["group"],
+                    "majors": valid_majors
+                })
+        
+        return filtered_groups
+
+
 class ActionSuggestMajorsByStrengths(Action):
     def name(self) -> Text:
         return "action_suggest_majors_by_strengths"
@@ -1336,3 +1560,14 @@ class ActionSuggestMajorsByStrengths(Action):
         
         # Lưu các ngành được đề xuất vào slot để tiếp tục trò chuyện
         return [SlotSet("suggested_majors", suggested_major_ids)]
+    
+class ActionRestart(Action):
+    def name(self) -> Text:
+        return "action_restart"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(text="Đang khởi động lại chatbot...")
+        return [AllSlotsReset(), ActionExecuted("action_listen")]

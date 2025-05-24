@@ -4,7 +4,7 @@ import time
 import socket
 import requests
 
-MODEL_PATH = "models/20250521-232311-booming-quetzal.tar.gz"
+MODEL_PATH = "models/20250524-231536-metallic-yield.tar.gz"
 NGROK_AUTH_TOKEN = "2vn6H02jcPXaZY8MnH7ziimHO0v_4eyF1uzWGLXHCCKod2ceG"
 NGROK_DOMAIN = "cockatoo-cheerful-factually.ngrok-free.app"
 RASA_PORT = 5005
@@ -31,6 +31,27 @@ def start_action_server():
 
 
 def start_rasa_server(model_path):
+    # 1. Xóa database tracker nếu tồn tại để reset hoàn toàn
+    db_path = "tracker.db"
+    if os.path.exists(db_path):
+        try:
+            print("[*] Xóa database tracker cũ để làm mới hoàn toàn...")
+            os.remove(db_path)
+        except:
+            print("[!] Không thể xóa database tracker")
+    
+    # 2. Kiểm tra và kill tiến trình Rasa nếu đang chạy trên cổng
+    if is_port_open("localhost", RASA_PORT):
+        print(f"[!] Phát hiện Rasa server đang chạy tại cổng {RASA_PORT}, đang kết thúc...")
+        try:
+            # Trên Windows
+            subprocess.run(f"FOR /F \"tokens=5\" %a in ('netstat -ano ^| findstr {RASA_PORT}') do taskkill /F /PID %a", shell=True)
+            # Đợi để đảm bảo tiến trình đã kết thúc
+            time.sleep(2)
+        except:
+            print("[!] Không thể tắt tiến trình Rasa cũ")
+    
+    # 3. Bắt đầu Rasa server với cài đặt tracker store để dễ reset
     command = [
         "rasa", "run",
         "--model", model_path,
@@ -43,6 +64,8 @@ def start_rasa_server(model_path):
         "--interface", RASA_HOST,
     ]
     print("[DEBUG] Rasa command:", " ".join(command))
+    
+    # 4. Khởi động với tùy chọn khởi động lại
     return subprocess.Popen(command)
 
 

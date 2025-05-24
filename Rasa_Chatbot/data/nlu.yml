@@ -876,18 +876,83 @@ nlu:
 
 - intent: ask_calculate_score
   examples: |
-    - em đạt được điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), vậy điểm của em là bao nhiêu?
-    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), môn [tin học](subject) là [9.75](score), vậy tổng điểm của em là bao nhiêu?
+    - em đạt được điểm môn [toán](subject) là [8.5](score) điểm, môn [vật lý](subject) là [7.5](score) điểm, môn [hóa học](subject) là [6.5](score) điểm, vậy điểm của em là bao nhiêu?
+    - em có điểm môn [toán](subject) là [8.5](score) điểm, môn [vật lý](subject) là [7.5](score) điểm, môn [hóa học](subject) là [6.5](score) điểm, môn [tin học](subject) là [9.75](score), vậy tổng điểm của em là bao nhiêu?
     - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), vậy tổng điểm của em là bao nhiêu?
     - em thi kỳ thi vừa rồi đạt điểm là [toán](subject) : [8.5](score), [vật lý](subject) : [7.5](score), [hóa học](subject) : [6.5](score), [ngữ văn](subject) : [5.75](score)
-    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [tiếng anh](subject) là [7.8](score), môn [ngữ văn](subject) là [5.75](score), vậy thì điểm của em là bao nhiêu?
+    - em có điểm môn [toán](subject) là [8.5](score) điểm, môn [vật lý](subject) là [7.5](score) điểm, môn [tiếng anh](subject) là [7.8](score) điểm, môn [ngữ văn](subject) là [5.75](score), vậy thì điểm của em là bao nhiêu?
     - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [tin học](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score), vậy tổng điểm của em là bao nhiêu?
-    - em có điểm môn [toán](subject) là [8.5](score), môn [tin học](subject) là [10](score), môn [hóa học](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score)
+    - em có điểm môn [toán](subject) là [8.5](score) điểm, môn [tin học](subject) là [10](score) điểm, môn [hóa học](subject) là [6.5](score) điểm, môn [ngữ văn](subject) là [5.75](score)
     - em có điểm môn [lịch sử](subject): [8.5](score), môn [vật lý](subject): [7.5](score), môn [toán](subject) là [6.5](score), môn [ngữ văn](subject) là [8.00](score)
     - em thi kỳ thi vừa rồi đạt điểm là [toán](subject) : [8.5](score), [vật lý](subject) : [7.5](score), [hóa học](subject) : [6.5](score), [ngữ văn](subject) : [5.75](score)
     - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score), vậy tổng điểm của em là bao nhiêu?
     - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [địa lý](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score), vậy tổng điểm của em là bao nhiêu?
     - em thi được môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [tiếng nhật](subject) là [6.5](score), môn [ngữ văn](subject) là [8.25](score)
+
+
+- intent: ask_check_major_admission_with_subject_scores
+  examples: |
+    - em có điểm môn [toán](subject) là [8.5](score) điểm, môn [vật lý](subject) là [7.5](score) điểm, môn [hóa học](subject) là [6.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method) vậy em có nên đăng ký ngành [công nghệ thông tin](major) không?
+    - em có điểm môn [toán](subject) là [8.5](score) điểm, môn [vật lý](subject) là [7.5](score) điểm, môn [tin học](subject) là [9.75](score) điểm ở phương thức [điểm thi tốt nghiệp](method) vậy em có nên đăng ký ngành [kỹ thuật điện tử viễn thông](major) không?
+    - em có điểm môn [toán](subject) là [8.5](score) điểm, môn [vật lý](subject) là [7.5](score) điểm, môn [sinh học](subject) là [6.5](score) điểm theo phương thức [điểm thi tốt nghiệp](method) vậy em có đủ điều kiện để đăng ký ngành [kỹ thuật cơ khí chuyên ngành cơ khí động lực](major) không?
+    - em thi các môn [toán](subject), [vật lý](subject), [tiếng anh](subject) đạt được điểm lần lượt là [8.5](score), [7.5](score), [6.5](score) theo phương thức [điểm thi tốt nghiệp](method) thì có thể đăng kí vào ngành [kỹ thuật xây dựng chuyên ngành xây dựng dân dụng và công nghiệp](major) không?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [tin học](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score) theo phương thức [điểm thi tốt nghiệp](method) thì em có nên nộp đơn vào ngành [kỹ thuật xây dựng chuyên ngành tin học xây dựng](major) không?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [tin học](subject) là [10](score), môn [hóa học](subject) là [6.5](score) theo phương thức [điểm thi tốt nghiệp](method) thì có đủ điều kiện để đăng ký ngành [công nghệ thông tin đặc thù](major) không?
+    - em thi các môn [toán](subject), [vật lý](subject), [hóa học](subject) đạt được điểm lần lượt là [8.5](score), [7.5](score), [6.5](score) theo phương thức [học bạ](method) thì nên đăng ký ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp](major) không?
+    - em có điểm môn [lịch sử](subject): [8.5](score), môn [vật lý](subject): [7.5](score), môn [toán](subject) là [6.5](score) theo phương thức [học bạ](method) thì có nên nộp đơn vào ngành [cntt htdn](major) không?
+    - em thi các môn [toán](subject), [vật lý](subject), [tiếng anh](subject) đạt được điểm lần lượt là [8.5](score), [7.5](score), [6.5](score) theo phương thức [điểm thi tốt nghiệp](method) thì có đủ điều kiện để đăng ký ngành [kỹ thuật điện](major) không?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [9.75](score), môn [tiếng anh](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score) theo phương thức [điểm thi tốt nghiệp](method) vậy em có đủ điều kiện để đăng ký ngành [ktđt-vt](major) không?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score) theo phương thức [học bạ](method) vậy em có nên nộp đơn vào ngành [công nghệ sinh học](major) không?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [tiếng anh](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score) theo phương thức [điểm thi tốt nghiệp](method) vậy em có đủ điều kiện để đăng ký ngành [ktxdctgt](major) không?
+    - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score) theo phương thức [học bạ](method) vậy em có đủ điều kiện để đăng ký ngành [cntt](major) không?
+    - với điểm môn [toán](subject) là [8.5](score), [vật lý](subject) là [7.5](score), [hóa học](subject) là [6.5](score) theo phương thức [điểm thi tốt nghiệp](method) liệu em có đủ điểm vào ngành [kỹ thuật máy tính](major) không?
+    - em muốn kiểm tra khả năng trúng tuyển ngành [cntp](major) với điểm [toán](subject): [8.5](score), [lý](subject): [7.5](score), [tin học](subject): [9.75](score) theo phương thức [điểm thi tốt nghiệp](method)
+    - đánh giá cơ hội đỗ vào ngành [kinh tế xây dựng](major) khi em có điểm [toán](subject) [8.5](score), [lý](subject) [7.5](score), [sinh](subject) [6.5](score) theo phương thức [điểm thi tốt nghiệp](method)
+    - ngành [kỹ thuật cơ khí](major) có khả thi với điểm [toán](subject): [8.5](score), [lý](subject): [7.5](score), [anh](subject): [6.5](score) theo phương thức [điểm thi tốt nghiệp](method) không?
+    - kiểm tra xem em có phù hợp với ngành [kiến trúc](major) không với điểm [toán](subject) [8.5](score), [lý](subject) [7.5](score), [hóa](subject) [6.5](score) theo phương thức [học bạ](method)
+    - em có điểm môn [toán](subject) [8.5](score), [vật lý](subject) [7.5](score), [ngữ văn](subject) [6.5](score) theo phương thức [thi tốt nghiệp](method) thì có phù hợp với ngành [ktxd đttm](major) không?
+    - với điểm [toán](subject) [9.0](score), [lý](subject) [8.0](score), [anh](subject) [7.5](score) trong phương thức [học bạ](method), em có thể đỗ ngành [pfiev](major) không?
+    - em muốn hỏi với điểm [toán](subject) [8.5](score), [ngữ văn](subject) [7.0](score), [tiếng nhật](subject) [9.0](score) theo xét [điểm thi tốt nghiệp](method) thì có đủ điểm vào ngành [công nghệ thông tin tiếng nhật](major) không?
+    - với số điểm [toán](subject) [8.0](score), [vật lý](subject) [7.5](score), [hóa học](subject) [8.2](score) theo [học bạ](method) thì em có nên đăng ký ngành [kỹ thuật nhiệt](major) không?
+    - em có điểm [toán](subject) [9.0](score), [vật lý](subject) [8.5](score), [tiếng anh](subject) [7.0](score) ở phương thức [điểm thi tốt nghiệp](method), có đỗ được ngành [ktđk&tđh](major) không?
+    - với điểm các môn [toán](subject) [8.3](score), [hóa học](subject) [7.8](score), [sinh học](subject) [8.4](score) theo [học bạ](method), em có thể đăng ký ngành [ktmt](major) không?
+    - em có điểm [toán](subject) [8.7](score), [hóa học](subject) [8.5](score), [sinh học](subject) [9.0](score) theo phương thức [điểm thi tốt nghiệp](method), có khả năng đỗ ngành [cnsh y dược](major) không?
+    - với điểm [toán](subject) [9.2](score), [vật lý](subject) [8.0](score), [mỹ thuật](subject) [9.5](score) theo phương thức [học bạ](method) thì có đủ điều kiện xét vào ngành [kt](major) không?
+    - em đạt điểm [toán](subject) [9.0](score), [lý](subject) [8.5](score), [tin học](subject) [9.8](score) theo [điểm thi tốt nghiệp](method), có cơ hội đỗ vào ngành [cntt ai](major) không?
+    - liệu với điểm [toán](subject) [9.3](score), [lý](subject) [8.8](score), [tin học](subject) [9.5](score) theo phương thức [học bạ](method) thì có phù hợp với ngành [cntt khdl](major) không?
+    - em đạt được điểm [toán](subject) [8.0](score), [vật lý](subject) [7.8](score), [tiếng anh](subject) [8.2](score) theo phương thức [điểm thi tốt nghiệp](method), có nên đăng ký ngành [cnđt](major) không?
+    - đánh giá cơ hội trúng tuyển ngành [kỹ thuật môi trường](major) với điểm [toán](subject) [8.0](score), [hóa học](subject) [8.2](score), [sinh học](subject) [8.4](score) theo [học bạ](method)
+    - với điểm các môn [toán](subject) [9.2](score), [lý](subject) [8.7](score), [hóa học](subject) [8.0](score) theo [điểm thi tốt nghiệp](method), em có khả năng đỗ ngành [ktck ckhk](major) không?
+    - kiểm tra cơ hội đỗ vào ngành [quản lý tài nguyên và môi trường](major) với điểm [toán](subject) [7.8](score), [sinh học](subject) [8.5](score), [địa lý](subject) [9.0](score) theo [học bạ](method)
+    - em có điểm [toán](subject) [8.3](score), [hóa học](subject) [8.0](score), [vật lý](subject) [7.5](score) theo phương thức [điểm thi tốt nghiệp](method), có phù hợp với ngành [công nghệ dầu khí và khai thác dầu](major) không?
+    - kiểm tra khả năng trúng tuyển ngành [cntt đặc thù khdl](major) với điểm [toán](subject) [9.0](score), [vật lý](subject) [8.6](score), [tin học](subject) [9.5](score) theo [học bạ](method)
+    - em có điểm [toán](subject) [8.5](score), [hóa học](subject) [9.0](score), [sinh học](subject) [8.7](score) theo phương thức [điểm thi tốt nghiệp](method), có nên đăng ký ngành [kỹ thuật hóa học](major) không?
+    - với điểm [toán](subject) [9.2](score), [lý](subject) [8.8](score), [tin học](subject) [9.4](score) theo phương thức [học bạ](method), em có đủ điều kiện đỗ ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp](major) không?
+    - em có điểm [toán](subject) [8.8](score), [tiếng nhật](subject) [9.2](score), [tin học](subject) [9.0](score) theo [điểm thi tốt nghiệp](method), có khả năng trúng tuyển ngành [công nghệ thông tin ngoại ngữ nhật](major) không?
+    - kiểm tra cơ hội đỗ vào ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo](major) với điểm [toán](subject) [9.5](score), [lý](subject) [9.0](score), [tin học](subject) [9.8](score) theo [học bạ](method)
+    - em có điểm [toán](subject) [9.0](score), [vật lý](subject) [8.6](score), [tiếng anh](subject) [8.0](score) theo phương thức [điểm thi tốt nghiệp](method), có đủ điều kiện trúng tuyển ngành [công nghệ sinh học chuyên ngành công nghệ sinh học y dược](major) không?
+    - với điểm [toán](subject) [8.2](score), [vật lý](subject) [7.8](score), [hóa học](subject) [8.0](score) theo [học bạ](method), em có cơ hội trúng tuyển ngành [công nghệ kỹ thuật vật liệu xây dựng](major) không?
+    - đánh giá khả năng đỗ vào ngành [công nghệ chế tạo máy](major) với điểm [toán](subject) [8.4](score), [lý](subject) [8.0](score), [hóa học](subject) [7.5](score) theo [điểm thi tốt nghiệp](method)
+    - em muốn biết với điểm [toán](subject) [8.7](score), [vật lý](subject) [8.2](score), [tiếng anh](subject) [8.8](score) theo [học bạ](method) thì có phù hợp với ngành [quản lý công nghiệp](major) không?
+    - kiểm tra khả năng đỗ ngành [chương trình đào tạo kỹ sư chất lượng cao việt - pháp](major) với điểm [toán](subject) [9.3](score), [lý](subject) [9.0](score), [anh](subject) [8.5](score) theo [điểm thi tốt nghiệp](method)
+    - em đạt điểm [toán](subject) [8.5](score), [lý](subject) [8.3](score), [hóa học](subject) [7.8](score) theo phương thức [học bạ](method), có phù hợp với ngành [kỹ thuật cơ điện tử](major) không?
+    - với điểm [toán](subject) [8.0](score), [lý](subject) [8.2](score), [hóa học](subject) [7.6](score) theo [điểm thi tốt nghiệp](method), em có khả năng trúng tuyển ngành [kỹ thuật nhiệt chuyên ngành quản lý năng lượng](major) không?
+    - kiểm tra cơ hội đỗ vào ngành [kỹ thuật tàu thủy](major) với điểm [toán](subject) [8.3](score), [lý](subject) [8.0](score), [tiếng anh](subject) [7.8](score) theo [học bạ](method)
+    - em có điểm [toán](subject) [8.2](score), [vật lý](subject) [8.5](score), [hóa học](subject) [7.5](score) theo phương thức [điểm thi tốt nghiệp](method), có đủ điều kiện vào ngành [kỹ thuật điện tử - viễn thông](major) không?
+    - đánh giá khả năng trúng tuyển ngành [kỹ thuật điện tử - viễn thông chuyên ngành vi điện tử - thiết kế vi mạch](major) với điểm [toán](subject) [9.0](score), [lý](subject) [8.8](score), [tiếng anh](subject) [8.2](score) theo [học bạ](method)
+    - em có điểm [toán](subject) [8.8](score), [lý](subject) [8.5](score), [tiếng anh](subject) [8.0](score) theo phương thức [điểm thi tốt nghiệp](method), có phù hợp với ngành [kỹ thuật điều khiển và tự động hóa](major) không?
+    - kiểm tra cơ hội đỗ vào ngành [kỹ thuật hệ thống công nghiệp](major) với điểm [toán](subject) [8.5](score), [lý](subject) [8.0](score), [hóa học](subject) [7.8](score) theo [học bạ](method)
+    - em có điểm [toán](subject) [9.0](score), [vật lý](subject) [8.7](score), [tiếng anh](subject) [8.5](score) theo phương thức [điểm thi tốt nghiệp](method), có khả năng đỗ ngành [kỹ thuật ô tô](major) không?
+    - kiểm tra khả năng trúng tuyển ngành [chương trình tiên tiến việt-mỹ ngành kỹ thuật điện tử viễn thông](major) với điểm [toán](subject) [9.3](score), [lý](subject) [9.1](score), [tiếng anh](subject) [9.0](score) theo [học bạ](method)
+    - em có điểm [toán](subject) [9.2](score), [lý](subject) [9.0](score), [tin học](subject) [9.5](score) theo phương thức [điểm thi tốt nghiệp](method), có đủ điều kiện đỗ ngành [chương trình tiên tiến việt-mỹ ngành hệ thống nhúng và iot](major) không?
+    - đánh giá cơ hội đỗ vào ngành [công nghệ thực phẩm](major) với điểm [toán](subject) [8.0](score), [hóa học](subject) [8.5](score), [sinh học](subject) [8.7](score) theo [học bạ](method)
+    - kiểm tra khả năng trúng tuyển ngành [kỹ thuật xây dựng chuyên ngành kỹ thuật và quản lý xây dựng đô thị thông minh](major) với điểm [toán](subject) [8.5](score), [lý](subject) [8.2](score), [tiếng anh](subject) [8.0](score) theo [điểm thi tốt nghiệp](method)
+    - em có điểm [toán](subject) [8.6](score), [lý](subject) [8.3](score), [hóa học](subject) [7.9](score) theo phương thức [học bạ](method), có phù hợp với ngành [kỹ thuật xây dựng chuyên ngành mô hình thông tin và trí tuệ nhân tạo trong xây dựng](major) không?
+    - đánh giá cơ hội đỗ vào ngành [kỹ thuật xây dựng công trình thủy](major) với điểm [toán](subject) [8.3](score), [lý](subject) [8.0](score), [hóa học](subject) [7.8](score) theo [điểm thi tốt nghiệp](method)
+    - em có điểm [toán](subject) [8.2](score), [vật lý](subject) [8.0](score), [tiếng anh](subject) [7.5](score) theo phương thức [học bạ](method), có đủ điều kiện đỗ ngành [kỹ thuật xây dựng công trình giao thông](major) không?
+    - kiểm tra khả năng trúng tuyển ngành [kỹ thuật xây dựng công trình giao thông chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị](major) với điểm [toán](subject) [8.6](score), [lý](subject) [8.3](score), [tiếng anh](subject) [7.8](score) theo [điểm thi tốt nghiệp](method)
+    - em có điểm [toán](subject) [8.3](score), [vật lý](subject) [7.8](score), [tiếng anh](subject) [8.5](score) theo phương thức [học bạ](method), có phù hợp với ngành [kỹ thuật cơ sở hạ tầng](major) không?
+    
     
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program

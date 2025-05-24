@@ -59,6 +59,7 @@ intents:
   - provide_personality_traits
   - ask_suggest_major_by_score_and_subjects
   - ask_method_detail
+  - ask_check_major_admission_with_subject_scores
 
 entities:
   - major
@@ -169,6 +170,19 @@ slots:
     influence_conversation: true
     mappings:
       - type: custom
+
+  subject_scores:
+    type: list
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  fallback_count:
+    type: float
+    initial_value: 0
+    influence_conversation: false
+    mappings:
+    - type: custom
 
 responses:
 
@@ -381,6 +395,8 @@ actions:
   - action_suggest_majors_by_strengths
   - action_suggest_major_by_score_and_subjects
   - action_detail_method
+  - action_check_major_admission_with_subject_scores
+  - action_restart
 
 
 session_config:
