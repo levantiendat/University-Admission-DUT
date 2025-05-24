@@ -455,45 +455,84 @@
 
                 <!-- Hiển thị kết quả gợi ý nếu có -->
                 <div v-if="suggestions[result.group_id]" class="suggestions-container mt-3">
-                  <div class="card">
-                    <div class="card-header bg-info bg-opacity-10 py-2">
-                      <h5 class="card-title mb-0 h6">
-                        <i class="bi bi-lightbulb-fill text-warning me-1"></i>
-                        Gợi ý ngành học phù hợp với {{ result.group_name }} - Điểm {{ result.priority_points.total_point }}
-                      </h5>
-                    </div>
-                    <div class="card-body p-2">
-                      <div v-for="(category, catIndex) in suggestions[result.group_id]" :key="`cat-${result.group_id}-${catIndex}`" class="suggestion-category mb-3">
-                        <div class="category-title fw-bold mb-2" v-html="category.title"></div>
-                        
-                        <div class="table-responsive">
-                          <table class="table table-sm table-hover">
-                            <thead>
-                              <tr class="bg-light">
-                                <th style="width: 5%">STT</th>
-                                <th>Tên ngành</th>
-                                <th style="width: 20%" class="text-center">Chi tiết</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr v-for="(major, majorIdx) in category.majors" :key="`major-${result.group_id}-${catIndex}-${majorIdx}`">
-                                <td>{{ majorIdx + 1 }}</td>
-                                <td>{{ major.name }}</td>
-                                <td class="text-center">
-                                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      
-                      <div class="suggestion-footer text-muted small fst-italic" v-if="suggestions[result.group_id].length > 0">
-                        <p v-html="suggestions[result.group_id][suggestions[result.group_id].length - 1]?.note"></p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <div class="card">
+    <div class="card-header bg-info bg-opacity-10 py-2">
+      <h5 class="card-title mb-0 h6">
+        <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+        Gợi ý ngành học phù hợp với {{ result.group_name }} - Điểm {{ result.priority_points.total_point }}
+      </h5>
+    </div>
+    <div class="card-body p-2">
+      <!-- Hiển thị danh mục đầu tiên nếu có (giới thiệu) -->
+      <div v-for="(category, catIndex) in suggestions[result.group_id]" :key="`cat-${result.group_id}-${catIndex}`" class="suggestion-category mb-3">
+        <!-- Hiển thị danh mục giới thiệu nếu có và không phải danh mục gộp -->
+        <div v-if="!category.isCombined" class="category-title fw-bold mb-2" v-html="category.title"></div>
+        
+        <!-- Hiển thị danh sách ngành cho danh mục giới thiệu -->
+        <div v-if="!category.isCombined && category.majors" class="table-responsive">
+          <table class="table table-sm table-hover">
+            <thead>
+              <tr class="bg-light">
+                <th style="width: 5%">STT</th>
+                <th>Tên ngành</th>
+                <th style="width: 20%" class="text-center">Chi tiết</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(major, majorIdx) in category.majors" :key="`major-intro-${result.group_id}-${catIndex}-${majorIdx}`">
+                <td>{{ majorIdx + 1 }}</td>
+                <td>{{ major.name }}</td>
+                <td class="text-center">
+                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Hiển thị bảng gộp cho các ngành có mức độ an toàn -->
+        <div v-if="category.isCombined" class="table-responsive">
+          <div class="category-title fw-bold mb-2">{{ category.title }}</div>
+          <table class="table table-sm table-hover major-suggestion-table">
+            <thead>
+              <tr class="bg-light">
+                <th style="width: 5%">STT</th>
+                <th>Tên ngành</th>
+                <th style="width: 20%" class="text-center">Mức độ an toàn</th>
+                <th style="width: 15%" class="text-center">Chi tiết</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(major, majorIdx) in category.majors" :key="`major-combined-${result.group_id}-${catIndex}-${majorIdx}`">
+                <td>{{ majorIdx + 1 }}</td>
+                <td>{{ major.name }}</td>
+                <td class="text-center">
+                  <span v-if="major.safetyLevel === 'high'" class="safety-level-high safety-text">
+                    Rất an toàn
+                  </span>
+                  <span v-else-if="major.safetyLevel === 'medium'" class="safety-level-medium safety-text">
+                    Khá an toàn
+                  </span>
+                  <span v-else-if="major.safetyLevel === 'low'" class="safety-level-low safety-text">
+                    Chưa an toàn
+                  </span>
+                </td>
+                <td class="text-center">
+                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Hiển thị ghi chú nếu có -->
+        <div v-if="category.isNote" class="suggestion-footer text-muted small fst-italic">
+          <p v-html="category.note"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
               </div>
               <hr v-if="resultIndex < finalResults.length - 1" class="my-2">
             </template>
@@ -1229,6 +1268,85 @@ export default {
 
 .suggestion-actions {
   margin-top: 10px;
+}
+
+/* Thêm CSS cải tiến cho bảng đề xuất với gradient và hiệu ứng đẹp hơn */
+.safety-level-high {
+  background: linear-gradient(135deg, #198754, #25b070);
+  color: white;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(25, 135, 84, 0.3);
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.safety-level-high:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(25, 135, 84, 0.4);
+}
+
+.safety-level-medium {
+  background: linear-gradient(135deg, #0d6efd, #4d94ff);
+  color: white;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(13, 110, 253, 0.3);
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.safety-level-medium:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(13, 110, 253, 0.4);
+}
+
+.safety-level-low {
+  background: linear-gradient(135deg, #ffc107, #ffda73);
+  color: #212529;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.safety-level-low:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(255, 193, 7, 0.4);
+}
+
+/* Thêm hiệu ứng pulse nhẹ cho mức an toàn cao */
+@keyframes subtle-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.safety-level-high {
+  animation: subtle-pulse 2s infinite ease-in-out;
+}
+
+.safety-text {
+  white-space: nowrap;
+}
+
+/* Tùy chỉnh cho bảng đề xuất ngành */
+.major-suggestion-table th {
+  vertical-align: middle;
+}
+
+.major-suggestion-table td {
+  vertical-align: middle;
 }
 
 /* Thêm thiết kế responsive cho phần gợi ý */

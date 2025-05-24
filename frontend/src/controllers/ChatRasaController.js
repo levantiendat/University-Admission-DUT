@@ -227,73 +227,103 @@ export default {
   },
   
   /**
-   * Process chatbot responses into structured suggestion data
-   * @param {Array} responses - Array of response messages from the chatbot
-   * @returns {Array} - Structured suggestion data
-   */
-  processSuggestionResponses(responses) {
-    console.log('Processing suggestion responses:', responses);
+ * Process chatbot responses into structured suggestion data
+ * @param {Array} responses - Array of response messages from the chatbot
+ * @returns {Array} - Structured suggestion data
+ */
+processSuggestionResponses(responses) {
+  console.log('Processing suggestion responses:', responses);
+  
+  // Object để lưu tất cả các ngành với mức độ an toàn tương ứng
+  const allMajors = [];
+  let introduction = null;
+  let note = '';
+  
+  // Theo dõi danh mục hiện tại
+  let currentCategory = null;
+  let currentSafetyLevel = null;
+  
+  // Process each response message
+  for (const response of responses) {
+    const text = response.text;
     
-    const result = [];
-    let currentCategory = null;
+    if (!text) continue;
     
-    // Process each response message
-    for (const response of responses) {
-      const text = response.text;
+    // Check if this is an introduction header
+    if (text.includes('Các ngành phù hợp với điểm')) {
+      introduction = text;
+      continue;
+    }
+    
+    // Check if this is a safety category header
+    if (text.includes('Tỷ lệ đỗ cao')) {
+      currentSafetyLevel = 'high';
+      continue;
+    } else if (text.includes('Tỷ lệ đỗ trung bình')) {
+      currentSafetyLevel = 'medium';
+      continue;
+    } else if (text.includes('Tỷ lệ đỗ thấp')) {
+      currentSafetyLevel = 'low';
+      continue;
+    }
+    
+    // Check if this is a list of majors
+    if (text.match(/\d+\.\s.*/) && currentSafetyLevel) {
+      // Process list of majors
+      const majorLines = text.split('\n');
       
-      if (!text) continue;
-      
-      // Check if this is a header
-      if (text.includes('Các ngành phù hợp với điểm')) {
-        // Create first category for introduction
-        currentCategory = {
-          title: text,
-          majors: []
-        };
-        result.push(currentCategory);
-      }
-      
-      // Check if this is a category header (high/medium chance)
-      else if (text.includes('Tỷ lệ đỗ cao') || text.includes('Tỷ lệ đỗ trung bình')) {
-        // Start a new category
-        currentCategory = {
-          title: text,
-          majors: []
-        };
-        result.push(currentCategory);
-      }
-      
-      // Check if this is a list of majors
-      else if (text.match(/\d+\.\s.*/) && currentCategory) {
-        // Process list of majors
-        const majorLines = text.split('\n');
+      for (const line of majorLines) {
+        // Extract major name and link using regex
+        const match = line.match(/(\d+)\.\s(.*?)\.\sXem chi tiết ngành\s(\/major\/\d+)/);
         
-        for (const line of majorLines) {
-          // Extract major name and link using regex
-          const match = line.match(/(\d+)\.\s(.*?)\.\sXem chi tiết ngành\s(\/major\/\d+)/);
-          
-          if (match) {
-            const [_, num, name, link] = match;
-            currentCategory.majors.push({
-              name: name.trim(),
-              link: link.trim()
-            });
-          }
+        if (match) {
+          const [_, num, name, link] = match;
+          allMajors.push({
+            name: name.trim(),
+            link: link.trim(),
+            safetyLevel: currentSafetyLevel
+          });
         }
-      }
-      
-      // Check if this is an explanatory note
-      else if (text.includes('*Kết quả dựa trên điểm chuẩn')) {
-        result.push({ 
-          note: text,
-          isNote: true 
-        });
       }
     }
     
-    console.log('Processed suggestions:', result);
-    return result;
-  },
+    // Check if this is an explanatory note
+    else if (text.includes('*Kết quả dựa trên điểm chuẩn')) {
+      note = text;
+    }
+  }
+  
+  // Tạo kết quả cuối cùng
+  const result = [];
+  
+  // Thêm introduction nếu có
+  if (introduction) {
+    result.push({ 
+      title: introduction,
+      isIntroduction: true 
+    });
+  }
+  
+  // Thêm bảng ngành học gộp
+  if (allMajors.length > 0) {
+    result.push({
+      title: "Danh sách các ngành phù hợp",
+      majors: allMajors,
+      isCombined: true
+    });
+  }
+  
+  // Thêm ghi chú nếu có
+  if (note) {
+    result.push({ 
+      note: note,
+      isNote: true 
+    });
+  }
+  
+  console.log('Processed suggestions:', result);
+  return result;
+},
 
   /**
    * Get the current chat history
