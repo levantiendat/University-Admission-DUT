@@ -144,7 +144,8 @@ class GraphConnector:
                     "major_id": record["major_id"],
                     "major_name": record["major_name"],
                     "method_id": record["method_id"],
-                    "method_name": record["method_name"]
+                    "method_name": record["method_name"],
+                    "majorUrl": record["majorUrl"]
                 }
         
         # Nếu không tìm thấy record, có thể ID không tồn tại
@@ -153,7 +154,8 @@ class GraphConnector:
                 "major_id": major_id,
                 "major_name": None,
                 "method_id": method_id,
-                "method_name": None
+                "method_name": None,
+                "majorUrl": None
             }
         
     def get_major_quota_and_name(self, major_id: str) -> dict:
