@@ -778,7 +778,7 @@ export default {
     position: fixed;
     top: 70px;
     left: -100%;
-    width: 280px;
+    width: 50vw;
     height: calc(100vh - 70px);
     background-color: #ffffff;
     box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
