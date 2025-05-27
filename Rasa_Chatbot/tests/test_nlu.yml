@@ -1,13 +1,17 @@
 version: "3.1"
 
 nlu:
+# ---------- CHÀO HỎI & KẾT THÚC ----------
 - intent: greet
   examples: |
     - xin chào
-    - hi
     - chào bạn
+    - hi
+    - hello
     - alo
     - hế lô
+    - chào cậu
+    - chào mừng
 
 - intent: goodbye
   examples: |
@@ -15,198 +19,492 @@ nlu:
     - bye bye
     - chào tạm biệt
     - hẹn gặp lại
+    - tạm biệt nhé
+    - hẹn gặp lại sau
+    - tạm biệt bạn
 
 - intent: thank
   examples: |
     - cảm ơn
     - thanks
     - cảm ơn bạn
+    - cám ơn nhiều
+    - tks
 
+- intent: iamabot
+  examples: |
+    - bạn là ai
+    - bạn là bot phải không
+    - tôi đang nói chuyện với ai
+    - tôi đang nói chuyện với bot đúng không
+    - bạn có phải là chatbot không
+
+- intent: bot_challenge
+  examples: |
+    - bạn là người hay máy
+    - tôi đang nói chuyện với người thật à
+    - mày là ai
+    - bạn là ai vậy
+    - bạn có phải là người không
+
+# ---------- SMALLTALK ----------
+- intent: smalltalk_how_are_you
+  examples: |
+    - bạn khỏe không
+    - dạo này thế nào
+    - bạn có khỏe không
+    - bạn khoẻ chứ
+    - khỏe không bạn
+
+- intent: smalltalk_bot_age
+  examples: |
+    - bạn bao nhiêu tuổi
+    - bạn được tạo ra khi nào
+    - bạn được phát triển từ năm nào
+    - chatbot này ra đời khi nào
+
+- intent: smalltalk_who_created_you
+  examples: |
+    - ai tạo ra bạn
+    - bạn được phát triển bởi ai
+    - ai là người làm ra bạn
+    - ai làm ra chatbot này
+
+- intent: smalltalk_bot_capabilities
+  examples: |
+    - bạn có thể làm gì
+    - bạn giúp được những gì
+    - chức năng của bạn là gì
+    - bạn biết những gì
+    - bạn có khả năng gì
+
+# ---------- THÔNG TIN CHUNG NGÀNH CNTT ----------
 - intent: ask_major_info
   examples: |
     - ngành CNTT là gì?
     - cho tôi biết thông tin chung về ngành CNTT
+    - CNTT gồm những gì?
+    - tóm tắt về ngành CNTT
     - thông tin về ngành công nghệ thông tin
+    - cntt là ngành nào?
+    - CNTT (công nghệ thông tin) ra sao?
     - CNTT là gì?
+
+- intent: ask_major_info_not_found
+  examples: |
+    - tôi không tìm thấy thông tin ngành đó
+    - không có thông tin về ngành này
+    - info về ngành này không có đâu
+    - không biết về ngành này
+    - không có data cho ngành này
 
 - intent: ask_enrollment_quota_uni
   examples: |
     - tổng chỉ tiêu tuyển sinh của trường là bao nhiêu?
     - chỉ tiêu tuyển sinh năm 2025
+    - chỉ tiêu tuyển sinh
+    - chỉ tiêu tuyển sinh bách khoa
     - bách khoa tuyển bao nhiêu sinh viên
+    - năm nay tuyển bao nhiêu sinh viên
 
+# ---------- NHÓM CNTT ĐẶC THÙ – HỢP TÁC DOANH NGHIỆP ----------
 - intent: ask_major_dthtdn_info
   examples: |
     - ngành CNTT đặc thù là gì?
+    - cho tôi biết về CNTT đặc thù
     - CNTT đặc thù hợp tác doanh nghiệp là gì?
     - cntt dthtdn là gì?
-    - ngành công nghệ thông tin đặc thù hợp tác doanh nghiệp
+    - info CNTT đặc thù
+    - cntt DTHTDN ra sao?
+    - đt hợp tác doanh nghiệp CNTT là gì?
 
 - intent: ask_training_program_major_dthtdn
   examples: |
     - chương trình đào tạo CNTT đặc thù là gì?
     - cntt dthtdn học như thế nào?
-    - đào tạo CNTT DTHTDN ra sao?
+    - chương trình CNTT đặc thù
+    - học CNTT đặc thù hợp tác doanh nghiệp ra sao?
+    - dthtdn đào tạo thế nào?
 
 - intent: ask_standard_output_language_major_dthtdn
   examples: |
     - chuẩn ngoại ngữ CNTT đặc thù là gì?
     - yêu cầu ngoại ngữ CNTT đặc thù?
     - chuẩn đầu ra ngoại ngữ của CNTT đặc thù
+    - cntt dthtdn ngoại ngữ ra sao?
+    - chuẩn ngoại ngữ DTHTDN là gì?
 
+# ---------- NHÓM CNTT NGOẠI NGỮ NHẬT ----------
 - intent: ask_major_nnn_info
   examples: |
     - ngành CNTT ngoại ngữ nhật là gì?
+    - cho tôi biết về CNTT ngoại ngữ nhật
     - cntt nnn là gì?
-    - ngành công nghệ thông tin ngoại ngữ nhật là gì?
+    - CNTT ngoại ngữ nhật ra sao?
+    - cntt NNN là ngành nào?
+    - ngành công nghệ thông tin ngoại ngữ nhật đào tạo như thế nào?
 
 - intent: ask_training_program_major_nnn
   examples: |
     - chương trình đào tạo CNTT ngoại ngữ nhật là gì?
     - đào tạo CNTT ngoại ngữ nhật ra sao?
     - cntt NNN học ra sao?
+    - chương trình đào tạo CNTT NNN?
+    - chương trình đào tạo công nghệ thông tin ngoại ngữ nhật
 
 - intent: ask_standard_output_language_major_nnn
   examples: |
     - chuẩn ngoại ngữ cntt nnn
     - yêu cầu ngoại ngữ cntt nnn
     - chuẩn ngoại ngữ CNTT ngoại ngữ nhật
+    - chuẩn ngoại ngữ công nghệ thông tin ngoại ngữ nhật
+    - yêu cầu ngoại ngữ công nghệ thông tin ngoại ngữ nhật
 
+# ---------- NHÓM CNTT CHUYÊN NGÀNH KHOA HỌC DỮ LIỆU & TTNT ----------
 - intent: ask_major_khdl_ttnt_info
   examples: |
     - ngành CNTT TTNT là gì?
+    - cho tôi biết về CNTT chuyên ngành TTNT
     - CNTT TTNT ra sao?
+    - info CNTT TTNT
+    - cntt TTNT là ngành nào?
+    - CNTT chuyên ngành khoa học dữ liệu & ttnt là gì?
     - cntt ttnt là gì?
-    - ngành cntt khoa học dữ liệu
 
 - intent: ask_training_program_major_khdl_ttnt
   examples: |
     - chương trình đào tạo cntt khdl ttnt
     - đào tạo CNTT TTNT ra sao?
+    - học CNTT TTNT như thế nào?
     - chương trình đào tạo CNTT TTNT?
+    - chương trình đào tạo công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo
 
 - intent: ask_standard_output_language_major_khdl_ttnt
   examples: |
     - chuẩn ngoại ngữ CNTT TTNT là gì?
     - yêu cầu ngoại ngữ đầu ra cntt ttnt
-    - yêu cầu ngoại ngữ cntt khdl ttnt
+    - chuẩn ngoại ngữ công nghệ thông tin khoa học dữ liệu & trí tuệ nhân tạo
+    - chuẩn ngoại ngữ cntt khoa học dữ liệu trí tuệ nhân tạo
+    - chuẩn ngoại ngữ cntt trí tuệ nhân tạo
 
+# ---------- PHƯƠNG THỨC XÉT TUYỂN & TỔ HỢP THI CHUNG ----------
 - intent: ask_admission_method_uni
   examples: |
     - các phương thức xét tuyển trường đại học bách khoa?
+    - các phương thức xét tuyển
+    - phương thức tuyển sinh đại học bách khoa
     - phương thức tuyển sinh bách khoa
-    - tuyển sinh năm 2025 ra sao
+    - phương thức xét tuyển bách khoa
+    - phương thức xét tuyển
+    - phương thức tuyển sinh
 
 - intent: ask_admission_process
   examples: |
     - các đăng kí xét tuyển như thế nào?
     - cách đăng kí xét tuyển
-    - cách đăng kí xét tuyển theo phương thức [xét tuyển riêng]
+    - cách đăng kí xét tuyển theo phương thức [xét tuyển riêng](method)
+    - cách xét tuyển theo phương thức [xét tuyển riêng](method)
+    - cách đăng kí xét tuyển theo phương thức [xét tuyển thẳng](method)
+    - cách đăng kí xét tuyển vào trường theo phương thức [xét tuyển thẳng](method)
+
+- intent: ask_method_detail
+  examples: |
+    - phương thức xét tuyển [điểm tốt nghiệp thpt](method)
+    - phương thức xét tuyển [học bạ thpt](method)
+    - phương thức xét tuyển theo [xét tuyển thẳng](method)
+    - phương thức xét tuyển theo [đánh giá tư duy](method)
+    - phương thức xét tuyển theo [đánh giá năng lực](method)
+    - phương thức xét tuyển theo [xét tuyển riêng](method)
 
 - intent: ask_cntt_luu_y
   examples: |
     - năm nay công nghệ thông tin có gì mới không?
-    - có gì mới trong năm nay?
+    - có gì mới trong năm nay không?
     - có gì khác biệt trong năm nay không?
+    - có gì mới trong năm nay?
 
+# ---------- ĐIỂM CHUẨN TUYỂN SINH ----------
 - intent: ask_cutoff_score
   examples: |
-    - Điểm chuẩn ngành [CNTT HTDN] theo [xét tuyển riêng] là bao nhiêu?
-    - Cho điểm ngành [CNTT AI] bằng [điểm tốt nghiệp THPT].
-    - Điểm chuẩn ngành [CNTT đặc thù] theo [xét tuyển riêng] là bao nhiêu?
+    - Điểm chuẩn ngành [CNTT HTDN](major) theo [xét tuyển riêng](method) là bao nhiêu?
+    - Cho điểm ngành [CNTT AI](major) bằng [điểm tốt nghiệp THPT](method).
+    - Điểm của [CNTT Nhật](major) theo [điểm thi THPT](method) là bao nhiêu?
+    - Mình muốn biết điểm xét tuyển [CNTT Ngoại Ngữ Nhật](major) qua [xét tuyển riêng](method).
+    - Điểm chuẩn ngành [CNTT Đặc Thù – Hợp Tác Doanh Nghiệp](major) theo [điểm thi TSA](method) là bao nhiêu?
 
 - intent: ask_list_major_by_method
   examples: |
-    - những ngành nào xét tuyển bằng [điểm thi tốt nghiệp THPT]?
-    - ngành nào xét tuyển bằng [điểm thi đánh giá năng lực]?
-    - em có [điểm thi TSA], em có thể xét tuyển vào ngành nào?
+    - những ngành nào xét tuyển bằng [điểm thi tốt nghiệp THPT](method)?
+    - những ngành nào xét tuyển bằng [điểm thi đánh giá năng lực](method)?
+    - những ngành nào xét tuyển bằng [điểm thi đánh giá tư duy](method)?
+    - những ngành nào xét tuyển bằng [xét tuyển riêng](method)?
+    - những ngành nào xét tuyển bằng [điểm thi TSA](method)?
 
 - intent: ask_combination_major
   examples: |
-    - Tổ hợp môn xét tuyển ngành [công nghệ thông tin đặc thù] là gì?
-    - [cntt htdn] lấy điểm những môn gì?
-    - [cntt nhật] xét tuyển những tổ hợp môn gì?
+    - Tổ hợp môn xét tuyển ngành [công nghệ thông tin đặc thù](major) là gì?
+    - [công nghệ thông tin đặc thù - hợp tác doanh nghiệp](major) xét tuyển những môn nào?
+    - [cntt htdn](major) lấy điểm những môn gì?
+    - Để vào ngành [công nghệ thông tin đặc thù](major) cần thi những môn nào?
+    - Khối nào xét tuyển vào [cntt đặc thù htdn](major)?
 
 - intent: ask_methods_for_major
   examples: |
-    - [công nghệ thông tin] xét tuyển bằng những phương thức nào?
-    - ngành [kỹ thuật điện] xét tuyển bằng những phương thức gì?
-    - phương thức xét tuyển của ngành [công nghệ thông tin] là gì?
+    - [công nghệ thông tin](major) xét tuyển bằng những phương thức nào?
+    - ngành [cntt](major) xét tuyển qua những hình thức nào?
+    - phương thức xét tuyển của ngành [công nghệ thông tin](major) là gì?
+    - [công nghệ thông tin](major) tuyển sinh theo hình thức gì?
+    - ngành [cntt](major) tuyển sinh qua những con đường nào?
 
 - intent: ask_if_major_accepts_method
   examples: |
-    - ngành [công nghệ thông tin] có xét tuyển bằng [điểm thi tốt nghiệp thpt] không?
-    - [cntt htdn] có xét bằng [học bạ] không?
-    - em có [điểm thi tốt nghiệp thpt], em có thể xét vào ngành [cntt] không?
+    - ngành [công nghệ thông tin](major) có xét tuyển bằng [điểm thi tốt nghiệp thpt](method) không?
+    - [cntt htdn](major) có xét bằng [học bạ](method) không?
+    - ngành [công nghệ thông tin](major) có tuyển thí sinh qua [xét tuyển thẳng](method) không?
+    - [công nghệ thông tin ngoại ngữ nhật](major) có nhận [điểm đánh giá năng lực](method) không?
+    - [cntt ai](major) có tuyển bằng [điểm thi thpt](method) không?
 
 - intent: ask_quotas_for_major
   examples: |
-    - chỉ tiêu của ngành [công nghệ thông tin] là bao nhiêu?
-    - ngành [công nghệ thông tin đặc thù] có chỉ tiêu tuyển sinh là bao nhiêu?
-    - [cntt htdn] năm nay tuyển bao nhiêu sinh viên?
+    - chỉ tiêu của ngành [công nghệ thông tin](major) là bao nhiêu?
+    - ngành [công nghệ thông tin đặc thù](major) có chỉ tiêu tuyển sinh là bao nhiêu?
+    - [cntt htdn](major) năm nay tuyển bao nhiêu sinh viên?
+    - [cntt nn nhật](major) có bao nhiêu chỉ tiêu?
+    - ngành [công nghệ thông tin ai](major) tuyển bao nhiêu?
 
 - intent: ask_major_by_achievement
   examples: |
-    - Tôi đạt giải học sinh giỏi cấp quốc gia môn [toán], có thể xét tuyển ngành nào?
-    - Nếu em có giải học sinh giỏi cấp tỉnh môn [vật lý] thì phù hợp với ngành nào?
-    - Với thành tích giải ba môn [tin học] trong kỳ thi học sinh giỏi cấp tỉnh, em nên chọn ngành nào?
+    - Tôi đạt giải học sinh giỏi cấp quốc gia môn [toán](achievement), có thể xét tuyển ngành nào?
+    - Nếu em có giải học sinh giỏi cấp tỉnh môn [vật lý](achievement) thì phù hợp với ngành nào?
+    - Với thành tích giải ba môn [tin học](achievement) trong kỳ thi học sinh giỏi cấp tỉnh, em nên chọn ngành nào?
+    - Em đạt giải nhất [tin học](achievement) cấp thành phố thì xét vào ngành nào?
+    - Em đoạt [huy chương đồng](achievement) kỳ thi olympic quốc tế thì nên học ngành gì?
 
-- intent: ask_major_by_subjects
+- intent: out_of_scope
   examples: |
-    - Tôi đăng kí tự chọn môn [vật lý] và [hóa học] thì có thể học ngành nào?
-    - tôi chọn môn [toán], [vật lý] và [hóa học] thì có thể xét tuyển vào ngành nào?
-    - Nếu tôi chọn môn [tiếng nhật] và [vật lý] thì có thể xét tuyển vào ngành nào?
+    - bạn có biết làm món ăn không
+    - ngày mai thời tiết thế nào
+    - anh yêu em nhiều lắm
+    - châu phi ở đâu
+    - giá vé máy bay hôm nay
+    - đội bóng nào vô địch world cup
 
-- intent: ask_major_by_faculty
+- intent: request_human
   examples: |
-    - Tôi muốn biết các ngành thuộc khoa [công nghệ thông tin] ?
-    - Khoa [hóa] có những ngành nào?
-    - Các ngành thuộc khoa [cơ khí] là gì?
+    - tôi muốn nói chuyện với người thật
+    - kết nối tôi với tư vấn viên
+    - cho tôi gặp người phụ trách tuyển sinh
+    - tôi muốn nói chuyện với con người
+    - có ai ở đó không, tôi không muốn nói chuyện với robot
 
-- intent: ask_suggest_major_by_score_with_method
-  examples: |
-    - em đạt được [26.5] điểm ở phương thức [điểm thi tốt nghiệp], em có thể đăng ký ngành nào?
-    - với số điểm [22.67] ở phương thức [học bạ], em có thể đăng ký ngành nào?
-    - em đạt được [289.5] điểm ở phương thức [xét tuyển riêng] thì em có thể đăng ký ngành nào?
-
-- intent: ask_suggest_major_by_score_with_method_and_faculty
-  examples: |
-    - em đạt được [26.5] điểm ở phương thức [điểm thi tốt nghiệp], em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin]?
-    - em đạt được [25.55] điểm ở phương thức [học bạ], em có thể đăng ký ngành nào thuộc khoa [điện]?
-    - với số điểm [1026] điểm ở phương thức [đánh giá năng lực], em có thể đăng ký ngành nào thuộc khoa [môi trường]?
-
-- intent: ask_calculate_score
-  examples: |
-    - em đạt được điểm môn [toán] là [8.5], môn [vật lý] là [7.5], môn [hóa học] là [6.5], vậy điểm của em là bao nhiêu?
-    - em thi kỳ thi vừa rồi đạt điểm là [toán] : [8.5], [vật lý] : [7.5], [hóa học] : [6.5], [ngữ văn] : [5.75]
-    - em có điểm môn [toán] là [8.5], môn [tin học] là [10], môn [hóa học] là [6.5], môn [ngữ văn] là [5.75]
-
+# ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
 - intent: ask_training_program
   examples: |
     - chương trình đào tạo CNTT ra sao?
     - học CNTT như thế nào?
     - đào tạo CNTT có gì đặc biệt?
+    - chương trình đào tạo ngành công nghệ thông tin
+    - cách đào tạo cntt tại trường bách khoa
 
+# ---------- CHUẨN ĐẦU RA NGOẠI NGỮ ----------
 - intent: ask_standard_output_language
   examples: |
     - chuẩn ngoại ngữ đầu ra của các ngành là gì?
     - chuẩn đầu ra ngoại ngữ của trường là gì?
     - yêu cầu ngoại ngữ đầu ra
+    - tốt nghiệp cần đạt chuẩn ngoại ngữ nào
+    - chuẩn tiếng anh để tốt nghiệp
 
+# ---------- FAQ VIỆC LÀM & CHỨNG CHỈ NGOẠI NGỮ ----------
 - intent: ask_faq_job_opportunities
   examples: |
     - sau khi học CNTT làm được gì?
     - cơ hội việc làm CNTT là gì?
     - việc làm công nghệ thông tin ra sao
+    - ra trường làm những công việc gì
+    - nghề nghiệp sau khi học cntt
 
 - intent: ask_faq_detail_specialized
   examples: |
     - CNTT có mấy chuyên ngành?
     - chuyên ngành CNTT gồm những gì?
     - các chuyên ngành công nghệ thông tin
+    - ngành cntt chia thành những chuyên ngành gì
+    - chuyên ngành công nghệ thông tin có những gì
 
 - intent: ask_faq_attt
   examples: |
     - việc làm chuyên ngành An Toàn Thông Tin là gì?
     - cơ hội nghề nghiệp An Toàn Thông Tin?
     - học an toàn thông tin làm gì?
+    - an toàn thông tin học những môn gì
+    - an toàn thông tin là gì
+
+- intent: ask_faq_httt
+  examples: |
+    - học hệ thống thông tin làm gì?
+    - cơ hội nghề nghiệp hệ thống thông tin
+    - chuyên ngành hệ thống thông tin là gì
+    - hệ thống thông tin học những gì
+    - httt là chuyên ngành gì
+
+- intent: ask_faq_cnpm
+  examples: |
+    - công nghệ phần mềm là gì?
+    - học công nghệ phần mềm để làm gì
+    - chuyên ngành công nghệ phần mềm học những môn gì
+    - công nghệ phần mềm ra làm gì
+    - cnpm là chuyên ngành về gì
+
+- intent: ask_faq_htn
+  examples: |
+    - hệ thống nhúng là gì?
+    - học hệ thống nhúng làm gì
+    - hệ thống nhúng học những môn nào
+    - học hệ thống nhúng có khó không
+    - ra trường làm gì nếu học hệ thống nhúng
+
+- intent: ask_faq_khdl
+  examples: |
+    - khoa học dữ liệu là gì?
+    - học khoa học dữ liệu làm công việc gì
+    - trí tuệ nhân tạo học những môn nào
+    - khdl & ttnt có những môn học gì
+    - ai là chuyên ngành như thế nào
+
+- intent: ask_faq_mtt
+  examples: |
+    - mạng và truyền thông là chuyên ngành gì?
+    - học mạng và truyền thông làm nghề gì
+    - chuyên ngành mạng truyền thông học những môn nào
+    - mạng truyền thông là gì
+    - học mạng và truyền thông ra làm gì
+
+- intent: ask_faq_certificate_usage
+  examples: |
+    - chứng chỉ ngoại ngữ có được quy đổi điểm không?
+    - ielts có quy đổi thành điểm xét tuyển không
+    - toeic dùng để làm gì trong tuyển sinh
+    - chứng chỉ tiếng anh có tác dụng gì khi xét tuyển
+    - có ielts thì được cộng mấy điểm
+
+# ---------- THÔNG TIN LIÊN HỆ TUYỂN SINH ----------
+- intent: ask_contact_info
+  examples: |
+    - làm sao để liên hệ với trường?
+    - địa chỉ của trường ở đâu
+    - số điện thoại ban tuyển sinh
+    - email liên hệ tuyển sinh
+    - thông tin liên lạc với phòng tuyển sinh
+
+# ---------- ADVANCED FEATURES ----------
+- intent: ask_major_by_subjects
+  examples: |
+    - Tôi đăng kí tự chọn môn [vật lý](subject) và [hóa học](subject) thì có thể học ngành nào?
+    - tôi chọn môn [toán](subject), [vật lý](subject) và [hóa học](subject) thì có thể xét tuyển vào ngành nào?
+    - Nếu tôi chọn môn [tiếng nhật](subject) và [vật lý](subject) thì có thể xét tuyển vào ngành nào?
+    - Em học giỏi môn [sinh học](subject) và [tiếng anh](subject) thì nên học ngành nào?
+    - Tổ hợp [toán](subject), [lý](subject), [anh](subject) xét được vào ngành nào?
+
+- intent: ask_major_by_faculty
+  examples: |
+    - Tôi muốn biết các ngành thuộc khoa [công nghệ thông tin](faculty)?
+    - Khoa [hóa](faculty) có những ngành nào?
+    - Các ngành thuộc khoa [cơ khí](faculty) là gì?
+    - Khoa [điện](faculty) đào tạo những ngành nào?
+    - Những ngành nào thuộc khoa [xây dựng](faculty)?
+
+- intent: ask_suggest_major_by_score_with_method
+  examples: |
+    - em đạt được [26.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào?
+    - với số điểm [22.67](score) ở phương thức [học bạ](method), em có thể đăng ký ngành nào?
+    - em đạt được [289.5](score) điểm ở phương thức [xét tuyển riêng](method) thì em có thể đăng ký ngành nào?
+    - em được [25.5](score) điểm theo [điểm thi tốt nghiệp](method) thì nên học ngành gì?
+    - với [850](score) điểm [đánh giá năng lực](method) thì học được ngành nào?
+
+- intent: ask_suggest_major_by_score_with_method_and_faculty
+  examples: |
+    - em đạt được [26.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin](faculty)?
+    - em đạt được [25.55](score) điểm ở phương thức [học bạ](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
+    - với số điểm [1026](score) điểm ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [môi trường](faculty)?
+    - em được [24.5](score) điểm [điểm tốt nghiệp](method) thì có thể học ngành gì ở khoa [cơ khí](faculty)?
+    - điểm [27.8](score) theo [thpt](method) vào được ngành nào ở khoa [cntt](faculty)?
+
+- intent: ask_calculate_score
+  examples: |
+    - em đạt được điểm môn [toán](subject) là [8.5], môn [vật lý](subject) là [7.5], môn [hóa học](subject) là [6.5], vậy điểm của em là bao nhiêu?
+    - em thi kỳ thi vừa rồi đạt điểm là [toán](subject) : [8.5], [vật lý](subject) : [7.5], [hóa học](subject) : [6.5], [ngữ văn](subject) : [5.75]
+    - em có điểm môn [toán](subject) là [8.5], môn [tin học](subject) là [10], môn [hóa học](subject) là [6.5], môn [ngữ văn](subject) là [5.75]
+    - giúp em tính điểm với [toán](subject) [9], [lý](subject) [8], [hóa](subject) [7.5]
+    - điểm của em là [toán](subject) [8], [tiếng anh](subject) [9], [lý](subject) [7.5] thì tổng điểm là bao nhiêu?
+
+- intent: ask_career_guidance
+  examples: |
+    - tôi nên học ngành nào phù hợp với sở thích của mình?
+    - em có thể được tư vấn chọn ngành phù hợp không?
+    - giúp em định hướng ngành học
+    - ngành nào phù hợp với em
+    - tư vấn chọn ngành học phù hợp
+
+- intent: provide_student_interests
+  examples: |
+    - tôi thích [làm việc với máy tính](student_interests) và [giải quyết vấn đề](student_interests)
+    - em yêu thích [lập trình](student_interests) và [thiết kế](student_interests)
+    - sở thích của em là [phân tích dữ liệu](student_interests) và [nghiên cứu](student_interests)
+    - em đam mê về [công nghệ](student_interests) và [sáng tạo](student_interests)
+    - tôi thích [làm việc nhóm](student_interests) và [tìm hiểu công nghệ mới](student_interests)
+
+- intent: provide_academic_strengths
+  examples: |
+    - tôi giỏi về [toán](academic_strengths) và [vật lý](academic_strengths)
+    - em có điểm cao môn [tin học](academic_strengths) và [tiếng anh](academic_strengths)
+    - điểm mạnh học tập của em là [tư duy logic](academic_strengths) và [giải quyết vấn đề](academic_strengths)
+    - em học tốt các môn [khoa học tự nhiên](academic_strengths) và [tiếng anh](academic_strengths)
+    - điểm mạnh của em là [lập trình](academic_strengths) và [thiết kế](academic_strengths)
+
+- intent: provide_personality_traits
+  examples: |
+    - tôi là người [kiên nhẫn](personality_traits) và [chi tiết](personality_traits)
+    - em có tính cách [sáng tạo](personality_traits) và [ham học hỏi](personality_traits)
+    - tính cách của em là [thích làm việc nhóm](personality_traits) và [quyết đoán](personality_traits)
+    - em là người [tỉ mỉ](personality_traits) và [logic](personality_traits)
+    - tôi là người [độc lập](personality_traits) nhưng cũng [hòa đồng](personality_traits)
+
+- intent: ask_suggest_major_by_score_and_subjects
+  examples: |
+    - với điểm [25](score) và tổ hợp [toán](subject), [lý](subject), [hóa](subject) thì nên học ngành nào?
+    - em được [24.5](score) điểm với khối [toán](subject), [lý](subject), [anh](subject) thì học ngành gì?
+    - điểm [27](score) và tổ hợp [toán](subject), [hóa](subject), [sinh](subject) thì vào được ngành nào?
+    - em có [26.5](score) điểm và xét tổ hợp [toán](subject), [lý](subject), [tin](subject) thì nên chọn ngành gì?
+    - với [23.5](score) điểm và các môn [tiếng anh](subject), [toán](subject), [ngữ văn](subject) thì phù hợp ngành nào?
+
+- intent: ask_check_major_admission_with_subject_scores
+  examples: |
+    - với điểm [toán](subject) [9], [lý](subject) [8], [hóa](subject) [7], em có thể vào ngành [cntt](major) không?
+    - điểm [toán](subject) [8], [lý](subject) [7], [anh](subject) [9], em có đủ điểm vào [cntt ngoại ngữ nhật](major) không?
+    - với [toán](subject) [9], [tin](subject) [9], [anh](subject) [8], em có trúng tuyển [cntt đặc thù](major) không?
+    - điểm các môn [toán](subject) [8.5], [lý](subject) [7.5], [hóa](subject) [8] có vào được [khoa học dữ liệu](major) không?
+    - em có [toán](subject) [9], [vật lý](subject) [8], [hóa học](subject) [7], đủ điểm vào [cntt ai](major) không?
+
+- intent: affirm
+  examples: |
+    - đúng
+    - vâng
+    - được
+    - chính xác
+    - đúng rồi
+    - đúng vậy
+    - tôi đồng ý
+    - chắc chắn rồi
+    - OK
+
+- intent: deny
+  examples: |
+    - không
+    - không phải vậy
+    - sai rồi
+    - không đúng
+    - không hẳn
+    - tôi không đồng ý
+    - không chính xác
+    - không phải thế

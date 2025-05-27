@@ -53,9 +53,9 @@ intents:
   - ask_suggest_major_by_score_with_method
   - ask_suggest_major_by_score_with_method_and_faculty
   - ask_calculate_score
-  - ask_career_guidance        # Intent chính cho định hướng ngành học
-  - provide_student_interests  # Intent cung cấp sở thích
-  - provide_academic_strengths # Intent cung cấp điểm mạnh học tập
+  - ask_career_guidance
+  - provide_student_interests
+  - provide_academic_strengths
   - provide_personality_traits
   - ask_suggest_major_by_score_and_subjects
   - ask_method_detail
@@ -69,8 +69,8 @@ entities:
   - subject
   - faculty
   - score
-  - student_interests     
-  - academic_strengths    
+  - student_interests
+  - academic_strengths
   - personality_traits
 
 slots:
@@ -165,7 +165,7 @@ slots:
       - type: from_entity
         entity: personality_traits
   
-  suggested_majors:     # Thêm slot để lưu các ngành đã được gợi ý
+  suggested_majors:
     type: list
     influence_conversation: true
     mappings:

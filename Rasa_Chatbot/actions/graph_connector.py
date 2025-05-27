@@ -983,3 +983,125 @@ class GraphConnector:
     
         return result
     
+    def get_major_recommendations_by_attributes(self, interests: list = None, academic_strengths: list = None, 
+                                         personality_traits: list = None, limit: int = 8) -> list:
+        """
+        Get major recommendations based on student interests, academic strengths, and personality traits
+        using a graph-based recommendation algorithm.
+    
+        Args:
+            interests (list): List of student interests
+            academic_strengths (list): List of academic strengths
+            personality_traits (list): List of personality traits
+            limit (int): Maximum number of recommendations to return
+        
+        Returns:
+            list: A list of dictionaries with major recommendations and explanations
+        """
+        # Ensure we have at least one attribute to base recommendations on
+        if not interests and not academic_strengths and not personality_traits:
+            return []
+        
+        # Count how many attribute types we have
+        attr_count = sum(1 for attr in [interests, academic_strengths, personality_traits] if attr and len(attr) > 0)
+        if attr_count == 0:
+            return []
+    
+        # Prepare parameters
+        params = {
+            "interests": interests or [],
+            "academic_strengths": academic_strengths or [],
+            "personality_traits": personality_traits or [],
+            "limit": limit
+        }
+    
+        # Build query for recommendation
+        query = """
+        // Match interests
+        MATCH (major:Major)
+        OPTIONAL MATCH path1 = (i:StudentInterest)-[r1:FITS_MAJOR]->(major)
+        WHERE i.id IN $interests OR i.name IN $interests
+    
+        // Match academic strengths
+        OPTIONAL MATCH path2 = (a:AcademicStrength)-[r2:FITS_MAJOR]->(major)
+        WHERE a.id IN $academic_strengths OR a.name IN $academic_strengths
+    
+        // Match personality traits
+        OPTIONAL MATCH path3 = (p:PersonalityTrait)-[r3:FITS_MAJOR]->(major)
+        WHERE p.id IN $personality_traits OR p.name IN $personality_traits
+    
+        // Calculate weighted score based on relationship weights and matches
+        WITH major,
+            CASE WHEN path1 IS NULL THEN 0 ELSE sum(r1.weight) * 0.4 END AS interest_score,
+            CASE WHEN path2 IS NULL THEN 0 ELSE sum(r2.weight) * 0.4 END AS academic_score,
+            CASE WHEN path3 IS NULL THEN 0 ELSE sum(r3.weight) * 0.2 END AS personality_score,
+            COLLECT(DISTINCT i.name) AS matching_interests,
+            COLLECT(DISTINCT a.name) AS matching_strengths,
+            COLLECT(DISTINCT p.name) AS matching_traits
+    
+        // Calculate total score and filter out majors with no matches
+        WITH major, 
+            interest_score + academic_score + personality_score AS total_score,
+            matching_interests, matching_strengths, matching_traits
+        WHERE total_score > 0
+    
+        // Improve recommendations with collaborative filtering-like approach
+        // Find similar majors that other students with similar interests chose
+        OPTIONAL MATCH (major)<-[:FITS_MAJOR]-(attr)<-[:FITS_MAJOR]-(related_major:Major)
+        WHERE attr:StudentInterest OR attr:AcademicStrength OR attr:PersonalityTrait
+        WITH major, total_score, matching_interests, matching_strengths, matching_traits,
+            count(DISTINCT related_major) AS similarity_boost
+    
+        // Calculate final score with similarity boost
+        WITH major, total_score * (1 + similarity_boost * 0.01) AS final_score,
+            matching_interests, matching_strengths, matching_traits
+    
+        // Return sorted recommendations
+        RETURN major.id AS major_id,
+            major.name AS major_name,
+            major.major_url AS major_url,
+            [x IN matching_interests WHERE x IS NOT NULL] AS matched_interests,
+            [x IN matching_strengths WHERE x IS NOT NULL] AS matched_strengths,
+            [x IN matching_traits WHERE x IS NOT NULL] AS matched_traits
+        ORDER BY final_score DESC
+        LIMIT $limit
+        """
+    
+        try:
+            with self.driver.session() as session:
+                result = session.run(query, params)
+                recommendations = []
+            
+                for record in result:
+                    # Generate explanations based on matches
+                    explanations = []
+                
+                    # Add explanation for interests if any
+                    if record["matched_interests"] and len(record["matched_interests"]) > 0:
+                        interests_text = ", ".join(record["matched_interests"])
+                        explanations.append(f"Phù hợp với sở thích: {interests_text}")
+                
+                    # Add explanation for academic strengths if any
+                    if record["matched_strengths"] and len(record["matched_strengths"]) > 0:
+                        strengths_text = ", ".join(record["matched_strengths"])
+                        explanations.append(f"Phù hợp với điểm mạnh học tập: {strengths_text}")
+                
+                    # Add explanation for personality traits if any
+                    if record["matched_traits"] and len(record["matched_traits"]) > 0:
+                        traits_text = ", ".join(record["matched_traits"])
+                        explanations.append(f"Phù hợp với tính cách: {traits_text}")
+                
+                    # Add recommendation
+                    recommendations.append({
+                        "major_id": record["major_id"],
+                        "major_name": record["major_name"],
+                        "major_url": record["major_url"],
+                        "explanations": explanations
+                    })
+            
+                return recommendations
+            
+        except Exception as e:
+            print(f"Error in major recommendation: {str(e)}")
+            return []
+    

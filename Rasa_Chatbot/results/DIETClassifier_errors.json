@@ -1,0 +1,2292 @@
+[
+  {
+    "text": "ngành cntt tuyển sinh qua những con đường nào?",
+    "entities": [
+      {
+        "start": 6,
+        "end": 10,
+        "value": "cntt",
+        "entity": "major"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 6,
+        "end": 10,
+        "confidence_entity": 0.9753301739692688,
+        "value": "cntt",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "major",
+        "start": 36,
+        "end": 41,
+        "confidence_entity": 0.5372046232223511,
+        "value": "đường",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "ngành công nghệ thông tin có tuyển thí sinh qua xét tuyển thẳng không?",
+    "entities": [
+      {
+        "start": 6,
+        "end": 25,
+        "value": "công nghệ thông tin",
+        "entity": "major"
+      },
+      {
+        "start": 48,
+        "end": 63,
+        "value": "xét tuyển thẳng",
+        "entity": "method"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 6,
+        "end": 25,
+        "confidence_entity": 0.9974443912506104,
+        "value": "công nghệ thông tin",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "major",
+        "start": 35,
+        "end": 38,
+        "confidence_entity": 0.9791639447212219,
+        "value": "thí",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "method",
+        "start": 48,
+        "end": 63,
+        "confidence_entity": 0.9046783447265625,
+        "value": "xét tuyển thẳng",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Em đạt giải nhất tin học cấp thành phố thì xét vào ngành nào?",
+    "entities": [
+      {
+        "start": 17,
+        "end": 24,
+        "value": "tin học",
+        "entity": "achievement"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "achievement",
+        "start": 17,
+        "end": 20,
+        "confidence_entity": 0.923763632774353,
+        "value": "tin",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Em đoạt huy chương đồng kỳ thi olympic quốc tế thì nên học ngành gì?",
+    "entities": [
+      {
+        "start": 8,
+        "end": 23,
+        "value": "huy chương đồng",
+        "entity": "achievement"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "anh yêu em nhiều lắm",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "student_interests",
+        "start": 4,
+        "end": 7,
+        "confidence_entity": 0.7374665141105652,
+        "value": "yêu",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "student_interests",
+        "start": 11,
+        "end": 16,
+        "confidence_entity": 0.7758525609970093,
+        "value": "nhiều",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "giá vé máy bay hôm nay",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 7,
+        "end": 10,
+        "confidence_entity": 0.9594231843948364,
+        "value": "máy",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "cho tôi gặp người phụ trách tuyển sinh",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 18,
+        "end": 27,
+        "confidence_entity": 0.6971601843833923,
+        "value": "phụ trách",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "chuẩn tiếng anh để tốt nghiệp",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "method",
+        "start": 19,
+        "end": 29,
+        "confidence_entity": 0.6490875482559204,
+        "value": "tốt nghiệp",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "an toàn thông tin học những môn gì",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 0,
+        "end": 21,
+        "confidence_entity": 0.5348941087722778,
+        "value": "an toàn thông tin học",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "chuyên ngành công nghệ phần mềm học những môn gì",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 0,
+        "end": 35,
+        "confidence_entity": 0.8935327529907227,
+        "value": "chuyên ngành công nghệ phần mềm học",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "hệ thống nhúng học những môn nào",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 0,
+        "end": 18,
+        "confidence_entity": 0.9675814509391785,
+        "value": "hệ thống nhúng học",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "học hệ thống nhúng có khó không",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 4,
+        "end": 12,
+        "confidence_entity": 0.66,
+        "value": "hệ thống",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "ra trường làm gì nếu học hệ thống nhúng",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 21,
+        "end": 24,
+        "confidence_entity": 0.9763174057006836,
+        "value": "học",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 25,
+        "end": 39,
+        "confidence_entity": 0.5210219621658325,
+        "value": "hệ thống nhúng",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "trí tuệ nhân tạo học những môn nào",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 0,
+        "end": 20,
+        "confidence_entity": 0.9585508108139038,
+        "value": "trí tuệ nhân tạo học",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "khdl & ttnt có những môn học gì",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 7,
+        "end": 11,
+        "confidence_entity": 0.5591666102409363,
+        "value": "ttnt",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "email liên hệ tuyển sinh",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 11,
+        "end": 13,
+        "confidence_entity": 0.929436445236206,
+        "value": "hệ",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "thông tin liên lạc với phòng tuyển sinh",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "major",
+        "start": 6,
+        "end": 9,
+        "confidence_entity": 0.7503715753555298,
+        "value": "tin",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "major",
+        "start": 15,
+        "end": 18,
+        "confidence_entity": 0.5821318030357361,
+        "value": "lạc",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Em học giỏi môn sinh học và tiếng anh thì nên học ngành nào?",
+    "entities": [
+      {
+        "start": 16,
+        "end": 24,
+        "value": "sinh học",
+        "entity": "subject"
+      },
+      {
+        "start": 28,
+        "end": 37,
+        "value": "tiếng anh",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "academic_strengths",
+        "start": 7,
+        "end": 37,
+        "confidence_entity": 0.5112211108207703,
+        "value": "giỏi môn sinh học và tiếng anh",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "Tổ hợp toán, lý, anh xét được vào ngành nào?",
+    "entities": [
+      {
+        "start": 7,
+        "end": 11,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 13,
+        "end": 15,
+        "value": "lý",
+        "entity": "subject"
+      },
+      {
+        "start": 17,
+        "end": 20,
+        "value": "anh",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 7,
+        "end": 11,
+        "confidence_entity": 0.9470399618148804,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 13,
+        "end": 15,
+        "confidence_entity": 0.7318772077560425,
+        "value": "lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "major",
+        "start": 17,
+        "end": 20,
+        "confidence_entity": 0.5243186354637146,
+        "value": "anh",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Khoa điện đào tạo những ngành nào?",
+    "entities": [
+      {
+        "start": 5,
+        "end": 9,
+        "value": "điện",
+        "entity": "faculty"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "faculty",
+        "start": 5,
+        "end": 17,
+        "confidence_entity": 0.521500825881958,
+        "value": "điện đào tạo",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em được 25.5 điểm theo điểm thi tốt nghiệp thì nên học ngành gì?",
+    "entities": [
+      {
+        "start": 8,
+        "end": 12,
+        "value": "25.5",
+        "entity": "score"
+      },
+      {
+        "start": 23,
+        "end": 42,
+        "value": "điểm thi tốt nghiệp",
+        "entity": "method"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "score",
+        "start": 8,
+        "end": 12,
+        "confidence_entity": 0.9999871253967285,
+        "value": "25.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "method",
+        "start": 23,
+        "end": 42,
+        "confidence_entity": 0.9982407093048096,
+        "value": "điểm thi tốt nghiệp",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 51,
+        "end": 54,
+        "confidence_entity": 0.9381415247917175,
+        "value": "học",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "với 850 điểm đánh giá năng lực thì học được ngành nào?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 7,
+        "value": "850",
+        "entity": "score"
+      },
+      {
+        "start": 13,
+        "end": 30,
+        "value": "đánh giá năng lực",
+        "entity": "method"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "score",
+        "start": 4,
+        "end": 7,
+        "confidence_entity": 0.9999109506607056,
+        "value": "850",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "method",
+        "start": 13,
+        "end": 30,
+        "confidence_entity": 0.9564674496650696,
+        "value": "đánh giá năng lực",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 35,
+        "end": 38,
+        "confidence_entity": 0.9982665181159973,
+        "value": "học",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em được 24.5 điểm điểm tốt nghiệp thì có thể học ngành gì ở khoa cơ khí?",
+    "entities": [
+      {
+        "start": 8,
+        "end": 12,
+        "value": "24.5",
+        "entity": "score"
+      },
+      {
+        "start": 18,
+        "end": 33,
+        "value": "điểm tốt nghiệp",
+        "entity": "method"
+      },
+      {
+        "start": 65,
+        "end": 71,
+        "value": "cơ khí",
+        "entity": "faculty"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "score",
+        "start": 8,
+        "end": 12,
+        "confidence_entity": 0.9999887943267822,
+        "value": "24.5",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "method",
+        "start": 18,
+        "end": 33,
+        "confidence_entity": 0.8242616653442383,
+        "value": "điểm tốt nghiệp",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 45,
+        "end": 48,
+        "confidence_entity": 0.9991217255592346,
+        "value": "học",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "faculty",
+        "start": 65,
+        "end": 71,
+        "confidence_entity": 0.8875788450241089,
+        "value": "cơ khí",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "điểm 27.8 theo thpt vào được ngành nào ở khoa cntt?",
+    "entities": [
+      {
+        "start": 5,
+        "end": 9,
+        "value": "27.8",
+        "entity": "score"
+      },
+      {
+        "start": 15,
+        "end": 19,
+        "value": "thpt",
+        "entity": "method"
+      },
+      {
+        "start": 46,
+        "end": 50,
+        "value": "cntt",
+        "entity": "faculty"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "score",
+        "start": 5,
+        "end": 9,
+        "confidence_entity": 0.999967098236084,
+        "value": "27.8",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "method",
+        "start": 15,
+        "end": 19,
+        "confidence_entity": 0.8622280359268188,
+        "value": "THPT",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "major",
+        "start": 46,
+        "end": 50,
+        "confidence_entity": 0.6004443764686584,
+        "value": "cntt",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "em đạt được điểm môn toán là [8.5], môn vật lý là [7.5], môn hóa học là [6.5], vậy điểm của em là bao nhiêu?",
+    "entities": [
+      {
+        "start": 21,
+        "end": 25,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 40,
+        "end": 46,
+        "value": "vật lý",
+        "entity": "subject"
+      },
+      {
+        "start": 61,
+        "end": 68,
+        "value": "hóa học",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 21,
+        "end": 25,
+        "confidence_entity": 0.999761164188385,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 29,
+        "end": 33,
+        "confidence_entity": 0.9999866485595703,
+        "value": "[8.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 40,
+        "end": 46,
+        "confidence_entity": 0.999913215637207,
+        "value": "vật lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 50,
+        "end": 54,
+        "confidence_entity": 0.9999849796295166,
+        "value": "[7.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 61,
+        "end": 68,
+        "confidence_entity": 0.9998804330825806,
+        "value": "hóa học",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 72,
+        "end": 76,
+        "confidence_entity": 0.9999850988388062,
+        "value": "[6.5",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em thi kỳ thi vừa rồi đạt điểm là toán : [8.5], vật lý : [7.5], hóa học : [6.5], ngữ văn : [5.75]",
+    "entities": [
+      {
+        "start": 34,
+        "end": 38,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 48,
+        "end": 54,
+        "value": "vật lý",
+        "entity": "subject"
+      },
+      {
+        "start": 64,
+        "end": 71,
+        "value": "hóa học",
+        "entity": "subject"
+      },
+      {
+        "start": 81,
+        "end": 88,
+        "value": "ngữ văn",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 34,
+        "end": 38,
+        "confidence_entity": 0.999808132648468,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 41,
+        "end": 45,
+        "confidence_entity": 0.9999853372573853,
+        "value": "[8.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 48,
+        "end": 54,
+        "confidence_entity": 0.9998986721038818,
+        "value": "vật lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 57,
+        "end": 61,
+        "confidence_entity": 0.9999816417694092,
+        "value": "[7.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 64,
+        "end": 71,
+        "confidence_entity": 0.999819815158844,
+        "value": "hóa học",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 74,
+        "end": 78,
+        "confidence_entity": 0.9999822378158569,
+        "value": "[6.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 81,
+        "end": 88,
+        "confidence_entity": 0.9998390674591064,
+        "value": "ngữ văn",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 91,
+        "end": 96,
+        "confidence_entity": 0.9999698400497437,
+        "value": "[5.75",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em có điểm môn toán là [8.5], môn tin học là [10], môn hóa học là [6.5], môn ngữ văn là [5.75]",
+    "entities": [
+      {
+        "start": 15,
+        "end": 19,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 34,
+        "end": 41,
+        "value": "tin học",
+        "entity": "subject"
+      },
+      {
+        "start": 55,
+        "end": 62,
+        "value": "hóa học",
+        "entity": "subject"
+      },
+      {
+        "start": 77,
+        "end": 84,
+        "value": "ngữ văn",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 15,
+        "end": 19,
+        "confidence_entity": 0.9999258518218994,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 23,
+        "end": 27,
+        "confidence_entity": 0.9999821186065674,
+        "value": "[8.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 34,
+        "end": 41,
+        "confidence_entity": 0.9999457597732544,
+        "value": "tin học",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 45,
+        "end": 48,
+        "confidence_entity": 0.9999245405197144,
+        "value": "[10",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 55,
+        "end": 62,
+        "confidence_entity": 0.9998621940612793,
+        "value": "hóa học",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 66,
+        "end": 70,
+        "confidence_entity": 0.9999823570251465,
+        "value": "[6.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 77,
+        "end": 84,
+        "confidence_entity": 0.9998948574066162,
+        "value": "ngữ văn",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 88,
+        "end": 93,
+        "confidence_entity": 0.9999709129333496,
+        "value": "[5.75",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "giúp em tính điểm với toán [9], lý [8], hóa [7.5]",
+    "entities": [
+      {
+        "start": 22,
+        "end": 26,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 32,
+        "end": 34,
+        "value": "lý",
+        "entity": "subject"
+      },
+      {
+        "start": 40,
+        "end": 43,
+        "value": "hóa",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 8,
+        "end": 12,
+        "confidence_entity": 0.8969628214836121,
+        "value": "tính",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 22,
+        "end": 26,
+        "confidence_entity": 0.9998438358306885,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 27,
+        "end": 29,
+        "confidence_entity": 0.9999638795852661,
+        "value": "[9",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 32,
+        "end": 34,
+        "confidence_entity": 0.9989731311798096,
+        "value": "lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 35,
+        "end": 37,
+        "confidence_entity": 0.9999676942825317,
+        "value": "[8",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 40,
+        "end": 43,
+        "confidence_entity": 0.9098227024078369,
+        "value": "hóa",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 44,
+        "end": 48,
+        "confidence_entity": 0.9999656677246094,
+        "value": "[7.5",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "điểm của em là toán [8], tiếng anh [9], lý [7.5] thì tổng điểm là bao nhiêu?",
+    "entities": [
+      {
+        "start": 15,
+        "end": 19,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 25,
+        "end": 34,
+        "value": "tiếng anh",
+        "entity": "subject"
+      },
+      {
+        "start": 40,
+        "end": 42,
+        "value": "lý",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 15,
+        "end": 19,
+        "confidence_entity": 0.9998730421066284,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 20,
+        "end": 22,
+        "confidence_entity": 0.9999740123748779,
+        "value": "[8",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 25,
+        "end": 34,
+        "confidence_entity": 0.9999403953552246,
+        "value": "tiếng anh",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 35,
+        "end": 37,
+        "confidence_entity": 0.9999713897705078,
+        "value": "[9",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 40,
+        "end": 42,
+        "confidence_entity": 0.673642635345459,
+        "value": "lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 43,
+        "end": 47,
+        "confidence_entity": 0.9999828338623047,
+        "value": "[7.5",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tôi nên học ngành nào phù hợp với sở thích của mình?",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 12,
+        "end": 17,
+        "confidence_entity": 0.9341875314712524,
+        "value": "ngành",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "giúp em định hướng ngành học",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "personality_traits",
+        "start": 13,
+        "end": 18,
+        "confidence_entity": 0.7353590726852417,
+        "value": "hướng",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tôi thích làm việc với máy tính và giải quyết vấn đề",
+    "entities": [
+      {
+        "start": 10,
+        "end": 31,
+        "value": "làm việc với máy tính",
+        "entity": "student_interests"
+      },
+      {
+        "start": 35,
+        "end": 52,
+        "value": "giải quyết vấn đề",
+        "entity": "student_interests"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "student_interests",
+        "start": 4,
+        "end": 52,
+        "confidence_entity": 0.5979298949241638,
+        "value": "thích làm việc với máy tính và giải quyết vấn đề",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em yêu thích lập trình và thiết kế",
+    "entities": [
+      {
+        "start": 13,
+        "end": 22,
+        "value": "lập trình",
+        "entity": "student_interests"
+      },
+      {
+        "start": 26,
+        "end": 34,
+        "value": "thiết kế",
+        "entity": "student_interests"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "student_interests",
+        "start": 3,
+        "end": 6,
+        "confidence_entity": 0.9993171691894531,
+        "value": "yêu",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "student_interests",
+        "start": 7,
+        "end": 34,
+        "confidence_entity": 0.6415492296218872,
+        "value": "thích lập trình và thiết kế",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "sở thích của em là phân tích dữ liệu và nghiên cứu",
+    "entities": [
+      {
+        "start": 19,
+        "end": 36,
+        "value": "phân tích dữ liệu",
+        "entity": "student_interests"
+      },
+      {
+        "start": 40,
+        "end": 50,
+        "value": "nghiên cứu",
+        "entity": "student_interests"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "student_interests",
+        "start": 19,
+        "end": 50,
+        "confidence_entity": 0.5140278935432434,
+        "value": "phân tích dữ liệu và nghiên cứu",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em đam mê về công nghệ và sáng tạo",
+    "entities": [
+      {
+        "start": 13,
+        "end": 22,
+        "value": "công nghệ",
+        "entity": "student_interests"
+      },
+      {
+        "start": 26,
+        "end": 34,
+        "value": "sáng tạo",
+        "entity": "student_interests"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "academic_strengths",
+        "start": 3,
+        "end": 22,
+        "confidence_entity": 0.47288936376571655,
+        "value": "đam mê về công nghệ",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "academic_strengths",
+        "start": 26,
+        "end": 34,
+        "confidence_entity": 0.6345869302749634,
+        "value": "sáng tạo",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tôi thích làm việc nhóm và tìm hiểu công nghệ mới",
+    "entities": [
+      {
+        "start": 10,
+        "end": 23,
+        "value": "làm việc nhóm",
+        "entity": "student_interests"
+      },
+      {
+        "start": 27,
+        "end": 49,
+        "value": "tìm hiểu công nghệ mới",
+        "entity": "student_interests"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "personality_traits",
+        "start": 4,
+        "end": 23,
+        "confidence_entity": 0.9983927607536316,
+        "value": "thích làm việc nhóm",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "personality_traits",
+        "start": 27,
+        "end": 30,
+        "confidence_entity": 0.7613731026649475,
+        "value": "tìm",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "student_interests",
+        "start": 36,
+        "end": 45,
+        "confidence_entity": 0.8063244223594666,
+        "value": "công nghệ",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "tôi giỏi về toán và vật lý",
+    "entities": [
+      {
+        "start": 12,
+        "end": 16,
+        "value": "toán",
+        "entity": "academic_strengths"
+      },
+      {
+        "start": 20,
+        "end": 26,
+        "value": "vật lý",
+        "entity": "academic_strengths"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "academic_strengths",
+        "start": 4,
+        "end": 26,
+        "confidence_entity": 0.9075146317481995,
+        "value": "giỏi về toán và vật lý",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em có điểm cao môn tin học và tiếng anh",
+    "entities": [
+      {
+        "start": 19,
+        "end": 26,
+        "value": "tin học",
+        "entity": "academic_strengths"
+      },
+      {
+        "start": 30,
+        "end": 39,
+        "value": "tiếng anh",
+        "entity": "academic_strengths"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "academic_strengths",
+        "start": 3,
+        "end": 39,
+        "confidence_entity": 0.7132195234298706,
+        "value": "có điểm cao môn tin học và tiếng anh",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "điểm mạnh học tập của em là tư duy logic và giải quyết vấn đề",
+    "entities": [
+      {
+        "start": 28,
+        "end": 40,
+        "value": "tư duy logic",
+        "entity": "academic_strengths"
+      },
+      {
+        "start": 44,
+        "end": 61,
+        "value": "giải quyết vấn đề",
+        "entity": "academic_strengths"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "method",
+        "start": 28,
+        "end": 61,
+        "confidence_entity": 0.6502291560173035,
+        "value": "tư duy logic và giải quyết vấn đề",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em học tốt các môn khoa học tự nhiên và tiếng anh",
+    "entities": [
+      {
+        "start": 19,
+        "end": 36,
+        "value": "khoa học tự nhiên",
+        "entity": "academic_strengths"
+      },
+      {
+        "start": 40,
+        "end": 49,
+        "value": "tiếng anh",
+        "entity": "academic_strengths"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "academic_strengths",
+        "start": 3,
+        "end": 36,
+        "confidence_entity": 0.4641992151737213,
+        "value": "học tốt các môn khoa học tự nhiên",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "academic_strengths",
+        "start": 40,
+        "end": 49,
+        "confidence_entity": 0.8156561255455017,
+        "value": "tiếng anh",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "điểm mạnh của em là lập trình và thiết kế",
+    "entities": [
+      {
+        "start": 20,
+        "end": 29,
+        "value": "lập trình",
+        "entity": "academic_strengths"
+      },
+      {
+        "start": 33,
+        "end": 41,
+        "value": "thiết kế",
+        "entity": "academic_strengths"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "academic_strengths",
+        "start": 20,
+        "end": 41,
+        "confidence_entity": 0.9708123803138733,
+        "value": "lập trình và thiết kế",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tôi là người kiên nhẫn và chi tiết",
+    "entities": [
+      {
+        "start": 13,
+        "end": 22,
+        "value": "kiên nhẫn",
+        "entity": "personality_traits"
+      },
+      {
+        "start": 26,
+        "end": 34,
+        "value": "chi tiết",
+        "entity": "personality_traits"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "personality_traits",
+        "start": 4,
+        "end": 34,
+        "confidence_entity": 0.9853576421737671,
+        "value": "là người kiên nhẫn và chi tiết",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em có tính cách sáng tạo và ham học hỏi",
+    "entities": [
+      {
+        "start": 16,
+        "end": 24,
+        "value": "sáng tạo",
+        "entity": "personality_traits"
+      },
+      {
+        "start": 28,
+        "end": 39,
+        "value": "ham học hỏi",
+        "entity": "personality_traits"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "personality_traits",
+        "start": 6,
+        "end": 31,
+        "confidence_entity": 0.4336607754230499,
+        "value": "tính cách sáng tạo và ham",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "academic_strengths",
+        "start": 36,
+        "end": 39,
+        "confidence_entity": 0.5328165888786316,
+        "value": "hỏi",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tính cách của em là thích làm việc nhóm và quyết đoán",
+    "entities": [
+      {
+        "start": 20,
+        "end": 39,
+        "value": "thích làm việc nhóm",
+        "entity": "personality_traits"
+      },
+      {
+        "start": 43,
+        "end": 53,
+        "value": "quyết đoán",
+        "entity": "personality_traits"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "personality_traits",
+        "start": 20,
+        "end": 53,
+        "confidence_entity": 0.9518198370933533,
+        "value": "thích làm việc nhóm và quyết đoán",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em là người tỉ mỉ và logic",
+    "entities": [
+      {
+        "start": 12,
+        "end": 17,
+        "value": "tỉ mỉ",
+        "entity": "personality_traits"
+      },
+      {
+        "start": 21,
+        "end": 26,
+        "value": "logic",
+        "entity": "personality_traits"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "personality_traits",
+        "start": 3,
+        "end": 26,
+        "confidence_entity": 0.965691089630127,
+        "value": "là người tỉ mỉ và logic",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "tôi là người độc lập nhưng cũng hòa đồng",
+    "entities": [
+      {
+        "start": 13,
+        "end": 20,
+        "value": "độc lập",
+        "entity": "personality_traits"
+      },
+      {
+        "start": 32,
+        "end": 40,
+        "value": "hòa đồng",
+        "entity": "personality_traits"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "personality_traits",
+        "start": 4,
+        "end": 40,
+        "confidence_entity": 0.6780591607093811,
+        "value": "là người độc lập nhưng cũng hòa đồng",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "với điểm 25 và tổ hợp toán, lý, hóa thì nên học ngành nào?",
+    "entities": [
+      {
+        "start": 9,
+        "end": 11,
+        "value": "25",
+        "entity": "score"
+      },
+      {
+        "start": 22,
+        "end": 26,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 28,
+        "end": 30,
+        "value": "lý",
+        "entity": "subject"
+      },
+      {
+        "start": 32,
+        "end": 35,
+        "value": "hóa",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "score",
+        "start": 9,
+        "end": 11,
+        "confidence_entity": 0.999951958656311,
+        "value": "25",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 22,
+        "end": 26,
+        "confidence_entity": 0.9998618364334106,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 28,
+        "end": 30,
+        "confidence_entity": 0.8988041281700134,
+        "value": "lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 32,
+        "end": 35,
+        "confidence_entity": 0.9999452829360962,
+        "value": "hóa",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 44,
+        "end": 47,
+        "confidence_entity": 0.9969513416290283,
+        "value": "học",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em được 24.5 điểm với khối toán, lý, anh thì học ngành gì?",
+    "entities": [
+      {
+        "start": 8,
+        "end": 12,
+        "value": "24.5",
+        "entity": "score"
+      },
+      {
+        "start": 27,
+        "end": 31,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 33,
+        "end": 35,
+        "value": "lý",
+        "entity": "subject"
+      },
+      {
+        "start": 37,
+        "end": 40,
+        "value": "anh",
+        "entity": "subject"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "score",
+        "start": 8,
+        "end": 12,
+        "confidence_entity": 0.9999860525131226,
+        "value": "24.5",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 27,
+        "end": 31,
+        "confidence_entity": 0.9998480081558228,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 33,
+        "end": 35,
+        "confidence_entity": 0.7376813292503357,
+        "value": "lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 37,
+        "end": 40,
+        "confidence_entity": 0.9993681311607361,
+        "value": "anh",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 45,
+        "end": 48,
+        "confidence_entity": 0.9998272061347961,
+        "value": "học",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "với điểm toán [9], lý [8], hóa [7], em có thể vào ngành cntt không?",
+    "entities": [
+      {
+        "start": 9,
+        "end": 13,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 19,
+        "end": 21,
+        "value": "lý",
+        "entity": "subject"
+      },
+      {
+        "start": 27,
+        "end": 30,
+        "value": "hóa",
+        "entity": "subject"
+      },
+      {
+        "start": 56,
+        "end": 60,
+        "value": "cntt",
+        "entity": "major"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 9,
+        "end": 13,
+        "confidence_entity": 0.9999010562896729,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 14,
+        "end": 16,
+        "confidence_entity": 0.9999717473983765,
+        "value": "[9",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 19,
+        "end": 21,
+        "confidence_entity": 0.9998984336853027,
+        "value": "lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 22,
+        "end": 24,
+        "confidence_entity": 0.9999551773071289,
+        "value": "[8",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 27,
+        "end": 30,
+        "confidence_entity": 0.8682242035865784,
+        "value": "hóa",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 31,
+        "end": 33,
+        "confidence_entity": 0.9998886585235596,
+        "value": "[7",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "major",
+        "start": 56,
+        "end": 60,
+        "confidence_entity": 0.9798403382301331,
+        "value": "cntt",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "điểm toán [8], lý [7], anh [9], em có đủ điểm vào cntt ngoại ngữ nhật không?",
+    "entities": [
+      {
+        "start": 5,
+        "end": 9,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 15,
+        "end": 17,
+        "value": "lý",
+        "entity": "subject"
+      },
+      {
+        "start": 23,
+        "end": 26,
+        "value": "anh",
+        "entity": "subject"
+      },
+      {
+        "start": 50,
+        "end": 69,
+        "value": "cntt ngoại ngữ nhật",
+        "entity": "major"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 5,
+        "end": 9,
+        "confidence_entity": 0.9998281002044678,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 10,
+        "end": 12,
+        "confidence_entity": 0.999953031539917,
+        "value": "[8",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 15,
+        "end": 17,
+        "confidence_entity": 0.9998168349266052,
+        "value": "lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 18,
+        "end": 20,
+        "confidence_entity": 0.9999412298202515,
+        "value": "[7",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 23,
+        "end": 26,
+        "confidence_entity": 0.9904574155807495,
+        "value": "anh",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 27,
+        "end": 29,
+        "confidence_entity": 0.9999017715454102,
+        "value": "[9",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "major",
+        "start": 50,
+        "end": 54,
+        "confidence_entity": 0.503695011138916,
+        "value": "cntt",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "subject",
+        "start": 55,
+        "end": 60,
+        "confidence_entity": 0.8420876860618591,
+        "value": "ngoại",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 61,
+        "end": 69,
+        "confidence_entity": 0.9803470373153687,
+        "value": "ngữ nhật",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "với toán [9], tin [9], anh [8], em có trúng tuyển cntt đặc thù không?",
+    "entities": [
+      {
+        "start": 4,
+        "end": 8,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 14,
+        "end": 17,
+        "value": "tin",
+        "entity": "subject"
+      },
+      {
+        "start": 23,
+        "end": 26,
+        "value": "anh",
+        "entity": "subject"
+      },
+      {
+        "start": 50,
+        "end": 62,
+        "value": "cntt đặc thù",
+        "entity": "major"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 4,
+        "end": 8,
+        "confidence_entity": 0.9999039173126221,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 9,
+        "end": 11,
+        "confidence_entity": 0.9998891353607178,
+        "value": "[9",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 14,
+        "end": 17,
+        "confidence_entity": 0.9400065541267395,
+        "value": "tin",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "score",
+        "start": 18,
+        "end": 20,
+        "confidence_entity": 0.9998487234115601,
+        "value": "[9",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 23,
+        "end": 26,
+        "confidence_entity": 0.6279663443565369,
+        "value": "anh",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 27,
+        "end": 29,
+        "confidence_entity": 0.9998096823692322,
+        "value": "[8",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "major",
+        "start": 50,
+        "end": 62,
+        "confidence_entity": 0.9656900763511658,
+        "value": "CNTT đặc thù",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "điểm các môn toán [8.5], lý [7.5], hóa [8] có vào được khoa học dữ liệu không?",
+    "entities": [
+      {
+        "start": 13,
+        "end": 17,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 25,
+        "end": 27,
+        "value": "lý",
+        "entity": "subject"
+      },
+      {
+        "start": 35,
+        "end": 38,
+        "value": "hóa",
+        "entity": "subject"
+      },
+      {
+        "start": 55,
+        "end": 71,
+        "value": "khoa học dữ liệu",
+        "entity": "major"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 13,
+        "end": 17,
+        "confidence_entity": 0.9999388456344604,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 18,
+        "end": 22,
+        "confidence_entity": 0.9999825954437256,
+        "value": "[8.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 25,
+        "end": 27,
+        "confidence_entity": 0.9994888305664062,
+        "value": "lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 28,
+        "end": 32,
+        "confidence_entity": 0.9999821186065674,
+        "value": "[7.5",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 35,
+        "end": 38,
+        "confidence_entity": 0.9528868794441223,
+        "value": "hóa",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 39,
+        "end": 41,
+        "confidence_entity": 0.9998151659965515,
+        "value": "[8",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 60,
+        "end": 63,
+        "confidence_entity": 0.9974361062049866,
+        "value": "học",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 64,
+        "end": 66,
+        "confidence_entity": 0.9971932768821716,
+        "value": "dữ",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "em có toán [9], vật lý [8], hóa học [7], đủ điểm vào cntt ai không?",
+    "entities": [
+      {
+        "start": 6,
+        "end": 10,
+        "value": "toán",
+        "entity": "subject"
+      },
+      {
+        "start": 16,
+        "end": 22,
+        "value": "vật lý",
+        "entity": "subject"
+      },
+      {
+        "start": 28,
+        "end": 35,
+        "value": "hóa học",
+        "entity": "subject"
+      },
+      {
+        "start": 53,
+        "end": 60,
+        "value": "cntt ai",
+        "entity": "major"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "subject",
+        "start": 6,
+        "end": 10,
+        "confidence_entity": 0.9999260902404785,
+        "value": "toán",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 11,
+        "end": 13,
+        "confidence_entity": 0.9999632835388184,
+        "value": "[9",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 16,
+        "end": 22,
+        "confidence_entity": 0.9997583031654358,
+        "value": "vật lý",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 23,
+        "end": 25,
+        "confidence_entity": 0.9999374151229858,
+        "value": "[8",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "subject",
+        "start": 28,
+        "end": 35,
+        "confidence_entity": 0.9999122619628906,
+        "value": "hóa học",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      },
+      {
+        "entity": "score",
+        "start": 36,
+        "end": 38,
+        "confidence_entity": 0.9997898936271667,
+        "value": "[7",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "major",
+        "start": 53,
+        "end": 60,
+        "confidence_entity": 0.9053099155426025,
+        "value": "CNTT AI",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "tôi không đồng ý",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "personality_traits",
+        "start": 10,
+        "end": 14,
+        "confidence_entity": 0.6156359314918518,
+        "value": "đồng",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  }
+]

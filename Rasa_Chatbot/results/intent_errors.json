@@ -1,0 +1,354 @@
+[
+  {
+    "text": "bạn là bot phải không",
+    "intent": "iamabot",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.9988133907318115
+    }
+  },
+  {
+    "text": "tôi đang nói chuyện với ai",
+    "intent": "iamabot",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.7579381465911865
+    }
+  },
+  {
+    "text": "tôi đang nói chuyện với bot đúng không",
+    "intent": "iamabot",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.9955249428749084
+    }
+  },
+  {
+    "text": "bạn có phải là chatbot không",
+    "intent": "iamabot",
+    "intent_prediction": {
+      "name": "bot_challenge",
+      "confidence": 0.9949226975440979
+    }
+  },
+  {
+    "text": "mày là ai",
+    "intent": "bot_challenge",
+    "intent_prediction": {
+      "name": "smalltalk_how_are_you",
+      "confidence": 0.30912455916404724
+    }
+  },
+  {
+    "text": "bạn khoẻ chứ",
+    "intent": "smalltalk_how_are_you",
+    "intent_prediction": {
+      "name": "iamabot",
+      "confidence": 0.8960056900978088
+    }
+  },
+  {
+    "text": "Em đoạt huy chương đồng kỳ thi olympic quốc tế thì nên học ngành gì?",
+    "intent": "ask_major_by_achievement",
+    "intent_prediction": {
+      "name": "ask_career_guidance",
+      "confidence": 0.9905422329902649
+    }
+  },
+  {
+    "text": "bạn có biết làm món ăn không",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "iamabot",
+      "confidence": 0.5154446363449097
+    }
+  },
+  {
+    "text": "ngày mai thời tiết thế nào",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "smalltalk_how_are_you",
+      "confidence": 0.5490849614143372
+    }
+  },
+  {
+    "text": "anh yêu em nhiều lắm",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "provide_student_interests",
+      "confidence": 0.9771319031715393
+    }
+  },
+  {
+    "text": "châu phi ở đâu",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "ask_major_info",
+      "confidence": 0.4871985912322998
+    }
+  },
+  {
+    "text": "giá vé máy bay hôm nay",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "smalltalk_how_are_you",
+      "confidence": 0.560920238494873
+    }
+  },
+  {
+    "text": "đội bóng nào vô địch world cup",
+    "intent": "out_of_scope",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.22434832155704498
+    }
+  },
+  {
+    "text": "cho tôi gặp người phụ trách tuyển sinh",
+    "intent": "request_human",
+    "intent_prediction": {
+      "name": "ask_enrollment_quota_uni",
+      "confidence": 0.42971718311309814
+    }
+  },
+  {
+    "text": "có ai ở đó không, tôi không muốn nói chuyện với robot",
+    "intent": "request_human",
+    "intent_prediction": {
+      "name": "ask_if_major_accepts_method",
+      "confidence": 0.8565439581871033
+    }
+  },
+  {
+    "text": "cách đào tạo cntt tại trường bách khoa",
+    "intent": "ask_training_program",
+    "intent_prediction": {
+      "name": "greet",
+      "confidence": 0.37864816188812256
+    }
+  },
+  {
+    "text": "tốt nghiệp cần đạt chuẩn ngoại ngữ nào",
+    "intent": "ask_standard_output_language",
+    "intent_prediction": {
+      "name": "ask_standard_output_language_major_nnn",
+      "confidence": 0.6636245250701904
+    }
+  },
+  {
+    "text": "chuẩn tiếng anh để tốt nghiệp",
+    "intent": "ask_standard_output_language",
+    "intent_prediction": {
+      "name": "ask_cutoff_score",
+      "confidence": 0.5808404684066772
+    }
+  },
+  {
+    "text": "an toàn thông tin học những môn gì",
+    "intent": "ask_faq_attt",
+    "intent_prediction": {
+      "name": "ask_combination_major",
+      "confidence": 0.9999675750732422
+    }
+  },
+  {
+    "text": "chuyên ngành hệ thống thông tin là gì",
+    "intent": "ask_faq_httt",
+    "intent_prediction": {
+      "name": "ask_faq_detail_specialized",
+      "confidence": 0.7200832962989807
+    }
+  },
+  {
+    "text": "httt là chuyên ngành gì",
+    "intent": "ask_faq_httt",
+    "intent_prediction": {
+      "name": "ask_faq_detail_specialized",
+      "confidence": 0.9275246262550354
+    }
+  },
+  {
+    "text": "chuyên ngành công nghệ phần mềm học những môn gì",
+    "intent": "ask_faq_cnpm",
+    "intent_prediction": {
+      "name": "ask_combination_major",
+      "confidence": 0.958442747592926
+    }
+  },
+  {
+    "text": "hệ thống nhúng học những môn nào",
+    "intent": "ask_faq_htn",
+    "intent_prediction": {
+      "name": "ask_combination_major",
+      "confidence": 0.9996767044067383
+    }
+  },
+  {
+    "text": "học hệ thống nhúng có khó không",
+    "intent": "ask_faq_htn",
+    "intent_prediction": {
+      "name": "ask_check_major_admission_with_subject_scores",
+      "confidence": 0.41589829325675964
+    }
+  },
+  {
+    "text": "trí tuệ nhân tạo học những môn nào",
+    "intent": "ask_faq_khdl",
+    "intent_prediction": {
+      "name": "ask_combination_major",
+      "confidence": 0.9996844530105591
+    }
+  },
+  {
+    "text": "khdl & ttnt có những môn học gì",
+    "intent": "ask_faq_khdl",
+    "intent_prediction": {
+      "name": "ask_combination_major",
+      "confidence": 0.9907798767089844
+    }
+  },
+  {
+    "text": "ai là chuyên ngành như thế nào",
+    "intent": "ask_faq_khdl",
+    "intent_prediction": {
+      "name": "ask_training_program",
+      "confidence": 0.4024066925048828
+    }
+  },
+  {
+    "text": "chuyên ngành mạng truyền thông học những môn nào",
+    "intent": "ask_faq_mtt",
+    "intent_prediction": {
+      "name": "ask_combination_major",
+      "confidence": 0.6653784513473511
+    }
+  },
+  {
+    "text": "ielts có quy đổi thành điểm xét tuyển không",
+    "intent": "ask_faq_certificate_usage",
+    "intent_prediction": {
+      "name": "ask_if_major_accepts_method",
+      "confidence": 0.5776914358139038
+    }
+  },
+  {
+    "text": "có ielts thì được cộng mấy điểm",
+    "intent": "ask_faq_certificate_usage",
+    "intent_prediction": {
+      "name": "smalltalk_bot_capabilities",
+      "confidence": 0.1864020824432373
+    }
+  },
+  {
+    "text": "địa chỉ của trường ở đâu",
+    "intent": "ask_contact_info",
+    "intent_prediction": {
+      "name": "smalltalk_bot_capabilities",
+      "confidence": 0.48803386092185974
+    }
+  },
+  {
+    "text": "email liên hệ tuyển sinh",
+    "intent": "ask_contact_info",
+    "intent_prediction": {
+      "name": "ask_quotas_for_major",
+      "confidence": 0.4897538125514984
+    }
+  },
+  {
+    "text": "Em học giỏi môn sinh học và tiếng anh thì nên học ngành nào?",
+    "intent": "ask_major_by_subjects",
+    "intent_prediction": {
+      "name": "ask_career_guidance",
+      "confidence": 0.999363362789154
+    }
+  },
+  {
+    "text": "Tổ hợp toán, lý, anh xét được vào ngành nào?",
+    "intent": "ask_major_by_subjects",
+    "intent_prediction": {
+      "name": "ask_combination_major",
+      "confidence": 0.9397075772285461
+    }
+  },
+  {
+    "text": "em được 25.5 điểm theo điểm thi tốt nghiệp thì nên học ngành gì?",
+    "intent": "ask_suggest_major_by_score_with_method",
+    "intent_prediction": {
+      "name": "ask_suggest_major_by_score_and_subjects",
+      "confidence": 0.999833345413208
+    }
+  },
+  {
+    "text": "với 850 điểm đánh giá năng lực thì học được ngành nào?",
+    "intent": "ask_suggest_major_by_score_with_method",
+    "intent_prediction": {
+      "name": "ask_suggest_major_by_score_and_subjects",
+      "confidence": 0.6783581972122192
+    }
+  },
+  {
+    "text": "em được 24.5 điểm điểm tốt nghiệp thì có thể học ngành gì ở khoa cơ khí?",
+    "intent": "ask_suggest_major_by_score_with_method_and_faculty",
+    "intent_prediction": {
+      "name": "ask_check_major_admission_with_subject_scores",
+      "confidence": 0.3910084664821625
+    }
+  },
+  {
+    "text": "điểm 27.8 theo thpt vào được ngành nào ở khoa cntt?",
+    "intent": "ask_suggest_major_by_score_with_method_and_faculty",
+    "intent_prediction": {
+      "name": "ask_check_major_admission_with_subject_scores",
+      "confidence": 0.7348966598510742
+    }
+  },
+  {
+    "text": "em đam mê về công nghệ và sáng tạo",
+    "intent": "provide_student_interests",
+    "intent_prediction": {
+      "name": "provide_academic_strengths",
+      "confidence": 0.9853681921958923
+    }
+  },
+  {
+    "text": "tôi thích làm việc nhóm và tìm hiểu công nghệ mới",
+    "intent": "provide_student_interests",
+    "intent_prediction": {
+      "name": "provide_personality_traits",
+      "confidence": 0.5967859625816345
+    }
+  },
+  {
+    "text": "em có tính cách sáng tạo và ham học hỏi",
+    "intent": "provide_personality_traits",
+    "intent_prediction": {
+      "name": "ask_training_program_major_dthtdn",
+      "confidence": 0.36596444249153137
+    }
+  },
+  {
+    "text": "tôi đồng ý",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "deny",
+      "confidence": 0.8168824315071106
+    }
+  },
+  {
+    "text": "chắc chắn rồi",
+    "intent": "affirm",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.7554877996444702
+    }
+  },
+  {
+    "text": "sai rồi",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "affirm",
+      "confidence": 0.7393401265144348
+    }
+  }
+]

@@ -1,8 +1,8 @@
 version: "3.1"
 stories:
 
-  # Basic conversation tests
-  - story: Test greeting and farewell
+  # ====== Basic Conversation Tests ======
+  - story: Test greeting and farewell flow
     steps:
       - user: "xin chào"
         intent: greet
@@ -11,9 +11,9 @@ stories:
         intent: goodbye
       - action: utter_goodbye
 
-  - story: Test bot challenge
+  - story: Test bot challenge response
     steps:
-      - user: "bạn là ai?"
+      - user: "bạn là người hay máy?"
         intent: bot_challenge
       - action: utter_iamabot
 
@@ -23,7 +23,38 @@ stories:
         intent: thank
       - action: utter_thank
 
-  # General information tests
+  - story: Test iamabot response
+    steps:
+      - user: "bạn là ai vậy?"
+        intent: iamabot
+      - action: utter_iamabot
+
+  # ====== Smalltalk Tests ======
+  - story: Test smalltalk how are you
+    steps:
+      - user: "bạn khỏe không?"
+        intent: smalltalk_how_are_you
+      - action: utter_smalltalk_how_are_you
+
+  - story: Test smalltalk bot age
+    steps:
+      - user: "bạn bao nhiêu tuổi?"
+        intent: smalltalk_bot_age
+      - action: utter_smalltalk_bot_age
+
+  - story: Test smalltalk who created you
+    steps:
+      - user: "ai tạo ra bạn?"
+        intent: smalltalk_who_created_you
+      - action: utter_smalltalk_who_created_you
+
+  - story: Test smalltalk bot capabilities
+    steps:
+      - user: "bạn có thể làm gì?"
+        intent: smalltalk_bot_capabilities
+      - action: utter_smalltalk_bot_capabilities
+
+  # ====== General Information Tests ======
   - story: Test general major information
     steps:
       - user: "ngành CNTT của trường như thế nào?"
@@ -36,12 +67,30 @@ stories:
         intent: ask_major_info_not_found
       - action: utter_major_info_not_found
 
-  # Specialized IT program tests
+  - story: Test enrollment quota
+    steps:
+      - user: "chỉ tiêu tuyển sinh năm 2025 là bao nhiêu?"
+        intent: ask_enrollment_quota_uni
+      - action: utter_enrollment_quota_uni
+
+  # ====== Specialized IT Program Tests ======
   - story: Test CNTT Đặc Thù information
     steps:
       - user: "CNTT đặc thù là gì?"
         intent: ask_major_dthtdn_info
       - action: utter_major_info_dthtdn
+
+  - story: Test CNTT Đặc Thù training program
+    steps:
+      - user: "chương trình đào tạo CNTT đặc thù là gì?"
+        intent: ask_training_program_major_dthtdn
+      - action: utter_training_program_major_dthtdn
+
+  - story: Test CNTT Đặc Thù language requirements
+    steps:
+      - user: "chuẩn ngoại ngữ CNTT đặc thù là gì?"
+        intent: ask_standard_output_language_major_dthtdn
+      - action: utter_standard_output_language_major_dthtdn
 
   - story: Test CNTT Japanese language program
     steps:
@@ -49,52 +98,66 @@ stories:
         intent: ask_major_nnn_info
       - action: utter_major_info_nnn
 
+  - story: Test CNTT Japanese training program
+    steps:
+      - user: "chương trình đào tạo CNTT ngoại ngữ nhật là gì?"
+        intent: ask_training_program_major_nnn
+      - action: utter_training_program_major_nnn
+
+  - story: Test CNTT Japanese language requirements
+    steps:
+      - user: "chuẩn ngoại ngữ cntt nnn là gì?"
+        intent: ask_standard_output_language_major_nnn
+      - action: utter_standard_output_language_major_nnn
+
   - story: Test AI and Data Science program
     steps:
       - user: "CNTT TTNT là gì?"
         intent: ask_major_khdl_ttnt_info
       - action: utter_major_info_khdl_ttnt
 
-  # Training program and language requirements tests
-  - story: Test general training program information
+  - story: Test AI and Data Science training program
     steps:
-      - user: "chương trình đào tạo của CNTT như thế nào?"
-        intent: ask_training_program
-      - action: utter_training_program
+      - user: "chương trình đào tạo cntt khdl ttnt như thế nào?"
+        intent: ask_training_program_major_khdl_ttnt
+      - action: utter_training_program_major_khdl_ttnt
 
-  - story: Test CNTT Đặc Thù training program
+  - story: Test AI and Data Science language requirements
     steps:
-      - user: "chương trình học của CNTT đặc thù gồm những gì?"
-        intent: ask_training_program_major_dthtdn
-      - action: utter_training_program_major_dthtdn
+      - user: "chuẩn ngoại ngữ CNTT TTNT là gì?"
+        intent: ask_standard_output_language_major_khdl_ttnt
+      - action: utter_standard_output_language_major_khdl_ttnt
 
-  - story: Test language requirements for CNTT programs
+  # ====== Admission Methods Tests ======
+  - story: Test admission methods
     steps:
-      - user: "chuẩn ngoại ngữ của CNTT là gì?"
-        intent: ask_standard_output_language
-      - action: utter_standard_output_language
+      - user: "các phương thức xét tuyển trường đại học bách khoa?"
+        intent: ask_admission_method_uni
+      - action: utter_admission_methods_uni
 
-
-  # FAQ tests
-  - story: Test job opportunities information
+  - story: Test admission process
     steps:
-      - user: "cơ hội việc làm ngành CNTT như thế nào?"
-        intent: ask_faq_job_opportunities
-      - action: utter_faq_job_opportunities
+      - user: "cách đăng kí xét tuyển theo phương thức xét tuyển riêng"
+        intent: ask_admission_process
+        entities:
+          - method: "xét tuyển riêng"
+      - action: action_get_admission_process_by_method
 
-  - story: Test information about IT specializations
+  - story: Test method details
     steps:
-      - user: "các chuyên ngành CNTT có những gì?"
-        intent: ask_faq_detail_specialized
-      - action: utter_faq_detail_specialized
+      - user: "phương thức xét tuyển theo đánh giá tư duy"
+        intent: ask_method_detail
+        entities:
+          - method: "đánh giá tư duy"
+      - action: action_detail_method
 
-  - story: Test information about information security
+  - story: Test CNTT notices
     steps:
-      - user: "chuyên ngành An Toàn Thông Tin học những gì?"
-        intent: ask_faq_attt
-      - action: utter_faq_attt
+      - user: "năm nay công nghệ thông tin có gì mới không?"
+        intent: ask_cntt_luu_y
+      - action: utter_cntt_luu_y
 
-  # Cutoff score tests
+  # ====== Cutoff Score Tests ======
   - story: Test cutoff score by method only
     steps:
       - user: "điểm chuẩn theo phương thức đánh giá năng lực là bao nhiêu?"
@@ -126,7 +189,7 @@ stories:
         intent: ask_cutoff_score
       - action: action_cutoff_score
 
-  # Major listing by admission method tests
+  # ====== Major listing by admission method tests ======
   - story: Test listing majors by specific method
     steps:
       - user: "có những ngành nào xét tuyển bằng đánh giá năng lực?"
@@ -135,7 +198,7 @@ stories:
           - method: "đánh giá năng lực"
       - action: action_major_by_method
 
-  # Subject combination tests
+  # ====== Subject combination tests ======
   - story: Test subject combinations for IT
     steps:
       - user: "tổ hợp môn xét tuyển ngành CNTT là gì?"
@@ -152,21 +215,297 @@ stories:
           - major: "CNTT Nhật"
       - action: action_combination_major
 
-  # Advanced features tests
+  # ====== Methods for major tests ======
+  - story: Test methods for major
+    steps:
+      - user: "ngành công nghệ thông tin xét tuyển bằng những phương thức nào?"
+        intent: ask_methods_for_major
+        entities:
+          - major: "công nghệ thông tin"
+      - action: action_ask_methods_for_major
+
+  # ====== If major accepts method tests ======
+  - story: Test if major accepts method
+    steps:
+      - user: "ngành công nghệ thông tin có xét tuyển bằng điểm thi tốt nghiệp thpt không?"
+        intent: ask_if_major_accepts_method
+        entities:
+          - major: "công nghệ thông tin"
+          - method: "điểm thi tốt nghiệp thpt"
+      - action: action_ask_if_major_accepts_method
+
+  # ====== Quota for major tests ======
+  - story: Test quota for major
+    steps:
+      - user: "chỉ tiêu của ngành công nghệ thông tin là bao nhiêu?"
+        intent: ask_quotas_for_major
+        entities:
+          - major: "công nghệ thông tin"
+      - action: action_get_major_quota
+
+  # ====== Major by achievement tests ======
+  - story: Test major by achievement
+    steps:
+      - user: "Tôi đạt giải học sinh giỏi cấp quốc gia môn toán, có thể xét tuyển ngành nào?"
+        intent: ask_major_by_achievement
+        entities:
+          - achievement: "toán"
+      - action: action_major_by_achievement
+
+  # ====== Training Program and Language Requirements Tests ======
+  - story: Test general training program information
+    steps:
+      - user: "chương trình đào tạo của CNTT như thế nào?"
+        intent: ask_training_program
+      - action: utter_training_program
+
+  - story: Test language requirements for CNTT programs
+    steps:
+      - user: "chuẩn ngoại ngữ của CNTT là gì?"
+        intent: ask_standard_output_language
+      - action: utter_standard_output_language
+
+  # ====== FAQ Tests ======
+  - story: Test job opportunities information
+    steps:
+      - user: "cơ hội việc làm ngành CNTT như thế nào?"
+        intent: ask_faq_job_opportunities
+      - action: utter_faq_job_opportunities
+
+  - story: Test information about IT specializations
+    steps:
+      - user: "các chuyên ngành CNTT có những gì?"
+        intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+
+  - story: Test information about information security
+    steps:
+      - user: "chuyên ngành An Toàn Thông Tin học những gì?"
+        intent: ask_faq_attt
+      - action: utter_faq_attt
+
+  - story: Test information about information systems
+    steps:
+      - user: "hệ thống thông tin là chuyên ngành như thế nào?"
+        intent: ask_faq_httt
+      - action: utter_faq_httt
+
+  - story: Test information about software engineering
+    steps:
+      - user: "công nghệ phần mềm học gì?"
+        intent: ask_faq_cnpm
+      - action: utter_faq_cnpm
+
+  - story: Test information about embedded systems
+    steps:
+      - user: "hệ thống nhúng là chuyên ngành gì?"
+        intent: ask_faq_htn
+      - action: utter_faq_htn
+
+  - story: Test information about data science
+    steps:
+      - user: "khoa học dữ liệu làm việc gì?"
+        intent: ask_faq_khdl
+      - action: utter_faq_khdl
+
+  - story: Test information about networking
+    steps:
+      - user: "mạng và truyền thông làm công việc gì?"
+        intent: ask_faq_mtt
+      - action: utter_faq_mtt
+
+  - story: Test information about language certificates
+    steps:
+      - user: "chứng chỉ ngoại ngữ có được quy đổi điểm không?"
+        intent: ask_faq_certificate_usage
+      - action: utter_faq_certificate_usage
+
+  # ====== Contact Info Tests ======
+  - story: Test contact information
+    steps:
+      - user: "làm sao để liên hệ với trường?"
+        intent: ask_contact_info
+      - action: utter_contact_info
+
+  # ====== Out of Scope Tests ======
+  - story: Test out of scope response
+    steps:
+      - user: "bạn có biết làm món ăn không?"
+        intent: out_of_scope
+      - action: utter_out_of_scope
+
+  # ====== Human Handoff Tests ======
+  - story: Test human handoff
+    steps:
+      - user: "tôi muốn nói chuyện với người thật"
+        intent: request_human
+      - action: action_handoff_to_human
+
+  # ====== Advanced Features Tests ======
   - story: Test career guidance
     steps:
       - user: "tôi nên học ngành gì phù hợp với sở thích?"
         intent: ask_career_guidance
       - action: action_suggest_majors_by_strengths
 
+  - story: Test provide student interests
+    steps:
+      - user: "tôi thích làm việc với máy tính và giải quyết vấn đề"
+        intent: provide_student_interests
+        entities:
+          - student_interests: "làm việc với máy tính"
+          - student_interests: "giải quyết vấn đề"
+      - action: action_suggest_majors_by_strengths
+
+  - story: Test provide academic strengths
+    steps:
+      - user: "tôi giỏi về toán và vật lý"
+        intent: provide_academic_strengths
+        entities:
+          - academic_strengths: "toán"
+          - academic_strengths: "vật lý"
+      - action: action_suggest_majors_by_strengths
+
+  - story: Test provide personality traits
+    steps:
+      - user: "tôi là người kiên nhẫn và chi tiết"
+        intent: provide_personality_traits
+        entities:
+          - personality_traits: "kiên nhẫn"
+          - personality_traits: "chi tiết"
+      - action: action_suggest_majors_by_strengths
+
   - story: Test major suggestion by subjects
     steps:
-      - user: "tôi giỏi toán lý hoá nên học ngành gì?"
+      - user: "tôi đăng kí tự chọn môn vật lý và hóa học thì có thể học ngành nào?"
         intent: ask_major_by_subjects
+        entities:
+          - subject: "vật lý"
+          - subject: "hóa học"
       - action: action_suggest_major_by_subjects
 
-  - story: Test major suggestion by score
+  - story: Test major by faculty
     steps:
-      - user: "với 25 điểm thì nên học ngành gì?"
+      - user: "Khoa công nghệ thông tin có những ngành nào?"
+        intent: ask_major_by_faculty
+        entities:
+          - faculty: "công nghệ thông tin"
+      - action: action_get_majors_by_faculty
+
+  - story: Test major suggestion by score with method
+    steps:
+      - user: "em đạt được 26.5 điểm ở phương thức điểm thi tốt nghiệp, em có thể đăng ký ngành nào?"
         intent: ask_suggest_major_by_score_with_method
+        entities:
+          - score: "26.5"
+          - method: "điểm thi tốt nghiệp"
       - action: action_suggest_major_by_score
+
+  - story: Test major suggestion by score with method and faculty
+    steps:
+      - user: "em đạt được 26.5 điểm ở phương thức điểm thi tốt nghiệp, em có thể đăng ký ngành nào thuộc khoa công nghệ thông tin?"
+        intent: ask_suggest_major_by_score_with_method_and_faculty
+        entities:
+          - score: "26.5"
+          - method: "điểm thi tốt nghiệp"
+          - faculty: "công nghệ thông tin"
+      - action: action_suggest_major_by_score_with_method_and_faculty
+
+  - story: Test score calculation
+    steps:
+      - user: "em đạt được điểm môn toán là 8.5, môn vật lý là 7.5, môn hóa học là 6.5, vậy điểm của em là bao nhiêu?"
+        intent: ask_calculate_score
+        entities:
+          - subject: "toán"
+          - subject: "vật lý"
+          - subject: "hóa học"
+      - action: action_calculate_score
+
+  - story: Test major suggestion by score and subjects
+    steps:
+      - user: "với điểm 25 và tổ hợp toán, lý, hóa thì nên học ngành nào?"
+        intent: ask_suggest_major_by_score_and_subjects
+        entities:
+          - score: "25"
+          - subject: "toán"
+          - subject: "lý"
+          - subject: "hóa"
+      - action: action_suggest_major_by_score_and_subjects
+
+  - story: Test check major admission with subject scores
+    steps:
+      - user: "với điểm toán 9, lý 8, hóa 7, em có thể vào ngành cntt không?"
+        intent: ask_check_major_admission_with_subject_scores
+        entities:
+          - subject: "toán"
+          - subject: "lý"
+          - subject: "hóa"
+          - major: "cntt"
+      - action: action_check_major_admission_with_subject_scores
+
+  # ====== Multi-turn Conversation Tests ======
+  - story: Test multi-turn conversation about CNTT
+    steps:
+      - user: "xin chào"
+        intent: greet
+      - action: utter_greet
+      - user: "cho tôi biết về ngành CNTT"
+        intent: ask_major_info
+      - action: utter_major_info
+      - user: "có mấy chuyên ngành?"
+        intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - user: "điểm chuẩn là bao nhiêu?"
+        intent: ask_cutoff_score
+      - action: action_cutoff_score
+      - user: "cảm ơn"
+        intent: thank
+      - action: utter_thank
+
+  - story: Test multi-turn conversation about admission
+    steps:
+      - user: "chào bạn"
+        intent: greet
+      - action: utter_greet
+      - user: "các phương thức xét tuyển là gì?"
+        intent: ask_admission_method_uni
+      - action: utter_admission_methods_uni
+      - user: "cntt có xét tuyển bằng điểm thi tốt nghiệp không?"
+        intent: ask_if_major_accepts_method
+        entities:
+          - major: "cntt"
+          - method: "điểm thi tốt nghiệp"
+      - action: action_ask_if_major_accepts_method
+      - user: "điểm chuẩn là bao nhiêu?"
+        intent: ask_cutoff_score
+        entities:
+          - major: "cntt"
+          - method: "điểm thi tốt nghiệp"
+      - action: action_cutoff_score
+      - user: "cảm ơn, tạm biệt"
+        intent: goodbye
+      - action: utter_goodbye
+
+  - story: Test fallback response
+    steps:
+      - user: "xin chào"
+        intent: greet
+      - action: utter_greet
+      - user: "bạn có nhảy được không?"
+        intent: nlu_fallback
+      - action: action_default_fallback
+
+  - story: Test affirm and deny
+    steps:
+      - user: "chào bạn"
+        intent: greet
+      - action: utter_greet
+      - user: "CNTT có mấy chuyên ngành?"
+        intent: ask_faq_detail_specialized
+      - action: utter_faq_detail_specialized
+      - user: "có đúng không?"
+        intent: affirm
+      - action: utter_faq_detail_specialized
+      - user: "không đúng"
+        intent: deny
+      - action: action_default_fallback

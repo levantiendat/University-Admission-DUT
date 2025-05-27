@@ -2261,3 +2261,35 @@ stories:
       - action: action_suggest_majors_by_strengths
       - intent: thank
       - action: utter_thank
+
+  - story: career guidance flow
+    steps:
+    - intent: ask_career_guidance
+    - action: action_suggest_majors_by_strengths
+    - intent: provide_student_interests
+    - action: action_suggest_majors_by_strengths
+    - intent: provide_academic_strengths
+    - action: action_suggest_majors_by_strengths
+    - intent: provide_personality_traits
+    - action: action_suggest_majors_by_strengths
+
+  - story: provide interests and ask for guidance
+    steps:
+    - intent: provide_student_interests
+    - action: action_listen
+
+  - story: provide academic strengths and ask for guidance
+    steps:
+    - intent: provide_academic_strengths
+    - action: action_suggest_majors_by_strengths
+
+  - story: provide personality traits and ask for guidance
+    steps:
+    - intent: provide_personality_traits
+    - action: action_suggest_majors_by_strengths
+
+  - story: ask career guidance after providing some information
+    steps:
+    - intent: provide_student_interests
+    - intent: ask_career_guidance
+    - action: action_suggest_majors_by_strengths
