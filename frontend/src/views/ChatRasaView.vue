@@ -362,15 +362,17 @@ export default {
       
       // Hàm xử lý các đường dẫn nội bộ
       function processInternalLinks(text) {
-        // Nhận dạng các đường dẫn bắt đầu bằng / (nhưng không nằm trong dấu ngoặc kép, vì đã xử lý ở trên)
-        const internalLinkRegex = /(\s|^)(\/[a-zA-Z0-9\/\-_]+(?:\?[a-zA-Z0-9\/\-_&=%ạảãàáâậầấẩẫăắằặẳẵóòọõỏôộổỗồốơờớợởỡéèẻẹẽêế...]*))/g;
-        
+        const internalLinkRegex = /(\s|^|\(|\[|>)(\/[^\s"'<>()[\]{}]*)/g;
+  
         return text.replace(internalLinkRegex, (match, before, path) => {
-          // Mã hóa URL để xử lý đúng các ký tự đặc biệt và dấu tiếng Việt
-          const encodedPath = encodeURI(path);
-          return `${before}<a href="javascript:void(0)" onclick="window.dispatchEvent(new CustomEvent('navigate-to', {detail: '${encodedPath}'}))" class="internal-link" role="button">Tại đây</a>`;
-        });
-      }
+          const cleanPath = path.replace(/[.,;:!?)]$/, '');
+          const encodedPath = encodeURI(cleanPath);
+    
+        if (cleanPath.length < 2) return match; // Path quá ngắn, có thể không phải URL
+    
+      return `${before}<a href="javascript:void(0)" onclick="window.dispatchEvent(new CustomEvent('navigate-to', {detail: '${encodedPath}'}))" class="internal-link" role="button">Tại đây</a>`;
+    });
+  }
     };
     
     // Download a document
