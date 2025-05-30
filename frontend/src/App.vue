@@ -83,7 +83,7 @@
               </a>
               <ul class="custom-dropdown-menu" :class="{'show-mobile': activeSubmenu === 'congcu'}">
                 <li><router-link class="dropdown-item" to="/school-priority" @click="closeMainMenu">Tra cứu điểm ưu tiên khu vực</router-link></li>
-                <li><router-link class="dropdown-item" to="/calculatescore/xettuyenrieng" @click="closeMainMenu">Tính điểm PT xét tuyển riêng</router-link></li>
+                <li><router-link class="dropdown-item" to="/calculatescore/xettuyenrieng" @click="closeMainMenu">Tính điểm xét tuyển tài năng</router-link></li>
                 <li><router-link class="dropdown-item" to="/calculatescore/hb" @click="closeMainMenu">Tính điểm xét tuyển học bạ THPT</router-link></li>
                 <li><router-link class="dropdown-item" to="/calculatescore/thpt" @click="closeMainMenu">Tính điểm xét tuyển thi THPT</router-link></li>
                 <li><router-link class="dropdown-item" to="/calculatescore/convert" @click="closeMainMenu">Quy đổi điểm tương đương</router-link></li>
