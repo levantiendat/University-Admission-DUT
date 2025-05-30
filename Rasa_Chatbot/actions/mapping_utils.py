@@ -5,6 +5,8 @@ import re
 METHOD_MAPPING = {
     "riêng": "xtr",
     "xét tuyển riêng": "xtr",
+    "xét tuyển tài năng": "xtr",
+    "tài năng" : "xtr",
     "thpt": "tn_thpt",
     "tốt nghiệp": "tn_thpt",
     "tn": "tn_thpt",
@@ -28,7 +30,7 @@ METHOD_VARIANTS = {
     "dgnl": ["năng lực", "dgnl", "đgnl", "vact", "apt", "bài test năng lực"],
     "dgtd": ["tư duy", "dgtd", "tsa", "bài test tư duy"],
     "hb_thpt": ["học bạ", "xét học bạ", "điểm học bạ", "tbhb", "xhb", "học bạ thpt"],
-    "xtr": ["tuyển riêng", "xét riêng", "riêng", "phỏng vấn"]
+    "xtr": ["tuyển riêng", "xét riêng", "riêng", "tài năng", "xét tuyển tài năng", "tuyển sinh tài năng"],
 }
 
 # Dictionary ánh xạ tên ngành

@@ -192,40 +192,53 @@ export default {
   },
 
   /**
-   * Get major suggestions based on test scores and subjects
-   * @param {Array} subjects - Array of subject names
-   * @param {Number} score - Total score after priority points
-   * @returns {Promise<Array>} - Promise with structured suggestion data
-   */
-  async getMajorSuggestions(subjects, score, method_key = true) {
-    try {
-      // Generate a unique user ID for this suggestion request to avoid chat history contamination
-      const suggestionId = `suggestion_${Date.now()}`;
-      // Construct query message for the chatbot
-      const formattedScore = Number.isInteger(parseFloat(score)) ? parseFloat(score).toFixed(1) : parseFloat(score);
-      const subjectsList = Array.isArray(subjects) ? subjects.join(', ') : subjects;
-      const query = method_key ? 
-      `em thi khối thi có các môn ${subjectsList} đạt được ${formattedScore} ở phương thức điểm thi tốt nghiệp thì có thể nộp đơn vào ngành nào` : 
-      `em xét học bạ các môn ${subjectsList} với điểm xét tuyển là ${formattedScore} thì có thể nộp đơn vào ngành nào`;
-      
-      console.log('Sending suggestion query:', query);
-      
-      // Send direct request to Rasa without affecting chat history
-      const response = await ChatRasaServices.sendMessage(query, suggestionId);
-      
-      if (!response || !response.length) {
-        console.error('No response received from chatbot for suggestions');
-        return [];
-      }
-      
-      // Process the suggestion responses
-      return this.processSuggestionResponses(response);
-      
-    } catch (error) {
-      console.error('Error getting major suggestions:', error);
-      throw new Error('Không thể lấy gợi ý ngành học. Vui lòng thử lại sau.');
+ * Get major suggestions based on test scores and subjects
+ * @param {Array} subjects - Array of subject names
+ * @param {Number} score - Total score after priority points
+ * @returns {Promise<Array>} - Promise with structured suggestion data
+ */
+async getMajorSuggestions(subjects, score, method_key = true) {
+  try {
+    // Generate a unique user ID for this suggestion request to avoid chat history contamination
+    const suggestionId = `suggestion_${Date.now()}`;
+    
+    // Ensure score has at least one decimal place
+    const formattedScore = Number.isInteger(parseFloat(score)) ? parseFloat(score).toFixed(1) : parseFloat(score);
+    
+    let query;
+    
+    // Check if subjects array is empty or not provided
+    const hasSubjects = Array.isArray(subjects) && subjects.length > 0;
+    
+    if (hasSubjects) {
+      // Original query with subjects
+      const subjectsList = subjects.join(', ');
+      query = method_key ? 
+        `em thi khối thi có các môn ${subjectsList} đạt được ${formattedScore} ở phương thức điểm thi tốt nghiệp thì có thể nộp đơn vào ngành nào` : 
+        `em xét học bạ các môn ${subjectsList} với điểm xét tuyển là ${formattedScore} thì có thể nộp đơn vào ngành nào`;
+    } else {
+      // Simplified query without subjects
+      query = `em đạt được ${formattedScore} điểm ở phương thức xét tuyển tài năng thì có thể đăng kí vào ngành nào`;
     }
-  },
+    
+    console.log('Sending suggestion query:', query);
+    
+    // Send direct request to Rasa without affecting chat history
+    const response = await ChatRasaServices.sendMessage(query, suggestionId);
+    
+    if (!response || !response.length) {
+      console.error('No response received from chatbot for suggestions');
+      return [];
+    }
+    
+    // Process the suggestion responses
+    return this.processSuggestionResponses(response);
+    
+  } catch (error) {
+    console.error('Error getting major suggestions:', error);
+    throw new Error('Không thể lấy gợi ý ngành học. Vui lòng thử lại sau.');
+  }
+},
   
   /**
  * Process chatbot responses into structured suggestion data

@@ -206,6 +206,8 @@ nlu:
     - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi đánh giá năng lực](method)
     - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi đánh giá tư duy](method)
     - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [điểm thi TSA](method)
+    - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [xét tuyển tài năng](method)
+    - cách xét tuyển theo phương thức [xét tuyển tài năng](method)
     - cách đăng kí xét tuyển vào trường đại học bách khoa
 
 - intent: ask_method_detail
@@ -223,6 +225,8 @@ nlu:
     - chi tiết về xét tuyển theo [tsa](method)
     - chi tiết về xét tuyển theo [xét tuyển riêng](method)
     - chi tiết về xét tuyển theo [vact](method)
+    - chi tiết về xét tuyển theo [xét tuyển tài năng](method)
+    - phương thức xét tuyển theo [xét tuyển tài năng](method)
 
 - intent: ask_cntt_luu_y
   examples: |
@@ -301,12 +305,18 @@ nlu:
     - Điểm chuẩn ngành [Kiến trúc](major) theo [xét tuyển riêng](method) là bao nhiêu?
     - Điểm chuẩn [Kinh tế xây dựng](major) qua [xét điểm học bạ](method) là bao nhiêu?
     - Điểm của [Quản lý tài nguyên và môi trường](major) theo [Đánh giá tư duy](method)?
+    - Mức điểm ngành [Kỹ thuật xây dựng công trình giao thông](major) theo [xét tuyển tài năng](method) là bao nhiêu?
+    - Điểm chuẩn ngành [Kỹ thuật xây dựng công trình thủy](major) theo [xét tuyển tài năng](method) là bao nhiêu?
+    - Điểm chuẩn ngành [Kỹ thuật xây dựng công trình thủy](major) theo [xét tuyển tài năng](method) là bao nhiêu?
+    - Điểm chuẩn ngành [Kỹ thuật xây dựng công trình giao thông](major) theo [xét tuyển tài năng](method) là bao nhiêu?
+    - Điểm chuẩn ngành [Kỹ thuật xây dựng công trình giao thông](major) theo [xét tuyển tài năng](method) là bao nhiêu?
 
 - intent: ask_list_major_by_method
   examples: |
     - những ngành nào xét tuyển bằng [điểm thi tốt nghiệp THPT](method)?
     - những ngành nào xét tuyển bằng [điểm thi đánh giá năng lực](method)?
     - những ngành nào xét tuyển bằng [điểm thi đánh giá tư duy](method)?
+    - những ngành nào xét tuyển bằng [xét tuyển tài năng](method)?
     - những ngành nào xét tuyển bằng [xét tuyển riêng](method)?
     - những ngành nào xét tuyển bằng [điểm thi TSA](method)?
     - những ngành nào xét tuyển bằng [điểm thi vact](method)?
@@ -327,6 +337,7 @@ nlu:
     - ngành nào xét tuyển bằng [vact](method)?
     - ngành nào xét tuyển bằng [dgnl](method)?
     - ngành nào xét tuyển bằng [dgtd](method)?
+    - ngành nào xét tuyển bằng [xét tuyển tài năng](method)?
     - ngành nào xét tuyển bằng [học bạ](method)?
     - ngành nào xét tuyển bằng [học bạ thpt](method)?
     - ngành nào xét tuyển bằng [xét tuyển thẳng](method)?
@@ -345,6 +356,8 @@ nlu:
     - em có [điểm thi dgnl](method), em có thể xét tuyển vào ngành nào?
     - em có [điểm thi dgtd](method), em có thể xét tuyển vào ngành nào?
     - em có [điểm học bạ](method), em có thể xét tuyển vào ngành nào?
+    - ngành nào xét tuyển bằng [xét tuyển tài năng](method)?
+    - những ngành nào xét tuyển bằng [xét tuyển tài năng](method)?
 
 - intent: ask_combination_major
   examples: |
@@ -613,12 +626,14 @@ nlu:
     - [công nghệ sinh học](major) có xét [xét tuyển thẳng](method) không?
     - [ktxdctgt](major) có tuyển bằng [điểm thi tsa](method) không?
     - [cntt](major) có nhận [điểm thi vact](method) không?
+    - [kỹ thuật máy tính](major) có xét tuyển bằng [xét tuyển tài năng](method) không?
     - [kỹ thuật máy tính](major) có xét điểm [học bạ thpt](method) không?
     - [cntp](major) có xét tuyển dựa vào [điểm thi dgnl](method) không?
     - [kinh tế xây dựng](major) có tuyển sinh theo [điểm thi dgtd](method) không?
     - [kỹ thuật cơ khí](major) có tuyển bằng [xét tuyển riêng](method) không?
     - [kiến trúc](major) có xét [điểm thi tốt nghiệp](method) không?
     - [ktxd đttm](major) có xét theo [xét tuyển thẳng](method) không?
+    - [pfiev](major) có xét tuyển bằng [xét tuyển tài năng](method) không?
     - ngành [pfiev](major) có xét [học bạ](method) không?
     - [công nghệ thông tin tiếng nhật](major) có nhận [đánh giá năng lực](method) không?
     - [kỹ thuật nhiệt](major) có tuyển bằng [đánh giá tư duy](method) không?
@@ -630,6 +645,7 @@ nlu:
     - [cntt khdl](major) có chấp nhận [xét tuyển thẳng](method) không?
     - [cnđt](major) có xét [xét tuyển riêng](method) không?
     - [kỹ thuật môi trường](major) có tuyển bằng [điểm thi tốt nghiệp](method) không?
+    - [ktck ckhk](major) có xét tuyển bằng [xét tuyển tài năng](method) không?
     - [ktck ckhk](major) có xét [điểm thi vact](method) không?
     - [quản lý tài nguyên và môi trường](major) có nhận [điểm thi dgnl](method) không?
     - [công nghệ dầu khí và khai thác dầu](major) có xét tuyển bằng [điểm thi dgtd](method) không?
@@ -637,6 +653,7 @@ nlu:
     - ngành [kỹ thuật hóa học](major) có xét tuyển bằng [xét tuyển thẳng](method) không?
     - em có [điểm thi tốt nghiệp thpt](method), em có thể xét vào ngành [cntt](major) không?
     - em có [điểm thi đánh giá năng lực](method), ngành [ktmt](major) có xét không?
+    - em có [xét tuyển tài năng](method), ngành [cnsh y dược](major) có nhận không?
     - em có [điểm thi đánh giá tư duy](method), ngành [ktđt-vt](major) có nhận không?
     - em có [học bạ](method), ngành [cnsh](major) có xét không?
     - em có [điểm thi tsa](method), ngành [ktxd](major) có chấp nhận không?
@@ -858,6 +875,9 @@ nlu:
     - với số điểm [1026](score) điểm ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào?
     - em đạt được [289.5](score) điểm ở phương thức [xét tuyển riêng](method) thì em có thể đăng ký ngành nào?
     - với số điểm [434](score) ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào?
+    - em đạt được [26.5](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin](faculty)?
+    - em đạt được [25.55](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
+    - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [hóa](faculty)?
 
 - intent: ask_suggest_major_by_score_with_method_and_faculty
   examples: |
@@ -873,6 +893,9 @@ nlu:
     - với số điểm [1026](score) điểm ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [môi trường](faculty)?
     - em đạt được [289.5](score) điểm ở phương thức [xét tuyển riêng](method) thì em có thể đăng ký ngành nào thuộc khoa [quản lý dự án](faculty)?
     - với số điểm [434](score) ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [xây dựng dân dụng công nghiệp](faculty)
+    - em đạt được [26.5](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin](faculty)?
+    - em đạt được [25.55](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
+    - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [hóa](faculty)?
 
 - intent: ask_calculate_score
   examples: |

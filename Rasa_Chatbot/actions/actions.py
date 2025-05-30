@@ -625,8 +625,14 @@ class ActionSuggestMajorByScore(Action):
                                             f"xét học bạ, đánh giá năng lực, đánh giá tư duy hoặc xét tuyển riêng.")
                 return []
             
-            # Lấy kết quả gợi ý ngành
-            results = self.db.get_majors_by_score_and_method(score, method_id)
+            # Điều chỉnh method_id để truy vấn khi score ≤ 30 và method_id không phải tn_thpt hoặc hb_thpt
+            query_method_id = method_id
+            if score <= 30 and method_id not in ['tn_thpt', 'hb_thpt']:
+                logging.debug(f"Điểm số {score} <= 30 với phương thức {method_id}, sử dụng tn_thpt để lấy đề xuất")
+                query_method_id = 'tn_thpt'
+            
+            # Lấy kết quả gợi ý ngành - sử dụng query_method_id thay vì method_id
+            results = self.db.get_majors_by_score_and_method(score, query_method_id)
             
             if not results:
                 dispatcher.utter_message(text=f"❌ Không tìm thấy ngành nào phù hợp với điểm số {score} "
@@ -642,7 +648,7 @@ class ActionSuggestMajorByScore(Action):
                                             f"trong năm học hiện tại.")
                 return []
             
-            # Tạo phản hồi
+            # Tạo phản hồi - vẫn giữ method gốc trong thông báo
             message = self._create_response_message(results, score, method_entity)
             
             dispatcher.utter_message(text=message)
@@ -775,8 +781,14 @@ class ActionSuggestMajorByScoreWithMethodAndFaculty(Action):
                                             f"Vui lòng kiểm tra lại tên khoa.")
                 return []
             
-            # Lấy kết quả gợi ý ngành
-            results = self.db.get_majors_by_score_method_and_faculty(score, method_id, faculty_id)
+            # Điều chỉnh method_id để truy vấn khi score ≤ 30 và method_id không phải tn_thpt hoặc hb_thpt
+            query_method_id = method_id
+            if score <= 30 and method_id not in ['tn_thpt', 'hb_thpt']:
+                logging.debug(f"Điểm số {score} <= 30 với phương thức {method_id}, sử dụng tn_thpt để lấy đề xuất")
+                query_method_id = 'tn_thpt'
+            
+            # Lấy kết quả gợi ý ngành - sử dụng query_method_id thay vì method_id
+            results = self.db.get_majors_by_score_method_and_faculty(score, query_method_id, faculty_id)
             
             if not results:
                 dispatcher.utter_message(text=f"❌ Không tìm thấy ngành nào thuộc khoa này có điểm chuẩn "
@@ -807,7 +819,7 @@ class ActionSuggestMajorByScoreWithMethodAndFaculty(Action):
             if not faculty_name:
                 faculty_name = faculty_entity
             
-            # Tạo phản hồi
+            # Tạo phản hồi - vẫn giữ method gốc trong thông báo
             message = self._create_response_message(results, score, method_entity, faculty_name)
             
             dispatcher.utter_message(text=message)
@@ -1217,8 +1229,7 @@ class ActionCheckMajorAdmissionWithSubjectScores(Action):
             
         # Kiểm tra nếu thiếu thông tin
         missing_info = []
-        if not major_entity:
-            missing_info.append("tên ngành cụ thể bạn muốn kiểm tra")
+        # Không kiểm tra ngành nữa vì không còn bắt buộc
         if not method:
             missing_info.append("phương thức xét tuyển")
         if not subject_entities or len(subject_entities) < 3:
@@ -1241,13 +1252,10 @@ class ActionCheckMajorAdmissionWithSubjectScores(Action):
             dispatcher.utter_message(text=message)
             return []
         
-        # Chuẩn hóa tên ngành để lấy ID
-        major_keyword = normalize_major(major_entity)
-        
-        if not major_keyword:
-            message = f"❌ Không tìm thấy thông tin về ngành \"{major_entity}\". Vui lòng kiểm tra lại tên ngành."
-            dispatcher.utter_message(text=message)
-            return []
+        # Chuẩn hóa tên ngành để lấy ID nếu có
+        major_keyword = None
+        if major_entity:
+            major_keyword = normalize_major(major_entity)
         
         # Chuẩn hóa các môn học và tính tổng điểm
         normalized_subjects = []
@@ -1313,77 +1321,80 @@ class ActionCheckMajorAdmissionWithSubjectScores(Action):
                                             f"trong năm học hiện tại.")
                 return []
             
-            # Lấy thông tin chi tiết về ngành từ Neo4j
-            major_detail = self.db.get_major_quota_and_name(major_keyword)
+            subjects_str = ", ".join([f"**{subj}**: {subject_scores.get(subj, 'N/A')}" for subj in normalized_subjects])
             
-            # Kiểm tra xem ngành được hỏi có trong kết quả không
+            # Nếu có major_keyword, kiểm tra xem major có trong kết quả không
             major_found = False
             major_group = None
             major_data = None
+            major_detail = None
             
-            for group in results:
-                for major in group["majors"]:
-                    if major["major_id"] == major_keyword:
-                        major_found = True
-                        major_group = group["group"]
-                        major_data = major
+            if major_keyword:
+                # Lấy thông tin chi tiết về ngành từ Neo4j
+                major_detail = self.db.get_major_quota_and_name(major_keyword)
+                
+                # Kiểm tra xem ngành được hỏi có trong kết quả không
+                for group in results:
+                    for major in group["majors"]:
+                        if major["major_id"] == major_keyword:
+                            major_found = True
+                            major_group = group["group"]
+                            major_data = major
+                            break
+                    if major_found:
                         break
-                if major_found:
-                    break
             
             # Xử lý phản hồi
-            if major_detail and major_detail["found"]:
+            if major_keyword and major_detail and major_detail["found"] and major_found:
                 major_name = major_detail["name"]
                 major_url = major_detail["majorUrl"]
                 
-                subjects_str = ", ".join([f"**{subj}**: {subject_scores.get(subj, 'N/A')}" for subj in normalized_subjects])
+                # Hiển thị khả năng đỗ
+                if major_group == "high":
+                    message = f"🔥 **Ngành {major_name} là lựa chọn rất phù hợp với điểm của bạn!**\n\n"
+                    message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn có khả năng đỗ rất cao vào ngành này.\n\n"
+                elif major_group == "medium":
+                    message = f"⚡ **Ngành {major_name} có thể là lựa chọn khá tốt cho bạn**\n\n"
+                    message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn có khả năng đỗ khá cao vào ngành này.\n\n"
+                else:  # low
+                    message = f"⚠️ **Ngành {major_name} nằm trong khả năng của bạn**\n\n"
+                    message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn vẫn có cơ hội đỗ vào ngành này, nhưng không quá an toàn.\n\n"
                 
-                # Nếu tìm thấy ngành trong kết quả đề xuất
-                if major_found:
-                    # Hiển thị khả năng đỗ
-                    if major_group == "high":
-                        message = f"🔥 **Ngành {major_name} là lựa chọn rất phù hợp với điểm của bạn!**\n\n"
-                        message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn có khả năng đỗ rất cao vào ngành này.\n\n"
-                    elif major_group == "medium":
-                        message = f"⚡ **Ngành {major_name} có thể là lựa chọn khá tốt cho bạn**\n\n"
-                        message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn có khả năng đỗ khá cao vào ngành này.\n\n"
-                    else:  # low
-                        message = f"⚠️ **Ngành {major_name} nằm trong khả năng của bạn**\n\n"
-                        message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), bạn vẫn có cơ hội đỗ vào ngành này, nhưng không quá an toàn.\n\n"
-                    
-                    # Hiển thị chi tiết thông tin
-                    message += f"• [Xem chi tiết ngành {major_url}]\n\n"
-                else:
-                    # Ngành không nằm trong danh sách đề xuất
-                    message = f"⚠️ **Ngành {major_name} không nằm trong danh sách phù hợp với điểm của bạn**\n\n"
-                    message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), khả năng đỗ vào ngành {major_name} **không an toàn**.\n"
-                    message += "Bạn nên xem xét các ngành sau đây:\n\n"
-                
-                # Thêm danh sách đề xuất cho cả hai trường hợp
-                message += "**Các ngành phù hợp với điểm của bạn:**\n\n"
-                
-                # Lấy tối đa 5 ngành từ kết quả, ưu tiên theo nhóm (high -> medium -> low)
-                suggestions_added = 0
-                for group in results:
-                    for major in group["majors"]:
-                        # Bỏ qua ngành đang kiểm tra nếu đã tìm thấy
-                        if major_found and major["major_id"] == major_keyword:
-                            continue
-                            
-                        message += f"{suggestions_added+1}. **{major['major_name']}**\n"
-                        message += f"   - [Xem chi tiết ngành {major['major_url']} ]\n\n"
+                # Hiển thị chi tiết thông tin
+                message += f"• [Xem chi tiết ngành {major_url}]\n\n"
+            elif major_keyword and major_detail and major_detail["found"]:
+                # Ngành không nằm trong danh sách đề xuất
+                major_name = major_detail["name"]
+                message = f"⚠️ **Ngành {major_name} không nằm trong danh sách phù hợp với điểm của bạn**\n\n"
+                message += f"Với điểm các môn {subjects_str} (tổng: {total_score}), khả năng đỗ vào ngành {major_name} **không an toàn**.\n"
+                message += "Bạn nên xem xét các ngành sau đây:\n\n"
+            else:
+                # Không có ngành cụ thể, chỉ hiển thị danh sách đề xuất
+                message = f"📊 **Dựa vào điểm các môn {subjects_str} (tổng: {total_score}) theo phương thức {method}, các ngành phù hợp nhất với bạn là:**\n\n"
+            
+            # Thêm danh sách đề xuất cho tất cả các trường hợp
+            if not message.endswith(":\n\n"):
+                message += "\n**Các ngành phù hợp với điểm của bạn:**\n\n"
+            
+            # Lấy tối đa 7 ngành từ kết quả, ưu tiên theo nhóm (high -> medium -> low)
+            suggestions_added = 0
+            for group in results:
+                for major in group["majors"]:
+                    # Bỏ qua ngành đang kiểm tra nếu đã tìm thấy và hiển thị
+                    if major_found and major_keyword and major["major_id"] == major_keyword:
+                        continue
                         
-                        suggestions_added += 1
-                        if suggestions_added >= 5:
-                            break
+                    message += f"{suggestions_added+1}. **{major['major_name']}**\n"
+                    message += f"   - [Xem chi tiết ngành {major['major_url']} ]\n\n"
                     
-                    if suggestions_added >= 5:
+                    suggestions_added += 1
+                    if suggestions_added >= 7:  # Tăng lên 7 ngành đề xuất khi không có ngành cụ thể
                         break
                 
-                message += "💡 *Kết quả dựa trên điểm chuẩn quy đổi từ năm 2023 và 2024. Bạn nên tìm hiểu thêm thông tin chi tiết về các ngành và phương thức xét tuyển trước khi quyết định.*"
+                if suggestions_added >= 7:
+                    break
             
-            else:
-                message = f"❌ Không tìm thấy thông tin về ngành \"{major_entity}\". Vui lòng kiểm tra lại tên ngành."
+            message += "💡 *Kết quả dựa trên điểm chuẩn quy đổi từ năm 2023 và 2024. Bạn nên tìm hiểu thêm thông tin chi tiết về các ngành và phương thức xét tuyển trước khi quyết định.*"
             
             dispatcher.utter_message(text=message)
             

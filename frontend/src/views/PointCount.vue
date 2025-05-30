@@ -428,6 +428,100 @@
                 </div>
               </div>
             </div>
+
+            <!-- Thêm nút gợi ý ngành học dựa trên kết quả -->
+            <div class="suggestion-actions mt-3 text-center">
+              <button 
+                class="btn btn-outline-info btn-sm" 
+                @click="getMajorSuggestions"
+                :disabled="suggestionsLoading"
+              >
+                <i class="bi bi-lightbulb"></i> 
+                <span v-if="!suggestionsLoading">Gợi ý ngành học phù hợp</span>
+                <span v-else>Đang tải gợi ý...</span>
+              </button>
+            </div>
+
+            <!-- Hiển thị kết quả gợi ý nếu có -->
+            <div v-if="suggestions.length > 0" class="suggestions-container mt-3">
+              <div class="card">
+                <div class="card-header bg-info bg-opacity-10 py-2">
+                  <h5 class="card-title mb-0 h6">
+                    <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+                    Gợi ý ngành học phù hợp với điểm {{ result.total_score }}
+                  </h5>
+                </div>
+                <div class="card-body p-2">
+                  <!-- Hiển thị từng danh mục -->
+                  <div v-for="(category, catIndex) in suggestions" :key="`cat-${catIndex}`" class="suggestion-category mb-3">
+                    <!-- Hiển thị danh mục giới thiệu nếu có và không phải danh mục gộp -->
+                    <div v-if="!category.isCombined" class="category-title fw-bold mb-2" v-html="category.title"></div>
+                    
+                    <!-- Hiển thị danh sách ngành cho danh mục giới thiệu -->
+                    <div v-if="!category.isCombined && category.majors" class="table-responsive">
+                      <table class="table table-sm table-hover">
+                        <thead>
+                          <tr class="bg-light">
+                            <th style="width: 5%">STT</th>
+                            <th>Tên ngành</th>
+                            <th style="width: 20%" class="text-center">Chi tiết</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(major, majorIdx) in category.majors" :key="`major-intro-${catIndex}-${majorIdx}`">
+                            <td>{{ majorIdx + 1 }}</td>
+                            <td>{{ major.name }}</td>
+                            <td class="text-center">
+                              <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <!-- Hiển thị bảng gộp cho các ngành có mức độ an toàn -->
+                    <div v-if="category.isCombined" class="table-responsive">
+                      <div class="category-title fw-bold mb-2">{{ category.title }}</div>
+                      <table class="table table-sm table-hover major-suggestion-table">
+                        <thead>
+                          <tr class="bg-light">
+                            <th style="width: 5%">STT</th>
+                            <th>Tên ngành</th>
+                            <th style="width: 20%" class="text-center">Mức độ an toàn</th>
+                            <th style="width: 15%" class="text-center">Chi tiết</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="(major, majorIdx) in category.majors" :key="`major-combined-${catIndex}-${majorIdx}`">
+                            <td>{{ majorIdx + 1 }}</td>
+                            <td>{{ major.name }}</td>
+                            <td class="text-center">
+                              <span v-if="major.safetyLevel === 'high'" class="safety-level-high safety-text">
+                                Rất an toàn
+                              </span>
+                              <span v-else-if="major.safetyLevel === 'medium'" class="safety-level-medium safety-text">
+                                Khá an toàn
+                              </span>
+                              <span v-else-if="major.safetyLevel === 'low'" class="safety-level-low safety-text">
+                                Chưa an toàn
+                              </span>
+                            </td>
+                            <td class="text-center">
+                              <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    
+                    <!-- Hiển thị ghi chú nếu có -->
+                    <div v-if="category.isNote" class="suggestion-footer text-muted small fst-italic">
+                      <p v-html="category.note"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </div>
@@ -439,6 +533,7 @@
 import axios from 'axios'
 import config from '@/config/apiConfig';
 import { calculateLanguageCertificatePoints, calculateDirectAdmissionPoints } from '@/controllers/bonuspoint';
+import ChatRasaController from '@/controllers/ChatRasaController';
 const BASE_API_URL = config?.BASE_API_URL;
 // const BASE_API_URL = 'http://127.0.0.1:8000/api';
 
@@ -495,7 +590,10 @@ export default {
       maxCertificateScore1: 10,
       maxCertificateScore2: 10,
       isTOEIC1: false,
-      isTOEIC2: false
+      isTOEIC2: false,
+      // Thêm các biến mới cho gợi ý ngành học
+      suggestions: [],
+      suggestionsLoading: false
     }
   },
   computed: {
@@ -780,6 +878,44 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+
+    // Thêm phương thức lấy gợi ý ngành học 
+    async getMajorSuggestions() {
+      if (!this.result || this.suggestionsLoading) {
+        return;
+      }
+
+      try {
+        this.suggestionsLoading = true;
+        
+        // Sử dụng tổng điểm từ kết quả tính điểm
+        const totalScore = this.result.total_score;
+        
+        // Gọi đến ChatRasaController.getMajorSuggestions với mảng rỗng và điểm số
+        const processedSuggestions = await ChatRasaController.getMajorSuggestions([], totalScore);
+        
+        // Kiểm tra kết quả trả về
+        if (processedSuggestions && processedSuggestions.length > 0) {
+          this.suggestions = processedSuggestions;
+          
+          // Cuộn xuống phần gợi ý sau khi hiển thị
+          this.$nextTick(() => {
+            const suggestionsElement = document.querySelector('.suggestions-container');
+            if (suggestionsElement) {
+              suggestionsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        } else {
+          throw new Error('Không nhận được gợi ý phù hợp');
+        }
+        
+      } catch (err) {
+        console.error('Lỗi khi lấy gợi ý ngành học:', err);
+        alert('Có lỗi xảy ra khi lấy gợi ý ngành học: ' + (err.message || 'Vui lòng thử lại sau.'));
+      } finally {
+        this.suggestionsLoading = false;
+      }
     }
   },
   mounted() {
@@ -946,5 +1082,97 @@ export default {
   .point-card.total .point-value {
     font-size: 1.3rem;
   }
+}
+
+/* Safety levels for suggestions */
+.safety-level-high {
+  background: linear-gradient(135deg, #198754, #25b070);
+  color: white;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(25, 135, 84, 0.3);
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.safety-level-high:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(25, 135, 84, 0.4);
+}
+
+.safety-level-medium {
+  background: linear-gradient(135deg, #0d6efd, #4d94ff);
+  color: white;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(13, 110, 253, 0.3);
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.safety-level-medium:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(13, 110, 253, 0.4);
+}
+
+.safety-level-low {
+  background: linear-gradient(135deg, #ffc107, #ffda73);
+  color: #212529;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.safety-level-low:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(255, 193, 7, 0.4);
+}
+
+/* Suggestions styling */
+.suggestions-container .card-header {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.suggestion-category:not(:last-child) {
+  border-bottom: 1px dashed #dee2e6;
+  padding-bottom: 1rem;
+}
+
+.category-title {
+  color: #1a3f6e;
+}
+
+.suggestion-footer {
+  background-color: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+/* Suggestion action button */
+.suggestion-actions .btn {
+  transition: all 0.3s ease;
+}
+
+.suggestion-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+}
+
+.suggestion-actions .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 </style>
