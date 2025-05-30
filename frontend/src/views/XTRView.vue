@@ -8,7 +8,7 @@
             <div class="header-icon me-2" aria-hidden="true">
               <i class="bi bi-journal-check"></i>
             </div>
-            <h1 id="xtr-title" class="mb-0 fs-5">XÉT TUYỂN RIÊNG THEO ĐỀ ÁN TUYỂN SINH</h1>
+            <h1 id="xtr-title" class="mb-0 fs-5">XÉT TUYỂN TÀI NĂNG  (XÉT TUYỂN RIÊNG) THEO ĐỀ ÁN TUYỂN SINH</h1>
           </div>
         </header>
         
@@ -48,23 +48,23 @@
                       <p class="mb-1">Thí sinh tốt nghiệp THPT năm 2025 thuộc các nhóm:</p>
                       
                       <div class="mb-2">
-                        <p class="mb-1"><strong>a) Nhóm 1:</strong> Thí sinh đoạt giải Khuyến khích cuộc thi học sinh giỏi cấp quốc gia các môn Toán, Vật lý, Hóa học, Sinh học, Tin học.</p>
+                        <p class="mb-1"><strong>a) Nhóm 1:</strong> Thí sinh đoạt giải Khuyến khích cuộc thi học sinh giỏi cấp quốc gia các môn Toán, Vật lý, Hóa học, Sinh học, Tin học hoặc giải khuyến khích cuộc thi khoa học kỹ thuật cấp quốc gia.</p>
                         
                         <p class="mb-1"><em>- Ngành xét tuyển:</em></p>
-                        <p class="mb-1">Thí sinh đoạt giải tại cuộc thi học sinh giỏi quốc gia được xét tuyển vào một trong số các ngành của Trường (xem Phụ lục II)</p>
-                        <p class="mb-1">Thí sinh đoạt giải tại cuộc thi khoa học, kỹ thuật cấp quốc gia được xét tuyển vào một trong số các ngành (xem Phụ lục III)</p>
+                        <p class="mb-1">Thí sinh đoạt giải tại cuộc thi học sinh giỏi quốc gia được xét tuyển vào một trong số các ngành của Trường (xem Phụ lục II).</p>
+                        <p class="mb-1">Thí sinh đoạt giải tại cuộc thi khoa học, kỹ thuật cấp quốc gia được xét tuyển vào một trong số các ngành phù hợp với lĩnh vực đoạt giải (xem Phụ lục III).</p>
                       </div>
                       
                       <div class="mb-2">
                         <p class="mb-1"><strong>b) Nhóm 2:</strong> Thí sinh đoạt giải Nhất, Nhì, Ba, Khuyến khích tại cuộc thi học sinh giỏi các môn học cấp tỉnh, thành phố.</p>
                         
-                        <p class="mb-1"><em>- Ngành xét tuyển:</em> Thí sinh được xét trúng tuyển vào một trong các ngành của Trường (xem Phụ lục II)</p>
+                        <p class="mb-1"><em>- Ngành xét tuyển:</em> Thí sinh được xét trúng tuyển vào một trong các ngành của Trường (xem Phụ lục II).</p>
                       </div>
                       
                       <div class="mb-2">
                         <p class="mb-1"><strong>c) Nhóm 3:</strong> Thí sinh đoạt giải Nhất, Nhì, Ba, Khuyến khích tại cuộc thi Khoa học kỹ thuật cấp tỉnh, thành phố.</p>
                         
-                        <p class="mb-1"><em>- Ngành xét tuyển:</em> Thí sinh được xét tuyển vào một trong số các ngành tuỳ thuộc lĩnh vực đoạt giải (xem Phụ lục III)</p>
+                        <p class="mb-1"><em>- Ngành xét tuyển:</em> Thí sinh được xét tuyển vào một trong số các ngành phù hợp với lĩnh vực đoạt giải (xem Phụ lục III).</p>
                       </div>
                       
                       <p class="mb-1 fst-italic"><strong>Lưu ý:</strong> Thí sinh đăng ký xét tuyển ngành Kiến trúc phải dự thi môn năng khiếu Vẽ mỹ thuật.</p>
@@ -74,6 +74,87 @@
               </div>
             </div>
           </div>
+        </div>
+        
+        <!-- Bảng điểm thành tích quy đổi -->
+        <div class="achievement-score-section p-3 bg-white border-bottom">
+          <h2 class="section-title mb-3">
+            <i class="bi bi-trophy me-2" aria-hidden="true"></i>
+            Bảng điểm thành tích quy đổi
+          </h2>
+          
+          <div class="table-responsive mb-3">
+            <table class="table table-bordered border-primary table-hover table-sm">
+              <thead>
+                <tr class="bg-primary text-white">
+                  <th scope="col" style="width: 20%">Nhóm đối tượng</th>
+                  <th scope="col" style="width: 50%">Thành tích</th>
+                  <th scope="col" class="text-center" style="width: 30%">Điểm quy đổi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Nhóm 1 -->
+                <tr>
+                  <td rowspan="2" class="align-middle">
+                    <strong>Nhóm 1:</strong> Cấp quốc gia
+                  </td>
+                  <td>Giải khuyến khích cuộc thi chọn học sinh giỏi cấp quốc gia</td>
+                  <td class="text-center fw-bold">28.0</td>
+                </tr>
+                <tr>
+                  <td>Giải khuyến khích cuộc thi Khoa học kỹ thuật cấp quốc gia</td>
+                  <td class="text-center fw-bold">27.0</td>
+                </tr>
+                
+                <!-- Nhóm 2 -->
+                <tr>
+                  <td rowspan="4" class="align-middle">
+                    <strong>Nhóm 2:</strong> HSG cấp tỉnh/thành phố
+                  </td>
+                  <td>Giải nhất</td>
+                  <td class="text-center fw-bold">27.0</td>
+                </tr>
+                <tr>
+                  <td>Giải nhì</td>
+                  <td class="text-center fw-bold">26.5</td>
+                </tr>
+                <tr>
+                  <td>Giải ba</td>
+                  <td class="text-center fw-bold">26.0</td>
+                </tr>
+                <tr>
+                  <td>Giải khuyến khích</td>
+                  <td class="text-center fw-bold">25.5</td>
+                </tr>
+                
+                <!-- Nhóm 3 -->
+                <tr>
+                  <td rowspan="4" class="align-middle">
+                    <strong>Nhóm 3:</strong> KHKT cấp tỉnh/thành phố
+                  </td>
+                  <td>Giải nhất</td>
+                  <td class="text-center fw-bold">25.5</td>
+                </tr>
+                <tr>
+                  <td>Giải nhì</td>
+                  <td class="text-center fw-bold">25.0</td>
+                </tr>
+                <tr>
+                  <td>Giải ba</td>
+                  <td class="text-center fw-bold">24.5</td>
+                </tr>
+                <tr>
+                  <td>Giải khuyến khích</td>
+                  <td class="text-center fw-bold">24.0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <p class="small text-muted">
+            <i class="bi bi-info-circle me-1"></i>
+            Điểm thành tích trên được sử dụng làm điểm xét tuyển. Thí sinh có nhiều thành tích khác nhau chỉ được sử dụng một mức điểm cao nhất.
+          </p>
         </div>
         
         <!-- Main Content Section with improved loading states -->
@@ -131,7 +212,10 @@
             
             <!-- Major List Table with responsive design -->
             <section class="table-container mb-3" aria-labelledby="xtr-table-heading">
-              <h2 id="xtr-table-heading" class="visually-hidden">Danh sách ngành xét tuyển riêng</h2>
+              <h2 id="xtr-table-heading" class="section-title mb-3">
+                <i class="bi bi-list-check me-2" aria-hidden="true"></i>
+                Danh sách ngành xét tuyển
+              </h2>
               
               <!-- Mobile card view (shows on small screens) -->
               <div class="d-md-none">
@@ -264,7 +348,7 @@
                   </h2>
                   <div class="mt-1">
                     <ul class="contact-list">
-                      <li>Muốn biết thêm chi tiết, thí sinh vui lòng truy cập trang Tuyển sinh của Trường Đại học Bách khoa tại địa chỉ: <a href="https://tuyensinh.dut.udn.vn/" target="_blank" rel="noopener noreferrer">https://tuyensinh.dut.udn.vn</a></li>
+                      <li>Muốn biết thêm chi tiết, thí sinh vui lòng truy cập trang Tuyển sinh của Trường Đại học Bách khoa tại địa chỉ: <a href="https://tuyensinh.dut.udn.vn" target="_blank">https://tuyensinh.dut.udn.vn</a></li>
                       <li>Hotline: <a href="tel:0888477377">0888 477 377</a>; <a href="tel:0888477533">0888 477 533</a></li>
                       <li>Email: <a href="mailto:tuyensinhbkdn@dut.udn.vn">tuyensinhbkdn@dut.udn.vn</a></li>
                       <li>Fanpage: <a href="https://www.facebook.com/DUTpage" target="_blank" rel="noopener noreferrer">https://www.facebook.com/DUTpage</a></li>
@@ -468,6 +552,18 @@ export default {
   color: #495057;
 }
 
+/* Achievement Score Section */
+.achievement-score-section {
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  color: #0d47a1;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
 /* Accordion Styling */
 .accordion-button {
   font-size: 0.85rem;
@@ -510,6 +606,15 @@ export default {
 .table td {
   padding: 0.4rem 0.5rem;
   vertical-align: middle;
+}
+
+.table th {
+  background-color: #0d47a1;
+  color: white;
+}
+
+.table-bordered {
+  border-color: #dee2e6;
 }
 
 /* Mobile Card View */
@@ -674,6 +779,10 @@ export default {
   .subject-combo {
     font-size: 0.7rem;
     padding: 0.2rem 0.3rem;
+  }
+  
+  .section-title {
+    font-size: 1rem;
   }
 }
 </style>

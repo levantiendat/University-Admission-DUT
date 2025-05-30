@@ -96,6 +96,8 @@ import UserProfileView from '@/views/UserProfileView.vue'
 
 import ConvertPointView from '@/views/ConvertPointView.vue'
 
+import bonuspoint from '@/views/bonuspoint.vue'
+
 // Define normal routes and admin routes separately
 const normalRoutes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'Trang chủ' } },
@@ -120,6 +122,7 @@ const normalRoutes = [
   { path: '/admission/xettuyenrieng', name: 'University Admission - XTR', component: Admission_XTR, meta: {title: 'Thông tin tuyển sinh năm 2025 - Xét tuyển riêng'}},
   { path: '/admission/danhgianangluc', name: 'University Admission - DGNL', component: Admission_DGNL, meta: {title: 'Thông tin tuyển sinh năm 2025 - Đánh giá năng lực'}},
   { path: '/admission/danhgiatuduy', name: 'University Admission - DGTD', component: Admission_DGTD, meta: {title: 'Thông tin tuyển sinh năm 2025 - Đánh giá tư duy'}},
+  { path : '/admission/bonuspoint', name: 'BonusPoint', component: bonuspoint, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm thưởng'}},
   { path: '/statistics/previous-admission', name: 'PreAdmission', component: preAdmission, meta: {title: 'Thông tin tuyển sinh năm 2025 - Điểm chuẩn các năm trước'}},
   { path: '/statistics/pre-admitted-student', name: 'PreAdmittedStudent', component: preAdmittedStudent, meta: {title: 'Thông tin tuyển sinh năm 2025 - Thống kê sinh viên các năm trước'}},
   { 

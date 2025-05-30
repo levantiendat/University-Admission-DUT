@@ -62,11 +62,12 @@
                 <li><router-link class="dropdown-item" to="/admission" @click="closeMainMenu">Thông tin tuyển sinh chung</router-link></li>
                 <li><router-link class="dropdown-item" to="/major" @click="closeMainMenu">Danh sách ngành tuyển sinh</router-link></li>
                 <li><router-link class="dropdown-item" to="/admission/xettuyenthang" @click="closeMainMenu">Xét tuyển thẳng theo quy chế của Bộ GD&ĐT</router-link></li>
-                <li><router-link class="dropdown-item" to="/admission/xettuyenrieng" @click="closeMainMenu">Xét tuyển riêng theo đề án tuyển sinh</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission/xettuyenrieng" @click="closeMainMenu">Xét tuyển tài năng (Xét tuyển riêng) theo đề án tuyển sinh</router-link></li>
                 <li><router-link class="dropdown-item" to="/admission/totnghiep_thpt" @click="closeMainMenu">Xét tuyển theo điểm thi tốt nghiệp THPT</router-link></li>
                 <li><router-link class="dropdown-item" to="/admission/hocba_thpt" @click="closeMainMenu">Xét tuyển theo điểm học tập cấp THPT</router-link></li>
                 <li><router-link class="dropdown-item" to="/admission/danhgianangluc" @click="closeMainMenu">Xét tuyển theo kết quả ĐGNL của ĐHQG TPHCM</router-link></li>
                 <li><router-link class="dropdown-item" to="/admission/danhgiatuduy" @click="closeMainMenu">Xét tuyển theo điểm thi ĐGTD của ĐHBK Hà Nội</router-link></li>
+                <li><router-link class="dropdown-item" to="/admission/bonuspoint" @click="closeMainMenu">Điểm cộng (điểm thưởng) trong xét tuyển</router-link></li>
               </ul>
             </li>
             <li class="nav-item dropdown menu-item" v-if="isAuthenticated" :class="{'open': activeSubmenu === 'congcu'}">
