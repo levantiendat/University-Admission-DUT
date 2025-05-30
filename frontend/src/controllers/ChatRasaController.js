@@ -202,10 +202,11 @@ export default {
       // Generate a unique user ID for this suggestion request to avoid chat history contamination
       const suggestionId = `suggestion_${Date.now()}`;
       // Construct query message for the chatbot
+      const formattedScore = Number.isInteger(parseFloat(score)) ? parseFloat(score).toFixed(1) : parseFloat(score);
       const subjectsList = Array.isArray(subjects) ? subjects.join(', ') : subjects;
       const query = method_key ? 
-      `em thi khối thi có các môn ${subjectsList} đạt được ${score} ở phương thức điểm thi tốt nghiệp thì có thể nộp đơn vào ngành nào` : 
-      `em xét học bạ các môn ${subjectsList} với điểm xét tuyển là ${score} thì có thể nộp đơn vào ngành nào`;
+      `em thi khối thi có các môn ${subjectsList} đạt được ${formattedScore} ở phương thức điểm thi tốt nghiệp thì có thể nộp đơn vào ngành nào` : 
+      `em xét học bạ các môn ${subjectsList} với điểm xét tuyển là ${formattedScore} thì có thể nộp đơn vào ngành nào`;
       
       console.log('Sending suggestion query:', query);
       

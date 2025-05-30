@@ -12,7 +12,7 @@
     <main class="container my-3 my-md-4">
       <div class="card shadow-sm rounded">
         <div class="card-header text-white text-center py-2">
-          <h2 class="h5 mb-0">Tính điểm xét tuyển riêng - Trường ĐHBK - ĐHĐN</h2>
+          <h2 class="h5 mb-0">Tính điểm xét tuyển tài năng (Xét tuyển riêng)</h2>
         </div>
         <div class="card-body p-2 p-md-3">
           <form @submit.prevent="calculatePoint" id="pointForm">
@@ -37,7 +37,7 @@
             </div>
 
             <!-- Bước 2: Chọn loại thành tích (nếu có) -->
-            <div class="mb-3" v-if="showAchievement">
+            <div class="mb-3" v-if="form.group">
               <label for="achievement" class="form-label small mb-1">Chọn loại thành tích</label>
               <select 
                 v-model="form.achievement" 
@@ -46,82 +46,214 @@
                 :class="{'is-invalid': errors.achievement && submitted}"
                 aria-describedby="achievement-feedback">
                 <option value="">-- Chọn loại giải --</option>
-                <option value="I">Giải Nhất</option>
-                <option value="II">Giải Nhì</option>
-                <option value="III">Giải Ba</option>
-                <option value="Khuyến khích">Giải Khuyến khích</option>
+                <!-- Nhóm 1: Giải Khuyến khích HSG / KHKT cấp Quốc Gia -->
+                <option v-if="form.group === '1'" value="HSG">Giải khuyến khích kỳ thi chọn học sinh giỏi cấp quốc gia</option>
+                <option v-if="form.group === '1'" value="KHKT">Giải khuyến khích kỳ thi khoa học kỹ thuật cấp quốc gia</option>
+                <!-- Nhóm 2 & 3: Giải nhất, nhì, ba, tư -->
+                <option v-if="form.group !== '1'" value="I">Giải Nhất</option>
+                <option v-if="form.group !== '1'" value="II">Giải Nhì</option>
+                <option v-if="form.group !== '1'" value="III">Giải Ba</option>
+                <option v-if="form.group !== '1'" value="Khuyến khích">Giải Khuyến khích</option>
               </select>
               <div id="achievement-feedback" class="invalid-feedback" v-if="errors.achievement && submitted">
                 {{ errors.achievement }}
               </div>
             </div>
 
-            <!-- Bước 3: Nhập điểm học bạ (nếu có) -->
-            <div class="mb-3" v-if="showAchievement">
-              <label class="form-label small mb-1">Điểm tổng kết</label>
-              <div class="row g-2">
-                <div class="col-12 col-sm-4">
-                  <div class="input-group input-group-sm">
-                    <span class="input-group-text">Lớp 10</span>
-                    <input 
-                      type="number" 
-                      step="0.1" 
-                      min="0" 
-                      max="10" 
-                      class="form-control form-control-sm" 
-                      id="score10"
-                      v-model.number="form.score10" 
-                      @input="validateScore('score10')"
-                      :class="{'is-invalid': errors.score10}"
-                      aria-describedby="score10-feedback">
+            <!-- Bước 3: Điểm cộng (nếu có) -->
+            <div class="mb-3">
+              <h3 class="section-title h6 mb-2">Điểm cộng (nếu có)</h3>
+              
+              <!-- Chọn loại điểm cộng thứ nhất -->
+              <div class="mb-3">
+                <label for="bonusType1" class="form-label small mb-1">Loại điểm cộng 1</label>
+                <select 
+                  v-model="form.bonusType1" 
+                  class="form-select form-select-sm" 
+                  id="bonusType1"
+                  @change="onBonusType1Change">
+                  <option value="">Không có điểm cộng</option>
+                  <option value="language">Chứng chỉ ngoại ngữ</option>
+                  <option value="direct">Thí sinh xét tuyển thẳng, ưu tiên xét tuyển không sử dụng quyền tuyển thẳng</option>
+                </select>
+              </div>
+
+              <!-- Chứng chỉ ngoại ngữ (loại 1) -->
+              <div class="mb-3" v-if="form.bonusType1 === 'language'">
+                <div class="row g-2">
+                  <div class="col-12 col-md-6">
+                    <label for="certificateType1" class="form-label small mb-1">Loại chứng chỉ</label>
+                    <select 
+                      v-model="form.certificateType1" 
+                      class="form-select form-select-sm" 
+                      id="certificateType1"
+                      @change="onCertificateTypeChange(1)">
+                      <option value="">-- Chọn loại chứng chỉ --</option>
+                      <option value="KNLNN">KNLNN Việt Nam</option>
+                      <option value="Aptis">Khung tham chiếu châu Âu Aptis ESOL</option>
+                      <option value="IELTS">IELTS Academic</option>
+                      <option value="VSEP">VSEP</option>
+                      <option value="PEIC">PEIC</option>
+                      <option value="PTE">PTE Academic</option>
+                      <option value="Linguaskill">Linguaskill</option>
+                      <option value="Cambridge">Cambridge Assessment English</option>
+                      <option value="CET">Cambridge English Test</option>
+                      <option value="TOEIC">TOEIC</option>
+                      <option value="TOEFL">TOEFL iBT</option>
+                    </select>
                   </div>
-                  <div id="score10-feedback" class="invalid-feedback" v-if="errors.score10">
-                    {{ errors.score10 }}
-                  </div>
-                </div>
-                <div class="col-12 col-sm-4">
-                  <div class="input-group input-group-sm">
-                    <span class="input-group-text">Lớp 11</span>
-                    <input 
-                      type="number" 
-                      step="0.1" 
-                      min="0" 
-                      max="10" 
-                      class="form-control form-control-sm" 
-                      id="score11"
-                      v-model.number="form.score11" 
-                      @input="validateScore('score11')"
-                      :class="{'is-invalid': errors.score11}"
-                      aria-describedby="score11-feedback">
-                  </div>
-                  <div id="score11-feedback" class="invalid-feedback" v-if="errors.score11">
-                    {{ errors.score11 }}
-                  </div>
-                </div>
-                <div class="col-12 col-sm-4">
-                  <div class="input-group input-group-sm">
-                    <span class="input-group-text">Lớp 12</span>
-                    <input 
-                      type="number" 
-                      step="0.1" 
-                      min="0" 
-                      max="10" 
-                      class="form-control form-control-sm"
-                      id="score12" 
-                      v-model.number="form.score12" 
-                      @input="validateScore('score12')"
-                      :class="{'is-invalid': errors.score12}"
-                      aria-describedby="score12-feedback">
-                  </div>
-                  <div id="score12-feedback" class="invalid-feedback" v-if="errors.score12">
-                    {{ errors.score12 }}
+                  <div class="col-12 col-md-6">
+                    <label for="certificateLevel1" class="form-label small mb-1">Trình độ/Điểm số</label>
+                    <select v-if="!isTOEIC1 && showTextSelect1" v-model="form.certificateLevel1" class="form-select form-select-sm" id="certificateLevel1">
+                      <option value="">-- Chọn trình độ --</option>
+                      <option v-for="level in certificateLevels1" :key="level" :value="level">{{ level }}</option>
+                    </select>
+                    <input v-else-if="!isTOEIC1 && !showTextSelect1" type="number" v-model.number="form.certificateLevel1" class="form-control form-control-sm" id="certificateLevel1" step="0.1" min="0" :max="maxCertificateScore1">
+                    
+                    <!-- TOEIC specific inputs (4 skills) -->
+                    <div v-if="isTOEIC1" class="mt-2">
+                      <div class="row g-1 mb-1">
+                        <div class="col-6">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text">Nghe</span>
+                            <input type="number" v-model.number="form.toeic1.listen" class="form-control form-control-sm" min="0" max="495">
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text">Đọc</span>
+                            <input type="number" v-model.number="form.toeic1.read" class="form-control form-control-sm" min="0" max="495">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row g-1">
+                        <div class="col-6">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text">Nói</span>
+                            <input type="number" v-model.number="form.toeic1.speak" class="form-control form-control-sm" min="0" max="200">
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text">Viết</span>
+                            <input type="number" v-model.number="form.toeic1.write" class="form-control form-control-sm" min="0" max="200">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <!-- Thông báo lỗi chung cho điểm số -->
-              <div class="alert alert-warning mt-2 py-1 px-2 small" v-if="hasScoreErrors" role="alert">
-                <i class="bi bi-exclamation-triangle me-1" aria-hidden="true"></i>
-                Vui lòng kiểm tra lại điểm số. Điểm phải nằm trong khoảng từ 0 đến 10 và có tối đa 1 chữ số thập phân.
+
+              <!-- Thí sinh xét tuyển thẳng (loại 1) -->
+              <div class="mb-3" v-if="form.bonusType1 === 'direct'">
+                <label for="directAdmissionType1" class="form-label small mb-1">Loại thành tích</label>
+                <select 
+                  v-model="form.directAdmissionType1" 
+                  class="form-select form-select-sm" 
+                  id="directAdmissionType1">
+                  <option value="">-- Chọn loại thành tích --</option>
+                  <option value="hero">Anh hùng lực lượng lao động, Anh hùng lực lượng vũ trang nhân dân, Chiến sĩ thi đua toàn quốc</option>
+                  <option value="national_first">Giải nhất chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                  <option value="national_second">Giải nhì chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                  <option value="national_third">Giải ba chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                </select>
+              </div>
+
+              <!-- Chọn loại điểm cộng thứ hai -->
+              <div class="mb-3">
+                <label for="bonusType2" class="form-label small mb-1">Loại điểm cộng 2</label>
+                <select 
+                  v-model="form.bonusType2" 
+                  class="form-select form-select-sm" 
+                  id="bonusType2"
+                  @change="onBonusType2Change">
+                  <option value="">Không có điểm cộng</option>
+                  <option value="language" v-if="form.bonusType1 !== 'language'">Chứng chỉ ngoại ngữ</option>
+                  <option value="direct" v-if="form.bonusType1 !== 'direct'">Thí sinh xét tuyển thẳng, ưu tiên xét tuyển không sử dụng quyền tuyển thẳng</option>
+                </select>
+              </div>
+
+              <!-- Chứng chỉ ngoại ngữ (loại 2) -->
+              <div class="mb-3" v-if="form.bonusType2 === 'language'">
+                <div class="row g-2">
+                  <div class="col-12 col-md-6">
+                    <label for="certificateType2" class="form-label small mb-1">Loại chứng chỉ</label>
+                    <select 
+                      v-model="form.certificateType2" 
+                      class="form-select form-select-sm" 
+                      id="certificateType2"
+                      @change="onCertificateTypeChange(2)">
+                      <option value="">-- Chọn loại chứng chỉ --</option>
+                      <option value="KNLNN">KNLNN Việt Nam</option>
+                      <option value="Aptis">Khung tham chiếu châu Âu Aptis ESOL</option>
+                      <option value="IELTS">IELTS Academic</option>
+                      <option value="VSEP">VSEP</option>
+                      <option value="PEIC">PEIC</option>
+                      <option value="PTE">PTE Academic</option>
+                      <option value="Linguaskill">Linguaskill</option>
+                      <option value="Cambridge">Cambridge Assessment English</option>
+                      <option value="CET">Cambridge English Test</option>
+                      <option value="TOEIC">TOEIC</option>
+                      <option value="TOEFL">TOEFL iBT</option>
+                    </select>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label for="certificateLevel2" class="form-label small mb-1">Trình độ/Điểm số</label>
+                    <select v-if="!isTOEIC2 && showTextSelect2" v-model="form.certificateLevel2" class="form-select form-select-sm" id="certificateLevel2">
+                      <option value="">-- Chọn trình độ --</option>
+                      <option v-for="level in certificateLevels2" :key="level" :value="level">{{ level }}</option>
+                    </select>
+                    <input v-else-if="!isTOEIC2 && !showTextSelect2" type="number" v-model.number="form.certificateLevel2" class="form-control form-control-sm" id="certificateLevel2" step="0.1" min="0" :max="maxCertificateScore2">
+                    
+                    <!-- TOEIC specific inputs (4 skills) -->
+                    <div v-if="isTOEIC2" class="mt-2">
+                      <div class="row g-1 mb-1">
+                        <div class="col-6">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text">Nghe</span>
+                            <input type="number" v-model.number="form.toeic2.listen" class="form-control form-control-sm" min="0" max="495">
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text">Đọc</span>
+                            <input type="number" v-model.number="form.toeic2.read" class="form-control form-control-sm" min="0" max="495">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row g-1">
+                        <div class="col-6">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text">Nói</span>
+                            <input type="number" v-model.number="form.toeic2.speak" class="form-control form-control-sm" min="0" max="200">
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text">Viết</span>
+                            <input type="number" v-model.number="form.toeic2.write" class="form-control form-control-sm" min="0" max="200">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thí sinh xét tuyển thẳng (loại 2) -->
+              <div class="mb-3" v-if="form.bonusType2 === 'direct'">
+                <label for="directAdmissionType2" class="form-label small mb-1">Loại thành tích</label>
+                <select 
+                  v-model="form.directAdmissionType2" 
+                  class="form-select form-select-sm" 
+                  id="directAdmissionType2">
+                  <option value="">-- Chọn loại thành tích --</option>
+                  <option value="hero">Anh hùng lực lượng lao động, Anh hùng lực lượng vũ trang nhân dân, Chiến sĩ thi đua toàn quốc</option>
+                  <option value="national_first">Giải nhất chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                  <option value="national_second">Giải nhì chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                  <option value="national_third">Giải ba chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                </select>
               </div>
             </div>
 
@@ -223,25 +355,25 @@
               <!-- Chi tiết đối tượng ưu tiên -->
               <div v-if="form.priority_object !== '0'" class="mt-2 priority-detail py-2 px-3">
                 <div v-if="form.priority_object === 'ĐT01'" class="small">
-                  <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu [...]
+                  <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 thán[...]
                 </div>
                 <div v-else-if="form.priority_object === 'ĐT02'" class="small">
-                  <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp [...]
+                  <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua [...]
                 </div>
                 <div v-else-if="form.priority_object === 'ĐT03'" class="small">
-                  <strong>Đối tượng 03:</strong> Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh', Quân nhân tại ngũ với các điều kiện cụ thể [...]
+                  <strong>Đối tượng 03:</strong> Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh', Quân nhân tại ng[...]
                 </div>
                 <div v-else-if="form.priority_object === 'ĐT04'" class="small">
-                  <strong>Đối tượng 04:</strong> Thân nhân liệt sĩ, con thương binh, bệnh binh suy giảm KNL từ 81% trở lên, con của người hoạt động kháng chiến bị nhiễm chất độc hóa học [...]
+                  <strong>Đối tượng 04:</strong> Thân nhân liệt sĩ, con thương binh, bệnh binh suy giảm KNL từ 81% trở lên, con của người hoạt động kháng chiến bị [...]
                 </div>
                 <div v-else-if="form.priority_object === 'ĐT05'" class="small">
-                  <strong>Đối tượng 05:</strong> Thanh niên xung phong, quân nhân tại ngũ dưới 12 tháng ở KV1 hoặc 18 tháng ở khu vực khác, Chỉ huy trưởng quân sự xã [...]
+                  <strong>Đối tượng 05:</strong> Thanh niên xung phong, quân nhân tại ngũ dưới 12 tháng ở KV1 hoặc 18 tháng ở khu vực khác, Chỉ huy trưởng quân sự xã[...]
                 </div>
                 <div v-else-if="form.priority_object === 'ĐT06'" class="small">
                   <strong>Đối tượng 06:</strong> Người dân tộc thiểu số ở khu vực khác ngoài KV1, con thương binh, bệnh binh suy giảm KNL dưới 81% [...]
                 </div>
                 <div v-else-if="form.priority_object === 'ĐT07'" class="small">
-                  <strong>Đối tượng 07:</strong> Người khuyết tật nặng, người lao động ưu tú, giáo viên đã giảng dạy 3 năm trở lên, y tá, dược tá, hộ lý [...]
+                  <strong>Đối tượng 07:</strong> Người khuyết tật nặng, người lao động ưu tú, giáo viên đã giảng dạy 3 năm trở lên, y tá, dược tá, hộ lý [...[...]
                 </div>
               </div>
             </div>
@@ -277,8 +409,8 @@
                 </div>
                 <div class="col-6 col-md-3">
                   <div class="point-card p-2">
-                    <div class="point-title small">Điểm học tập</div>
-                    <div class="point-value">{{ result.academic_score }}</div>
+                    <div class="point-title small">Điểm cộng</div>
+                    <div class="point-value">{{ result.bonus_score }}</div>
                   </div>
                 </div>
                 <div class="col-6 col-md-3">
@@ -306,6 +438,7 @@
 <script>
 import axios from 'axios'
 import config from '@/config/apiConfig';
+import { calculateLanguageCertificatePoints, calculateDirectAdmissionPoints } from '@/controllers/bonuspoint';
 const BASE_API_URL = config?.BASE_API_URL;
 // const BASE_API_URL = 'http://127.0.0.1:8000/api';
 
@@ -320,9 +453,26 @@ export default {
       form: {
         group: '',
         achievement: '',
-        score10: null,
-        score11: null,
-        score12: null,
+        bonusType1: '',
+        certificateType1: '',
+        certificateLevel1: '',
+        toeic1: {
+          listen: null,
+          read: null,
+          speak: null,
+          write: null
+        },
+        directAdmissionType1: '',
+        bonusType2: '',
+        certificateType2: '',
+        certificateLevel2: '',
+        toeic2: {
+          listen: null,
+          read: null,
+          speak: null,
+          write: null
+        },
+        directAdmissionType2: '',
         city_id: '',
         district_id: '',
         school_id: null,
@@ -332,16 +482,20 @@ export default {
       errors: {
         group: '',
         achievement: '',
-        score10: '',
-        score11: '',
-        score12: '',
         city_id: '',
         district_id: '',
         school_id: ''
       },
       result: null,
-      showAchievement: false,
-      submitted: false
+      submitted: false,
+      certificateLevels1: [],
+      certificateLevels2: [],
+      showTextSelect1: true,
+      showTextSelect2: true,
+      maxCertificateScore1: 10,
+      maxCertificateScore2: 10,
+      isTOEIC1: false,
+      isTOEIC2: false
     }
   },
   computed: {
@@ -352,206 +506,284 @@ export default {
       }
       return ''
     },
-    hasScoreErrors() {
-      return this.errors.score10 || this.errors.score11 || this.errors.score12
-    },
     hasFormErrors() {
       return Object.values(this.errors).some(error => error !== '')
+    },
+    calculatedBonusScore() {
+      let totalBonus = 0;
+      
+      // Calculate bonus from first bonus type
+      if (this.form.bonusType1 === 'language' && this.form.certificateType1) {
+        if (this.form.certificateType1 === 'TOEIC') {
+          // For TOEIC, check if at least one skill has valid score
+          const { listen, read, speak, write } = this.form.toeic1;
+          if (listen > 0 || read > 0 || speak > 0 || write > 0) {
+            totalBonus += calculateLanguageCertificatePoints(this.form.certificateType1, this.form.toeic1);
+          }
+        } else if (this.form.certificateLevel1) {
+          totalBonus += calculateLanguageCertificatePoints(this.form.certificateType1, this.form.certificateLevel1);
+        }
+      } else if (this.form.bonusType1 === 'direct' && this.form.directAdmissionType1) {
+        totalBonus += calculateDirectAdmissionPoints(this.form.directAdmissionType1);
+      }
+      
+      // Calculate bonus from second bonus type
+      if (this.form.bonusType2 === 'language' && this.form.certificateType2) {
+        if (this.form.certificateType2 === 'TOEIC') {
+          // For TOEIC, check if at least one skill has valid score
+          const { listen, read, speak, write } = this.form.toeic2;
+          if (listen > 0 || read > 0 || speak > 0 || write > 0) {
+            totalBonus += calculateLanguageCertificatePoints(this.form.certificateType2, this.form.toeic2);
+          }
+        } else if (this.form.certificateLevel2) {
+          totalBonus += calculateLanguageCertificatePoints(this.form.certificateType2, this.form.certificateLevel2);
+        }
+      } else if (this.form.bonusType2 === 'direct' && this.form.directAdmissionType2) {
+        totalBonus += calculateDirectAdmissionPoints(this.form.directAdmissionType2);
+      }
+      
+      return totalBonus;
     }
   },
   methods: {
-    validateScore(field) {
-      this.errors[field] = ''
-      
-      const score = this.form[field]
-      
-      if (score === null || score === '') {
-        return
-      }
-      
-      if (isNaN(score)) {
-        this.errors[field] = 'Điểm phải là số'
-        return
-      }
-      
-      if (score < 0 || score > 10) {
-        this.errors[field] = 'Điểm phải từ 0-10'
-        return
-      }
-      
-      if (score !== Math.floor(score * 10) / 10) {
-        this.errors[field] = 'Chỉ cho phép 1 chữ số thập phân'
-        return
-      }
+    onBonusType1Change() {
+      this.form.certificateType1 = '';
+      this.form.certificateLevel1 = '';
+      this.form.directAdmissionType1 = '';
+      this.certificateLevels1 = [];
+      this.showTextSelect1 = true;
+      this.maxCertificateScore1 = 10;
+      this.isTOEIC1 = false;
+      this.form.toeic1 = {
+        listen: null,
+        read: null,
+        speak: null,
+        write: null
+      };
     },
     
-    validateForm() {
-      let isValid = true
-      this.errors = {
-        group: '',
-        achievement: '',
-        score10: '',
-        score11: '',
-        score12: '',
-        city_id: '',
-        district_id: '',
-        school_id: ''
+    onBonusType2Change() {
+      this.form.certificateType2 = '';
+      this.form.certificateLevel2 = '';
+      this.form.directAdmissionType2 = '';
+      this.certificateLevels2 = [];
+      this.showTextSelect2 = true;
+      this.maxCertificateScore2 = 10;
+      this.isTOEIC2 = false;
+      this.form.toeic2 = {
+        listen: null,
+        read: null,
+        speak: null,
+        write: null
+      };
+    },
+    
+    onCertificateTypeChange(bonusNumber) {
+      const certType = bonusNumber === 1 ? this.form.certificateType1 : this.form.certificateType2;
+      
+      if (bonusNumber === 1) {
+        this.form.certificateLevel1 = '';
+        this.isTOEIC1 = certType === 'TOEIC';
+      } else {
+        this.form.certificateLevel2 = '';
+        this.isTOEIC2 = certType === 'TOEIC';
       }
       
-      if (!this.form.group) {
-        this.errors.group = 'Vui lòng chọn nhóm xét tuyển'
-        isValid = false
+      // Set levels based on certificate type
+      let levels = [];
+      let showTextSelect = true;
+      let maxScore = 10;
+      
+      switch (certType) {
+        case 'KNLNN':
+          levels = ['Bậc 3', 'Bậc 4', 'Bậc 5', 'Bậc 6'];
+          break;
+        case 'Aptis':
+          levels = ['B1', 'B2', 'C1', 'C2'];
+          break;
+        case 'IELTS':
+          showTextSelect = false;
+          maxScore = 9.0;
+          break;
+        case 'VSEP':
+          showTextSelect = false;
+          maxScore = 10.0;
+          break;
+        case 'PEIC':
+          levels = ['Level 2', 'Level 3', 'Level 4', 'Level 5'];
+          break;
+        case 'PTE':
+          showTextSelect = false;
+          maxScore = 90;
+          break;
+        case 'Linguaskill':
+          showTextSelect = false;
+          maxScore = 200;
+          break;
+        case 'Cambridge':
+          levels = ['B1 Preliminary', 'B1 Business Preliminary', 'B2 First', 'B2 Business Vantage', 'C1 Advanced', 'C1 Business Higher', 'C2 Proficiency'];
+          break;
+        case 'CET':
+          levels = ['PTE', 'FCE', 'CAE', 'CPE'];
+          showTextSelect = true;
+          break;
+        case 'TOEFL':
+          showTextSelect = false;
+          maxScore = 120;
+          break;
       }
       
-      if (this.showAchievement) {
-        if (!this.form.achievement) {
-          this.errors.achievement = 'Vui lòng chọn loại thành tích'
-          isValid = false
-        }
-        
-        ['score10', 'score11', 'score12'].forEach(field => {
-          if (this.form[field] === null || this.form[field] === '') {
-            this.errors[field] = 'Vui lòng nhập điểm'
-            isValid = false
-          } else {
-            this.validateScore(field)
-            if (this.errors[field]) {
-              isValid = false
-            }
-          }
-        })
+      if (bonusNumber === 1) {
+        this.certificateLevels1 = levels;
+        this.showTextSelect1 = showTextSelect && levels.length > 0;
+        this.maxCertificateScore1 = maxScore;
+      } else {
+        this.certificateLevels2 = levels;
+        this.showTextSelect2 = showTextSelect && levels.length > 0;
+        this.maxCertificateScore2 = maxScore;
       }
-      
-      if (!this.form.city_id) {
-        this.errors.city_id = 'Vui lòng chọn tỉnh/thành phố'
-        isValid = false
-      }
-      
-      if (!this.form.district_id && this.districts.length > 0) {
-        this.errors.district_id = 'Vui lòng chọn quận/huyện'
-        isValid = false
-      }
-      
-      if (!this.form.school_id && this.schools.length > 0) {
-        this.errors.school_id = 'Vui lòng chọn trường THPT'
-        isValid = false
-      }
-      
-      return isValid
     },
     
     toggleSections() {
-      this.showAchievement = this.form.group === '2' || this.form.group === '3'
+      // Reset selection when group changes
+      this.form.achievement = '';
+    },
+    
+    validateForm() {
+      let isValid = true;
+      this.errors = {
+        group: '',
+        achievement: '',
+        city_id: '',
+        district_id: '',
+        school_id: ''
+      };
       
-      if (!this.showAchievement) {
-        this.form.achievement = ''
-        this.form.score10 = null
-        this.form.score11 = null
-        this.form.score12 = null
-        this.errors.achievement = ''
-        this.errors.score10 = ''
-        this.errors.score11 = ''
-        this.errors.score12 = ''
+      if (!this.form.group) {
+        this.errors.group = 'Vui lòng chọn nhóm xét tuyển';
+        isValid = false;
       }
+      
+      if (!this.form.achievement) {
+        this.errors.achievement = 'Vui lòng chọn loại thành tích';
+        isValid = false;
+      }
+      
+      if (!this.form.city_id) {
+        this.errors.city_id = 'Vui lòng chọn tỉnh/thành phố';
+        isValid = false;
+      }
+      
+      if (!this.form.district_id && this.districts.length > 0) {
+        this.errors.district_id = 'Vui lòng chọn quận/huyện';
+        isValid = false;
+      }
+      
+      if (!this.form.school_id && this.schools.length > 0) {
+        this.errors.school_id = 'Vui lòng chọn trường THPT';
+        isValid = false;
+      }
+      
+      return isValid;
     },
     
     loadCities() {
       axios.get(`${BASE_API_URL}/priorities/cities`)
         .then(res => {
-          this.cities = res.data
+          this.cities = res.data;
         })
         .catch(err => {
-          console.error('Lỗi khi tải danh sách tỉnh/thành phố:', err)
-        })
+          console.error('Lỗi khi tải danh sách tỉnh/thành phố:', err);
+        });
     },
     
     loadDistricts() {
-      this.form.district_id = ''
-      this.form.school_id = null
-      this.schools = []
-      this.errors.district_id = ''
-      this.errors.school_id = ''
+      this.form.district_id = '';
+      this.form.school_id = null;
+      this.schools = [];
+      this.errors.district_id = '';
+      this.errors.school_id = '';
       
       if (this.form.city_id) {
         axios.get(`${BASE_API_URL}/priorities/cities/${this.form.city_id}/districts`)
           .then(res => {
-            this.districts = res.data
+            this.districts = res.data;
           })
           .catch(err => {
-            console.error('Lỗi khi tải danh sách quận/huyện:', err)
-          })
+            console.error('Lỗi khi tải danh sách quận/huyện:', err);
+          });
       } else {
-        this.districts = []
+        this.districts = [];
       }
     },
     
     loadSchools() {
-      this.form.school_id = null
-      this.errors.school_id = ''
+      this.form.school_id = null;
+      this.errors.school_id = '';
       
       if (this.form.district_id) {
         axios.get(`${BASE_API_URL}/priorities/districts/${this.form.district_id}/schools`)
           .then(res => {
-            this.schools = res.data
+            this.schools = res.data;
           })
           .catch(err => {
-            console.error('Lỗi khi tải danh sách trường:', err)
-          })
+            console.error('Lỗi khi tải danh sách trường:', err);
+          });
       } else {
-        this.schools = []
+        this.schools = [];
       }
     },
     
     async calculatePoint() {
-      this.submitted = true
+      this.submitted = true;
       
       if (!this.validateForm()) {
         this.$nextTick(() => {
-          const firstError = document.querySelector('.is-invalid')
+          const firstError = document.querySelector('.is-invalid');
           if (firstError) {
-            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
-        })
-        return
+        });
+        return;
       }
       
-      const selectedSchool = this.schools.find(s => s.id == this.form.school_id)
+      const selectedSchool = this.schools.find(s => s.id == this.form.school_id);
       if (selectedSchool) {
-        this.form.priority_area = selectedSchool.priority_area || ''
+        this.form.priority_area = selectedSchool.priority_area || '';
       }
       
-      this.loading = true
+      this.loading = true;
       
       try {
+        const bonusScore = this.calculatedBonusScore;
+        
         const response = await axios.post(`${BASE_API_URL}/university-admissions/point-count`, {
           group: this.form.group,
-          achievement: this.form.achievement || null,
-          score10: this.form.score10,
-          score11: this.form.score11,
-          score12: this.form.score12,
+          achievement: this.form.achievement,
+          bonus_score: bonusScore,
           school_id: this.form.school_id ? parseInt(this.form.school_id) : null,
           priority_area: this.form.priority_area,
           priority_object: this.form.priority_object || '0'
-        })
+        });
         
-        this.result = response.data
+        this.result = response.data;
         
         this.$nextTick(() => {
-          const resultElement = document.querySelector('.result-container')
+          const resultElement = document.querySelector('.result-container');
           if (resultElement) {
-            resultElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            resultElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
-        })
+        });
       } catch (error) {
-        console.error('Lỗi khi tính điểm:', error)
-        alert('Đã xảy ra lỗi khi tính điểm. Vui lòng thử lại sau.')
+        console.error('Lỗi khi tính điểm:', error);
+        alert('Đã xảy ra lỗi khi tính điểm. Vui lòng thử lại sau.');
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     }
   },
   mounted() {
-    this.loadCities()
+    this.loadCities();
   }
 }
 </script>

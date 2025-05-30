@@ -67,11 +67,12 @@ const CalculateScoreController = {
   /**
    * Calculate priority points for a given score
    * @param {Number} score - Original score
+   * @param {Number} bonusScore - Bonus score
    * @param {String} priorityArea - Priority area code
    * @param {String} priorityObject - Priority object code
    * @param {Number} schoolId - Optional school ID
    */
-  async calculatePriorityPoints(score, priorityArea, priorityObject, schoolId = null) {
+  async calculatePriorityPoints(score, bonusScore = 0, priorityArea, priorityObject, schoolId = null) {
     try {
       if (isNaN(score) || score < 0 || score > 30) {
         throw new Error('Invalid score value')
@@ -79,6 +80,7 @@ const CalculateScoreController = {
       
       const result = await CalculateScoreServices.calculatePriorityPoints(
         score, 
+        bonusScore,
         priorityArea, 
         priorityObject, 
         schoolId
@@ -95,15 +97,17 @@ const CalculateScoreController = {
    * @param {Array} combinations - Array of combination results with scores
    * @param {String} priorityArea - Priority area code
    * @param {String} priorityObject - Priority object code
+   * @param {Number} bonusScore - Bonus score
    * @param {Number} schoolId - Optional school ID
    */
-  async calculateCombinationPriorityPoints(combinations, priorityArea, priorityObject, schoolId = null) {
+  async calculateCombinationPriorityPoints(combinations, priorityArea, priorityObject, bonusScore = 0, schoolId = null) {
     try {
       const combinationsWithPriority = await Promise.all(
         combinations.map(async (combination) => {
           try {
             const priorityResult = await this.calculatePriorityPoints(
               combination.score,
+              bonusScore,
               priorityArea,
               priorityObject,
               schoolId
@@ -111,20 +115,19 @@ const CalculateScoreController = {
             
             return {
               ...combination,
-              priority_points: {
-                origin_priority: priorityResult.origin_priority,
-                convert_priority: priorityResult.convert_priority,
-                total_point: priorityResult.total_point
-              }
+              priority_points: priorityResult
             }
           } catch (error) {
             console.error(`Error calculating priority for combination ${combination.group_id}:`, error)
             return {
               ...combination,
               priority_points: {
+                origin_point: combination.score,
+                bonus_score: 0,
                 origin_priority: 0,
                 convert_priority: 0,
-                total_point: combination.score
+                total_point: combination.score,
+                priority_area: priorityArea || ""
               }
             }
           }

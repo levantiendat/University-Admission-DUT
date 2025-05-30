@@ -861,13 +861,14 @@ def calculate_admission_scores(db: Session, scores_type: str, subjects: list[dic
     
     return all_combinations
 
-def calculate_priority_points(db: Session, score: float, priority_area: str = None, priority_object: str = None, school_id: int = None) -> dict:
+def calculate_priority_points(db: Session, score: float, bonus_score: float, priority_area: str = None, priority_object: str = None, school_id: int = None) -> dict:
     """
     Calculate admission priority points and total score
     
     Args:
         db (Session): Database session
         score (float): Original score on 30-point scale
+        bonus_score (float, optional): Bonus score to add to the original score
         priority_area (str, optional): Priority area code (KV1, KV2, KV2NT, etc.)
         priority_object (str, optional): Priority object code (ĐT01, ĐT02, etc.)
         school_id (int, optional): School ID to determine priority area
@@ -877,6 +878,8 @@ def calculate_priority_points(db: Session, score: float, priority_area: str = No
               converted priority points, total score, and used priority area
     """
     # Determine priority area - either directly provided or look up by school_id
+    bonus_score = bonus_score or 0.0
+    score_after_bonus = score + bonus_score
     used_priority_area = priority_area
     if school_id:
         try:
@@ -907,20 +910,21 @@ def calculate_priority_points(db: Session, score: float, priority_area: str = No
     origin_priority = area_priority + object_priority
     
     # Calculate converted priority based on score
-    if score <= 22.5:
+    if score_after_bonus <= 22.5:
         convert_priority = origin_priority
     else:
-        convert_priority = ((30 - score) / 7.5) * origin_priority
+        convert_priority = ((30 - score_after_bonus) / 7.5) * origin_priority
     
     # Round to 2 decimal places
     convert_priority = round(convert_priority, 2)
     
     # Calculate total score
-    total_point = round(score + convert_priority, 2)
+    total_point = round(score_after_bonus + convert_priority, 2)
     
     # Return results
     return {
         "origin_point": round(score, 2),
+        "bonus_score": round(bonus_score, 2),
         "origin_priority": round(origin_priority, 2),
         "convert_priority": convert_priority,
         "total_point": total_point,

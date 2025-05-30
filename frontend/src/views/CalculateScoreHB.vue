@@ -211,6 +211,211 @@
                 Vui lòng chọn ít nhất một tổ hợp xét tuyển
               </div>
               
+              <!-- Điểm cộng -->
+              <div class="mb-3 mt-3">
+                <h3 class="section-title h6 mb-2">Điểm cộng (nếu có)</h3>
+                
+                <!-- Chọn loại điểm cộng thứ nhất -->
+                <div class="mb-3">
+                  <label for="bonusType1" class="form-label small mb-1">Loại điểm cộng 1</label>
+                  <select 
+                    v-model="form.bonusType1" 
+                    class="form-select form-select-sm" 
+                    id="bonusType1"
+                    @change="onBonusType1Change">
+                    <option value="">Không có điểm cộng</option>
+                    <option value="language">Chứng chỉ ngoại ngữ</option>
+                    <option value="direct">Thí sinh xét tuyển thẳng, ưu tiên xét tuyển không sử dụng quyền tuyển thẳng</option>
+                  </select>
+                </div>
+
+                <!-- Chứng chỉ ngoại ngữ (loại 1) -->
+                <div class="mb-3" v-if="form.bonusType1 === 'language'">
+                  <div class="row g-2">
+                    <div class="col-12 col-md-6">
+                      <label for="certificateType1" class="form-label small mb-1">Loại chứng chỉ</label>
+                      <select 
+                        v-model="form.certificateType1" 
+                        class="form-select form-select-sm" 
+                        id="certificateType1"
+                        @change="onCertificateTypeChange(1)">
+                        <option value="">-- Chọn loại chứng chỉ --</option>
+                        <option value="KNLNN">KNLNN Việt Nam</option>
+                        <option value="Aptis">Khung tham chiếu châu Âu Aptis ESOL</option>
+                        <option value="IELTS">IELTS Academic</option>
+                        <option value="VSEP">VSEP</option>
+                        <option value="PEIC">PEIC</option>
+                        <option value="PTE">PTE Academic</option>
+                        <option value="Linguaskill">Linguaskill</option>
+                        <option value="Cambridge">Cambridge Assessment English</option>
+                        <option value="CET">Cambridge English Test</option>
+                        <option value="TOEIC">TOEIC</option>
+                        <option value="TOEFL">TOEFL iBT</option>
+                      </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="certificateLevel1" class="form-label small mb-1">Trình độ/Điểm số</label>
+                      <select v-if="!isTOEIC1 && showTextSelect1" v-model="form.certificateLevel1" class="form-select form-select-sm" id="certificateLevel1">
+                        <option value="">-- Chọn trình độ --</option>
+                        <option v-for="level in certificateLevels1" :key="level" :value="level">{{ level }}</option>
+                      </select>
+                      <input v-else-if="!isTOEIC1 && !showTextSelect1" type="number" v-model.number="form.certificateLevel1" class="form-control form-control-sm" id="certificateLevel1" step="0.1" min="0" :max="maxCertificateScore1">
+                      
+                      <!-- TOEIC specific inputs (4 skills) -->
+                      <div v-if="isTOEIC1" class="mt-2">
+                        <div class="row g-1 mb-1">
+                          <div class="col-6">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text">Nghe</span>
+                              <input type="number" v-model.number="form.toeic1.listen" class="form-control form-control-sm" min="0" max="495">
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text">Đọc</span>
+                              <input type="number" v-model.number="form.toeic1.read" class="form-control form-control-sm" min="0" max="495">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row g-1">
+                          <div class="col-6">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text">Nói</span>
+                              <input type="number" v-model.number="form.toeic1.speak" class="form-control form-control-sm" min="0" max="200">
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text">Viết</span>
+                              <input type="number" v-model.number="form.toeic1.write" class="form-control form-control-sm" min="0" max="200">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Thí sinh xét tuyển thẳng (loại 1) -->
+                <div class="mb-3" v-if="form.bonusType1 === 'direct'">
+                  <label for="directAdmissionType1" class="form-label small mb-1">Loại thành tích</label>
+                  <select 
+                    v-model="form.directAdmissionType1" 
+                    class="form-select form-select-sm" 
+                    id="directAdmissionType1">
+                    <option value="">-- Chọn loại thành tích --</option>
+                    <option value="hero">Anh hùng lực lượng lao động, Anh hùng lực lượng vũ trang nhân dân, Chiến sĩ thi đua toàn quốc</option>
+                    <option value="national_first">Giải nhất chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                    <option value="national_second">Giải nhì chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                    <option value="national_third">Giải ba chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                  </select>
+                </div>
+
+                <!-- Chọn loại điểm cộng thứ hai -->
+                <div class="mb-3">
+                  <label for="bonusType2" class="form-label small mb-1">Loại điểm cộng 2</label>
+                  <select 
+                    v-model="form.bonusType2" 
+                    class="form-select form-select-sm" 
+                    id="bonusType2"
+                    @change="onBonusType2Change">
+                    <option value="">Không có điểm cộng</option>
+                    <option value="language" v-if="form.bonusType1 !== 'language'">Chứng chỉ ngoại ngữ</option>
+                    <option value="direct" v-if="form.bonusType1 !== 'direct'">Thí sinh xét tuyển thẳng, ưu tiên xét tuyển không sử dụng quyền tuyển thẳng</option>
+                  </select>
+                </div>
+
+                <!-- Chứng chỉ ngoại ngữ (loại 2) -->
+                <div class="mb-3" v-if="form.bonusType2 === 'language'">
+                  <div class="row g-2">
+                    <div class="col-12 col-md-6">
+                      <label for="certificateType2" class="form-label small mb-1">Loại chứng chỉ</label>
+                      <select 
+                        v-model="form.certificateType2" 
+                        class="form-select form-select-sm" 
+                        id="certificateType2"
+                        @change="onCertificateTypeChange(2)">
+                        <option value="">-- Chọn loại chứng chỉ --</option>
+                        <option value="KNLNN">KNLNN Việt Nam</option>
+                        <option value="Aptis">Khung tham chiếu châu Âu Aptis ESOL</option>
+                        <option value="IELTS">IELTS Academic</option>
+                        <option value="VSEP">VSEP</option>
+                        <option value="PEIC">PEIC</option>
+                        <option value="PTE">PTE Academic</option>
+                        <option value="Linguaskill">Linguaskill</option>
+                        <option value="Cambridge">Cambridge Assessment English</option>
+                        <option value="CET">Cambridge English Test</option>
+                        <option value="TOEIC">TOEIC</option>
+                        <option value="TOEFL">TOEFL iBT</option>
+                      </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label for="certificateLevel2" class="form-label small mb-1">Trình độ/Điểm số</label>
+                      <select v-if="!isTOEIC2 && showTextSelect2" v-model="form.certificateLevel2" class="form-select form-select-sm" id="certificateLevel2">
+                        <option value="">-- Chọn trình độ --</option>
+                        <option v-for="level in certificateLevels2" :key="level" :value="level">{{ level }}</option>
+                      </select>
+                      <input v-else-if="!isTOEIC2 && !showTextSelect2" type="number" v-model.number="form.certificateLevel2" class="form-control form-control-sm" id="certificateLevel2" step="0.1" min="0" :max="maxCertificateScore2">
+                      
+                      <!-- TOEIC specific inputs (4 skills) -->
+                      <div v-if="isTOEIC2" class="mt-2">
+                        <div class="row g-1 mb-1">
+                          <div class="col-6">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text">Nghe</span>
+                              <input type="number" v-model.number="form.toeic2.listen" class="form-control form-control-sm" min="0" max="495">
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text">Đọc</span>
+                              <input type="number" v-model.number="form.toeic2.read" class="form-control form-control-sm" min="0" max="495">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row g-1">
+                          <div class="col-6">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text">Nói</span>
+                              <input type="number" v-model.number="form.toeic2.speak" class="form-control form-control-sm" min="0" max="200">
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text">Viết</span>
+                              <input type="number" v-model.number="form.toeic2.write" class="form-control form-control-sm" min="0" max="200">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Thí sinh xét tuyển thẳng (loại 2) -->
+                <div class="mb-3" v-if="form.bonusType2 === 'direct'">
+                  <label for="directAdmissionType2" class="form-label small mb-1">Loại thành tích</label>
+                  <select 
+                    v-model="form.directAdmissionType2" 
+                    class="form-select form-select-sm" 
+                    id="directAdmissionType2">
+                    <option value="">-- Chọn loại thành tích --</option>
+                    <option value="hero">Anh hùng lực lượng lao động, Anh hùng lực lượng vũ trang nhân dân, Chiến sĩ thi đua toàn quốc</option>
+                    <option value="national_first">Giải nhất chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                    <option value="national_second">Giải nhì chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                    <option value="national_third">Giải ba chọn HSG, thi KHKT cấp quốc gia, quốc tế</option>
+                  </select>
+                </div>
+
+                <!-- Hiển thị tổng điểm cộng -->
+                <div class="mt-3 mb-2 p-2 bg-light rounded" v-if="calculatedBonusScore > 0">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="fw-bold">Tổng điểm cộng:</div>
+                    <div class="fw-bold text-primary">{{ calculatedBonusScore }}</div>
+                  </div>
+                </div>
+              </div>
+              
               <!-- Chọn trường (xác định khu vực ưu tiên) -->
               <h3 class="section-title h6 mt-3">Chọn trường</h3>
               <div class="school-selection-container p-2 p-md-3">
@@ -263,73 +468,59 @@
 
               <!-- Chọn đối tượng ưu tiên -->
               <div class="mb-3 mt-3">
-  <h3 class="section-title h6">Chọn Ưu tiên đối tượng</h3>
-  <select 
-    v-model="priorityObject" 
-    class="form-select form-select-sm priority-select" 
-    id="priority_object">
-    <option value="0">Không có đối tượng ưu tiên</option>
-    <option value="ĐT01">ĐT01: Người dân tộc thiểu số tại KV1 (trên 18 tháng)</option>
-    <option value="ĐT02">ĐT02: Công nhân trực tiếp sản xuất (5 năm+, 2 năm CSTĐ)</option>
-    <option value="ĐT03">ĐT03a: Thương binh, bệnh binh, người hưởng chính sách như thương binh</option>
-    <option value="ĐT03">ĐT03b: Quân nhân, CA tại ngũ tại KV1 (12 tháng+)</option>
-    <option value="ĐT03">ĐT03c: Quân nhân, CA tại ngũ (18 tháng+)</option>
-    <option value="ĐT03">ĐT03d: Quân nhân, CA đã xuất ngũ, hoàn thành nghĩa vụ</option>
-    <option value="ĐT04">ĐT04a: Thân nhân liệt sĩ</option>
-    <option value="ĐT04">ĐT04b: Con thương, bệnh binh (suy giảm KNL 81%+)</option>
-    <option value="ĐT04">ĐT04c: Con người nhiễm chất độc hóa học (suy giảm KNL 81%+)</option>
-    <option value="ĐT04">ĐT04d: Con Anh hùng LLVT, Anh hùng Lao động thời kỳ kháng chiến</option>
-    <option value="ĐT04">ĐT04đ: Con người hoạt động kháng chiến bị dị dạng do chất độc hóa học</option>
-    <option value="ĐT05">ĐT05a: Thanh niên xung phong tập trung được cử đi học</option>
-    <option value="ĐT05">ĐT05b: Quân nhân, CA tại ngũ (dưới 12 tháng ở KV1, 18 tháng ở KV khác)</option>
-    <option value="ĐT05">ĐT05c: Chỉ huy trưởng, phó BCHQS xã, Dân quân tự vệ (12 tháng+)</option>
-    <option value="ĐT06">ĐT06a: Người dân tộc thiểu số ở khu vực khác ngoài KV1</option>
-    <option value="ĐT06">ĐT06b: Con thương, bệnh binh (suy giảm KNL dưới 81%)</option>
-    <option value="ĐT06">ĐT06c: Con người nhiễm chất độc hóa học (suy giảm KNL dưới 81%)</option>
-    <option value="ĐT07">ĐT07a: Người khuyết tật nặng có giấy xác nhận của cơ quan có thẩm quyền</option>
-    <option value="ĐT07">ĐT07b: Người lao động ưu tú (thợ giỏi, nghệ nhân, bằng/huy hiệu LĐ sáng tạo)</option>
-    <option value="ĐT07">ĐT07c: Giáo viên đã giảng dạy 3 năm+ (dự tuyển ngành đào tạo GV)</option>
-    <option value="ĐT07">ĐT07d: Y tá, dược tá, hộ lý, kỹ thuật viên y tế 3 năm+ (tuyển ngành y tế)</option>
-  </select>
-  <!-- Chi tiết đối tượng ưu tiên -->
-  <div v-if="priorityObject !== '0'" class="mt-2 priority-detail py-2 px-3">
-    <div v-if="priorityObject === 'ĐT01'" class="small">
-      <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu vực 1.
-    </div>
-    <div v-else-if="priorityObject === 'ĐT02'" class="small">
-      <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được cấp tỉnh trở lên công nhận và cấp bằng khen.
-    </div>
-    <div v-else-if="priorityObject === 'ĐT03'" class="small">
-      <strong>Đối tượng 03a:</strong> Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh'.<br>
-      <strong>Đối tượng 03b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 12 tháng trở lên tại Khu vực 1.<br>
-      <strong>Đối tượng 03c:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ từ 18 tháng trở lên.<br>
-      <strong>Đối tượng 03d:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân đã xuất ngũ, được công nhận hoàn thành nghĩa vụ phục vụ tại ngũ theo quy định.
-    </div>
-    <div v-else-if="priorityObject === 'ĐT04'" class="small">
-      <strong>Đối tượng 04a:</strong> Thân nhân liệt sĩ.<br>
-      <strong>Đối tượng 04b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động từ 81% trở lên.<br>
-      <strong>Đối tượng 04c:</strong> Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học bị suy giảm khả năng lao động 81% trở lên.<br>
-      <strong>Đối tượng 04d:</strong> Con của Anh hùng Lực lượng vũ trang nhân dân; con của Anh hùng Lao động trong thời kỳ kháng chiến.<br>
-      <strong>Đối tượng 04đ:</strong> Con của người hoạt động kháng chiến bị dị dạng, dị tật do hậu quả của chất độc hóa học đang hưởng trợ cấp hàng tháng.
-    </div>
-    <div v-else-if="priorityObject === 'ĐT05'" class="small">
-      <strong>Đối tượng 05a:</strong> Thanh niên xung phong tập trung được cử đi học.<br>
-      <strong>Đối tượng 05b:</strong> Quân nhân; sĩ quan, hạ sĩ quan, chiến sĩ nghĩa vụ trong Công an nhân dân tại ngũ được cử đi học có thời gian phục vụ dưới 12 tháng ở Khu vực 1 và dưới 18 tháng ở khu vực khác.<br>
-      <strong>Đối tượng 05c:</strong> Chỉ huy trưởng, Chỉ huy phó ban chỉ huy quân sự xã, phường, thị trấn; Thôn đội trưởng, Trung đội trưởng Dân quân tự vệ nòng cốt, Dân quân tự vệ đã hoàn thành nghĩa vụ tham gia Dân quân tự vệ nòng cốt từ 12 tháng trở lên, dự thi vào ngành Quân sự cơ sở.
-    </div>
-    <div v-else-if="priorityObject === 'ĐT06'" class="small">
-      <strong>Đối tượng 06a:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú ở ngoài khu vực đã quy định thuộc đối tượng 01.<br>
-      <strong>Đối tượng 06b:</strong> Con thương binh, con bệnh binh, con của người được hưởng chính sách như thương binh bị suy giảm khả năng lao động dưới 81%.<br>
-      <strong>Đối tượng 06c:</strong> Con của người hoạt động kháng chiến bị nhiễm chất độc hóa học có tỷ lệ suy giảm khả năng lao động dưới 81%.
-    </div>
-    <div v-else-if="priorityObject === 'ĐT07'" class="small">
-      <strong>Đối tượng 07a:</strong> Người khuyết tật nặng có giấy xác nhận khuyết tật của cơ quan có thẩm quyền cấp theo quy định tại Thông tư liên tịch số 37/2012/TTLT‑BLĐTBXH‑BYT‑BTC‑BGDĐT ngày 28 tháng 12 năm 2012.<br>
-      <strong>Đối tượng 07b:</strong> Người lao động ưu tú thuộc tất cả thành phần kinh tế từ cấp tỉnh, cấp bộ trở lên được công nhận danh hiệu thợ giỏi, nghệ nhân, được cấp bằng hoặc huy hiệu Lao động sáng tạo.<br>
-      <strong>Đối tượng 07c:</strong> Giáo viên đã giảng dạy đủ 3 năm trở lên dự tuyển vào các ngành đào tạo giáo viên.<br>
-      <strong>Đối tượng 07d:</strong> Y tá, dược tá, hộ lý, y sĩ, điều dưỡng viên, hộ sinh viên, kỹ thuật viên, người có bằng trung cấp Dược đã công tác đủ 3 năm trở lên dự tuyển vào đúng ngành tốt nghiệp thuộc lĩnh vực sức khỏe.
-    </div>
-  </div>
-</div>
+                <h3 class="section-title h6 mb-2">Chọn Ưu tiên đối tượng</h3>
+                <select 
+                  v-model="priorityObject" 
+                  class="form-select form-select-sm priority-select" 
+                  id="priority_object">
+                  <option value="0">Không có đối tượng ưu tiên</option>
+                  <option value="ĐT01">ĐT01: Người dân tộc thiểu số tại KV1 (trên 18 tháng)</option>
+                  <option value="ĐT02">ĐT02: Công nhân trực tiếp sản xuất (5 năm+, 2 năm CSTĐ)</option>
+                  <option value="ĐT03">ĐT03a: Thương binh, bệnh binh, người hưởng chính sách như thương binh</option>
+                  <option value="ĐT03">ĐT03b: Quân nhân, CA tại ngũ tại KV1 (12 tháng+)</option>
+                  <option value="ĐT03">ĐT03c: Quân nhân, CA tại ngũ (18 tháng+)</option>
+                  <option value="ĐT03">ĐT03d: Quân nhân, CA đã xuất ngũ, hoàn thành nghĩa vụ</option>
+                  <option value="ĐT04">ĐT04a: Thân nhân liệt sĩ</option>
+                  <option value="ĐT04">ĐT04b: Con thương, bệnh binh (suy giảm KNL 81%+)</option>
+                  <option value="ĐT04">ĐT04c: Con người nhiễm chất độc hóa học (suy giảm KNL 81%+)</option>
+                  <option value="ĐT04">ĐT04d: Con Anh hùng LLVT, Anh hùng Lao động thời kỳ kháng chiến</option>
+                  <option value="ĐT04">ĐT04đ: Con người hoạt động kháng chiến bị dị dạng do chất độc hóa học</option>
+                  <option value="ĐT05">ĐT05a: Thanh niên xung phong tập trung được cử đi học</option>
+                  <option value="ĐT05">ĐT05b: Quân nhân, CA tại ngũ (dưới 12 tháng ở KV1, 18 tháng ở KV khác)</option>
+                  <option value="ĐT05">ĐT05c: Chỉ huy trưởng, phó BCHQS xã, Dân quân tự vệ (12 tháng+)</option>
+                  <option value="ĐT06">ĐT06a: Người dân tộc thiểu số ở khu vực khác ngoài KV1</option>
+                  <option value="ĐT06">ĐT06b: Con thương, bệnh binh (suy giảm KNL dưới 81%)</option>
+                  <option value="ĐT06">ĐT06c: Con người nhiễm chất độc hóa học (suy giảm KNL dưới 81%)</option>
+                  <option value="ĐT07">ĐT07a: Người khuyết tật nặng có giấy xác nhận của cơ quan có thẩm quyền</option>
+                  <option value="ĐT07">ĐT07b: Người lao động ưu tú (thợ giỏi, nghệ nhân, bằng/huy hiệu LĐ sáng tạo)</option>
+                  <option value="ĐT07">ĐT07c: Giáo viên đã giảng dạy 3 năm+ (dự tuyển ngành đào tạo GV)</option>
+                  <option value="ĐT07">ĐT07d: Y tá, dược tá, hộ lý, kỹ thuật viên y tế 3 năm+ (tuyển ngành y tế)</option>
+                </select>
+                <!-- Chi tiết đối tượng ưu tiên -->
+                <div v-if="priorityObject !== '0'" class="mt-2 priority-detail py-2 px-3">
+                  <div v-if="priorityObject === 'ĐT01'" class="small">
+                    <strong>Đối tượng 01:</strong> Công dân Việt Nam là người dân tộc thiểu số có nơi thường trú trong thời gian học THPT hoặc trung cấp trên 18 tháng tại Khu [...]
+                  </div>
+                  <div v-else-if="priorityObject === 'ĐT02'" class="small">
+                    <strong>Đối tượng 02:</strong> Công nhân trực tiếp sản xuất đã làm việc liên tục 5 năm trở lên, trong đó có ít nhất 2 năm là chiến sĩ thi đua được c[...]
+                  </div>
+                  <div v-else-if="priorityObject === 'ĐT03'" class="small">
+                    <strong>Đối tượng 03:</strong> Thương binh, bệnh binh, người có 'Giấy chứng nhận người được hưởng chính sách như thương binh', Quân nhân tại ng[...]
+                  </div>
+                  <div v-else-if="priorityObject === 'ĐT04'" class="small">
+                    <strong>Đối tượng 04:</strong> Thân nhân liệt sĩ, con thương binh, bệnh binh suy giảm KNL từ 81% trở lên, con của người hoạt động kháng chiến bị [...]
+                  </div>
+                  <div v-else-if="priorityObject === 'ĐT05'" class="small">
+                    <strong>Đối tượng 05:</strong> Thanh niên xung phong, quân nhân tại ngũ dưới 12 tháng ở KV1 hoặc 18 tháng ở khu vực khác, Chỉ huy trưởng quân sự xã[...]
+                  </div>
+                  <div v-else-if="priorityObject === 'ĐT06'" class="small">
+                    <strong>Đối tượng 06:</strong> Người dân tộc thiểu số ở khu vực khác ngoài KV1, con thương binh, bệnh binh suy giảm KNL dưới 81% [...]
+                  </div>
+                  <div v-else-if="priorityObject === 'ĐT07'" class="small">
+                    <strong>Đối tượng 07:</strong> Người khuyết tật nặng, người lao động ưu tú, giáo viên đã giảng dạy 3 năm trở lên, y tá, dược tá, hộ lý [...[...]
+                  </div>
+                </div>
+              </div>
               
               <div class="d-flex justify-content-between mt-3">
                 <button type="button" class="btn btn-sm btn-outline-secondary" @click="goBackToScores">
@@ -396,7 +587,7 @@
                 
                 <!-- Chi tiết điểm từng môn trong tổ hợp -->
                 <div class="table-responsive">
-                  <table class="table table-sm table-bordered">
+                  <table class="table table-sm table-striped table-bordered">
                     <thead>
                       <tr class="bg-light">
                         <th>Môn học</th>
@@ -414,33 +605,39 @@
                   </table>
                 </div>
                 
-                <!-- Điểm tổ hợp và điểm ưu tiên -->
-                <div class="point-summary my-2">
+                <!-- Điểm tổ hợp và điểm ưu tiên - Đã cải thiện thiết kế -->
+                <div class="point-summary my-3">
                   <div class="row g-2">
-                    <div class="col-4">
+                    <div class="col-12 col-md-3">
                       <div class="point-card original p-2">
                         <div class="point-title small">Điểm tổ hợp gốc</div>
-                        <div class="point-value">{{ result.score }}</div>
+                        <div class="point-value">{{ result.priority_points.origin_point || result.score }}</div>
                         <div class="point-description small">(Thang 30)</div>
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-3">
+                      <div class="point-card bonus p-2">
+                        <div class="point-title small">Điểm cộng</div>
+                        <div class="point-value">{{ result.priority_points.bonus_score || 0 }}</div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-3">
                       <div class="point-card priority p-2">
                         <div class="point-title small">Điểm ưu tiên</div>
                         <div class="point-value">{{ result.priority_points.convert_priority }}</div>
                         <div class="point-description small">(Đã quy đổi)</div>
                       </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-3">
                       <div class="point-card total p-2">
                         <div class="point-title small">Tổng điểm</div>
                         <div class="point-value">{{ result.priority_points.total_point }}</div>
-                        <div class="point-description small">(Gốc + ưu tiên)</div>
                       </div>
                     </div>
                   </div>
                 </div>
-              <!-- Thêm nút gợi ý ngành học dựa trên kết quả -->
+              
+                <!-- Thêm nút gợi ý ngành học dựa trên kết quả -->
                 <div class="suggestion-actions mt-2 text-center">
                   <button 
                     class="btn btn-sm btn-outline-info" 
@@ -455,86 +652,86 @@
 
                 <!-- Hiển thị kết quả gợi ý nếu có -->
                 <div v-if="suggestions[result.group_id]" class="suggestions-container mt-3">
-  <div class="card">
-    <div class="card-header bg-info bg-opacity-10 py-2">
-      <h5 class="card-title mb-0 h6">
-        <i class="bi bi-lightbulb-fill text-warning me-1"></i>
-        Gợi ý ngành học phù hợp với {{ result.group_name }} - Điểm {{ result.priority_points.total_point }}
-      </h5>
-    </div>
-    <div class="card-body p-2">
-      <!-- Hiển thị danh mục đầu tiên nếu có (giới thiệu) -->
-      <div v-for="(category, catIndex) in suggestions[result.group_id]" :key="`cat-${result.group_id}-${catIndex}`" class="suggestion-category mb-3">
-        <!-- Hiển thị danh mục giới thiệu nếu có và không phải danh mục gộp -->
-        <div v-if="!category.isCombined" class="category-title fw-bold mb-2" v-html="category.title"></div>
-        
-        <!-- Hiển thị danh sách ngành cho danh mục giới thiệu -->
-        <div v-if="!category.isCombined && category.majors" class="table-responsive">
-          <table class="table table-sm table-hover">
-            <thead>
-              <tr class="bg-light">
-                <th style="width: 5%">STT</th>
-                <th>Tên ngành</th>
-                <th style="width: 20%" class="text-center">Chi tiết</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(major, majorIdx) in category.majors" :key="`major-intro-${result.group_id}-${catIndex}-${majorIdx}`">
-                <td>{{ majorIdx + 1 }}</td>
-                <td>{{ major.name }}</td>
-                <td class="text-center">
-                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <!-- Hiển thị bảng gộp cho các ngành có mức độ an toàn -->
-        <div v-if="category.isCombined" class="table-responsive">
-          <div class="category-title fw-bold mb-2">{{ category.title }}</div>
-          <table class="table table-sm table-hover major-suggestion-table">
-            <thead>
-              <tr class="bg-light">
-                <th style="width: 5%">STT</th>
-                <th>Tên ngành</th>
-                <th style="width: 20%" class="text-center">Mức độ an toàn</th>
-                <th style="width: 15%" class="text-center">Chi tiết</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(major, majorIdx) in category.majors" :key="`major-combined-${result.group_id}-${catIndex}-${majorIdx}`">
-                <td>{{ majorIdx + 1 }}</td>
-                <td>{{ major.name }}</td>
-                <td class="text-center">
-                  <span v-if="major.safetyLevel === 'high'" class="safety-level-high safety-text">
-                    Rất an toàn
-                  </span>
-                  <span v-else-if="major.safetyLevel === 'medium'" class="safety-level-medium safety-text">
-                    Khá an toàn
-                  </span>
-                  <span v-else-if="major.safetyLevel === 'low'" class="safety-level-low safety-text">
-                    Chưa an toàn
-                  </span>
-                </td>
-                <td class="text-center">
-                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        
-        <!-- Hiển thị ghi chú nếu có -->
-        <div v-if="category.isNote" class="suggestion-footer text-muted small fst-italic">
-          <p v-html="category.note"></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+                  <div class="card">
+                    <div class="card-header bg-info bg-opacity-10 py-2">
+                      <h5 class="card-title mb-0 h6">
+                        <i class="bi bi-lightbulb-fill text-warning me-1"></i>
+                        Gợi ý ngành học phù hợp với {{ result.group_name }} - Điểm {{ result.priority_points.total_point }}
+                      </h5>
+                    </div>
+                    <div class="card-body p-2">
+                      <!-- Hiển thị danh mục đầu tiên nếu có (giới thiệu) -->
+                      <div v-for="(category, catIndex) in suggestions[result.group_id]" :key="`cat-${result.group_id}-${catIndex}`" class="suggestion-category mb-3">
+                        <!-- Hiển thị danh mục giới thiệu nếu có và không phải danh mục gộp -->
+                        <div v-if="!category.isCombined" class="category-title fw-bold mb-2" v-html="category.title"></div>
+                        
+                        <!-- Hiển thị danh sách ngành cho danh mục giới thiệu -->
+                        <div v-if="!category.isCombined && category.majors" class="table-responsive">
+                          <table class="table table-sm table-hover">
+                            <thead>
+                              <tr class="bg-light">
+                                <th style="width: 5%">STT</th>
+                                <th>Tên ngành</th>
+                                <th style="width: 20%" class="text-center">Chi tiết</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(major, majorIdx) in category.majors" :key="`major-intro-${result.group_id}-${catIndex}-${majorIdx}`">
+                                <td>{{ majorIdx + 1 }}</td>
+                                <td>{{ major.name }}</td>
+                                <td class="text-center">
+                                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <!-- Hiển thị bảng gộp cho các ngành có mức độ an toàn -->
+                        <div v-if="category.isCombined" class="table-responsive">
+                          <div class="category-title fw-bold mb-2">{{ category.title }}</div>
+                          <table class="table table-sm table-hover major-suggestion-table">
+                            <thead>
+                              <tr class="bg-light">
+                                <th style="width: 5%">STT</th>
+                                <th>Tên ngành</th>
+                                <th style="width: 20%" class="text-center">Mức độ an toàn</th>
+                                <th style="width: 15%" class="text-center">Chi tiết</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(major, majorIdx) in category.majors" :key="`major-combined-${result.group_id}-${catIndex}-${majorIdx}`">
+                                <td>{{ majorIdx + 1 }}</td>
+                                <td>{{ major.name }}</td>
+                                <td class="text-center">
+                                  <span v-if="major.safetyLevel === 'high'" class="safety-level-high safety-text">
+                                    Rất an toàn
+                                  </span>
+                                  <span v-else-if="major.safetyLevel === 'medium'" class="safety-level-medium safety-text">
+                                    Khá an toàn
+                                  </span>
+                                  <span v-else-if="major.safetyLevel === 'low'" class="safety-level-low safety-text">
+                                    Chưa an toàn
+                                  </span>
+                                </td>
+                                <td class="text-center">
+                                  <a :href="major.link" target="_blank" class="btn btn-sm btn-link">Tại đây</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        
+                        <!-- Hiển thị ghi chú nếu có -->
+                        <div v-if="category.isNote" class="suggestion-footer text-muted small fst-italic">
+                          <p v-html="category.note"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <hr v-if="resultIndex < finalResults.length - 1" class="my-2">
+              <hr v-if="resultIndex < finalResults.length - 1" class="my-3">
             </template>
             
             <!-- Reset button for starting over -->
@@ -551,10 +748,10 @@
 </template>
 
 <script>
-// Cập nhật phần script, giữ nguyên phần template và style
 import { ref, reactive, computed, onMounted, watch } from 'vue';
 import CalculateScoreController from '@/controllers/CalculateScoreController';
 import ChatRasaController from '@/controllers/ChatRasaController';
+import { calculateLanguageCertificatePoints, calculateDirectAdmissionPoints } from '@/controllers/bonuspoint';
 
 export default {
   name: 'CalculateScoreHB',
@@ -572,7 +769,7 @@ export default {
       }
     ]);
     
-    // School selection và các state khác - giữ nguyên như code gốc
+    // School selection và các state khác
     const cities = ref([]);
     const districts = ref([]);
     const schools = ref([]);
@@ -587,12 +784,51 @@ export default {
     const finalResults = ref([]);
     const loading = ref(false);
     const error = ref('');
+    const errors = ref({
+      city_id: '',
+      district_id: '',
+      school_id: ''
+    });
     const submitted = ref(false);
     const showPriorityStep = ref(false);
 
     // Gợi ý ngành học
     const suggestions = ref({}); // Lưu trữ gợi ý cho từng tổ hợp: { group_id: [{title, majors}] }
     const suggestionsLoading = ref(null); // ID của tổ hợp đang tải gợi ý
+    
+    // Bonus score data
+    const form = reactive({
+      bonusType1: '',
+      certificateType1: '',
+      certificateLevel1: '',
+      toeic1: {
+        listen: null,
+        read: null,
+        speak: null,
+        write: null
+      },
+      directAdmissionType1: '',
+      bonusType2: '',
+      certificateType2: '',
+      certificateLevel2: '',
+      toeic2: {
+        listen: null,
+        read: null,
+        speak: null,
+        write: null
+      },
+      directAdmissionType2: ''
+    });
+    
+    // Certificate fields
+    const certificateLevels1 = ref([]);
+    const certificateLevels2 = ref([]);
+    const showTextSelect1 = ref(true);
+    const showTextSelect2 = ref(true);
+    const maxCertificateScore1 = ref(10);
+    const maxCertificateScore2 = ref(10);
+    const isTOEIC1 = ref(false);
+    const isTOEIC2 = ref(false);
     
     // Computed property cho danh sách môn học có thể chọn
     const availableSubjects = computed(() => {
@@ -614,12 +850,148 @@ export default {
       return '';
     });
     
+    // Computed property for bonus score calculation
+    const calculatedBonusScore = computed(() => {
+      let totalBonus = 0;
+      
+      // Calculate bonus from first bonus type
+      if (form.bonusType1 === 'language' && form.certificateType1) {
+        if (form.certificateType1 === 'TOEIC') {
+          // For TOEIC, check if at least one skill has valid score
+          const { listen, read, speak, write } = form.toeic1;
+          if (listen > 0 || read > 0 || speak > 0 || write > 0) {
+            totalBonus += calculateLanguageCertificatePoints(form.certificateType1, form.toeic1);
+          }
+        } else if (form.certificateLevel1) {
+          totalBonus += calculateLanguageCertificatePoints(form.certificateType1, form.certificateLevel1);
+        }
+      } else if (form.bonusType1 === 'direct' && form.directAdmissionType1) {
+        totalBonus += calculateDirectAdmissionPoints(form.directAdmissionType1);
+      }
+      
+      // Calculate bonus from second bonus type
+      if (form.bonusType2 === 'language' && form.certificateType2) {
+        if (form.certificateType2 === 'TOEIC') {
+          // For TOEIC, check if at least one skill has valid score
+          const { listen, read, speak, write } = form.toeic2;
+          if (listen > 0 || read > 0 || speak > 0 || write > 0) {
+            totalBonus += calculateLanguageCertificatePoints(form.certificateType2, form.toeic2);
+          }
+        } else if (form.certificateLevel2) {
+          totalBonus += calculateLanguageCertificatePoints(form.certificateType2, form.certificateLevel2);
+        }
+      } else if (form.bonusType2 === 'direct' && form.directAdmissionType2) {
+        totalBonus += calculateDirectAdmissionPoints(form.directAdmissionType2);
+      }
+      
+      return totalBonus;
+    });
+    
     // Watch for changes in score option
     watch(scoreOption, (newOption) => {
       subjectScores.value.forEach(subject => {
         subject.scores = newOption === 'semester' ? ['', '', '', '', '', ''] : ['', '', ''];
       });
     });
+    
+    // Bonus score methods
+    const onBonusType1Change = () => {
+      form.certificateType1 = '';
+      form.certificateLevel1 = '';
+      form.directAdmissionType1 = '';
+      certificateLevels1.value = [];
+      showTextSelect1.value = true;
+      maxCertificateScore1.value = 10;
+      isTOEIC1.value = false;
+      form.toeic1 = {
+        listen: null,
+        read: null,
+        speak: null,
+        write: null
+      };
+    };
+    
+    const onBonusType2Change = () => {
+      form.certificateType2 = '';
+      form.certificateLevel2 = '';
+      form.directAdmissionType2 = '';
+      certificateLevels2.value = [];
+      showTextSelect2.value = true;
+      maxCertificateScore2.value = 10;
+      isTOEIC2.value = false;
+      form.toeic2 = {
+        listen: null,
+        read: null,
+        speak: null,
+        write: null
+      };
+    };
+    
+    const onCertificateTypeChange = (bonusNumber) => {
+      const certType = bonusNumber === 1 ? form.certificateType1 : form.certificateType2;
+      
+      if (bonusNumber === 1) {
+        form.certificateLevel1 = '';
+        isTOEIC1.value = certType === 'TOEIC';
+      } else {
+        form.certificateLevel2 = '';
+        isTOEIC2.value = certType === 'TOEIC';
+      }
+      
+      // Set levels based on certificate type
+      let levels = [];
+      let showTextSelect = true;
+      let maxScore = 10;
+      
+      switch (certType) {
+        case 'KNLNN':
+          levels = ['Bậc 3', 'Bậc 4', 'Bậc 5', 'Bậc 6'];
+          break;
+        case 'Aptis':
+          levels = ['B1', 'B2', 'C1', 'C2'];
+          break;
+        case 'IELTS':
+          showTextSelect = false;
+          maxScore = 9.0;
+          break;
+        case 'VSEP':
+          showTextSelect = false;
+          maxScore = 10.0;
+          break;
+        case 'PEIC':
+          levels = ['Level 2', 'Level 3', 'Level 4', 'Level 5'];
+          break;
+        case 'PTE':
+          showTextSelect = false;
+          maxScore = 90;
+          break;
+        case 'Linguaskill':
+          showTextSelect = false;
+          maxScore = 200;
+          break;
+        case 'Cambridge':
+          levels = ['B1 Preliminary', 'B1 Business Preliminary', 'B2 First', 'B2 Business Vantage', 'C1 Advanced', 'C1 Business Higher', 'C2 Proficiency'];
+          break;
+        case 'CET':
+          levels = ['PTE', 'FCE', 'CAE', 'CPE'];
+          showTextSelect = true;
+          break;
+        case 'TOEFL':
+          showTextSelect = false;
+          maxScore = 120;
+          break;
+      }
+      
+      if (bonusNumber === 1) {
+        certificateLevels1.value = levels;
+        showTextSelect1.value = showTextSelect && levels.length > 0;
+        maxCertificateScore1.value = maxScore;
+      } else {
+        certificateLevels2.value = levels;
+        showTextSelect2.value = showTextSelect && levels.length > 0;
+        maxCertificateScore2.value = maxScore;
+      }
+    };
     
     // Methods
     const addSubject = () => {
@@ -659,7 +1031,6 @@ export default {
       
       if (currentSubjectId) {
         // Nếu row hiện tại đã chọn môn, thêm môn này vào danh sách có thể chọn
-        const currentSelectedSubject = allSubjects.value.find(s => s.id === currentSubjectId);
         return allSubjects.value.filter(subject => 
           !selectedSubjectIds.includes(subject.id) || subject.id === currentSubjectId
         );
@@ -681,6 +1052,8 @@ export default {
       districtId.value = '';
       schoolId.value = null;
       schools.value = [];
+      errors.value.district_id = '';
+      errors.value.school_id = '';
       
       if (cityId.value) {
         try {
@@ -696,6 +1069,7 @@ export default {
     
     const loadSchools = async () => {
       schoolId.value = null;
+      errors.value.school_id = '';
       
       if (districtId.value) {
         try {
@@ -711,7 +1085,9 @@ export default {
     
     const loadSubjects = async () => {
       try {
-        allSubjects.value = await CalculateScoreController.getSubjects();
+        const subjectsData = await CalculateScoreController.getSubjects();
+        allSubjects.value = subjectsData;
+        subjects.value = subjectsData; // Giữ để tương thích với code cũ
       } catch (err) {
         error.value = 'Không thể tải danh sách môn học. Vui lòng thử lại sau.';
       }
@@ -730,7 +1106,6 @@ export default {
       return true;
     };
     
-    // Các methods còn lại giữ nguyên như code gốc
     const validatePriorityForm = () => {
       error.value = '';
       submitted.value = true;
@@ -786,7 +1161,7 @@ export default {
       
       // Refresh bootstrap-select sau khi chuyển bước
       setTimeout(() => {
-        if ($('.selectpicker').length) {
+        if (window.$ && $('.selectpicker').length) {
           $('.selectpicker').selectpicker('refresh');
         }
       }, 100);
@@ -810,11 +1185,15 @@ export default {
           comb => selectedCombinationIds.value.includes(comb.group_id)
         );
         
+        // Get bonus score
+        const bonusScore = calculatedBonusScore.value;
+        
         // Calculate priority points for the selected combinations
         finalResults.value = await CalculateScoreController.calculateCombinationPriorityPoints(
           selectedCombinations,
           selectedSchoolPriority.value,
           priorityObject.value,
+          bonusScore,
           schoolId.value
         );
         
@@ -849,6 +1228,18 @@ export default {
       submitted.value = false;
       showPriorityStep.value = false;
       suggestions.value = {};
+      
+      // Reset bonus score form
+      form.bonusType1 = '';
+      form.certificateType1 = '';
+      form.certificateLevel1 = '';
+      form.toeic1 = { listen: null, read: null, speak: null, write: null };
+      form.directAdmissionType1 = '';
+      form.bonusType2 = '';
+      form.certificateType2 = '';
+      form.certificateLevel2 = '';
+      form.toeic2 = { listen: null, read: null, speak: null, write: null };
+      form.directAdmissionType2 = '';
     };
     
     const getMajorSuggestions = async (result) => {
@@ -886,6 +1277,7 @@ export default {
         suggestionsLoading.value = null;
       }
     };
+    
     // Init
     onMounted(async () => {
       loading.value = true;
@@ -897,7 +1289,7 @@ export default {
         
         // Khởi tạo bootstrap-select nếu cần
         setTimeout(() => {
-          if ($('.selectpicker').length) {
+          if (window.$ && $('.selectpicker').length) {
             $('.selectpicker').selectpicker();
           }
         }, 300);
@@ -912,7 +1304,7 @@ export default {
     return {
       // Form state
       scoreOption,
-      allSubjects, // Thêm allSubjects vào return
+      allSubjects,
       subjects,
       subjectScores,
       
@@ -931,12 +1323,25 @@ export default {
       finalResults,
       loading,
       error,
+      errors,
       submitted,
       showPriorityStep,
       
+      // Bonus score form
+      form,
+      certificateLevels1,
+      certificateLevels2,
+      showTextSelect1,
+      showTextSelect2,
+      maxCertificateScore1,
+      maxCertificateScore2,
+      isTOEIC1,
+      isTOEIC2,
+
       // Computed properties
       selectedSchoolPriority,
-      availableSubjects, // Thêm computed property
+      availableSubjects,
+      calculatedBonusScore,
 
       // Suggestions
       suggestions,
@@ -946,7 +1351,7 @@ export default {
       addSubject,
       removeSubject,
       updateSubjectId,
-      getAvailableSubjectsForRow, // Thêm method mới
+      getAvailableSubjectsForRow,
       loadDistricts,
       loadSchools,
       calculateInitialScores,
@@ -954,9 +1359,12 @@ export default {
       goBackToScores,
       calculatePriorityScores,
       resetCalculator,
-
-      getAvailableSubjectsForRow, // Thêm hàm lấy danh sách môn học khả dụng
-      getMajorSuggestions // Thêm hàm lấy gợi ý ngành học
+      getMajorSuggestions,
+      
+      // Bonus score methods
+      onBonusType1Change,
+      onBonusType2Change,
+      onCertificateTypeChange
     };
   }
 }
@@ -1000,36 +1408,18 @@ export default {
 }
 
 .card-header {
-  background-color: #0B2942 !important;
-  color: #ffffff !important;
-  border: none;
-}
-
-/* Section titles - thu gọn */
-.section-title {
-  color: #0B2942;
-  text-align: center;
-  margin-bottom: 0.75rem;
+  background-color: #0e4c92 !important;
+  color: #ffffff;
+  padding: 0.75rem;
   font-weight: 600;
-  position: relative;
 }
 
-.section-title:after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 2px;
-  background: #4da0ff;
-  margin: 0.3rem auto 0.5rem;
-  border-radius: 1px;
-}
-
-/* Step indicator - thu gọn */
+/* Step indicator */
 .step-indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .step {
@@ -1037,6 +1427,7 @@ export default {
   flex-direction: column;
   align-items: center;
   opacity: 0.5;
+  transition: all 0.3s ease;
 }
 
 .step.active {
@@ -1047,230 +1438,242 @@ export default {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: #0B2942;
-  color: white;
+  background-color: #dee2e6;
+  color: #495057;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   margin-bottom: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+  background-color: #0e4c92;
+  color: #fff;
 }
 
 .step-title {
-  font-weight: 600;
-  color: #0B2942;
+  color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+.step.active .step-title {
+  color: #0e4c92;
+  font-weight: 500;
 }
 
 .step-line {
-  height: 2px;
-  background-color: #0B2942;
   flex-grow: 1;
-  margin: 0 0.75rem;
-  position: relative;
-  top: -5px;
+  height: 2px;
+  background-color: #dee2e6;
+  margin: 0 1rem;
+  margin-bottom: 1.5rem;
+  max-width: 100px;
 }
 
-/* Nhập điểm môn học - thiết kế mới */
+/* Section titles */
+.section-title {
+  color: #0e4c92;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.section-title:after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #3a7bd5;
+  margin: 0.3rem auto 0;
+}
+
+/* Radio option selector */
+.option-selector {
+  text-align: center;
+}
+
+.form-check-label {
+  margin-left: 0.1rem;
+  color: #4a5568;
+}
+
+/* Subject list table */
+.subject-list {
+  margin-top: 1rem;
+}
+
 .scores-header-container {
   display: flex;
-  overflow-x: auto;
-  padding-bottom: 2px;
+  justify-content: space-around;
+  gap: 4px;
 }
 
 .score-header {
-  flex: 0 0 80px;
   font-size: 0.75rem;
-  font-weight: bold;
+  font-weight: 500;
+  color: #495057;
   text-align: center;
-  padding: 0 0.25rem;
-}
-
-.scores-container-wrapper {
-  overflow-x: auto;
-  padding-bottom: 2px;
+  flex: 1;
 }
 
 .scores-container {
   display: flex;
-  min-width: max-content;
+  justify-content: space-around;
+  gap: 4px;
 }
 
 .score-input-group {
-  flex: 0 0 80px;
-  padding: 0 0.25rem;
+  flex: 1;
+  min-width: 0;
 }
 
-/* Form controls - thu gọn */
-.form-control, .form-select {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-}
-
-.form-control:focus, .form-select:focus {
-  box-shadow: 0 0 0 0.15rem rgba(13, 71, 161, 0.25);
-}
-
-/* Nút tính điểm */
-.btn-calculate {
-  background: linear-gradient(135deg, #3a7bd5, #0B2942);
-  color: #ffffff;
-  border: none;
-  padding: 0.35rem 1rem;
-  transition: all 0.2s;
-}
-
-.btn-calculate:hover {
-  background: linear-gradient(135deg, #4a8bf5, #1a3952);
-  transform: translateY(-1px);
-}
-
-/* School selection */
+/* School selection container */
 .school-selection-container {
-  background-color: #f5f9ff;
+  background-color: rgba(208, 225, 249, 0.2);
   border-radius: 0.5rem;
   border: 1px solid #d0e1f9;
 }
 
-/* Combination selector */
-.combination-selection {
-  margin-bottom: 1rem;
-}
-
-.combination-name {
-  font-weight: 600;
-  color: #0B2942;
-  font-size: 0.9rem;
+/* Form controls */
+.form-label {
+  font-weight: 500;
+  color: #4a5568;
   margin-bottom: 0.25rem;
 }
 
-/* Results */
-.initial-results, .final-results-container {
-  background-color: #f8f9fa;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  border: 1px solid #e9ecef;
+.form-select, .form-control {
+  font-size: 0.875rem;
 }
 
-/* Point cards */
-.point-card {
-  background-color: #f5f9ff;
-  border-radius: 0.5rem;
-  text-align: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+.form-control {
+  border-color: #dce0e5;
 }
 
-.point-title {
-  font-weight: 600;
-  color: #495057;
+.input-group-text {
+  background-color: #f0f2f5;
+  border-color: #dce0e5;
+  color: #4a5568;
+  font-size: 0.875rem;
 }
 
-.point-value {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #0B2942;
-  line-height: 1;
-  margin: 0.2rem 0;
-}
-
-.point-description {
-  color: #6c757d;
-  font-size: 0.7rem;
-}
-
-.point-card.original {
-  background-color: #e8f5ff;
-}
-
-.point-card.priority {
-  background-color: #e1f5ea;
-}
-
-.point-card.total {
-  background-color: #fff8e1;
-}
-
-.point-card.original .point-value {
-  color: #0d47a1;
-}
-
-.point-card.priority .point-value {
-  color: #388e3c;
-}
-
-.point-card.total .point-value {
-  color: #f57c00;
-}
-
-/* Table adjustments */
-.table {
-  font-size: 0.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.table td, .table th {
-  padding: 0.3rem 0.5rem;
-  vertical-align: middle;
-}
-
-/* Accessibility */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.priority-select {
-  font-size: 0.85rem;
-}
-
+/* Priority details */
 .priority-detail {
   background-color: #f8f9fa;
   border-radius: 0.25rem;
   border: 1px solid #e9ecef;
   color: #495057;
-  margin-top: 0.5rem;
   font-size: 0.8rem;
   line-height: 1.4;
 }
 
-.suggestions-container {
-  margin-top: 15px;
-}
-
-.suggestions-container .card-header {
-  background-color: #0B2942 !important;
-  color: #ffffff !important;
+/* Calculate Button */
+.btn-calculate {
+  background: linear-gradient(135deg, #3a7bd5, #0e4c92);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 3px 5px rgba(14, 76, 146, 0.2);
   border: none;
+  transition: all 0.3s;
 }
 
-.suggestion-category {
-  margin-bottom: 15px;
+.btn-calculate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(14, 76, 146, 0.3);
+  background: linear-gradient(135deg, #3a7bd5, #083878);
 }
 
-.category-title {
-  color: #0b5394;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #e0e0e0;
+/* Results styling */
+.initial-results table, .final-results-container table {
+  border-collapse: collapse;
 }
 
-.suggestion-footer {
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid #e0e0e0;
+.combination-row {
+  background-color: #e6f0ff !important;
+  font-weight: 500;
 }
 
-.suggestion-actions {
-  margin-top: 10px;
+/* Point cards */
+.point-summary {
+  margin: 1rem 0;
 }
 
-/* Thêm CSS cải tiến cho bảng đề xuất với gradient và hiệu ứng đẹp hơn */
+.point-card {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  border: 1px solid #e9ecef;
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s;
+}
+
+.point-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.point-title {
+  color: #4a5568;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.point-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0e4c92;
+}
+
+.point-description {
+  color: #6c757d;
+  font-size: 0.75rem;
+}
+
+.point-card.original {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+.point-card.bonus {
+  background-color: #e2f8ee;
+  border-color: #b3e6d5;
+}
+
+.point-card.bonus .point-value {
+  color: #0d8055;
+}
+
+.point-card.priority {
+  background-color: #ebf5ff;
+  border-color: #bfdeff;
+}
+
+.point-card.priority .point-value {
+  color: #0074cc;
+}
+
+.point-card.total {
+  background-color: #e6f4ff;
+  border-color: #91caff;
+}
+
+.point-card.total .point-value {
+  color: #1677ff;
+  font-size: 1.5rem;
+}
+
+/* Loading indicator */
+.loading-indicator {
+  text-align: center;
+  color: #0e4c92;
+  padding: 1rem;
+}
+
+/* Safety levels for suggestions */
 .safety-level-high {
   background: linear-gradient(135deg, #198754, #25b070);
   color: white;
@@ -1325,91 +1728,69 @@ export default {
   box-shadow: 0 3px 6px rgba(255, 193, 7, 0.4);
 }
 
-/* Thêm hiệu ứng pulse nhẹ cho mức an toàn cao */
-@keyframes subtle-pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+/* Subject selection */
+.subject-actions {
+  display: flex;
+  justify-content: center;
 }
 
-.safety-level-high {
-  animation: subtle-pulse 2s infinite ease-in-out;
-}
-
-.safety-text {
-  white-space: nowrap;
-}
-
-/* Tùy chỉnh cho bảng đề xuất ngành */
-.major-suggestion-table th {
-  vertical-align: middle;
-}
-
-.major-suggestion-table td {
-  vertical-align: middle;
-}
-
-/* Thêm thiết kế responsive cho phần gợi ý */
-@media (max-width: 768px) {
-  .suggestion-category {
-    margin-bottom: 10px;
-  }
-}
-
-/* Nút gợi ý */
-.btn-outline-info {
-  color: #0dcaf0;
-  border-color: #0dcaf0;
-}
-
-.btn-outline-info:hover, .btn-outline-info:focus {
-  background-color: #0dcaf0;
-  color: white;
-}
-
-/* Bảng gợi ý */
-.suggestion-category .table-hover tbody tr:hover {
-  background-color: rgba(13, 202, 240, 0.05);
-}
-
-.suggestion-category .table-sm {
-  font-size: 0.9rem;
-}
-
-.suggestion-category .table-sm th {
-  font-weight: 600;
-  background-color: rgba(11, 83, 148, 0.05);
-}
-
-/* Link chi tiết ngành */
-.suggestion-category .btn-link {
-  color: #0b5394;
-  text-decoration: none;
-  padding: 0.1rem 0.5rem;
-}
-
-.suggestion-category .btn-link:hover {
-  text-decoration: underline;
-  background-color: rgba(11, 83, 148, 0.05);
+/* Combination name header */
+.combination-name {
   border-radius: 0.25rem;
+  background-color: #f0f7ff !important;
+  color: #1a3f6e;
+}
+
+/* Suggestion section */
+.suggestions-container .card-header {
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  background-color: #f0f7ff !important;
+  color: #1a3f6e;
+}
+
+.suggestion-category:not(:last-child) {
+  border-bottom: 1px dashed #dee2e6;
+  padding-bottom: 1rem;
+}
+
+.category-title {
+  color: #1a3f6e;
+}
+
+.suggestion-footer {
+  background-color: #f8f9fa;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 /* Responsive adjustments */
-@media (min-width: 768px) {
-  .hero-section h1 {
-    font-size: 1.75rem;
+@media (max-width: 767px) {
+  .scores-container {
+    flex-wrap: wrap;
   }
   
-  .hero-section p {
-    font-size: 1rem;
+  .score-input-group {
+    flex-basis: calc(33.33% - 4px);
+    margin-bottom: 4px;
   }
   
-  .form-control, .form-select {
-    font-size: 0.9rem;
+  .card-body {
+    padding: 0.75rem;
   }
   
   .point-value {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .point-card.total .point-value {
+    font-size: 1.3rem;
+  }
+  
+  .step-line {
+    margin: 0 0.5rem;
+    margin-bottom: 1.5rem;
+    max-width: 50px;
   }
 }
 </style>

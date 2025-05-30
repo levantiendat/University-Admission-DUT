@@ -59,14 +59,16 @@ const CalculateScoreServices = {
   /**
    * Calculate priority points based on original score and priority info
    * @param {Number} score - Original score (on 30-point scale)
+   * @param {Number} bonusScore - Bonus score to add to the total
    * @param {String} priorityArea - Priority area code (e.g., "KV1", "KV2")
    * @param {String} priorityObject - Priority object code (e.g., "ĐT01", "ĐT02")
    * @param {Number} schoolId - Optional school ID to get priority area
    * @returns {Promise<Object>} - Priority calculation results
    */
-  calculatePriorityPoints(score, priorityArea, priorityObject, schoolId = null) {
+  calculatePriorityPoints(score, bonusScore = 0, priorityArea, priorityObject, schoolId = null) {
     const payload = {
       score: score,
+      bonus_score: bonusScore,
       priority_area: priorityArea,
       priority_object: priorityObject,
       school_id: schoolId

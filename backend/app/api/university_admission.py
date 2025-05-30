@@ -1085,25 +1085,21 @@ async def calculate_point_count(
 
     # Tính điểm thành tích
     if data.group == "1":
-        achievement_points = 30.0
+        mapping = {"HSG": 28.0, "KHKT": 27.0}
+        achievement_points = mapping.get(data.achievement, 0.0)
     elif data.group == "2":
-        mapping = {"I": 29, "II": 28, "III": 27, "Khuyến khích": 26}
+        mapping = {"I": 27.0, "II": 26.5, "III": 26.0, "Khuyến khích": 25.5}
         achievement_points = mapping.get(data.achievement, 0.0)
     elif data.group == "3":
-        mapping = {"I": 25, "II": 24, "III": 23, "Khuyến khích": 22}
+        mapping = {"I": 25.5, "II": 25.0, "III": 24.5, "Khuyến khích": 24.0}
         achievement_points = mapping.get(data.achievement, 0.0)
     else:
         achievement_points = 0.0
 
     # Tính điểm học tập
-    academic_score = 0.0
-    if data.group in ["2", "3"]:
-        try:
-            academic_score = round((data.score10 + data.score11 + data.score12) / 30, 2)
-        except:
-            academic_score = 0.0
+    bonus_score = data.bonus_score if data.bonus_score else 0.0
 
-    total_non_priority = achievement_points + academic_score
+    total_non_priority = achievement_points + bonus_score if achievement_points + bonus_score <= 30 else 30
 
     # Lấy thông tin khu vực
     area = ""
@@ -1135,7 +1131,7 @@ async def calculate_point_count(
     return PointCountResponse(
         group=data.group,
         achievement_points=achievement_points,
-        academic_score=academic_score,
+        bonus_score=bonus_score,
         converted_priority=converted_priority,
         total_score=total_score
     )
@@ -1212,6 +1208,7 @@ async def calculate_priority_endpoint(
         result = calculate_priority_points(
             db=db,
             score=data.score,
+            bonus_score=data.bonus_score,
             priority_area=data.priority_area,
             priority_object=data.priority_object,
             school_id=data.school_id
