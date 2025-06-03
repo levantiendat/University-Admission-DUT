@@ -881,6 +881,12 @@ nlu:
     - với số điểm [434](score) ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào?
     - em đạt được [25.55](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào?
     - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào?
+    - em đạt được [275](score) điểm theo phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào?
+    - tôi đạt được [275](score) điểm theo phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào?
+    - tôi đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method) em có thể đăng ký ngành nào?
+    - mình đạt được [223](score) điểm theo phương thức [xét tuyển riêng](method), em có thể đăng ký ngành nào?
+    - mình đạt được [223](score) điểm ở phương thức [xét tuyển riêng](method), em có thể đăng ký ngành nào?
+    - với số điểm [434](score) theo phương thức [đánh giá năng lực](method), tôi có thể đăng ký ngành nào?
 
 - intent: ask_suggest_major_by_score_with_method_and_faculty
   examples: |
@@ -901,6 +907,11 @@ nlu:
     - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [hóa](faculty)?
     - em đạt được [25.55](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
     - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [hóa](faculty)?
+    - em đạt được [24.5](score) điểm theo phương thức [điểm thi tốt nghiệp](method), em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin](faculty)?
+    - tôi đạt được [25.55](score) điểm theo phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
+    - mình đạt được [25.55](score) điểm theo phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
+    - với số điểm [22.67](score) theo phương thức [học bạ](method), tôi có thể đăng ký ngành nào thuộc khoa [xây dựng công trình thủy](faculty) ?
+    - với số điểm [1026](score) theo phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [môi trường](faculty)?
 
 - intent: ask_calculate_score
   examples: |

@@ -1217,10 +1217,11 @@ class GraphConnector:
             elif cutoff <= low_threshold:
                 low_majors.append((major_info, cutoff))
 
-        # Sắp xếp theo điểm chuẩn tăng dần và lấy tối đa 5 ngành cho mỗi nhóm
-        high_majors.sort(key=lambda x: x[1])
-        medium_majors.sort(key=lambda x: x[1])
-        low_majors.sort(key=lambda x: x[1])
+        # Sắp xếp theo điểm chuẩn giảm dần và lấy tối đa 5 ngành cho mỗi nhóm
+
+        high_majors.sort(key=lambda x: x[1], reverse=True)
+        medium_majors.sort(key=lambda x: x[1], reverse=True)
+        low_majors.sort(key=lambda x: x[1], reverse=True)
 
         high_majors = [item[0] for item in high_majors[:5]]
         medium_majors = [item[0] for item in medium_majors[:5]]
