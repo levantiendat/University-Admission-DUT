@@ -796,27 +796,31 @@ nlu:
 
 - intent: ask_major_by_achievement
   examples: |
-    - Tôi đạt giải học sinh giỏi cấp quốc gia môn [toán](achievement), có thể xét tuyển ngành nào?
-    - Nếu em có giải học sinh giỏi cấp tỉnh môn [vật lý](achievement) thì phù hợp với ngành nào?
-    - Học sinh đoạt giải ba kỳ thi học sinh giỏi quốc gia môn [hóa học](achievement) có thể đăng ký ngành gì?
-    - Em từng đạt giải khuyến khích học sinh giỏi cấp tỉnh môn [sinh học](achievement), nên chọn ngành nào?
-    - Tôi đạt giải nhất cuộc thi khoa học kỹ thuật với đề tài về [hệ thống nhúng](achievement), xét tuyển được ngành nào?
-    - Em đoạt giải nhì kỳ thi học sinh giỏi cấp trường môn [tin học](achievement), có thể học ngành nào?
-    - Giải ba khoa học kỹ thuật lĩnh vực [robot và máy thông minh](achievement) có thể xét vào ngành nào?
-    - Em đạt giải nhất môn [toán](achievement) trong kỳ thi học sinh giỏi cấp quốc gia thì nên học ngành nào?
-    - Với thành tích giải nhì môn [sinh học tế bào và phân tử](achievement) ở cấp tỉnh, nên đăng ký ngành nào?
-    - Tôi có giải nhất kỳ thi khoa học kỹ thuật cấp quốc gia về [y sinh và khoa học sức khỏe](achievement), có thể chọn ngành gì?
-    - Học sinh có giải nhì cấp tỉnh môn [kỹ thuật cơ khí](achievement) thì phù hợp ngành nào?
-    - Em từng đạt giải cấp quốc gia lĩnh vực [thông tin - điện tử - viễn thông](achievement), nên đăng ký ngành học nào?
-    - Tôi có giải học sinh giỏi cấp tỉnh môn [hóa học](achievement), được ưu tiên xét tuyển vào ngành nào?
-    - Với giải ba kỳ thi khoa học kỹ thuật quốc gia về [phần mềm hệ thống](achievement), tôi có thể học ngành nào?
-    - Học sinh đạt giải học sinh giỏi môn [toán](achievement) được xét tuyển thẳng ngành nào?
-    - Ngành nào ưu tiên tuyển học sinh đạt giải khoa học kỹ thuật lĩnh vực [tài nguyên và môi trường](achievement)?
-    - Em được giải trong cuộc thi sáng tạo trẻ về [vi sinh](achievement), có thể nộp đơn vào ngành gì?
-    - Tôi từng đoạt giải cấp quốc gia môn [vật lý](achievement), có được xét tuyển thẳng không?
-    - Với thành tích giải ba môn [tin học](achievement) trong kỳ thi học sinh giỏi cấp tỉnh, em nên chọn ngành nào?
-    - Học sinh có giải nhất lĩnh vực [hóa sinh](achievement) trong cuộc thi khoa học kỹ thuật nên đăng ký ngành nào?
-    - Đạt giải cuộc thi học sinh giỏi quốc gia về [khoa học trái đất và môi trường](achievement) thì học ngành gì?
+    - Tôi đạt [giải nhất](award) môn [toán](achievement), có thể xét tuyển ngành nào?
+    - Nếu em có [giải nhì](award) [cấp tỉnh](level) môn [vật lý](achievement) thì phù hợp với ngành nào?
+    - Học sinh đoạt [giải ba](award) kỳ thi học sinh giỏi [quốc gia](level) môn [hóa học](achievement) có thể đăng ký ngành gì?
+    - Em từng đạt [giải khuyến khích](award) [cấp tỉnh](level) môn [sinh học](achievement), nên chọn ngành nào?
+    - Tôi đạt [giải nhất](award) cuộc thi khoa học kỹ thuật [cấp quốc gia](level) với đề tài về [hệ thống nhúng](achievement), xét tuyển được ngành nào?
+    - Em đoạt [giải nhì](award) kỳ thi học sinh giỏi [cấp thành phố](level) môn [tin học](achievement), có thể học ngành nào?
+    - [Giải ba](award) cấp [quốc gia](level) lĩnh vực [robot và máy thông minh](achievement) có thể xét vào ngành nào?
+    - Em đạt [giải nhất](award) môn [toán](achievement) [cấp tỉnh](level) thì nên học ngành nào?
+    - Với thành tích [giải nhì](award) [sinh học tế bào và phân tử](achievement) ở [cấp tỉnh](level), nên đăng ký ngành nào?
+    - Tôi có [giải nhất](award) [cấp quốc gia](level) về [y sinh và khoa học sức khỏe](achievement), có thể chọn ngành gì?
+    - Học sinh có [giải nhì](award) [cấp tỉnh](level) về lĩnh vực [kỹ thuật cơ khí](achievement) thì phù hợp ngành nào?
+    - Em từng đạt [giải](award) [cấp quốc gia](level) lĩnh vực [thông tin - điện tử - viễn thông](achievement), nên đăng ký ngành học nào?
+    - Tôi có [giải](award) học sinh giỏi [cấp tỉnh](level) môn [hóa học](achievement), được ưu tiên xét tuyển vào ngành nào?
+    - Với [giải ba](award) kỳ thi khoa học kỹ thuật cấp [quốc gia](level) về [phần mềm hệ thống](achievement), tôi có thể học ngành nào?
+    - Học sinh đạt [giải](award) [học sinh giỏi](achievement) môn [toán](achievement) được xét tuyển thẳng ngành nào?
+    - Ngành nào ưu tiên tuyển học sinh đạt [giải](award) [khoa học kỹ thuật](achievement) lĩnh vực [tài nguyên và môi trường](achievement)?
+    - Em được [giải](award) trong về [vi sinh](achievement), có thể nộp đơn vào ngành gì?
+    - Tôi từng đoạt [giải nhì](award) [cấp quốc gia](level) môn [vật lý](achievement), có được xét tuyển vào ngành nào?
+    - Với thành tích [giải ba](award) môn [tin học](achievement) trong kỳ thi học sinh giỏi [cấp tỉnh](level), em nên chọn ngành nào?
+    - Học sinh có [giải nhất](award) lĩnh vực [hóa sinh](achievement) trong cuộc thi khoa học kỹ thuật nên đăng ký ngành nào?
+    - Đạt [giải](award) cuộc thi học sinh giỏi [quốc gia](level) về môn [hóa học](achievement) thì học ngành gì?
+    - Tôi có [giải nhất](award) [cấp tỉnh](level) môn [vật lý](achievement), nên chọn ngành nào ở Bách khoa?
+    - Đạt [giải ba](award) HSG cấp [quốc gia](level) môn [toán](achievement) có thể vào những ngành gì?
+    - Với [giải khuyến khích](award) [cấp thành phố](level) về [robot](achievement), em có thể học ngành nào?
+    - Học sinh [giải nhì](award) cấp [tỉnh](level) môn [tin học](achievement) nên đăng ký ngành nào?
 
 
 - intent: ask_major_by_subjects
@@ -875,9 +879,8 @@ nlu:
     - với số điểm [1026](score) điểm ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào?
     - em đạt được [289.5](score) điểm ở phương thức [xét tuyển riêng](method) thì em có thể đăng ký ngành nào?
     - với số điểm [434](score) ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào?
-    - em đạt được [26.5](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin](faculty)?
-    - em đạt được [25.55](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
-    - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [hóa](faculty)?
+    - em đạt được [25.55](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào?
+    - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào?
 
 - intent: ask_suggest_major_by_score_with_method_and_faculty
   examples: |
@@ -894,6 +897,8 @@ nlu:
     - em đạt được [289.5](score) điểm ở phương thức [xét tuyển riêng](method) thì em có thể đăng ký ngành nào thuộc khoa [quản lý dự án](faculty)?
     - với số điểm [434](score) ở phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [xây dựng dân dụng công nghiệp](faculty)
     - em đạt được [26.5](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [công nghệ thông tin](faculty)?
+    - em đạt được [25.55](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
+    - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [hóa](faculty)?
     - em đạt được [25.55](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
     - em đạt được [275](score) điểm ở phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [hóa](faculty)?
 

@@ -72,6 +72,8 @@ entities:
   - student_interests
   - academic_strengths
   - personality_traits
+  - level         # Thêm entity level (cấp độ giải)
+  - award
 
 slots:
   major:
@@ -182,7 +184,19 @@ slots:
     initial_value: 0
     influence_conversation: false
     mappings:
-    - type: custom
+      - type: custom
+
+  level:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: level
+  
+  award:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: award
 
 responses:
 

@@ -437,6 +437,168 @@ ACHIEVEMENT_VARIANTS = {
     "tài nguyên và môi trường": ["môi trường", "tài nguyên", "tài nguyên & môi trường", "tài nguyên và môi trường", "environmental science"]
 }
 
+# Thêm mới constants và dictionaries
+ACHIEVEMENT_CATEGORY_MAPPING = {
+    "toán": "HSG",
+    "vật lý": "HSG",
+    "hóa học": "HSG",
+    "sinh học": "HSG",
+    "tin học": "HSG",
+    "phần mềm hệ thống": "KHKT",
+    "robot và máy thông minh": "KHKT",
+    "hệ thống nhúng": "KHKT",
+    "vi sinh vật": "KHKT",
+    "hóa sinh": "KHKT",
+    "kỹ thuật y sinh": "KHKT",
+    "sinh học tế bào và phân tử": "KHKT",
+    "y sinh và khoa học sức khỏe": "KHKT",
+    "khoa học vật liệu": "KHKT",
+    "thông tin điện tử viễn thông": "KHKT",
+    "kỹ thuật cơ khí": "KHKT",
+    "khoa học trái đất và môi trường": "KHKT",
+    "tài nguyên và môi trường": "KHKT"
+}
+
+LEVEL_MAPPING = {
+    "quốc gia": "national",
+    "quốc tế": "international",
+    "qt": "international",
+    "qg": "national",
+    "cấp quốc gia": "national",
+    "tỉnh": "provincial",
+    "thành phố": "provincial",
+    "tp": "provincial",
+    "tỉnh thành": "provincial",
+    "cấp tỉnh": "provincial",
+    "cấp tp": "provincial",
+    "cấp thành phố": "provincial",
+    "trường": "school",
+    "cấp trường": "school",
+}
+
+AWARD_MAPPING = {
+    "nhất": "first",
+    "giải nhất": "first",
+    "1": "first",
+    "nhì": "second",
+    "giải nhì": "second",
+    "2": "second",
+    "ba": "third",
+    "giải ba": "third",
+    "3": "third",
+    "khuyến khích": "fourth",
+    "kk": "fourth",
+    "giải khuyến khích": "fourth",
+    "tư": "fourth", 
+    "giải tư": "fourth",
+    "4": "fourth"
+}
+
+def normalize_level(text: Optional[str]) -> Optional[str]:
+    """
+    Chuẩn hóa cấp độ giải thưởng (quốc gia, tỉnh/thành phố, trường)
+    
+    Args:
+        text (str): Chuỗi văn bản đầu vào cần chuẩn hóa
+        
+    Returns:
+        str: Mã cấp độ đã chuẩn hóa hoặc None nếu không xác định được
+    """
+    if not text:
+        return None
+    
+    # Làm sạch văn bản
+    text = clean_text(text.lower())
+    
+    # Kiểm tra trong từ điển ánh xạ
+    for key, value in LEVEL_MAPPING.items():
+        if key in text:
+            return value
+    
+    # Không tìm thấy kết quả phù hợp
+    return None
+
+def normalize_award(text: Optional[str]) -> Optional[str]:
+    """
+    Chuẩn hóa loại giải thưởng (nhất, nhì, ba, khuyến khích)
+    
+    Args:
+        text (str): Chuỗi văn bản đầu vào cần chuẩn hóa
+        
+    Returns:
+        str: Mã loại giải đã chuẩn hóa hoặc None nếu không xác định được
+    """
+    if not text:
+        return None
+    
+    # Làm sạch văn bản
+    text = clean_text(text.lower())
+    
+    # Kiểm tra trong từ điển ánh xạ
+    for key, value in AWARD_MAPPING.items():
+        if key in text:
+            return value
+    
+    # Không tìm thấy kết quả phù hợp
+    return None
+
+def get_achievement_category(achievement_type: str) -> str:
+    """
+    Xác định danh mục của thành tích (HSG hoặc KHKT)
+    
+    Args:
+        achievement_type (str): Loại thành tích đã chuẩn hóa
+        
+    Returns:
+        str: Danh mục "HSG" hoặc "KHKT"
+    """
+    return ACHIEVEMENT_CATEGORY_MAPPING.get(achievement_type, "KHKT")
+
+def calculate_achievement_score(achievement_type: str, level: str, award: str) -> float:
+    """
+    Tính điểm xét tuyển dựa trên loại thành tích, cấp độ và loại giải
+    
+    Args:
+        achievement_type (str): Loại thành tích đã chuẩn hóa
+        level (str): Cấp độ giải đã chuẩn hóa
+        award (str): Loại giải đã chuẩn hóa
+        
+    Returns:
+        float: Điểm xét tuyển
+    """
+    # Xác định danh mục thành tích
+    category = get_achievement_category(achievement_type)
+    
+    # Xét cấp độ quốc gia
+    if level == "national" or level == "international":
+        if award == "first" or award == "second" or award == "third":
+            return 30.0
+        return 28.0 if category == "HSG" else 27.0
+    
+    # Xét cấp độ tỉnh/thành phố
+    if level == "provincial":
+        if category == "HSG":
+            if award == "first":
+                return 27.0
+            elif award == "second":
+                return 26.5
+            elif award == "third":
+                return 26.0
+            elif award == "fourth":
+                return 25.5
+        else:  # KHKT
+            if award == "first":
+                return 25.5
+            elif award == "second":
+                return 25.0
+            elif award == "third":
+                return 24.5
+            elif award == "fourth":
+                return 24.0
+                
+    # Cấp trường hoặc không xác định
+    return 0.0  # Điểm mặc định thấp nhất
+
 
 
 def clean_text(text):

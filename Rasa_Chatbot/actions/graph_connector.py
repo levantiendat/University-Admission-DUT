@@ -1104,4 +1104,148 @@ class GraphConnector:
         except Exception as e:
             print(f"Error in major recommendation: {str(e)}")
             return []
+        
+    def get_majors_by_achievement_and_score(self, achievement_keyword: str, score: float = None) -> list:
+        """
+        Tìm các ngành phù hợp với thành tích và điểm xét tuyển
+    
+        Args:
+            achievement_keyword (str): Từ khóa thành tích đã chuẩn hóa
+            score (float, optional): Điểm xét tuyển. Nếu None, chỉ xét dựa trên thành tích
+        
+        Returns:
+            list: Danh sách các ngành phù hợp, phân nhóm theo khả năng đỗ nếu có điểm
+        """
+        # Nếu không có điểm, chỉ tìm ngành theo thành tích
+        if score is None:
+            query = """
+            MATCH (m:Major)-[r:HAS_ACHIEVEMENT]->(a:AchievementField)
+            WHERE toLower(a.name) CONTAINS toLower($achievement)
+            RETURN m.id AS major_id, m.name AS major, m.major_url AS majorUrl, a.name AS achievement
+            """
+            with self.driver.session() as session:
+                result = session.run(query, {"achievement": achievement_keyword})
+                return list(result)
+    
+        # Nếu có điểm, kết hợp thành tích và điểm để gợi ý
+        # Lấy các ngành có thành tích phù hợp
+        achievement_majors = self.get_major_by_achievement(achievement_keyword)
+        if not achievement_majors:
+            return []
+        
+        # Lọc ra các ID ngành
+        major_ids = [record["major"] for record in achievement_majors]
+    
+        # Truy vấn điểm chuẩn của các ngành này (sử dụng điểm thi THPT làm tham chiếu)
+        query = """
+        MATCH (m:Major)-[r:HAS_CUTOFF]->(c:Cutoff)
+        WHERE m.name IN $majors 
+        AND c.method = 'tn_thpt' 
+        AND c.year IN [2023, 2024]
+
+        WITH m, c, 
+        CASE 
+            WHEN c.year = 2023 THEN c.score * 0.2  // 20% trọng số cho 2023
+            WHEN c.year = 2024 THEN c.score * 0.8  // 80% trọng số cho 2024
+            ELSE 0
+        END AS weighted_score
+
+        WITH m.id AS major_id, 
+            m.name AS major_name,
+            m.major_url AS majorUrl,
+            SUM(weighted_score) AS avg_cutoff
+
+        WHERE avg_cutoff <= $max_score
+
+        RETURN 
+            major_id, 
+            major_name,
+            majorUrl, 
+            avg_cutoff,
+            ABS(avg_cutoff - $score) AS score_diff
+        ORDER BY score_diff
+        LIMIT 30
+        """
+    
+        # Khoảng điểm tối đa để xét
+        max_score = score + 1.5  # Điểm tối đa cao hơn điểm xét tuyển 1.5
+    
+        with self.driver.session() as session:
+            result = session.run(query, {"majors": major_ids, "score": score, "max_score": max_score})
+            records = list(result)
+        
+        # Phân nhóm kết quả theo khả năng trúng tuyển
+        return self._group_majors_by_achievement_score(records, score)
+
+    def _group_majors_by_achievement_score(self, results: list, target_score: float) -> list:
+        """
+        Phân loại các ngành thành 3 nhóm dựa trên điểm xét tuyển từ thành tích
+    
+        Args:
+            results (list): Danh sách kết quả từ Neo4j
+            target_score (float): Điểm xét tuyển từ thành tích
+        
+        Returns:
+            list: Danh sách các nhóm ngành được phân loại
+                [{"group": "high|medium|low", "majors": [{"major_name": str, "major_id": str}]}]
+        """
+        if not results:
+            return []
+
+        # Tính khoảng cho các nhóm
+        high_threshold = target_score - 0.5  # Điểm chuẩn thấp hơn điểm thí sinh tối thiểu 0.5
+        medium_threshold = target_score  # Điểm chuẩn bằng với điểm thí sinh
+        low_threshold = target_score + 1.0  # Điểm chuẩn cao hơn điểm thí sinh tối đa 1.0
+
+        # Phân loại vào 3 nhóm theo điểm
+        high_majors = []    # Tỷ lệ đỗ cao (điểm chuẩn <= high_threshold)
+        medium_majors = []  # Tỷ lệ đỗ trung bình (high_threshold < điểm chuẩn <= medium_threshold)
+        low_majors = []     # Tỷ lệ đỗ thấp (medium_threshold < điểm chuẩn <= low_threshold)
+
+        for result in results:
+            major_info = {
+                "major_id": result["major_id"],
+                "major_name": result["major_name"],
+                "majorUrl": result.get("majorUrl", "")
+            }
+            cutoff = result["avg_cutoff"]
+        
+            if cutoff <= high_threshold:
+                high_majors.append((major_info, cutoff))
+            elif cutoff <= medium_threshold:
+                medium_majors.append((major_info, cutoff))
+            elif cutoff <= low_threshold:
+                low_majors.append((major_info, cutoff))
+
+        # Sắp xếp theo điểm chuẩn tăng dần và lấy tối đa 5 ngành cho mỗi nhóm
+        high_majors.sort(key=lambda x: x[1])
+        medium_majors.sort(key=lambda x: x[1])
+        low_majors.sort(key=lambda x: x[1])
+
+        high_majors = [item[0] for item in high_majors[:5]]
+        medium_majors = [item[0] for item in medium_majors[:5]]
+        low_majors = [item[0] for item in low_majors[:5]]
+
+        # Tạo cấu trúc kết quả
+        result = []
+
+        if high_majors:
+            result.append({
+                "group": "high",
+                "majors": high_majors
+            })
+
+        if medium_majors:
+            result.append({
+                "group": "medium",
+                "majors": medium_majors
+            })
+
+        if low_majors:
+            result.append({
+                "group": "low",
+                "majors": low_majors
+            })
+
+        return result
     

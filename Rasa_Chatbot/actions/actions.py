@@ -3,7 +3,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from actions.graph_connector import GraphConnector
 from actions.mapping_utils import normalize_major, normalize_method, normalize_achievement_field, normalize_subject, normalize_faculty  # Import các hàm tiện ích
-from actions.mapping_utils import normalize_student_interests, normalize_personality_strengths, normalize_achievement_field, normalize_subjects_strengths, comprehensive_major_suggestion, MAJOR_MAPPING
+from actions.mapping_utils import normalize_student_interests, normalize_personality_strengths, normalize_achievement_field, normalize_subjects_strengths, comprehensive_major_suggestion, MAJOR_MAPPING, normalize_level, normalize_award, calculate_achievement_score
 import logging
 from rasa_sdk.events import SlotSet, FollowupAction, AllSlotsReset, ActionExecuted
 
@@ -316,35 +316,122 @@ class ActionSuggestMajorByAchievement(Action):
             tracker: Tracker,
             domain: Dict) -> List[Dict]:
 
-        # Lấy thông tin về thành tích/sở trường từ entity
+        # Lấy thông tin về thành tích từ entity
         achievement = next(tracker.get_latest_entity_values("achievement"), None)
+        level = next(tracker.get_latest_entity_values("level"), None)
+        award = next(tracker.get_latest_entity_values("award"), None)
         
-        logging.debug(f"Achievement input: {achievement}")
+        logging.debug(f"Achievement input: {achievement}, Level: {level}, Award: {award}")
         
         if not achievement:
-            message = "❓ Vui lòng cho biết thành tích, sở trường hoặc lĩnh vực bạn giỏi để tôi có thể gợi ý ngành phù hợp."
+            message = "❓ Vui lòng cho biết thành tích, sở trường hoặc lĩnh vực bạn đạt giải để tôi có thể gợi ý ngành phù hợp."
             dispatcher.utter_message(text=message)
             return []
         
-        # Chuẩn hóa và phân loại thành tích/sở trường
+        # Chuẩn hóa thành tích, cấp độ và loại giải
         achievement_type = normalize_achievement_field(achievement)
-        logging.debug(f"Normalized achievement: {achievement_type}")
+        normalized_level = normalize_level(level) if level else None
+        normalized_award = normalize_award(award) if award else None
         
-        # Truy vấn các ngành phù hợp với thành tích/sở trường
-        majors = self.db.get_major_by_achievement(achievement_type)
+        logging.debug(f"Normalized achievement: {achievement_type}, Level: {normalized_level}, Award: {normalized_award}")
         
-        if majors:
-            message = f"🎯 **Dựa trên thành tích của bạn về {achievement_type}, những ngành sau bạn có thể xét tuyển:**\n\n"
+        # Nếu có đủ thông tin cấp độ và loại giải, tính điểm xét tuyển
+        score = None
+        if normalized_level and normalized_award:
+            score = calculate_achievement_score(achievement_type, normalized_level, normalized_award)
+            logging.debug(f"Calculated achievement score: {score}")
             
-            for i, major_info in enumerate(majors, 1):
-                message += f"{i}. {major_info['major']}\n"
+            # Truy vấn ngành phù hợp dựa trên thành tích và điểm
+            grouped_majors = self.db.get_majors_by_achievement_and_score(achievement_type, score)
             
-            message += "\n💡 *Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển riêng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang *"
+            if grouped_majors:
+                message = self._create_score_based_response(grouped_majors, score, achievement_type, normalized_level, normalized_award)
+            else:
+                message = f"❌ Rất tiếc, không tìm thấy ngành phù hợp với giải {achievement_type} cấp {self._format_level(normalized_level)}, giải {self._format_award(normalized_award)} (điểm: {score}).\n\nBạn có thể thử tìm với thành tích khác hoặc liên hệ trực tiếp với phòng tuyển sinh để được tư vấn chi tiết hơn."
         else:
-            message = f"❗ Thành tích '{achievement_type} không tìm thấy ngành phù hợp'.\n\nVui lòng chia sẻ thêm về thành tích khác để tôi tư vấn tốt hơn."
+            # Nếu thiếu thông tin, chỉ gợi ý dựa trên lĩnh vực
+            majors = self.db.get_major_by_achievement(achievement_type)
+            
+            if majors:
+                message = self._create_simple_response(majors, achievement_type)
+            else:
+                message = f"❌ Rất tiếc, không tìm thấy ngành phù hợp với lĩnh vực {achievement_type}.\n\nBạn có thể thử tìm với thành tích khác hoặc liên hệ trực tiếp với phòng tuyển sinh để được tư vấn chi tiết hơn."
         
         dispatcher.utter_message(text=message)
         return []
+    
+    def _format_level(self, level: str) -> str:
+        """Format cấp độ giải thành văn bản hiển thị"""
+        if level == "national":
+            return "Quốc gia"
+        elif level == "international":
+            return "Quốc tế"
+        elif level == "provincial":
+            return "Tỉnh/Thành phố"
+        elif level == "school":
+            return "Trường"
+        return "không xác định"
+    
+    def _format_award(self, award: str) -> str:
+        """Format loại giải thành văn bản hiển thị"""
+        if award == "first":
+            return "Nhất"
+        elif award == "second":
+            return "Nhì"
+        elif award == "third":
+            return "Ba"
+        elif award == "fourth":
+            return "Khuyến khích"
+        return "không xác định"
+    
+    def _create_simple_response(self, majors, achievement_type: str) -> str:
+        """Tạo phản hồi đơn giản khi chỉ có thông tin về lĩnh vực"""
+        message = f"🎯 **Dựa trên thành tích của bạn về {achievement_type}, những ngành sau bạn có thể xét tuyển:**\n\n"
+        
+        for i, major_info in enumerate(majors, 1):
+            message += f"{i}. {major_info['major']}\n"
+        
+        message += "\n💡 *Bạn có thể cung cấp thêm thông tin về cấp độ giải (Quốc gia, Tỉnh/Thành phố) và loại giải (Nhất, Nhì, Ba, Khuyến khích) để nhận gợi ý chính xác hơn.*"
+        message += "\n\n*Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển riêng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang*"
+        
+        return message
+    
+    def _create_score_based_response(self, grouped_majors: list, score: float, 
+                                    achievement_type: str, level: str, award: str) -> str:
+        """Tạo phản hồi chi tiết khi có thông tin đầy đủ về thành tích và điểm"""
+        level_text = self._format_level(level)
+        award_text = self._format_award(award)
+        
+        message = f"🏆 **Với giải {award_text} {achievement_type} cấp {level_text}, điểm xét tuyển của bạn là {score}**\n\n"
+        message += f"📊 **Các ngành phù hợp với thành tích của bạn:**\n\n"
+        
+        # Thông tin về các nhóm
+        group_info = {
+            "high": "🟢 **Khả năng trúng tuyển cao**",
+            "medium": "🟡 **Khả năng trúng tuyển trung bình**",
+            "low": "🟠 **Khả năng trúng tuyển thấp**"
+        }
+        
+        for group in grouped_majors:
+            group_type = group["group"]
+            majors = group["majors"]
+            
+            message += f"{group_info[group_type]}:\n"
+            for i, major in enumerate(majors, 1):
+                major_name = major["major_name"]
+                major_url = major["majorUrl"] if "majorUrl" in major else ""
+                
+                if major_url:
+                    message += f"{i}. [{major_name}]({major_url})\n"
+                else:
+                    message += f"{i}. {major_name}\n"
+            
+            message += "\n"
+        
+        message += "💡 *Kết quả gợi ý dựa trên điểm chuẩn từ năm 2023 và 2024, và thành tích của bạn.*\n"
+        message += "*Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển riêng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang*"
+        
+        return message
 
 class ActionDefaultFallback(Action):
     def name(self) -> Text:
