@@ -336,6 +336,7 @@ export default {
       if (fullName.includes('Xét kết quả thi đánh giá năng lực do ĐHQG TP.HCM tổ chức')) return 'Xét điểm thi ĐGNL'
       if (fullName.includes('Xét tuyển theo phương thức xét tuyển riêng')) return 'Tuyển sinh riêng'
       if (fullName.includes('Xét kết quả thi đánh giá tư duy do Đại Học Bách Khoa Hà Nội tổ chức')) return 'Xét điểm thi ĐGTD'
+      if (fullName.includes('Xét tuyển theo phương thức xét tuyển tài năng')) return 'Xét tuyển tài năng'
 
       // Nếu không khớp với các mẫu trên, lấy các chữ cái đầu tiên
       const words = fullName.split(' ')
