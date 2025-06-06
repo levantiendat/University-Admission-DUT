@@ -60,6 +60,8 @@ intents:
   - ask_suggest_major_by_score_and_subjects
   - ask_method_detail
   - ask_check_major_admission_with_subject_scores
+  - provide_major
+  - provide_method
 
 entities:
   - major
@@ -246,11 +248,13 @@ responses:
   utter_admission_methods_uni:
     - text: "Các phương thức xét tuyển của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng: \n
           - Xét tuyển thẳng (Theo quy chế của Bộ Giáo Dục Và Đào Tạo)\n
-          - Xét tuyển theo phương thức xét tuyển riêng\n
+          - Xét tuyển theo phương thức xét tuyển tài năng\n
           - Xét tuyển theo kết quả thi tốt nghiệp Trung Học Phổ Thông\n
           - Xét tuyển theo kết quả học tập cấp Trung Học Phổ Thông\n
           - Xét tuyển theo kết quả thi đánh giá năng lực do Đại Học Quốc Gia Thành Phố Hồ Chí Minh tổ chức\n
-          - Xét tuyển theo kết quả thi đánh giá tư duy do Đại Học Bách Khoa Hà Nội tổ chức
+          - Xét tuyển theo kết quả thi đánh giá tư duy do Đại Học Bách Khoa Hà Nội tổ chức \n
+
+          Bạn có thể hỏi thêm về chi tiết phương thức xét tuyển hoặc ngành học cụ thể bạn cần biết về phương thức xét tuyển.
       "
 
   utter_cntt_luu_y:

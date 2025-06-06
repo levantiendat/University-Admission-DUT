@@ -454,6 +454,24 @@ stories:
     steps:
       - intent: ask_admission_method_uni
       - action: utter_admission_methods_uni
+
+  - story: "Phương thức xét tuyển bách khoa - chi tiết theo ngành"
+    steps:
+      - intent: ask_admission_method_uni
+      - action: utter_admission_methods_uni
+      - intent: provide_major
+      - action: action_ask_methods_for_major
+
+  - story: "Phương thức xét tuyển bách khoa - chi tiết theo phương thức"
+    steps:
+      - intent: ask_admission_method_uni
+      - action: utter_admission_methods_uni
+      - intent: provide_method
+      - action: action_detail_method
+      - intent: provide_major
+      - action: action_ask_methods_for_major
+  
+
   
   
   - story: "Lưu ý xét tuyển"
