@@ -120,6 +120,9 @@ class ActionDetailMethod(Action):
         
         # Lấy thông tin từ entity method trong message
         method_entity = next(tracker.get_latest_entity_values("method"), None)
+
+        if not method_entity:
+            method_entity = tracker.get_slot("method")
         
         # Chuẩn hóa tên phương thức sử dụng hàm từ mapping_utils
         method_keyword = normalize_method(method_entity)
@@ -132,13 +135,15 @@ class ActionDetailMethod(Action):
                 message = f"📚 Thông tin chi tiết phương thức {detail['method']}**:\n\n"
                 message += f"{detail['description']}\n"
                 message += f"\n💡 *Bạn có thể tham khảo thêm thông tin chi tiết về phương thức ở {detail['methodUrl']}.*"
+                if method_keyword =="tn_thpt" or method_keyword == "hb_thpt":
+                    message += f"\n\n *Bạn có thể hỏi thêm về ngành để biết được tổ hợp xét tuyển của phương thức {detail['method']}"
             else:
                 message = f"❗ Không tìm thấy thông tin chi tiết về phương thức **{method_keyword}**.\n\nVui lòng kiểm tra lại tên phương thức hoặc liên hệ với nhà trường để biết thêm thông tin."
         else:
             message = "❓ Vui lòng cho biết tên phương thức cụ thể bạn muốn tìm hiểu về thông tin chi tiết.\n\nVí dụ: *\"Thông tin chi tiết phương thức xét tuyển học bạ là gì?\"*"
             
         dispatcher.utter_message(text=message)
-        return []
+        return [SlotSet("method", method_entity)]
     
 class ActionCombinationMajor(Action):
     def name(self) -> str:
@@ -153,6 +158,9 @@ class ActionCombinationMajor(Action):
 
         # Lấy thông tin từ entity major trong message
         major_entity = next(tracker.get_latest_entity_values("major"), None)
+
+        if not major_entity:
+            major_entity = tracker.get_slot("major")
         
         # Chuẩn hóa tên ngành sử dụng hàm từ mapping_utils
         major_keyword = normalize_major(major_entity)
@@ -172,7 +180,7 @@ class ActionCombinationMajor(Action):
             message = "❓ Vui lòng cho biết tên ngành cụ thể bạn muốn tìm hiểu về tổ hợp môn xét tuyển.\n\nVí dụ: *\"Tổ hợp môn xét tuyển ngành Công nghệ thông tin là gì?\"*"
 
         dispatcher.utter_message(text=message)
-        return []
+        return [SlotSet("major", major_entity)]
     
 class ActionAskMethodsForMajor(Action):
     def name(self) -> str:
@@ -186,10 +194,12 @@ class ActionAskMethodsForMajor(Action):
             domain: Dict) -> List[Dict]:
 
         # Lấy dữ liệu từ tracker
-        major_input = tracker.get_slot("major")
+        major_entity = next(tracker.get_latest_entity_values("major"), None)
+        if not major_entity:
+            major_entity = tracker.get_slot("major")
         
         # Chuẩn hóa dữ liệu sử dụng hàm từ mapping_utils
-        major_keyword = normalize_major(major_input)
+        major_keyword = normalize_major(major_entity)
         
         print(f"Normalized major for methods: {major_keyword}")
         
@@ -208,15 +218,15 @@ class ActionAskMethodsForMajor(Action):
                     message += f"{i}. {method}\n"
                 
                 if len(methods) == 0:
-                    message = f"❌ Không tìm thấy thông tin về phương thức xét tuyển cho ngành {major_input}."
+                    message = f"❌ Không tìm thấy thông tin về phương thức xét tuyển cho ngành {major_entity}."
                 message += f"💡 Bạn có thể xem thêm thông tin của ngành {results[0]['majorUrl']}"
             else:
-                message = f"❌ Không tìm thấy thông tin về phương thức xét tuyển cho ngành {major_input}."
+                message = f"❌ Không tìm thấy thông tin về phương thức xét tuyển cho ngành {major_entity}."
         else:
             message = "❓ Vui lòng cung cấp tên ngành cụ thể để tôi có thể tìm kiếm thông tin về phương thức xét tuyển."
             
         dispatcher.utter_message(text=message)
-        return []
+        return [SlotSet("major", major_entity)]
     
 class ActionAskIfMajorAcceptsMethod(Action):
     def name(self) -> str:
@@ -229,13 +239,16 @@ class ActionAskIfMajorAcceptsMethod(Action):
             tracker: Tracker,
             domain: Dict) -> List[Dict]:
 
-        # Lấy dữ liệu từ tracker
-        major_input = tracker.get_slot("major")
-        method_input = tracker.get_slot("method")
+        major_entity = next(tracker.get_latest_entity_values("major"), None)
+        if not major_entity:
+            major_entity = tracker.get_slot("major")
+        method_entity = next(tracker.get_latest_entity_values("method"), None)
+        if not method_entity:
+            method_entity = tracker.get_slot("method")
         
         # Chuẩn hóa dữ liệu sử dụng các hàm từ mapping_utils
-        major_keyword = normalize_major(major_input)
-        method_keyword = normalize_method(method_input)
+        major_keyword = normalize_major(major_entity)
+        method_keyword = normalize_method(method_entity)
         
         print(f"Normalized major: {major_keyword}, Normalized method: {method_keyword}")
         
@@ -251,22 +264,22 @@ class ActionAskIfMajorAcceptsMethod(Action):
                     message = f"❌ **Không, ngành {result['major_name']} không xét tuyển bằng phương thức {result['method_name']}.**"
                     message += f"\n\n💡 Bạn có thể xem thêm các phương thức xét tuyển về ngành ở {result['majorUrl']}"
                 elif result["major_name"]:
-                    message = f"❌ **Không tìm thấy phương thức xét tuyển \"{method_input}\" cho ngành {result['major_name']}.**"
+                    message = f"❌ **Không tìm thấy phương thức xét tuyển \"{method_entity}\" cho ngành {result['major_name']}.**"
                     message += f"\n\n💡 Bạn có thể xem thêm thông tin chi tiết về ngành ở {result['majorUrl']}"
                 elif result["method_name"]:
-                    message = f"❌ **Không tìm thấy ngành \"{major_input}\" có xét tuyển bằng phương thức {result['method_name']}.**"
+                    message = f"❌ **Không tìm thấy ngành \"{major_entity}\" có xét tuyển bằng phương thức {result['method_name']}.**"
                 else:
-                    message = f"❌ **Không tìm thấy thông tin về ngành \"{major_input}\" và phương thức \"{method_input}\".**"
+                    message = f"❌ **Không tìm thấy thông tin về ngành \"{major_entity}\" và phương thức \"{method_entity}\".**"
         else:
             if not major_keyword and not method_keyword:
                 message = "❓ Vui lòng cung cấp cả tên ngành và phương thức xét tuyển để tôi có thể kiểm tra."
             elif not major_keyword:
-                message = f"❓ Vui lòng cung cấp tên ngành cụ thể để tôi kiểm tra có xét tuyển bằng phương thức \"{method_input}\" không."
+                message = f"❓ Vui lòng cung cấp tên ngành cụ thể để tôi kiểm tra có xét tuyển bằng phương thức \"{method_entity}\" không."
             else:
-                message = f"❓ Vui lòng cung cấp phương thức xét tuyển cụ thể để tôi kiểm tra ngành \"{major_input}\" có áp dụng không."
+                message = f"❓ Vui lòng cung cấp phương thức xét tuyển cụ thể để tôi kiểm tra ngành \"{major_entity}\" có áp dụng không."
             
         dispatcher.utter_message(text=message)
-        return []
+        return [SlotSet("major", major_entity), SlotSet("method", method_entity)]
     
 class ActionGetMajorQuota(Action):
     def name(self) -> str:
@@ -303,7 +316,7 @@ class ActionGetMajorQuota(Action):
             message = "❓ Vui lòng cho biết tên ngành cụ thể bạn muốn biết về chỉ tiêu tuyển sinh.\n\nVí dụ: *\"Chỉ tiêu ngành Công nghệ thông tin là bao nhiêu?\"*"
             
         dispatcher.utter_message(text=message)
-        return []
+        return [SlotSet("major", major_entity)]
     
 class ActionSuggestMajorByAchievement(Action):
     def name(self) -> str:

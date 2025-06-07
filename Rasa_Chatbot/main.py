@@ -4,7 +4,7 @@ import time
 import socket
 import requests
 
-MODEL_PATH = "models/20250606-084457-staccato-sickbay.tar.gz"
+MODEL_PATH = "models/20250607-100140-plain-shoot.tar.gz"
 NGROK_AUTH_TOKEN = "2vn6H02jcPXaZY8MnH7ziimHO0v_4eyF1uzWGLXHCCKod2ceG"
 NGROK_DOMAIN = "cockatoo-cheerful-factually.ngrok-free.app"
 RASA_PORT = 5005

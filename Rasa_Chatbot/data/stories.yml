@@ -468,12 +468,55 @@ stories:
       - action: utter_admission_methods_uni
       - intent: provide_method
       - action: action_detail_method
+  
+  - story: "Phương thức xét tuyển: tốt nghiệp, học bạ - hỏi tổ hợp thi"
+    steps:
+      - intent: ask_admission_method_uni
+      - action: utter_admission_methods_uni
+      - intent: provide_method
+      - action: action_detail_method
       - intent: provide_major
-      - action: action_ask_methods_for_major
-  
+      - action: action_combination_major
 
-  
-  
+  - story: "Hỏi tổ hợp thi của 1 ngành - complex"
+    steps:
+      - intent: ask_method_detail
+      - action: action_detail_method
+      - intent: ask_combination_major
+      - action: action_combination_major
+
+  - story: "Hỏi điểm chuẩn 1 ngành - complex"
+    steps:
+      - intent: ask_method_detail
+      - action: action_detail_method
+      - intent: provide_major_for_cutoff
+      - action: action_cutoff_score
+
+  - story: "Hỏi điểm chuẩn 1 ngành - complex - ngành - phương thức"
+    steps:
+      - intent: ask_method_detail
+      - action: action_detail_method
+      - intent: provide_major_for_cutoff
+      - action: action_cutoff_score
+      - intent: provide_method_for_cutoff
+      - action: action_cutoff_score
+
+  - story: "Hỏi điểm chuẩn 1 ngành - complex - phương thức - ngành"
+    steps:
+      - intent: ask_methods_for_major
+      - action: action_ask_methods_for_major
+      - intent: provide_method_for_cutoff
+      - action: action_cutoff_score
+      - intent: provide_major_for_cutoff
+      - action: action_cutoff_score
+
+  - story: "Hỏi điểm chuẩn 1 ngành - complex - phương thức - ngành (2)"
+    steps:
+      - intent: ask_list_major_by_method
+      - action: action_major_by_method
+      - intent: provide_major_for_cutoff
+      - action: action_cutoff_score
+
   - story: "Lưu ý xét tuyển"
     steps:
       - intent: ask_cntt_luu_y

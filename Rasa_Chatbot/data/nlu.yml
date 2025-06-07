@@ -1595,3 +1595,197 @@ nlu:
     - xét theo phương thức [xét tuyển tài năng](method)
     - xét theo phương thức [tsa](method)
     - xét theo phương thức [vact](method)
+
+- intent: provide_major_for_cutoff
+  examples: |
+    - điểm chuẩn ngành [công nghệ thông tin](major)
+    - điểm chuẩn [cntt](major)
+    - điểm ngành [công nghệ thông tin đặc thù](major)
+    - điểm xét tuyển ngành [cntt htdn](major)
+    - điểm chuẩn vào [kỹ thuật điện](major)
+    - cho biết điểm chuẩn ngành [ktđt-vt](major)
+    - điểm của ngành [công nghệ sinh học](major)
+    - điểm trúng tuyển [ktxdctgt](major)
+    - điểm đầu vào ngành [kỹ thuật máy tính](major)
+    - điểm chuẩn [cntp](major)
+    - điểm trúng tuyển ngành [kinh tế xây dựng](major)
+    - cho biết điểm ngành [kỹ thuật cơ khí](major)
+    - điểm xét tuyển vào [kiến trúc](major)
+    - điểm chuẩn [ktxd đttm](major)
+    - điểm đầu vào ngành [pfiev](major)
+    - điểm chuẩn [công nghệ thông tin tiếng nhật](major)
+    - điểm trúng tuyển [kỹ thuật nhiệt](major)
+    - điểm vào ngành [ktđk&tđh](major)
+    - điểm chuẩn [ktmt](major)
+    - chuẩn điểm ngành [cnsh y dược](major)
+    - điểm vào ngành [kt](major)
+    - điểm tuyển ngành [cntt ai](major)
+    - điểm chuẩn [cntt khdl](major)
+    - điểm trúng tuyển [cnđt](major)
+    - điểm để đỗ [kỹ thuật môi trường](major)
+    - điểm chuẩn [ktck ckhk](major)
+    - điểm trúng tuyển [quản lý tài nguyên và môi trường](major)
+    - điểm chuẩn [công nghệ dầu khí và khai thác dầu](major)
+    - điểm xét tuyển [cntt đặc thù khdl](major)
+    - điểm chuẩn [kỹ thuật hóa học](major)
+    - điểm vào ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp](major)
+    - điểm chuẩn [công nghệ thông tin ngoại ngữ nhật](major)
+    - điểm xét tuyển [công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo](major)
+    - điểm chuẩn [công nghệ sinh học chuyên ngành công nghệ sinh học y dược](major)
+    - điểm trúng tuyển [công nghệ kỹ thuật vật liệu xây dựng](major)
+    - điểm ngành [công nghệ chế tạo máy](major)
+    - điểm chuẩn [quản lý công nghiệp](major)
+    - điểm đầu vào [chương trình đào tạo kỹ sư chất lượng cao việt - pháp](major)
+    - điểm chuẩn [kỹ thuật cơ khí chuyên ngành cơ khí động lực](major)
+    - điểm trúng tuyển [kỹ thuật cơ điện tử](major)
+    - điểm xét tuyển [kỹ thuật nhiệt](major)
+    - điểm chuẩn [kỹ thuật nhiệt chuyên ngành quản lý năng lượng](major)
+    - điểm để vào [kỹ thuật tàu thủy](major)
+    - điểm chuẩn [kỹ thuật điện](major)
+    - điểm xét tuyển [kỹ thuật điện tử - viễn thông](major)
+    - điểm chuẩn [kỹ thuật điện tử - viễn thông chuyên ngành vi điện tử - thiết kế vi mạch](major)
+    - điểm tuyển [kỹ thuật điều khiển và tự động hóa](major)
+    - điểm chuẩn [kỹ thuật hệ thống công nghiệp](major)
+    - điểm tuyển sinh [kỹ thuật cơ khí chuyên ngành cơ khí hàng không](major)
+    - điểm chuẩn [kỹ thuật ô tô](major)
+    - điểm trúng tuyển [chương trình tiên tiến việt-mỹ ngành kỹ thuật điện tử viễn thông](major)
+    - điểm chuẩn [chương trình tiên tiến việt-mỹ ngành hệ thống nhúng và iot](major)
+    - điểm đầu vào [công nghệ thực phẩm](major)
+    - điểm chuẩn [kỹ thuật xây dựng chuyên ngành xây dựng dân dụng và công nghiệp](major)
+    - điểm xét tuyển [kỹ thuật xây dựng chuyên ngành tin học xây dựng](major)
+    - điểm chuẩn [kỹ thuật xây dựng chuyên ngành kỹ thuật và quản lý xây dựng đô thị thông minh](major)
+    - điểm vào [kỹ thuật xây dựng chuyên ngành mô hình thông tin và trí tuệ nhân tạo trong xây dựng](major)
+    - điểm chuẩn [kỹ thuật xây dựng công trình thủy](major)
+    - điểm trúng tuyển [kỹ thuật xây dựng công trình giao thông](major)
+    - điểm chuẩn [kỹ thuật xây dựng công trình giao thông chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị](major)
+    - điểm xét tuyển [kinh tế xây dựng](major)
+    - điểm chuẩn [kỹ thuật cơ sở hạ tầng](major)
+    - mức điểm [quản lý tài nguyên và môi trường](major)
+    - điểm ngành [công nghệ thông tin](major) là bao nhiêu
+    - [công nghệ thông tin đặc thù](major) lấy điểm bao nhiêu
+    - cho em hỏi điểm chuẩn [cntt htdn](major)
+    - điểm vào [kỹ thuật điện](major) là mấy
+    - [ktđt-vt](major) lấy bao nhiêu điểm
+    - điểm chuẩn của [công nghệ sinh học](major)
+    - cho biết điểm trúng tuyển [ktxdctgt](major)
+    - mức điểm chuẩn vào [cntt](major)
+    - [kỹ thuật máy tính](major) lấy bao nhiêu
+    - năm nay [cntp](major) chuẩn bao nhiêu điểm
+    - [kinh tế xây dựng](major) lấy điểm chuẩn là bao nhiêu
+    - mức điểm của [kỹ thuật cơ khí](major)
+    - [kiến trúc](major) năm nay lấy điểm gì
+    - cho em biết điểm của [ktxd đttm](major)
+    - điểm cao nhất của [pfiev](major)
+    - [công nghệ thông tin tiếng nhật](major) bao nhiêu điểm
+    - [kỹ thuật nhiệt](major) điểm chuẩn là gì
+    - điểm vào [ktđk&tđh](major) năm này
+    - [ktmt](major) năm nay lấy bao nhiêu
+    - [cnsh y dược](major) chuẩn điểm vào là mấy
+    - điểm ngành [kt](major) là bao nhiêu
+    - cho biết điểm [cntt ai](major)
+    - điểm chuẩn [cntt khdl](major) năm này
+    - [cnđt](major) lấy điểm bao nhiêu
+    - tôi hỏi điểm vào [kỹ thuật môi trường](major)
+    - cho em biết điểm [ktck ckhk](major)
+    - điểm chuẩn [quản lý tài nguyên và môi trường](major) bao nhiêu
+
+- intent: provide_method_for_cutoff
+  examples: |
+    - điểm chuẩn theo [điểm thi tốt nghiệp](method)
+    - điểm chuẩn theo [học bạ](method)
+    - điểm chuẩn theo [xét tuyển riêng](method)
+    - điểm chuẩn theo [đánh giá tư duy](method)
+    - điểm chuẩn theo [đánh giá năng lực](method)
+    - điểm chuẩn theo [xét tuyển thẳng](method)
+    - điểm chuẩn theo [điểm thi TSA](method)
+    - điểm chuẩn theo [điểm thi VACT](method) 
+    - điểm chuẩn theo [xét tuyển tài năng](method)
+    - điểm chuẩn theo [học bạ thpt](method)
+    - điểm chuẩn theo phương thức [điểm thi tốt nghiệp](method)
+    - điểm chuẩn theo phương thức [học bạ](method)
+    - điểm chuẩn theo phương thức [xét tuyển riêng](method)
+    - điểm chuẩn theo phương thức [đánh giá tư duy](method)
+    - điểm chuẩn theo phương thức [đánh giá năng lực](method)
+    - điểm chuẩn theo phương thức [xét tuyển thẳng](method)
+    - điểm chuẩn theo phương thức [điểm thi TSA](method)
+    - điểm chuẩn theo phương thức [điểm thi VACT](method)
+    - điểm chuẩn theo phương thức [xét tuyển tài năng](method)
+    - điểm chuẩn theo phương thức [học bạ thpt](method)
+    - điểm trúng tuyển theo [điểm thi tốt nghiệp](method)
+    - điểm trúng tuyển theo [học bạ](method)
+    - điểm trúng tuyển theo [xét tuyển riêng](method)
+    - điểm trúng tuyển theo [đánh giá tư duy](method)
+    - điểm trúng tuyển theo [đánh giá năng lực](method)
+    - điểm trúng tuyển theo [điểm thi TSA](method)
+    - điểm trúng tuyển theo [điểm thi VACT](method)
+    - điểm trúng tuyển theo [xét tuyển tài năng](method)
+    - điểm xét tuyển theo [điểm thi tốt nghiệp](method)
+    - điểm xét tuyển theo [học bạ](method)
+    - điểm xét tuyển theo [đánh giá tư duy](method)
+    - điểm xét tuyển theo [đánh giá năng lực](method)
+    - điểm xét tuyển theo [điểm thi TSA](method)
+    - điểm xét tuyển theo [xét tuyển tài năng](method)
+    - điểm đầu vào theo [điểm thi tốt nghiệp](method)
+    - điểm đầu vào theo [học bạ](method)
+    - điểm đầu vào theo [đánh giá năng lực](method)
+    - điểm đầu vào theo [đánh giá tư duy](method)
+    - điểm chuẩn phương thức [thi tốt nghiệp](method)
+    - điểm chuẩn phương thức [học bạ](method)
+    - điểm chuẩn phương thức [đánh giá tư duy](method)
+    - điểm chuẩn phương thức [đánh giá năng lực](method)
+    - điểm chuẩn phương thức [xét tuyển riêng](method)
+    - điểm chuẩn phương thức [điểm thi TSA](method)
+    - điểm chuẩn phương thức [điểm thi VACT](method)
+    - điểm chuẩn phương thức [xét tuyển tài năng](method)
+    - điểm chuẩn [dgtd](method) là bao nhiêu
+    - điểm chuẩn [dgnl](method) là bao nhiêu
+    - điểm chuẩn [tsa](method) là bao nhiêu
+    - điểm chuẩn [vact](method) là bao nhiêu
+    - điểm chuẩn [điểm thi dgnl](method) là bao nhiêu
+    - điểm chuẩn [điểm thi dgtd](method) là bao nhiêu
+    - điểm chuẩn [điểm thi tốt nghiệp thpt](method) là bao nhiêu
+    - điểm chuẩn [điểm thi đánh giá tư duy](method) là bao nhiêu
+    - điểm chuẩn [điểm thi đánh giá năng lực](method) là bao nhiêu
+    - điểm chuẩn [học bạ thpt](method) là bao nhiêu
+    - điểm chuẩn [xét theo học bạ](method) là bao nhiêu
+    - điểm chuẩn [xét điểm thi tốt nghiệp](method) là bao nhiêu
+    - điểm chuẩn [xét tuyển tài năng](method) là bao nhiêu
+    - điểm chuẩn [xét điểm thi đánh giá năng lực](method) là bao nhiêu
+    - điểm chuẩn [xét điểm thi đánh giá tư duy](method) là bao nhiêu
+    - điểm chuẩn [xét học bạ](method) là bao nhiêu
+    - điểm chuẩn [thi tốt nghiệp](method) là bao nhiêu
+    - điểm chuẩn [tn thpt](method) là bao nhiêu
+    - điểm chuẩn [xét học bạ thpt](method) là bao nhiêu
+    - điểm chuẩn [điểm học bạ](method) là bao nhiêu
+    - điểm theo [điểm thi tốt nghiệp](method)
+    - mức điểm theo [học bạ](method)
+    - điểm lấy theo [xét tuyển riêng](method)
+    - điểm tuyển theo [đánh giá tư duy](method)
+    - điểm lấy đầu vào theo [đánh giá năng lực](method)
+    - điểm của phương thức [thi tốt nghiệp](method)
+    - điểm của phương thức [học bạ](method)
+    - điểm của phương thức [đánh giá tư duy](method)
+    - điểm của phương thức [đánh giá năng lực](method)
+    - điểm của phương thức [xét tuyển riêng](method)
+    - điểm của phương thức [điểm thi TSA](method)
+    - điểm của phương thức [điểm thi VACT](method)
+    - điểm của phương thức [xét tuyển tài năng](method)
+    - cho biết điểm chuẩn theo [điểm thi tốt nghiệp](method)
+    - cho biết điểm chuẩn theo [học bạ](method)
+    - cho biết điểm chuẩn theo [đánh giá tư duy](method)
+    - cho biết điểm chuẩn theo [đánh giá năng lực](method)
+    - cho biết điểm chuẩn theo [xét tuyển riêng](method)
+    - điểm trúng tuyển của phương thức [điểm thi tốt nghiệp](method)
+    - điểm trúng tuyển của phương thức [học bạ](method)
+    - điểm trúng tuyển của phương thức [đánh giá năng lực](method)
+    - điểm xét tuyển phương thức [thi tốt nghiệp](method)
+    - điểm xét tuyển phương thức [học bạ](method)
+    - phương thức [điểm thi tốt nghiệp](method) lấy điểm bao nhiêu
+    - phương thức [học bạ](method) lấy điểm bao nhiêu
+    - phương thức [đánh giá tư duy](method) lấy điểm bao nhiêu
+    - phương thức [đánh giá năng lực](method) lấy điểm bao nhiêu
+    - phương thức [xét tuyển riêng](method) lấy điểm bao nhiêu
+    - điểm năm nay theo phương thức [điểm thi tốt nghiệp](method)
+    - điểm năm nay theo phương thức [học bạ](method)
+    - điểm năm nay theo phương thức [đánh giá tư duy](method)
+    - điểm năm nay theo phương thức [đánh giá năng lực](method)

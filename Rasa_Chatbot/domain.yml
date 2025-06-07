@@ -62,6 +62,9 @@ intents:
   - ask_check_major_admission_with_subject_scores
   - provide_major
   - provide_method
+  - provide_major_for_cutoff
+  - provide_method_for_cutoff
+
 
 entities:
   - major
