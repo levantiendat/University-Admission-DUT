@@ -251,6 +251,7 @@
                         <option value="CET">Cambridge English Test</option>
                         <option value="TOEIC">TOEIC</option>
                         <option value="TOEFL">TOEFL iBT</option>
+                        <option value="JLPT">JLPT</option>
                       </select>
                     </div>
                     <div class="col-12 col-md-6">
@@ -347,6 +348,7 @@
                         <option value="CET">Cambridge English Test</option>
                         <option value="TOEIC">TOEIC</option>
                         <option value="TOEFL">TOEFL iBT</option>
+                        <option value="JLPT">JLPT</option>
                       </select>
                     </div>
                     <div class="col-12 col-md-6">
@@ -979,6 +981,10 @@ export default {
         case 'TOEFL':
           showTextSelect = false;
           maxScore = 120;
+          break;
+        case 'JLPT':
+          levels = ['N4', 'N3', 'N2', 'N1'];
+          showTextSelect = true;
           break;
       }
       

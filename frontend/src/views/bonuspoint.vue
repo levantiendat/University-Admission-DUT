@@ -199,6 +199,15 @@
                     <td class="text-center">≥180</td>
                     <td class="text-center"></td>
                   </tr>
+
+                  <tr>
+                    <td>JLPT (Tiếng Nhật)</td>
+                    <td class="text-center"></td>
+                    <td class="text-center">N4</td>
+                    <td class="text-center">N3</td>
+                    <td class="text-center">N2</td>
+                    <td class="text-center">N1</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -311,6 +320,7 @@
                       <option value="CET">Cambridge English Test</option>
                       <option value="TOEIC">TOEIC</option>
                       <option value="TOEFL">TOEFL iBT</option>
+                      <option value="JLPT">JLPT</option>
                     </select>
                   </div>
                   
@@ -577,6 +587,10 @@ export default {
             speak: null,
             write: null
           };
+          break;
+        case 'JLPT':
+          levels = ['N4', 'N3', 'N2', 'N1'];
+          showSelectMode = true;
           break;
       }
       

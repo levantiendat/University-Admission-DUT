@@ -85,6 +85,14 @@ const calculateLanguageCertificatePoints = (certificateType, level) => {
       if (level === 'CPE' || (parseInt(level) >= 200 && parseInt(level) <= 230)) return points.level4;
       break;
 
+    case 'JLPT':
+      // Japanese Language Proficiency Test (JLPT): N5, N4, N3, N2, N1
+      if (level === 'N4') return points.level1;
+      if (level === 'N3') return points.level2;
+      if (level === 'N2') return points.level3;
+      if (level === 'N1') return points.level4;
+      break;
+
     case 'TOEIC':
       // For TOEIC, we need all four skills and take the minimum level
       // Format should be an object with listen, read, speak, write properties
