@@ -1190,7 +1190,7 @@ class ActionGetAdmissionProcessByMethod(Action):
         method = method_entity or method_slot
         
         if not method:
-            dispatcher.utter_message(text="❓ Vui lòng cho biết phương thức xét tuyển bạn muốn tìm hiểu quy trình đăng ký.")
+            dispatcher.utter_message(text="Quy trình đăng kí xét tuyển với mỗi phương thức là khác nhau, nhưng sẽ có điểm chung là sẽ có đăng ký trên cổng thông tin của Bộ Giáo dục và đào tạo. Bạn có thể cung cấp phương thức xét tuyển để biết chi tiết hơn.")
             return []
         
         # Chuẩn hóa method để lấy ID
