@@ -1,43 +1,60 @@
-# Tạo một file debug_rasa.py với nội dung sau
-import glob
-import json
-import yaml
+import subprocess
 import os
+import time
+import socket
 
-def check_files():
-    # Check all YAML files
-    yaml_files = glob.glob('**/*.yml', recursive=True)
-    for file_path in yaml_files:
+MODEL_PATH = "models/20250617-131828-equilateral-lodge.tar.gz"
+RASA_PORT = 5005
+ACTION_PORT = 5055
+RASA_HOST = "0.0.0.0"
+
+def is_port_open(host, port):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-                try:
-                    data = yaml.safe_load(content)
-                    print(f"✅ {file_path}: YAML format OK")
-                    
-                    # Check for integer values that might cause problems
-                    if isinstance(data, dict):
-                        for key, value in data.items():
-                            if isinstance(value, int):
-                                print(f"⚠️ {file_path}: Integer value found for key '{key}': {value}")
-                except Exception as e:
-                    print(f"❌ {file_path}: YAML error: {e}")
-        except Exception as e:
-            print(f"❌ {file_path}: File read error: {e}")
-    
-    # Check all JSON files
-    json_files = glob.glob('**/*.json', recursive=True)
-    for file_path in json_files:
+            s.connect((host, port))
+            return True
+        except:
+            return False
+
+def start_action_server():
+    return subprocess.Popen([
+        "rasa", "run", "actions",
+        "--port", str(ACTION_PORT)
+    ])
+
+def start_rasa_server():
+    db_path = "tracker.db"
+    if os.path.exists(db_path):
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-                try:
-                    data = json.loads(content)
-                    print(f"✅ {file_path}: JSON format OK")
-                except Exception as e:
-                    print(f"❌ {file_path}: JSON error: {e}")
-        except Exception as e:
-            print(f"❌ {file_path}: File read error: {e}")
+            os.remove(db_path)
+        except:
+            print("[!] Không thể xóa tracker.db")
+
+    return subprocess.Popen([
+        "rasa", "run",
+        "--model", MODEL_PATH,
+        "--enable-api",
+        "--endpoints", "endpoints.yml",
+        "--credentials", "credentials.yml",
+        "--cors", "*",
+        "--debug",
+        "--port", str(RASA_PORT),
+        "--interface", RASA_HOST
+    ])
 
 if __name__ == "__main__":
-    check_files()
+    print("[+] Khởi động Action Server...")
+    action_proc = start_action_server()
+
+    print("[+] Khởi động Rasa Server...")
+    rasa_proc = start_rasa_server()
+
+    print(f"[✓] Chatbot đang chạy tại http://0.0.0.0:{RASA_PORT} (Fly.io sẽ tự ánh xạ tới domain)")
+
+    try:
+        rasa_proc.wait()
+        action_proc.wait()
+    except KeyboardInterrupt:
+        print("\n[!] Dừng tiến trình...")
+        rasa_proc.terminate()
+        action_proc.terminate()
