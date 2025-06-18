@@ -46,7 +46,7 @@ jobs:
         with:
           name: python-app
           path: |
-            release.zip
+            Rasa_Chatbot/release.zip
             !venv/
 
   deploy:
