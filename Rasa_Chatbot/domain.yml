@@ -77,7 +77,7 @@ entities:
   - student_interests
   - academic_strengths
   - personality_traits
-  - level         # Thêm entity level (cấp độ giải)
+  - level         
   - award
 
 slots:
