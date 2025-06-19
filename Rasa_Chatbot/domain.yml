@@ -64,6 +64,7 @@ intents:
   - provide_method
   - provide_major_for_cutoff
   - provide_method_for_cutoff
+  - ask_how_many_major_uni
 
 
 entities:
@@ -221,7 +222,12 @@ responses:
 
   ## CHỈ TIÊU TUYỂN SINH CHUNG
   utter_enrollment_quota_uni:
-    - text: "Tổng chỉ tiêu tuyển sinh của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng năm 2025 dự kiến là 3900 Sinh Viên"
+    - text: "Tổng chỉ tiêu tuyển sinh của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng năm 2025 dự kiến là 3900 Sinh Viên. Bạn có muốn biết chi tiết về từng ngành học không?"
+    - text: "Trường Đại Học Bách Khoa - Đại Học Đà Nẵng tuyển sinh 3900 sinh viên trong năm 2025. Bạn có muốn biết chi tiết về từng ngành học không?"
+
+  utter_count_of_major_uni:
+    - text: "Năm 2025, Trường Đại Học Bách Khoa - Đại Học Đà Nẵng tuyển sinh tổng cộng 41 ngành / chuyên ngành"
+    - text: "Tổng số ngành tuyển sinh của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng năm 2025 là 41 ngành / chuyên ngành. Bạn có muốn biết chi tiết về từng ngành không?"
 
   ## NHÓM CNTT ĐẶC THÙ – HỢP TÁC DOANH NGHIỆP
   utter_major_info_dthtdn:
@@ -418,6 +424,7 @@ actions:
   - action_detail_method
   - action_check_major_admission_with_subject_scores
   - action_restart
+  - utter_count_of_major_uni
 
 
 session_config:

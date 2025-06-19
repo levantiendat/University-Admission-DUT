@@ -2366,3 +2366,15 @@ stories:
     - intent: provide_student_interests
     - intent: ask_career_guidance
     - action: action_suggest_majors_by_strengths
+
+  - story: ask of majof count
+    steps:
+    - intent: ask_how_many_major_uni
+    - action: utter_count_of_major_uni
+
+  - story: ask about quota uni Flow
+    steps:
+    - intent: ask_enrollment_quota_uni
+    - action: utter_enrollment_quota_uni
+    - intent: provide_major
+    - action: action_get_major_quota

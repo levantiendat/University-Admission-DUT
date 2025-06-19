@@ -307,7 +307,7 @@ class ActionGetMajorQuota(Action):
             if result["found"]:
                 if result["quota"]:
                     message = f"📊 **Chỉ tiêu tuyển sinh ngành {result['name']}**: {result['quota']} sinh viên."
-                    message += f"\n\n💡 *Lưu ý: Chỉ tiêu có thể thay đổi theo từng năm, bạn có thể tham khảo thêm chi tiết về ngành ở {result['majorUrl']}.*"
+                    message += f"\n\n💡 *Lưu ý: Chỉ tiêu có thể thay đổi theo từng năm, bạn có thể tham khảo thêm chi tiết về ngành ở {result['majorUrl']}"
                 else:
                     message = f"❗ Ngành {result['name']} hiện chưa có thông tin về chỉ tiêu tuyển sinh."
             else:
@@ -414,9 +414,14 @@ class ActionSuggestMajorByAchievement(Action):
         """Tạo phản hồi chi tiết khi có thông tin đầy đủ về thành tích và điểm"""
         level_text = self._format_level(level)
         award_text = self._format_award(award)
+
+        if score < 30:
         
-        message = f"🏆 **Với giải {award_text} {achievement_type} cấp {level_text}, điểm xét tuyển của bạn là {score}**\n\n"
-        message += f"📊 **Các ngành phù hợp với thành tích của bạn:**\n\n"
+            message = f"🏆 **Với giải {award_text} {achievement_type} cấp {level_text}, điểm xét tuyển của bạn là {score}**\n\n"
+            message += f"📊 **Các ngành phù hợp với thành tích của bạn:**\n\n"
+        else:
+            message = f"🏆 **Với giải {award_text} {achievement_type} cấp {level_text}, bạn được xét tuyển thẳng, dưới đây là các ngành phù hợp với thành tích của bạn:**\n\n"
+        
         
         # Thông tin về các nhóm
         group_info = {

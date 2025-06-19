@@ -61,6 +61,19 @@ nlu:
     - bách khoa tuyển bao nhiêu sinh viên
     - năm nay tuyển bao nhiêu sinh viên
 
+- intent: ask_how_many_major_uni
+  examples: |
+    - trường có bao nhiêu ngành học?
+    - trường có bao nhiêu chuyên ngành?
+    - bách khoa có bao nhiêu ngành học?
+    - bách khoa có bao nhiêu chuyên ngành?
+    - số lượng ngành học của trường
+    - số lượng chuyên ngành của trường
+    - số lượng chuyên ngành của bách khoa
+    - số lượng ngành học của bách khoa
+    - trường đào tạo bao nhiêu ngành học?
+    - trường có bao nhiêu ngành đào tạo
+
 # ---------- NHÓM CNTT ĐẶC THÙ – HỢP TÁC DOANH NGHIỆP ----------
 - intent: ask_major_dthtdn_info
   examples: |
@@ -74,6 +87,20 @@ nlu:
     - ngành công nghệ thông tin đặc thù hợp tác doanh nghiệp đào tạo như thế nào?
     - công nghệ thông tin đặc thù hợp tác doanh nghiệp đào tạo như thế nào?
     - thông tin về công nghệ thông tin đặc thù hợp tác doanh nghiệp
+    - Ngành công nghệ thông tin đặc thù hợp tác với doanh nghiệp là ngành gì vậy?
+    - Em muốn hỏi ngành CNTT đặc thù hợp tác doanh nghiệp có gì đặc biệt?
+    - Cho em xin thông tin về ngành CNTT dạng đặc thù
+    - CNTT đặc thù là ngành gì? Có khác gì với CNTT bình thường không?
+    - Ngành CNTT hợp tác với doanh nghiệp đào tạo theo hình thức gì?
+    - CNTT đặc thù – hợp tác doanh nghiệp là mô hình ra sao?
+    - CNTT đặc thù có phải là học với doanh nghiệp không?
+    - Ngành công nghệ thông tin theo mô hình doanh nghiệp đào tạo là như thế nào?
+    - CNTT đặc thù hợp tác doanh nghiệp khác gì với ngành CNTT thông thường?
+    - Em nghe nói có ngành CNTT đặc thù, ngành đó là gì vậy ạ?
+    - CNTT DTHTDN viết tắt là gì và nghĩa là gì?
+    - CNTT đặc thù này ra trường có dễ xin việc hơn không?
+    - Học CNTT theo mô hình đặc thù có lợi ích gì không anh/chị?
+
 
 - intent: ask_training_program_major_dthtdn
   examples: |
@@ -85,6 +112,15 @@ nlu:
     - đào tạo CNTT DTHTDN ra sao?
     - chương trình đào tạo công nghệ thông tin đặc thù
     - chương trình đào tạo công nghệ thông tin đặc thù hợp tác doanh nghiệp
+    - Nội dung đào tạo của ngành CNTT đặc thù gồm những gì vậy?
+    - Chương trình học CNTT đặc thù hợp tác doanh nghiệp có gì nổi bật?
+    - Em muốn biết học CNTT đặc thù thì học những môn nào?
+    - Học CNTT hợp tác doanh nghiệp thì khác gì so với chương trình thường?
+    - Chương trình đào tạo của ngành CNTT DTHTDN có gì đặc biệt?
+    - CNTT dạng đặc thù sẽ học theo khung chương trình nào?
+    - Học CNTT đặc thù thì sinh viên có đi thực tập ở doanh nghiệp không?
+    - Em có thể tìm hiểu chương trình học CNTT hợp tác doanh nghiệp ở đâu?
+    - Sinh viên ngành CNTT đặc thù sẽ được học những nội dung gì?
 
 - intent: ask_standard_output_language_major_dthtdn
   examples: |
@@ -97,6 +133,16 @@ nlu:
     - chuẩn ngoại ngữ của công nghệ thông tin đặc thù
     - yêu cầu ngoại ngữ của công nghệ thông tin đặc thù hợp tác doanh nghiệp
     - yêu cầu ngoại ngữ của công nghệ thông tin đặc thù
+    - Học CNTT đặc thù thì cần đạt trình độ ngoại ngữ gì?
+    - Em cần đạt chứng chỉ ngoại ngữ nào khi tốt nghiệp CNTT đặc thù?
+    - Ngành CNTT hợp tác doanh nghiệp yêu cầu đầu ra tiếng Anh bao nhiêu điểm?
+    - Chuẩn đầu ra tiếng Anh của ngành CNTT đặc thù là gì vậy?
+    - Em phải thi ngoại ngữ gì để tốt nghiệp ngành CNTT đặc thù?
+    - Có yêu cầu cụ thể về ngoại ngữ cho sinh viên ngành CNTT DTHTDN không?
+    - CNTT đặc thù có bắt buộc chứng chỉ IELTS hoặc tương đương không?
+    - Mức điểm ngoại ngữ đầu ra cho sinh viên CNTT hợp tác doanh nghiệp là bao nhiêu?
+    - Em cần chuẩn bị ngoại ngữ ở mức nào để học ngành CNTT đặc thù?
+    - Có yêu cầu tiếng Anh đầu ra cho ngành công nghệ thông tin đặc thù hợp tác doanh nghiệp không?
 
 # ---------- NHÓM CNTT NGOẠI NGỮ NHẬT ----------
 - intent: ask_major_nnn_info
@@ -108,6 +154,16 @@ nlu:
     - cntt NNN là ngành nào?
     - ngành công nghệ thông tin ngoại ngữ nhật đào tạo như thế nào?
     - ngành công nghệ thông tin ngoại ngữ nhật là gì?
+    - CNTT ngoại ngữ Nhật là ngành học như thế nào vậy?
+    - Em muốn tìm hiểu về ngành CNTT kết hợp tiếng Nhật
+    - CNTT chuyên tiếng Nhật là ngành gì ạ?
+    - Ngành CNTT có học thêm tiếng Nhật thì gọi là gì?
+    - CNTT NNN nghĩa là gì vậy?
+    - Ngành công nghệ thông tin sử dụng tiếng Nhật là ngành gì?
+    - CNTT tích hợp ngoại ngữ Nhật là như thế nào?
+    - CNTT định hướng tiếng Nhật ra sao?
+    - Em nghe nói có ngành CNTT ngoại ngữ Nhật, đó là ngành gì?
+    - CNTT học thêm tiếng Nhật thì có lợi gì không?
 
 - intent: ask_training_program_major_nnn
   examples: |
@@ -117,6 +173,15 @@ nlu:
     - chương trình đào tạo CNTT NNN?
     - chương trình đào tạo công nghệ thông tin ngoại ngữ nhật
     - chương trình đào tạo cntt ngoại ngữ nhật
+    - Chương trình học CNTT ngoại ngữ Nhật gồm những gì?
+    - Học CNTT mà có tiếng Nhật thì học như thế nào?
+    - CNTT chuyên tiếng Nhật thì học gì khác so với CNTT thường?
+    - CNTT NNN học theo chương trình gì vậy?
+    - Nội dung đào tạo ngành công nghệ thông tin tiếng Nhật ra sao?
+    - CNTT ngoại ngữ Nhật có môn tiếng Nhật chuyên ngành không?
+    - Em muốn hỏi chương trình CNTT học bằng tiếng Nhật có khó không?
+    - Chương trình đào tạo CNTT có tích hợp ngoại ngữ Nhật thế nào?
+    - Sinh viên CNTT tiếng Nhật sẽ học như thế nào ạ?
 
 - intent: ask_standard_output_language_major_nnn
   examples: |
@@ -126,6 +191,16 @@ nlu:
     - chuẩn ngoại ngữ công nghệ thông tin ngoại ngữ nhật
     - yêu cầu ngoại ngữ công nghệ thông tin ngoại ngữ nhật
     - yêu cầu ngoại ngữ cntt ngoại ngữ nhật
+    - Sinh viên CNTT ngoại ngữ Nhật cần đạt trình độ tiếng Nhật bao nhiêu?
+    - Em cần chứng chỉ tiếng Nhật nào để tốt nghiệp CNTT NNN?
+    - Chuẩn đầu ra tiếng Nhật ngành CNTT là gì?
+    - Ngành CNTT tiếng Nhật yêu cầu JLPT mấy?
+    - CNTT NNN phải thi chứng chỉ tiếng Nhật nào?
+    - Em muốn biết chuẩn tiếng Nhật đầu ra ngành CNTT
+    - Có yêu cầu cụ thể về tiếng Nhật đối với ngành công nghệ thông tin ngoại ngữ Nhật không?
+    - CNTT học tiếng Nhật thì cần đạt N3 hay N2?
+    - Yêu cầu ngoại ngữ đối với ngành CNTT định hướng tiếng Nhật là gì?
+    - Để tốt nghiệp CNTT tiếng Nhật thì cần đạt trình độ Nhật ngữ nào?
 
 # ---------- NHÓM CNTT CHUYÊN NGÀNH KHOA HỌC DỮ LIỆU & TTNT ----------
 - intent: ask_major_khdl_ttnt_info
@@ -145,6 +220,24 @@ nlu:
     - ngành cntt khdl ttnt
     - ngành cntt khoa học dữ liệu
     - ngành cntt trí tuệ nhân tạo
+    - Ngành CNTT chuyên Khoa học dữ liệu và Trí tuệ nhân tạo là gì vậy?
+    - Em nghe nói có ngành CNTT TTNT, đó là ngành gì thế ạ?
+    - CNTT chuyên về AI và Data Science học gì vậy?
+    - CNTT TTNT là viết tắt của ngành nào?
+    - CNTT hướng Trí tuệ nhân tạo và Khoa học dữ liệu khác gì với CNTT thường?
+    - Cho em biết thêm về ngành Công nghệ thông tin AI với Khoa học dữ liệu
+    - CNTT hợp tác doanh nghiệp chuyên ngành AI là gì vậy ạ?
+    - Ngành CNTT có học Trí tuệ nhân tạo là ngành gì?
+    - Công nghệ thông tin chuyên AI và Data Science học như thế nào?
+    - Em đang quan tâm đến CNTT trí tuệ nhân tạo và khoa học dữ liệu, ngành này đào tạo ra sao?
+    - CNTT AI là ngành gì? Học ở đâu?
+    - CNTT trí tuệ nhân tạo TTNT có phải là ngành mới không?
+    - Ngành Công nghệ thông tin chuyên sâu về dữ liệu và AI có phải là CNTT TTNT không?
+    - CNTT chuyên ngành Trí tuệ nhân tạo hiện nay có đào tạo không?
+    - CNTT TTNT ra đời để phục vụ mục tiêu gì?
+    - Ngành CNTT tích hợp AI là ngành nào?
+
+
 
 - intent: ask_training_program_major_khdl_ttnt
   examples: |
@@ -156,6 +249,17 @@ nlu:
     - chương trình đào tạo cntt khoa học dữ liệu trí tuệ nhân tạo
     - chương trình đào tạo cntt trí tuệ nhân tạo
     - chương trình đào tạo cntt khoa học dữ liệu
+    - Sinh viên CNTT TTNT sẽ được học những môn nào?
+    - Chương trình học của ngành CNTT chuyên TTNT gồm những gì vậy ạ?
+    - CNTT trí tuệ nhân tạo học khác gì so với CNTT truyền thống?
+    - Ngành CNTT hướng AI thì chương trình đào tạo ra sao?
+    - CNTT chuyên Data Science học như thế nào?
+    - Em muốn biết chi tiết chương trình học ngành CNTT AI & Khoa học dữ liệu
+    - Học CNTT chuyên ngành Trí tuệ nhân tạo có thực hành nhiều không?
+    - Nội dung đào tạo ngành CNTT TTNT có bao gồm Machine Learning không?
+    - Ngành CNTT chuyên TTNT đào tạo bao nhiêu năm và học những gì?
+    - Chương trình đào tạo CNTT AI có học cả toán ứng dụng và lập trình không?
+    - Em muốn tìm hiểu khung đào tạo của ngành CNTT chuyên về Khoa học dữ liệu
     
 
 - intent: ask_standard_output_language_major_khdl_ttnt
@@ -169,6 +273,13 @@ nlu:
     - yêu cầu ngoại ngữ cntt ai
     - yêu cầu ngoại ngữ cntt khoa học dữ liệu
     - yêu cầu ngoại ngữ cntt trí tuệ nhân tạo
+    - Học CNTT TTNT thì cần đạt chuẩn ngoại ngữ gì để tốt nghiệp?
+    - Ngành CNTT Trí tuệ nhân tạo yêu cầu tiếng Anh đầu ra bao nhiêu?
+    - Sinh viên ngành CNTT AI cần có chứng chỉ ngoại ngữ nào?
+    - Chuẩn ngoại ngữ đầu ra CNTT hướng AI là gì?
+    - Đầu ra tiếng Anh của ngành CNTT chuyên khoa học dữ liệu là bao nhiêu điểm?
+    - Có bắt buộc thi IELTS hay TOEIC để tốt nghiệp ngành CNTT AI không?
+    - CNTT trí tuệ nhân tạo yêu cầu ngoại ngữ như thế nào?
 
 # ---------- PHƯƠNG THỨC XÉT TUYỂN & TỔ HỢP THI CHUNG ----------
 
@@ -184,6 +295,14 @@ nlu:
     - tuyển sinh năm 2025 ra sao
     - tuyển sinh năm 2025
     - tuyển sinh năm nay
+    - Trường Bách khoa năm nay có những phương thức tuyển sinh nào?
+    - Em muốn biết các cách thức xét tuyển vào Đại học Bách khoa
+    - Bách khoa có tuyển bằng học bạ không ạ?
+    - Trường Đại học Bách khoa hiện tại xét tuyển theo những hình thức nào?
+    - Các phương thức tuyển sinh năm 2025 của Bách khoa là gì?
+    - Em quan tâm các phương án xét tuyển đại học của Bách khoa
+    - Bách khoa có xét tuyển bằng điểm thi tốt nghiệp không?
+    - Năm nay trường áp dụng những cách thức tuyển sinh nào?
 
 - intent: ask_admission_process
   examples: |
@@ -219,6 +338,29 @@ nlu:
     - cách đăng kí xét tuyển theo phương thức xét tuyển bằng [xét tuyển tài năng](method)
     - cách xét tuyển theo phương thức [xét tuyển tài năng](method)
     - cách đăng kí xét tuyển vào trường đại học bách khoa
+    - mình cần làm gì để đăng kí xét tuyển?
+    - quy trình nộp hồ sơ xét tuyển vào trường là gì?
+    - đăng ký xét tuyển cần những bước nào?
+    - hướng dẫn từng bước để đăng kí xét tuyển đại học
+    - xét tuyển đại học theo phương thức [xét tuyển riêng](method) như thế nào?
+    - trường áp dụng cách đăng kí theo phương thức [xét tuyển thẳng](method) ra sao?
+    - nộp hồ sơ [đánh giá năng lực](method) như thế nào?
+    - đăng kí xét tuyển cần chuẩn bị giấy tờ gì?
+    - quy trình xét tuyển theo [học bạ THPT](method) gồm những gì?
+    - mình muốn biết cách đăng ký xét tuyển theo phương thức [điểm thi tốt nghiệp THPT](method)
+    - xét tuyển bằng [điểm thi TSA](method) thì làm như thế nào?
+    - cách thức nộp hồ sơ xét tuyển bằng [xét tuyển tài năng](method)
+    - nộp đơn xét tuyển vào ĐH Bách Khoa như thế nào?
+    - cần đăng kí online hay gửi hồ sơ giấy cho phương thức [xét tuyển thẳng](method)?
+    - các bước nộp hồ sơ vào trường theo phương thức [điểm thi VACT](method)
+    - có thể hướng dẫn mình cách nộp hồ sơ xét tuyển theo phương thức [điểm thi đánh giá năng lực](method) không?
+    - thủ tục đăng ký xét tuyển bằng [học bạ](method) gồm những gì?
+    - xét tuyển bằng [điểm thi TSA](method) có cần đăng kí riêng không?
+    - nộp hồ sơ xét tuyển bằng phương thức [đánh giá tư duy](method) như thế nào?
+    - đăng kí [xét tuyển tài năng](method) có cần phỏng vấn không?
+    - cách gửi hồ sơ đăng ký xét tuyển qua mạng
+    - có thể nộp hồ sơ trực tuyến được không?
+    - đăng ký xét tuyển năm nay có gì khác các năm trước?
 
 - intent: ask_method_detail
   examples: |
@@ -248,6 +390,31 @@ nlu:
     - thông tin về phương thức xét tuyển [xét tuyển tài năng](method)
     - thông tin về phương thức xét tuyển [xét tuyển thẳng](method)
     - thông tin về phương thức xét tuyển [điểm thi TSA](method)
+    - phương thức [xét tuyển thẳng](method) cụ thể như thế nào?
+    - mình muốn biết chi tiết phương thức [đánh giá năng lực](method)
+    - bạn có thể giải thích rõ về phương thức [xét tuyển riêng](method) không?
+    - thông tin chi tiết về hình thức [xét tuyển tài năng](method) là gì?
+    - phương thức [học bạ thpt](method) áp dụng như thế nào?
+    - trường xét tuyển bằng [điểm thi TSA](method) ra sao?
+    - xin mô tả rõ về phương thức [vact](method)
+    - điều kiện tham gia xét tuyển bằng [điểm thi tốt nghiệp thpt](method) là gì?
+    - xét tuyển bằng phương thức [xét tuyển riêng](method) có những yêu cầu gì?
+    - em cần thông tin chi tiết về cách xét tuyển bằng [học bạ](method)
+    - cho mình biết thêm về phương thức [xét tuyển tài năng](method)
+    - [đánh giá tư duy](method) là gì và có gì đặc biệt?
+    - phương thức [tsa](method) có khác gì so với [vact](method)?
+    - trường mình áp dụng phương thức [xét tuyển riêng](method) như thế nào vậy?
+    - có bao nhiêu tiêu chí trong phương thức xét tuyển [điểm thi tốt nghiệp THPT](method)?
+    - có cần phỏng vấn trong phương thức [xét tuyển tài năng](method) không?
+    - chi tiết yêu cầu hồ sơ với phương thức [xét tuyển thẳng](method)
+    - mình cần biết cụ thể cách tính điểm của phương thức [đánh giá năng lực](method)
+    - xét tuyển bằng [đánh giá tư duy](method) có cần thi không?
+    - bạn cung cấp giúp mình thông tin về phương thức xét tuyển [điểm thi TSA](method)
+    - nếu chọn phương thức [học bạ THPT](method) thì cần đạt điều kiện gì?
+    - phương thức [điểm thi VACT](method) có áp dụng cho mọi ngành không?
+    - thông tin chi tiết về phương thức xét tuyển bằng [xét tuyển riêng](method) là gì?
+    - chi tiết về cách tổ chức thi của phương thức [đánh giá năng lực](method)
+    - phương thức [xét tuyển tài năng](method) bao gồm những tiêu chí nào?
 
 
 - intent: ask_cntt_luu_y
@@ -332,6 +499,21 @@ nlu:
     - Điểm chuẩn ngành [Kỹ thuật xây dựng công trình thủy](major) theo [xét tuyển tài năng](method) là bao nhiêu?
     - Điểm chuẩn ngành [Kỹ thuật xây dựng công trình giao thông](major) theo [xét tuyển tài năng](method) là bao nhiêu?
     - Điểm chuẩn ngành [Kỹ thuật xây dựng công trình giao thông](major) theo [xét tuyển tài năng](method) là bao nhiêu?
+    - ngành [Công nghệ sinh học Y Dược](major) có điểm chuẩn theo [TSA](method) là bao nhiêu?
+    - điểm năm ngoái ngành [CNTT](major) theo [xét học bạ](method) là bao nhiêu?
+    - điểm chuẩn ngành [Kỹ thuật hóa học](major) theo [đánh giá năng lực](method) năm nay là bao nhiêu?
+    - điểm của ngành [CNTT AI](major) theo [xét tuyển thẳng](method) như thế nào?
+    - em muốn biết điểm chuẩn ngành [Kỹ thuật cơ khí](major) bằng [điểm tốt nghiệp](method)
+    - điểm ngành [Kỹ thuật môi trường](major) năm nay theo [xét tuyển riêng](method) có cao không?
+    - điểm chuẩn thấp nhất của ngành [Quản lý công nghiệp](major) theo [điểm thi TSA](method)?
+    - ngành [CNTT Khoa học dữ liệu](major) năm ngoái lấy bao nhiêu điểm nếu xét bằng [học bạ](method)?
+    - mức điểm ngành [Cơ điện tử](major) khi xét bằng [điểm thi đánh giá tư duy](method)?
+    - điểm chuẩn tối thiểu ngành [Kỹ thuật ô tô](major) theo [điểm thi tốt nghiệp THPT](method)?
+    - ngành [Công nghệ thực phẩm](major) năm nay theo [TSA](method) lấy bao nhiêu điểm?
+    - điểm ngành [Kỹ thuật nhiệt](major) theo phương thức [đánh giá năng lực](method)?
+    - ngành [Hệ thống nhúng và IoT](major) qua [TSA](method) lấy bao nhiêu điểm vậy?
+    - điểm xét tuyển ngành [CNTT ngoại ngữ Nhật](major) theo [đánh giá tư duy](method) khoảng bao nhiêu?
+    - điểm năm ngoái ngành [Kiến trúc](major) xét theo [xét tuyển tài năng](method) là bao nhiêu?
 
 - intent: ask_list_major_by_method
   examples: |
@@ -380,6 +562,27 @@ nlu:
     - em có [điểm học bạ](method), em có thể xét tuyển vào ngành nào?
     - ngành nào xét tuyển bằng [xét tuyển tài năng](method)?
     - những ngành nào xét tuyển bằng [xét tuyển tài năng](method)?
+    - trường có những ngành nào áp dụng [xét tuyển thẳng](method)?
+    - có những ngành nào xét tuyển bằng [điểm thi đánh giá tư duy](method)?
+    - em có thể đăng ký những ngành nào bằng [TSA](method)?
+    - phương thức [học bạ](method) dùng để xét tuyển các ngành nào?
+    - mình muốn biết những ngành nào có thể xét tuyển bằng [xét tuyển tài năng](method)?
+    - [xét tuyển riêng](method) áp dụng cho ngành nào?
+    - ngành nào có thể đăng ký bằng [điểm thi tốt nghiệp](method)?
+    - với [điểm thi TSA](method), em nên chọn ngành nào?
+    - nếu dùng [điểm thi vact](method), có những ngành nào phù hợp?
+    - danh sách ngành xét tuyển bằng [xét học bạ](method) năm nay là gì?
+    - cho em hỏi những ngành nào đang dùng [xét điểm đánh giá năng lực](method)?
+    - những ngành nào không chấp nhận [xét tuyển thẳng](method)?
+    - em muốn biết tất cả ngành có thể xét bằng [điểm thi tốt nghiệp THPT](method)
+    - phương thức [xét tuyển tài năng](method) có xét ngành kỹ thuật không?
+    - với [điểm đánh giá tư duy](method), em có thể đăng ký ngành nào ở trường?
+    - trường có ngành nào xét theo [điểm thi đánh giá năng lực](method) không?
+    - có những ngành nào xét tuyển bằng [điểm học bạ THPT](method)?
+    - ngành nào ở Bách khoa xét được bằng [TSA](method)?
+    - ngành nào phù hợp nếu em xét tuyển bằng [điểm thi đánh giá tư duy](method)?
+    - ngành nào có thể xét bằng phương thức [điểm thi tốt nghiệp THPT](method)?
+    - trường có xét ngành nào bằng phương thức [xét điểm học bạ](method) không?
 
 - intent: ask_combination_major
   examples: |
@@ -536,6 +739,42 @@ nlu:
     - Tổ hợp xét tuyển vào [qltnmt](major) là gì?
     - Để học [quản lý tài nguyên và môi trường](major) cần thi những môn nào?
     - [qltn&mt](major) lấy khối thi nào?
+    - Ngành [Công nghệ thông tin đặc thù](major) xét tuyển theo những tổ hợp môn nào?
+    - Em cần thi những môn nào để đăng ký ngành [Công nghệ thông tin hợp tác doanh nghiệp](major)?
+    - Tổ hợp môn dùng để xét tuyển ngành [Công nghệ thông tin tiếng Nhật](major) là gì?
+    - Ngành [Khoa học dữ liệu và Trí tuệ nhân tạo](major) yêu cầu tổ hợp môn nào để xét tuyển?
+    - Em muốn biết ngành [Kỹ thuật máy tính](major) sử dụng những tổ hợp môn gì để xét tuyển?
+    - Để thi vào ngành [Công nghệ sinh học](major) thì cần thi những môn nào?
+    - Ngành [Công nghệ kỹ thuật vật liệu xây dựng](major) xét tuyển theo tổ hợp nào?
+    - Tổ hợp xét tuyển ngành [Công nghệ chế tạo máy](major) bao gồm những môn gì?
+    - Ngành [Quản lý công nghiệp](major) xét tuyển theo khối thi nào?
+    - Em cần thi khối nào để được xét tuyển vào ngành [Công nghệ dầu khí và khai thác dầu](major)?
+    - Em muốn hỏi ngành [Chương trình kỹ sư chất lượng cao Việt - Pháp](major) có những tổ hợp xét tuyển nào?
+    - Để vào ngành [Cơ khí động lực](major) thì cần thi những môn gì?
+    - Ngành [Cơ điện tử](major) sử dụng những tổ hợp môn nào để xét tuyển?
+    - Em cần biết ngành [Kỹ thuật nhiệt](major) xét tuyển theo những khối nào?
+    - Tổ hợp xét tuyển ngành [Kỹ thuật tàu thủy](major) là tổ hợp nào?
+    - Ngành [Kỹ thuật điện](major) yêu cầu thi những môn nào để xét tuyển?
+    - Những tổ hợp môn nào dùng để đăng ký vào ngành [Kỹ thuật điện tử - viễn thông](major)?
+    - Để học ngành [Kỹ thuật điều khiển và tự động hóa](major) thì cần thi những môn gì?
+    - Ngành [Kỹ thuật hóa học](major) xét tuyển những tổ hợp môn nào?
+    - Em cần biết khối thi để đăng ký ngành [Kỹ thuật môi trường](major)?
+    - Tổ hợp môn nào xét tuyển vào ngành [Kỹ thuật hệ thống công nghiệp](major)?
+    - Để thi vào ngành [Kỹ thuật cơ khí hàng không](major) cần thi những môn nào?
+    - Ngành [Chương trình tiên tiến kỹ thuật điện tử viễn thông](major) yêu cầu tổ hợp thi nào?
+    - Em muốn biết tổ hợp môn xét tuyển vào [Hệ thống nhúng và Internet vạn vật](major) là gì?
+    - Ngành [Công nghệ thực phẩm](major) xét tuyển những môn gì?
+    - Để vào ngành [Kiến trúc](major) thì cần thi những môn nào?
+    - Em muốn biết ngành [Kỹ thuật xây dựng dân dụng và công nghiệp](major) xét tuyển theo tổ hợp nào?
+    - Ngành [Tin học xây dựng](major) yêu cầu thi những môn nào?
+    - Những môn nào cần thiết để xét tuyển ngành [Kỹ thuật và quản lý xây dựng đô thị thông minh](major)?
+    - Tổ hợp môn nào được sử dụng để xét ngành [Mô hình thông tin công trình và Trí tuệ nhân tạo](major)?
+    - Em cần biết tổ hợp môn thi để vào ngành [Kỹ thuật xây dựng công trình thủy](major).
+    - Ngành [Kỹ thuật xây dựng công trình giao thông](major) có những tổ hợp môn gì?
+    - Để học ngành [Xây dựng đường sắt đô thị cao tốc](major) thì thi khối nào?
+    - Ngành [Kinh tế xây dựng](major) xét tuyển theo tổ hợp nào?
+    - Tổ hợp xét tuyển ngành [Kỹ thuật cơ sở hạ tầng](major) bao gồm những môn gì?
+    - Em có thể xét tuyển ngành [Quản lý tài nguyên và môi trường](major) bằng tổ hợp môn nào?
 
 - intent: ask_methods_for_major
   examples: |
@@ -638,6 +877,40 @@ nlu:
     - phương thức xét tuyển của ngành [chương trình tiên tiến việt-mỹ ngành hệ thống nhúng và iot](major) là gì?
     - phương thức xét tuyển của ngành [công nghệ thực phẩm](major) là gì?
     - phương thức xét tuyển của ngành [kiến trúc](major) là gì?
+    - Ngành [Công nghệ thông tin](major) có những phương thức xét tuyển nào?
+    - Em muốn biết ngành [Công nghệ thông tin đặc thù](major) xét tuyển theo hình thức nào?
+    - Để đăng ký vào ngành [Kỹ thuật điện](major), có thể sử dụng những cách xét tuyển nào?
+    - Ngành [Công nghệ sinh học](major) có bao nhiêu phương thức xét tuyển?
+    - Các phương thức xét tuyển của ngành [Kỹ thuật xây dựng công trình giao thông](major) là gì?
+    - Ngành [Kỹ thuật máy tính](major) xét tuyển bằng những cách nào?
+    - Em có thể sử dụng những hình thức nào để đăng ký vào ngành [Công nghệ thực phẩm](major)?
+    - Ngành [Công nghệ thông tin hợp tác doanh nghiệp](major) có những hình thức tuyển sinh nào?
+    - Những phương thức xét tuyển nào được áp dụng cho ngành [Kỹ thuật điện tử - viễn thông](major)?
+    - Em muốn biết ngành [Quản lý công nghiệp](major) xét tuyển như thế nào?
+    - Ngành [Kỹ thuật nhiệt chuyên ngành Quản lý năng lượng](major) xét tuyển qua những hình thức nào?
+    - Có thể đăng ký vào ngành [Cơ điện tử](major) bằng các phương thức xét tuyển nào?
+    - Ngành [Kỹ thuật cơ khí hàng không](major) có những cách nào để xét tuyển?
+    - Em có thể thi vào ngành [Kỹ thuật môi trường](major) bằng những phương thức gì?
+    - Ngành [Kỹ thuật hóa học](major) áp dụng những hình thức tuyển sinh nào?
+    - Phương thức tuyển sinh của ngành [Công nghệ sinh học chuyên ngành Y Dược](major) là gì?
+    - Ngành [Công nghệ kỹ thuật vật liệu xây dựng](major) xét tuyển bằng những phương thức nào?
+    - Em có thể sử dụng phương thức nào để đăng ký ngành [Kiến trúc](major)?
+    - Có bao nhiêu cách để xét tuyển vào ngành [Công nghệ chế tạo máy](major)?
+    - Em muốn biết các hình thức tuyển sinh của [Chương trình tiên tiến ngành Kỹ thuật điện tử viễn thông](major)?
+    - Ngành [Chương trình tiên tiến hệ thống nhúng và Internet vạn vật](major) tuyển sinh bằng những cách nào?
+    - Ngành [Công nghệ dầu khí và khai thác dầu](major) có bao nhiêu hình thức xét tuyển?
+    - Các phương thức tuyển sinh áp dụng cho ngành [Kỹ thuật cơ sở hạ tầng](major) là gì?
+    - Ngành [Kỹ thuật xây dựng mô hình thông tin và trí tuệ nhân tạo](major) được xét tuyển qua những phương thức nào?
+    - Em muốn biết ngành [Chương trình kỹ sư chất lượng cao Việt - Pháp](major) có thể xét tuyển bằng những hình thức gì?
+    - Những cách nào có thể được sử dụng để xét tuyển vào ngành [Công nghệ thông tin tiếng Nhật](major)?
+    - Phương thức tuyển sinh của ngành [Kỹ thuật xây dựng công trình thủy](major) là gì?
+    - Có thể xét tuyển vào ngành [Công nghệ thông tin chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo](major) bằng cách nào?
+    - Em có thể sử dụng những phương thức nào để thi vào ngành [Kỹ thuật tàu thủy](major)?
+    - Ngành [Kỹ thuật ô tô](major) có bao nhiêu phương thức tuyển sinh?
+    - Để học ngành [Kỹ thuật và quản lý xây dựng đô thị thông minh](major), em có thể xét tuyển bằng hình thức nào?
+    - Em cần biết những hình thức xét tuyển vào ngành [Kinh tế xây dựng](major) là gì?
+    - Có thể xét tuyển vào ngành [Quản lý tài nguyên và môi trường](major) qua những phương thức nào?
+    - Em có thể đăng ký ngành [Tin học xây dựng](major) bằng phương thức xét tuyển nào?
 
 - intent: ask_if_major_accepts_method
   examples: |
@@ -711,6 +984,34 @@ nlu:
     - [kỹ thuật xây dựng chuyên ngành xây dựng dân dụng và công nghiệp](major) có nhận [điểm thi dgnl](method) không?
     - [kỹ thuật xây dựng chuyên ngành tin học xây dựng](major) có xét tuyển bằng [điểm thi dgtd](method) không?
     - [kỹ thuật xây dựng chuyên ngành kỹ thuật và quản lý xây dựng đô thị thông minh](major) có chấp nhận [học bạ](method) không?
+    - Ngành [Công nghệ thông tin](major) có xét tuyển bằng phương thức [điểm thi tốt nghiệp trung học phổ thông](method) không?
+    - Ngành [Công nghệ thông tin đặc thù hợp tác doanh nghiệp](major) có sử dụng [xét học bạ trung học phổ thông](method) để xét tuyển không?
+    - Ngành [Kỹ thuật điện](major) có áp dụng phương thức [điểm thi đánh giá năng lực](method) trong tuyển sinh không?
+    - Ngành [Kỹ thuật điện tử - viễn thông](major) có chấp nhận xét tuyển bằng [điểm thi đánh giá tư duy](method) không?
+    - Ngành [Công nghệ sinh học](major) có xét tuyển thẳng theo phương thức [xét tuyển thẳng](method) không?
+    - Ngành [Kỹ thuật xây dựng công trình giao thông](major) có xét tuyển dựa trên [điểm thi TSA](method) không?
+    - Ngành [Công nghệ thông tin chuyên ngành Trí tuệ nhân tạo](major) có nhận [điểm thi VACT](method) để xét tuyển không?
+    - Ngành [Kỹ thuật máy tính](major) có tuyển sinh bằng phương thức [xét tuyển tài năng](method) không?
+    - Ngành [Công nghệ thực phẩm](major) có chấp nhận tuyển sinh bằng [học bạ trung học phổ thông](method) không?
+    - Ngành [Kinh tế xây dựng](major) có áp dụng phương thức [điểm thi đánh giá tư duy](method) không?
+    - Em có [điểm thi tốt nghiệp trung học phổ thông](method), em có thể đăng ký xét tuyển vào ngành [Kỹ thuật điều khiển và tự động hóa](major) không?
+    - Em có [điểm thi đánh giá năng lực](method), ngành [Kỹ thuật môi trường](major) có nhận xét tuyển không?
+    - Em có kết quả [xét tuyển tài năng](method), ngành [Công nghệ sinh học chuyên ngành Y Dược](major) có xét không?
+    - Em muốn xét tuyển bằng [điểm thi đánh giá tư duy](method), ngành [Kỹ thuật cơ khí hàng không](major) có áp dụng không?
+    - Em có học bạ trung học phổ thông ([học bạ](method)), ngành [Quản lý công nghiệp](major) có tuyển sinh không?
+    - Em có [điểm thi TSA](method), ngành [Công nghệ kỹ thuật vật liệu xây dựng](major) có chấp nhận xét tuyển không?
+    - Ngành [Công nghệ chế tạo máy](major) có xét tuyển dựa trên [điểm thi VACT](method) không?
+    - Ngành [Chương trình đào tạo kỹ sư chất lượng cao Việt - Pháp](major) có tuyển sinh bằng [điểm thi đánh giá năng lực](method) không?
+    - Ngành [Kỹ thuật cơ điện tử](major) có xét tuyển bằng hình thức [xét tuyển riêng](method) không?
+    - Ngành [Kỹ thuật điện tử - viễn thông chuyên ngành Vi điện tử và Thiết kế vi mạch](major) có xét bằng [điểm thi đánh giá năng lực](method) không?
+    - Ngành [Công nghệ dầu khí và khai thác dầu](major) có tuyển sinh bằng [điểm thi đánh giá tư duy](method) không?
+    - Ngành [Kỹ thuật xây dựng mô hình thông tin và trí tuệ nhân tạo trong xây dựng](major) có nhận [học bạ trung học phổ thông](method) không?
+    - Ngành [Công nghệ thông tin chuyên ngành Khoa học dữ liệu và Trí tuệ nhân tạo](major) có áp dụng phương thức [điểm thi đánh giá năng lực](method) không?
+    - Ngành [Kiến trúc](major) có chấp nhận xét tuyển bằng [điểm thi tốt nghiệp trung học phổ thông](method) không?
+    - Em muốn xét tuyển vào ngành [Kỹ thuật nhiệt chuyên ngành Quản lý năng lượng](major) bằng [xét tuyển thẳng](method), có được không?
+    - Ngành [Chương trình tiên tiến Việt - Mỹ ngành Hệ thống nhúng và Internet vạn vật](major) có áp dụng [xét tuyển riêng](method) không?
+    - Ngành [Kỹ thuật hệ thống công nghiệp](major) có tuyển sinh dựa vào [điểm thi đánh giá năng lực](method) không?
+    - Ngành [Quản lý tài nguyên và môi trường](major) có xét tuyển theo phương thức [điểm thi TSA](method) không?
 
 - intent: ask_quotas_for_major
   examples: |
@@ -843,6 +1144,35 @@ nlu:
     - Đạt [giải ba](award) HSG cấp [quốc gia](level) môn [toán](achievement) có thể vào những ngành gì?
     - Với [giải khuyến khích](award) [cấp thành phố](level) về [robot](achievement), em có thể học ngành nào?
     - Học sinh [giải nhì](award) cấp [tỉnh](level) môn [tin học](achievement) nên đăng ký ngành nào?
+    - Em có thành tích [giải nhì](award) môn [Tin học](achievement) [cấp quốc gia](level), có thể xét tuyển vào ngành nào?
+    - Tôi từng đạt [giải ba](award) [cấp thành phố](level) với đề tài về [trí tuệ nhân tạo](achievement), phù hợp với ngành nào?
+    - Với thành tích [giải nhất](award) môn [Vật lý](achievement) trong kỳ thi học sinh giỏi [cấp tỉnh](level), em có thể vào học ngành gì?
+    - Em có [giải nhất](award) trong lĩnh vực [khoa học dữ liệu](achievement) tại cuộc thi [khoa học kỹ thuật cấp tỉnh](level), nên chọn ngành nào?
+    - Tôi đạt [giải khuyến khích](award) môn [Toán](achievement) trong kỳ thi học sinh giỏi [cấp quốc gia](level), có thể xét tuyển ngành gì?
+    - Với đề tài về [môi trường và phát triển bền vững](achievement), em được [giải ba](award) [cấp quốc gia](level), em nên chọn ngành nào?
+    - Em được [giải nhì](award) cuộc thi sáng tạo trẻ [cấp tỉnh](level) với sản phẩm liên quan đến [điện tử điều khiển](achievement), có thể học ngành gì?
+    - Em có [giải ba](award) trong kỳ thi học sinh giỏi môn [Sinh học](achievement) [cấp thành phố](level), nên xét tuyển vào ngành nào?
+    - Em có thành tích [giải nhất](award) về [mạng máy tính](achievement), vậy ngành nào phù hợp?
+    - Tôi đạt [giải](award) môn [Hóa học](achievement) trong kỳ thi học sinh giỏi [cấp tỉnh](level), có được tuyển thẳng ngành nào không?
+    - Với thành tích [giải ba](award) [cấp thành phố](level) trong lĩnh vực [thiết kế phần mềm](achievement), tôi nên học ngành gì?
+    - Em từng đoạt [giải nhất](award) kỳ thi học sinh giỏi môn [Sinh học](achievement), có thể vào học ngành gì?
+    - Học sinh có [giải ba](award) [cấp quốc gia](level) môn [Toán ứng dụng](achievement), phù hợp với ngành nào?
+    - Em từng được [giải khuyến khích](award) môn [Khoa học máy tính](achievement), có thể đăng ký những ngành nào?
+    - Với đề tài về [năng lượng tái tạo](achievement), em được [giải nhì](award) cuộc thi khoa học kỹ thuật [cấp tỉnh](level), ngành nào phù hợp?
+    - Em có [giải nhất](award) môn [Lý](achievement) trong kỳ thi học sinh giỏi [cấp tỉnh](level), có thể xét tuyển ngành kỹ thuật nào?
+    - Em từng đạt [giải nhì](award) cuộc thi [sáng tạo kỹ thuật](achievement) [cấp quốc gia](level), em nên học ngành gì?
+    - Tôi có [giải ba](award) về đề tài [xử lý dữ liệu lớn](achievement), có thể nộp xét tuyển vào ngành nào?
+    - Em đoạt [giải nhất](award) về [trí tuệ nhân tạo](achievement) [cấp quốc gia](level), nên đăng ký ngành nào?
+    - Tôi có [giải nhì](award) kỳ thi học sinh giỏi [cấp tỉnh](level) môn [Tin học](achievement), phù hợp với ngành nào trong nhóm ngành Công nghệ thông tin?
+    - Học sinh có [giải nhất](award) môn [Điện tử viễn thông](achievement), có thể học ngành nào?
+    - Em được trao [giải khuyến khích](award) về đề tài [cảm biến môi trường](achievement), có thể chọn ngành nào để phát triển?
+    - Với giải thưởng [giải nhất](award) trong lĩnh vực [kỹ thuật môi trường](achievement), nên chọn ngành học nào?
+    - Tôi đạt [giải nhì](award) môn [Toán](achievement) [cấp thành phố](level), có thể xét tuyển thẳng vào ngành gì?
+    - Em được [giải ba](award) trong lĩnh vực [cơ khí tự động hóa](achievement), ngành nào phù hợp để theo học?
+    - Học sinh giỏi đạt [giải nhất](award) môn [Hóa học](achievement) [cấp tỉnh](level), có cơ hội vào ngành gì ở Đại học Bách khoa?
+    - Tôi từng đạt [giải](award) kỳ thi [khoa học kỹ thuật](achievement) về [an ninh mạng](achievement), có thể nộp xét tuyển vào ngành nào?
+    - Em có [giải ba](award) cuộc thi về [máy học](achievement), có thể vào được ngành nào liên quan đến Trí tuệ nhân tạo?
+    - Với [giải nhất](award) cấp [quốc gia](level) về [phát triển phần mềm giáo dục](achievement), em nên chọn ngành nào?
 
 
 - intent: ask_major_by_subjects
@@ -868,6 +1198,26 @@ nlu:
     - Nếu tôi chọn môn [địa lý](subject) và [hóa học](subject) thì có thể xét tuyển vào ngành nào?
     - Tôi chọn môn [lịch sử](subject) và [công nghệ](subject) thì có thể đăng kí ngành nào?
     - Nếu tôi có thi [vẽ mỹ thuật](subject) thì có thể xét tuyển vào ngành nào?
+    - Tôi đăng ký tổ hợp có môn [vật lý](subject) và [hóa học](subject), có thể vào ngành nào?
+    - Nếu tôi học [toán](subject), [vật lý](subject), [hóa học](subject), thì nên xét tuyển ngành nào?
+    - Em chọn tổ hợp [toán](subject), [hóa học](subject), [sinh học](subject), có thể học ngành gì?
+    - Nếu em chọn môn [toán](subject) và [tin học](subject), có thể đăng ký những ngành nào?
+    - Tôi học các môn [vật lý](subject), [sinh học](subject), thì có thể xét tuyển ngành nào phù hợp?
+    - Nếu tôi đăng ký [hóa học](subject) và [tiếng anh](subject), có ngành nào nhận tổ hợp này không?
+    - Em thi các môn [toán](subject), [vật lý](subject), [tiếng anh](subject), thì có thể vào ngành nào?
+    - Tôi chọn môn [toán](subject), [công nghệ](subject), và [tin học](subject), có ngành nào phù hợp không?
+    - Với tổ hợp [vẽ mỹ thuật](subject) và [toán](subject), tôi có thể học ngành nào?
+    - Nếu em chọn [lịch sử](subject) và [công nghệ](subject), có thể xét tuyển vào những ngành nào?
+    - Tôi có thể học ngành gì nếu thi các môn [địa lý](subject), [hóa học](subject)?
+    - Với tổ hợp [toán](subject), [tin học](subject), và [tiếng anh](subject), tôi nên chọn ngành nào?
+    - Em có thể xét tuyển vào ngành nào nếu học các môn [vật lý](subject) và [tin học](subject)?
+    - Nếu tổ hợp em chọn là [hóa học](subject), [sinh học](subject), và [tiếng anh](subject), thì phù hợp với ngành gì?
+    - Em thi [vẽ mỹ thuật](subject) và [ngữ văn](subject), thì có thể vào ngành nào?
+    - Tôi muốn biết nếu tôi chọn [toán](subject) và [sinh học](subject), thì ngành nào phù hợp?
+    - Tôi đang phân vân giữa các ngành nếu tôi học [toán](subject), [vật lý](subject) và [tin học](subject).
+    - Nếu tôi chọn [tiếng nhật](subject) và [khoa học máy tính](subject), thì xét tuyển ngành nào?
+    - Với môn [địa lý](subject) và [tiếng anh](subject), tôi có thể xét tuyển vào những ngành nào?
+    - Em thi [toán](subject) và [ngữ văn](subject), có thể chọn ngành nào không?
 
 - intent: ask_major_by_faculty
   examples: |
@@ -886,6 +1236,29 @@ nlu:
     - Khoa [khoa học công nghệ tiên tiến](faculty) có những ngành nào?
     - Các ngành thuộc khoa [quản lý dự án](faculty) là gì?
     - Khoa [xây dựng dân dụng công nghiệp](faculty) có những ngành nào?
+    - Tôi muốn hỏi các ngành đào tạo thuộc khoa [công nghệ thông tin](faculty) gồm những ngành nào?
+    - Khoa [điện](faculty) có bao nhiêu ngành đào tạo?
+    - Cho tôi biết những ngành thuộc về khoa [cơ khí](faculty)?
+    - Khoa [hóa học](faculty) hiện có những ngành nào?
+    - Trong khoa [kiến trúc](faculty) có những ngành học nào?
+    - Khoa [môi trường](faculty) có đào tạo những ngành nào?
+    - Khoa [điện tử - viễn thông](faculty) có các ngành gì?
+    - Khoa [cơ khí giao thông](faculty) đang đào tạo các ngành nào?
+    - Các ngành nào trực thuộc khoa [khoa học và công nghệ tiên tiến](faculty)?
+    - Danh sách ngành học trong khoa [công nghệ nhiệt - điện lạnh](faculty) gồm những ngành nào?
+    - Khoa [xây dựng công trình giao thông](faculty) có đào tạo ngành nào?
+    - Khoa [quản lý dự án](faculty) có những ngành nào đang tuyển sinh?
+    - Em muốn biết các ngành thuộc khoa [xây dựng cầu đường](faculty)?
+    - Khoa [xây dựng công trình thủy](faculty) hiện có những ngành học nào?
+    - Trong khoa [xây dựng dân dụng và công nghiệp](faculty) có các ngành nào?
+    - Ngành nào thuộc về khoa [fast](faculty)?
+    - Khoa [cơ điện tử](faculty) có các ngành gì?
+    - Trong khoa [quản lý tài nguyên và môi trường](faculty), có những ngành nào?
+    - Các ngành học của khoa [điện - điện tử](faculty) gồm những gì?
+    - Khoa [công nghệ thông tin](faculty) có đào tạo ngành trí tuệ nhân tạo không?
+    - Ngành nào thuộc về khoa [kỹ thuật xây dựng](faculty)?
+    - Trong khoa [cơ khí chế tạo máy](faculty), có những ngành nào?
+    - Khoa [cơ sở hạ tầng](faculty) có đào tạo những ngành nào?
 
 - intent: ask_suggest_major_by_score_with_method
   examples: |
@@ -909,6 +1282,26 @@ nlu:
     - mình đạt được [223](score) điểm theo phương thức [xét tuyển riêng](method), em có thể đăng ký ngành nào?
     - mình đạt được [223](score) điểm ở phương thức [xét tuyển riêng](method), em có thể đăng ký ngành nào?
     - với số điểm [434](score) theo phương thức [đánh giá năng lực](method), tôi có thể đăng ký ngành nào?
+    - Em được [26.5](score) điểm theo phương thức [điểm thi tốt nghiệp](method), có thể đăng ký ngành nào?
+    - Với số điểm [1026](score) từ kỳ thi [đánh giá năng lực](method), em nên chọn ngành nào?
+    - Em xét tuyển bằng [học bạ](method) được [24.5](score) điểm thì nên chọn ngành gì?
+    - Em xét theo phương thức [xét tuyển tài năng](method), được [275](score) điểm, thì có ngành nào phù hợp không?
+    - Mình thi [đánh giá tư duy](method) được [56.67](score) điểm, có thể xét ngành gì?
+    - Em đạt [23.25](score) điểm theo [điểm thi tốt nghiệp](method), có cơ hội trúng tuyển ngành nào?
+    - Em đang xét tuyển bằng [học bạ](method), tổng điểm là [22.67](score), nên đăng ký ngành gì?
+    - Em có tổng [275](score) điểm ở phương thức [xét tuyển riêng](method), có thể chọn ngành nào?
+    - Mình xét bằng [điểm thi tốt nghiệp](method) được [21](score) điểm, có ngành nào nhận không?
+    - Em có [434](score) điểm từ kỳ thi [đánh giá năng lực](method), có thể xét vào ngành nào?
+    - Em nộp hồ sơ theo phương thức [xét tuyển tài năng](method), được [25.55](score) điểm, nên chọn ngành nào?
+    - Với kết quả [289.5](score) theo phương thức [xét tuyển riêng](method), em có thể chọn ngành nào?
+    - Em có [23.75](score) điểm từ kỳ thi [điểm thi tốt nghiệp](method), có ngành nào phù hợp?
+    - Với [22](score) điểm học bạ, có ngành nào cho em cơ hội trúng tuyển không?
+    - Em xét tuyển bằng [xét tuyển tài năng](method), đạt [265](score) điểm thì nên chọn ngành nào?
+    - Mình được [57.5](score) điểm [đánh giá tư duy](method), có thể đăng ký ngành nào?
+    - Với kết quả [1012](score) từ kỳ thi [đánh giá năng lực](method), em có thể xét tuyển vào ngành nào?
+    - Em có [24](score) điểm từ phương thức [học bạ](method), nên chọn ngành nào?
+    - Với số điểm [276](score) xét tuyển riêng, em có thể nộp ngành gì?
+    - Mình đạt được [275](score) điểm theo phương thức [xét tuyển riêng](method), thì ngành nào phù hợp?
 
 - intent: ask_suggest_major_by_score_with_method_and_faculty
   examples: |
@@ -934,6 +1327,26 @@ nlu:
     - mình đạt được [25.55](score) điểm theo phương thức [xét tuyển tài năng](method), em có thể đăng ký ngành nào thuộc khoa [điện](faculty)?
     - với số điểm [22.67](score) theo phương thức [học bạ](method), tôi có thể đăng ký ngành nào thuộc khoa [xây dựng công trình thủy](faculty) ?
     - với số điểm [1026](score) theo phương thức [đánh giá năng lực](method), em có thể đăng ký ngành nào thuộc khoa [môi trường](faculty)?
+    - Em được [26.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method), có thể xét tuyển ngành nào của khoa [công nghệ thông tin](faculty)?
+    - Với [25.55](score) điểm từ học bạ, em có thể vào ngành nào thuộc khoa [điện](faculty)?
+    - Em thi [xét tuyển riêng](method) được [275](score) điểm, có thể học ngành gì trong khoa [hóa](faculty)?
+    - Em xét [điểm thi tốt nghiệp](method), được [23.5](score) điểm, ngành nào thuộc khoa [điện tử viễn thông](faculty) phù hợp?
+    - Mình được [1026](score) điểm từ [đánh giá năng lực](method), có thể xét tuyển ngành gì thuộc khoa [môi trường](faculty)?
+    - Với [289.5](score) điểm [xét tuyển riêng](method), em muốn biết ngành nào thuộc khoa [quản lý dự án](faculty)?
+    - Em xét tuyển [học bạ](method), có [24.5](score) điểm, ngành nào thuộc khoa [cơ khí giao thông](faculty)?
+    - Mình thi [đánh giá tư duy](method) được [56.67](score) điểm, có ngành nào thuộc khoa [cơ khí giao thông](faculty) không?
+    - Em xét học bạ được [22.67](score) điểm, có thể vào ngành nào thuộc khoa [xây dựng công trình thủy](faculty)?
+    - Em có [434](score) điểm [đánh giá năng lực](method), muốn biết ngành nào thuộc khoa [xây dựng dân dụng công nghiệp](faculty)?
+    - Em đạt [24.5](score) điểm ở phương thức [điểm thi tốt nghiệp](method), có thể đăng ký ngành nào trong khoa [công nghệ thông tin](faculty)?
+    - Tôi xét tuyển bằng [xét tuyển tài năng](method), được [275](score) điểm, có ngành nào trong khoa [hóa](faculty) không?
+    - Mình đạt [275](score) điểm theo [xét tuyển tài năng](method), có ngành nào trong khoa [hóa](faculty) phù hợp?
+    - Em có [25.55](score) điểm theo [xét tuyển tài năng](method), ngành nào trong khoa [điện](faculty) là phù hợp?
+    - Em đạt [23](score) điểm theo phương thức [điểm thi tốt nghiệp](method), có ngành nào trong khoa [xây dựng cầu đường](faculty)?
+    - Với điểm [1026](score) từ bài thi [đánh giá năng lực](method), ngành nào thuộc khoa [môi trường](faculty) phù hợp?
+    - Em thi [điểm thi tốt nghiệp](method) được [22.75](score) điểm, có thể học ngành nào trong khoa [kiến trúc](faculty)?
+    - Tôi có [25](score) điểm từ học bạ, muốn biết ngành nào thuộc khoa [cơ khí](faculty)?
+    - Em đạt [56.5](score) điểm bài [đánh giá tư duy](method), khoa [xây dựng dân dụng công nghiệp](faculty) có ngành nào phù hợp?
+    - Em có [265](score) điểm từ [xét tuyển tài năng](method), muốn vào khoa [kỹ thuật môi trường](faculty), có ngành nào phù hợp không?
 
 - intent: ask_calculate_score
   examples: |
@@ -949,6 +1362,16 @@ nlu:
     - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [hóa học](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score), vậy tổng điểm của em là bao nhiêu?
     - em có điểm môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [địa lý](subject) là [6.5](score), môn [ngữ văn](subject) là [5.75](score), vậy tổng điểm của em là bao nhiêu?
     - em thi được môn [toán](subject) là [8.5](score), môn [vật lý](subject) là [7.5](score), môn [tiếng nhật](subject) là [6.5](score), môn [ngữ văn](subject) là [8.25](score)
+    - em thi ba môn [toán](subject), [vật lý](subject), [hóa học](subject) với điểm lần lượt là [8.5](score), [7.5](score), [6.5](score), tổng điểm là bao nhiêu?
+    - điểm thi của em là [toán](subject) [8.5](score), [vật lý](subject) [7.5](score), [hóa học](subject) [6.5](score), vậy tính ra tổng là mấy điểm?
+    - em làm bài tốt, được [toán](subject): [8.5](score), [lý](subject): [7.5](score), [hóa](subject): [6.5](score), tổng bao nhiêu?
+    - điểm các môn em thi gồm: [toán](subject) [8.5](score), [lý](subject) [7.5](score), [tin học](subject) [9.0](score), vậy tổng là bao nhiêu điểm?
+    - tổng điểm của em là bao nhiêu nếu điểm thi là: [toán](subject) [9.0](score), [vật lý](subject) [8.0](score), [tiếng anh](subject) [7.5](score)?
+    - em có [toán](subject) [8.0](score), [hóa học](subject) [6.5](score), [sinh học](subject) [7.2](score), tổng cộng lại là bao nhiêu điểm?
+    - kết quả thi: [toán](subject) [9.2](score), [vật lý](subject) [8.8](score), [tiếng nhật](subject) [9.0](score), vậy tổng điểm là bao nhiêu?
+    - em vừa thi xong được [toán](subject): [8.7](score), [lý](subject): [7.6](score), [văn](subject): [6.9](score), tổng điểm tính sao?
+    - nếu em được [toán](subject) [9.1](score), [lý](subject) [8.3](score), [anh](subject) [7.7](score), thì tổng là bao nhiêu?
+    - hãy giúp em tính điểm với các môn: [toán](subject) [9.0](score), [hóa học](subject) [8.5](score), [tin học](subject) [10.0](score)
 
 
 - intent: ask_check_major_admission_with_subject_scores
@@ -1013,6 +1436,16 @@ nlu:
     - em có điểm [toán](subject) [8.2](score), [vật lý](subject) [8.0](score), [tiếng anh](subject) [7.5](score) theo phương thức [học bạ](method), có đủ điều kiện đỗ ngành [kỹ thuật xây dựng công trình giao thông](major) không?
     - kiểm tra khả năng trúng tuyển ngành [kỹ thuật xây dựng công trình giao thông chuyên ngành xây dựng đường sắt tốc độ cao và đường sắt đô thị](major) với điểm [toán](subject) [8.6](score), [lý](subject) [8.3](score), [tiếng anh](subject) [7.8](score) theo [điểm thi tốt nghiệp](method)
     - em có điểm [toán](subject) [8.3](score), [vật lý](subject) [7](score), [tiếng anh](subject) [8.5](score) theo phương thức [học bạ](method), có phù hợp với ngành [kỹ thuật cơ sở hạ tầng](major) không?
+    - với điểm [toán](subject) [8.5](score), [vật lý](subject) [7.5](score), [tin học](subject) [9.75](score) theo phương thức [thi tốt nghiệp](method), em có thể vào ngành [công nghệ thông tin](major) không?
+    - điểm em là [toán](subject) [8.0](score), [hóa học](subject) [7.5](score), [sinh học](subject) [8.2](score), xét theo [học bạ](method) có đủ điều kiện vào ngành [công nghệ sinh học](major) không?
+    - em học [toán](subject) được [8.7](score), [vật lý](subject) [8.2](score), [anh](subject) [7.8](score), theo phương thức [xét tốt nghiệp](method), có đỗ ngành [kỹ thuật điện](major) không?
+    - xét theo điểm [toán](subject) [9.0](score), [lý](subject) [8.7](score), [hóa học](subject) [8.3](score), em có khả năng đậu ngành [kỹ thuật điều khiển và tự động hóa](major) không?
+    - với kết quả: [toán](subject) [9.2](score), [vật lý](subject) [8.5](score), [tiếng anh](subject) [8.0](score) theo phương thức [học bạ](method), em có nên đăng ký ngành [ktđt-vt](major) không?
+    - nếu điểm em là [toán](subject) [8.5](score), [tin học](subject) [9.5](score), [hóa học](subject) [8.0](score), có xét được vào ngành [cntt ai](major) không?
+    - trường hợp em có [toán](subject) [9.1](score), [vật lý](subject) [8.7](score), [tiếng anh](subject) [9.0](score), có phù hợp đăng ký ngành [kỹ thuật ô tô](major) không?
+    - giả sử điểm của em là [toán](subject) [8.3](score), [hóa học](subject) [8.1](score), [sinh học](subject) [8.6](score) theo [học bạ](method), có thể học ngành [công nghệ thực phẩm](major) không?
+    - em thi được [toán](subject): [9.0](score), [tin học](subject): [10.0](score), [văn](subject): [7.5](score), theo phương thức [tốt nghiệp](method), có đủ điểm vào ngành [cntt khdl](major) không?
+    - nếu xét điểm [toán](subject) [8.8](score), [vật lý](subject) [8.0](score), [địa lý](subject) [8.4](score) theo [học bạ](method), em có khả năng đỗ ngành [kỹ thuật môi trường](major) không?
     
     
 # ---------- CHƯƠNG TRÌNH ĐÀO TẠO CHUNG ----------
@@ -1294,6 +1727,27 @@ nlu:
     - Em đạt [25.2](score) điểm với khối [toán](subject) [sinh học](subject) [tiếng anh](subject) theo [điểm thi tốt nghiệp](method), có thể đăng ký ngành gì
     - Với khối [toán](subject) [vật lý](subject) [hóa học](subject) em được [28.7](score) điểm khi [xét học bạ](method), ngành nào phù hợp với em
     - Em có [24.1](score) điểm khối [ngữ văn](subject) [lịch sử](subject) [địa lý](subject) theo [điểm thi tốt nghiệp](method), xin hỏi nên học ngành gì
+    - Tôi xét khối [toán](subject), [lý](subject), [hóa](subject) được [26.4](score) điểm bằng hình thức [học bạ](method), xin gợi ý một số ngành phù hợp.
+    - Nếu tổng điểm khối [toán](subject) + [hóa](subject) + [anh](subject) của em là [27.0](score) theo [điểm thi tốt nghiệp](method) thì em nên cân nhắc ngành nào?
+    - Em muốn hỏi, với [25.3](score) điểm thi tổ hợp [toán](subject), [ngữ văn](subject), [lịch sử](subject) xét theo [học bạ](method), thì có ngành nào phù hợp không ạ?
+    - Anh/chị cho em xin tư vấn: em đạt [28.5](score) điểm tổ hợp [toán](subject), [vật lý](subject), [tin học](subject) theo [điểm thi tốt nghiệp](method), em nên nộp ngành nào?
+    - Với mức điểm [24.9](score) từ tổ hợp [toán](subject), [ngữ văn](subject), [giáo dục kinh tế và pháp luật](subject), xét theo [học bạ](method), tôi có thể vào ngành nào?
+    - Nếu điểm em là [26.8](score) ở tổ hợp [toán](subject), [hóa học](subject), [sinh học](subject) theo [điểm thi tốt nghiệp](method), em nên xem xét những ngành gì?
+    - Em được [25.5](score) điểm ở khối [toán](subject), [địa lý](subject), [giáo dục kinh tế và pháp luật](subject) bằng phương thức [học bạ](method), ngành nào phù hợp?
+    - Điểm tổng của tôi là [27.6](score), thuộc tổ hợp [toán](subject), [tiếng anh](subject), [hóa học](subject), xét tuyển bằng [điểm thi tốt nghiệp](method). Nên theo học ngành nào?
+    - Với tổng điểm [24.7](score) tổ hợp [ngữ văn](subject), [lịch sử](subject), [địa lý](subject), tôi có cơ hội vào ngành nào khi xét [học bạ](method)?
+    - Em đang phân vân, nếu đạt [26.1](score) điểm khối [toán](subject), [lý](subject), [công nghệ công nghiệp](subject) theo [điểm thi tốt nghiệp](method), thì nên chọn ngành nào?
+    - Theo [điểm thi tốt nghiệp](method), em được [25.9](score) điểm ở tổ hợp [toán](subject), [sinh học](subject), [tiếng anh](subject), vậy có thể nộp ngành nào phù hợp?
+    - Thầy/cô ơi, em được [27.8](score) điểm khối [toán](subject), [vật lý](subject), [hóa học](subject), xét theo [học bạ](method), xin tư vấn các ngành em có thể nộp vào ạ.
+    - Mình thi khối [ngữ văn](subject), [lịch sử](subject), [tiếng nhật](subject) được [25.4](score) điểm theo [điểm thi tốt nghiệp](method), nên theo học ngành nào?
+    - Bạn có thể tư vấn giúp mình ngành nào phù hợp với [26.0](score) điểm khối [toán](subject), [ngữ văn](subject), [địa lý](subject) theo [học bạ](method) không?
+    - Với kết quả [24.6](score) điểm thi tổ hợp [toán](subject), [lý](subject), [tin học](subject) xét bằng [điểm thi tốt nghiệp](method), em có thể theo ngành nào?
+    - Theo tổ hợp [toán](subject), [sinh học](subject), [giáo dục kinh tế và pháp luật](subject), em được [25.2](score) điểm theo [học bạ](method), có ngành nào phù hợp không ạ?
+    - Tôi đang tìm ngành học phù hợp với điểm thi tổ hợp [toán](subject), [tiếng anh](subject), [hóa học](subject) là [27.1](score) qua phương thức [điểm thi tốt nghiệp](method).
+    - Với [28.0](score) điểm tổ hợp [toán](subject), [hóa học](subject), [sinh học](subject) theo [học bạ](method), tôi có thể đăng ký ngành học nào triển vọng?
+    - Em được [25.0](score) điểm thi khối [toán](subject), [ngữ văn](subject), [tiếng nhật](subject) bằng hình thức [điểm thi tốt nghiệp](method), có những ngành nào phù hợp?
+    - Dựa trên kết quả [26.9](score) tổ hợp [toán](subject), [vật lý](subject), [tiếng anh](subject) theo [học bạ thpt](method), ngành nào là lựa chọn tốt nhất?
+    - Em có [24.4](score) điểm khối [toán](subject), [hóa học](subject), [công nghệ công nghiệp](subject) theo phương thức [điểm thi tốt nghiệp](method), xin tư vấn ngành phù hợp.
 
 - intent: ask_career_guidance
   examples: |
