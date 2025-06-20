@@ -2378,3 +2378,13 @@ stories:
     - action: utter_enrollment_quota_uni
     - intent: provide_major
     - action: action_get_major_quota
+
+  - story: ask about uni admission information
+    steps:
+    - intent: ask_admission_information_uni
+    - action: utter_admission_information_uni
+
+  - story: ask about uni admission news
+    steps:
+    - intent: ask_admission_news
+    - action: utter_admission_news

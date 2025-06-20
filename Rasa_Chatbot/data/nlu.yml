@@ -292,17 +292,26 @@ nlu:
     - phương thức xét tuyển bách khoa
     - phương thức xét tuyển
     - phương thức tuyển sinh
-    - tuyển sinh năm 2025 ra sao
-    - tuyển sinh năm 2025
-    - tuyển sinh năm nay
     - Trường Bách khoa năm nay có những phương thức tuyển sinh nào?
     - Em muốn biết các cách thức xét tuyển vào Đại học Bách khoa
-    - Bách khoa có tuyển bằng học bạ không ạ?
     - Trường Đại học Bách khoa hiện tại xét tuyển theo những hình thức nào?
     - Các phương thức tuyển sinh năm 2025 của Bách khoa là gì?
     - Em quan tâm các phương án xét tuyển đại học của Bách khoa
     - Bách khoa có xét tuyển bằng điểm thi tốt nghiệp không?
     - Năm nay trường áp dụng những cách thức tuyển sinh nào?
+
+- intent: ask_admission_information_uni
+  examples: |
+    - thông tin tuyển sinh trường đại học bách khoa
+    - thông tin tuyển sinh bách khoa
+    - thông tin tuyển sinh
+    - thông tin xét tuyển
+    - thông tin tuyển sinh đại học bách khoa
+    - thông tin xét tuyển đại học bách khoa
+    - thông tin tuyển sinh năm nay
+    - thông tin xét tuyển năm nay
+    - thông tin tuyển sinh của trường đại học bách khoa
+    - thông tin xét tuyển của trường đại học bách khoa
 
 - intent: ask_admission_process
   examples: |
@@ -420,9 +429,24 @@ nlu:
 - intent: ask_cntt_luu_y
   examples: |
     - năm nay công nghệ thông tin có gì mới không?
-    - có gì mới trong năm nay không?
-    - có gì khác biệt trong năm nay không?
-    - có gì mới trong năm nay?
+    - năm nay ngành CNTT có thay đổi gì không?
+    - có thông tin gì mới về ngành CNTT năm nay không?
+    - có điểm gì mới trong ngành CNTT năm nay không?
+    - năm nay có gì khác biệt trong việc tuyển sinh ngành CNTT không?
+
+- intent: ask_admission_news
+  examples: |
+    - năm nay có gì mới trong tuyển sinh không?
+    - có thay đổi gì trong tuyển sinh năm nay không?
+    - tuyển sinh năm nay có điểm gì khác biệt?
+    - có thông tin mới nào về tuyển sinh năm nay không?
+    - năm nay có thay đổi gì trong quy trình tuyển sinh không?
+    - có cập nhật gì mới về tuyển sinh năm nay không?
+    - năm nay có điểm gì mới trong quy trình xét tuyển không?
+    - có thông tin mới nào về phương thức xét tuyển năm nay không?
+    - năm nay tuyển sinh có gì mới
+    - có thay đổi gì trong cách thức tuyển sinh năm nay không?
+    - năm nay có gì mới trong cách xét tuyển không?
 
 
 # ---------- ĐIỂM CHUẨN TUYỂN SINH ----------

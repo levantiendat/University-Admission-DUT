@@ -65,6 +65,8 @@ intents:
   - provide_major_for_cutoff
   - provide_method_for_cutoff
   - ask_how_many_major_uni
+  - ask_admission_information_uni
+  - ask_admission_news
 
 
 entities:
@@ -265,12 +267,14 @@ responses:
 
           Bạn có thể hỏi thêm về chi tiết phương thức xét tuyển hoặc ngành học cụ thể bạn cần biết về phương thức xét tuyển.
       "
+  utter_admission_information_uni:
+    - text: "Thông tin tuyển sinh của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng năm 2025:\n- Tổng chỉ tiêu: 3900 sinh viên\n- Các phương thức xét tuyển: Xét tuyển thẳng, xét tuyển tài năng, xét tuyển theo kết quả thi tốt nghiệp THPT, xét tuyển theo kết quả học tập cấp THPT, xét tuyển theo kết quả thi đánh giá năng lực và xét tuyển theo kết quả thi đánh giá tư duy.\n- Thông tin chi tiết tại: https://drive.google.com/file/d/1nqFfXi1eqSRa1fhIfp2MIq8Cti3r0vY1/view"
 
   utter_cntt_luu_y:
     - text: "Năm 2025, Một số điểm lưu ý khi đăng kí vào ngành công nghệ thông tin: \n
           - Không sử dụng hình thức đánh giá năng lực của Đại học Quốc Gia TPHCM và điểm đánh giá Tư Duy của Đại Học Bách Khoa Hà Nội.\n
           - Không sử dụng hình thức xét tuyển học bạ trung học phổ thông.\n
-          - Không sử dụng hình thức xét tuyển bằng chứng chỉ quốc tế.\n
+          - Không sử dụng hình thức xét tuyển bằng chứng chỉ quốc tế. Tuy nhiên chứng chỉ ngoại ngữ có thể dùng để cộng điểm xét tuyển\n
           - Ngoài những tổ hợp xét tuyển truyền thống ở các năm trước thì năm nay ngành công nghệ thông tin có thêm tổ hợp xét tuyển mới, đây là danh sách tổ hợp xét tuyển của ngành Công nghệ thông tin: \n
           • Toán, Vật Lý, Hóa học\n
           • Toán, Vật Lý, Tiếng Anh\n
@@ -279,6 +283,17 @@ responses:
           • Toán, Vật Lý, Tiếng Nhật (Chỉ dùng cho ngành Công nghệ thông tin (Ngoại ngữ nhật))\n
           • Toán, Tin Học, Tiếng Nhật (Chỉ dùng cho ngành Công nghệ thông tin (Ngoại ngữ nhật))\n
           "
+  
+  utter_admission_news:
+    - text: "Vào năm tuyển sinh 2025, Trường Đại Học Bách Khoa - Đại Học Đà Nẵng có những thay đổi sau: \n
+          - Chỉ tiêu tuyển sinh được tăng lên từ 3650 sinh viên lên 3900 sinh viên.\n
+          - Các ngành xét tuyển bằng phương thức thi tốt nghiệp THPT và kết quả học tập cấp THPT có số tổ hợp xét tuyển tăng lên tối đa lên tới 6 tổ hợp môn. \n
+          - Chỉ tiêu của từng ngành năm nay ngoài chỉ tiêu cho xét tuyển thẳng, các phương thức xét tuyển còn lại sẽ sử dụng chung số lượng chỉ tiêu còn lại, không còn phân biệt giữa các phương thức. \n
+          - Điểm xét tuyển của mỗi thí sinh đối với mỗi ngành sẽ là điểm của phương thức xét tuyển được quy đổi cao nhất từ những phương thức xét tuyển ngành đó có sử dụng. \n
+          - Lần đầu có sử dụng chứng chỉ ngoại ngữ trong xét tuyển, cụ thể là sử dụng để cộng điểm xét tuyển vào tất cả phương thức xét tuyển \n 
+          - Điểm xét tuyển của từng phương thức nói chung sẽ bằng Điểm quy đổi + Điểm Cộng (nếu có) + điểm ưu tiên (nếu có). \n
+          - Thông tin về khen thưởng đối với tuyển sinh năm 2025 đã được tăng lên, lên tới 70.000.000 VNĐ \n
+          - Thông tin chi tiết về tuyển sinh năm 2025 có thể xem tại: https://drive.google.com/file/d/1nqFfXi1eqSRa1fhIfp2MIq8Cti3r0vY1/view"
 
 
   ## CHƯƠNG TRÌNH ĐÀO TẠO CHUNG
@@ -425,6 +440,8 @@ actions:
   - action_check_major_admission_with_subject_scores
   - action_restart
   - utter_count_of_major_uni
+  - utter_admission_information_uni
+  - utter_admission_news
 
 
 session_config:
