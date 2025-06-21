@@ -4,7 +4,7 @@ import time
 import socket
 import requests
 
-MODEL_PATH = "models/20250620-141240-brown-pilaster.tar.gz"
+MODEL_PATH = "models/20250621-112817-molten-skew.tar.gz"
 NGROK_AUTH_TOKEN = "2vn6H02jcPXaZY8MnH7ziimHO0v_4eyF1uzWGLXHCCKod2ceG"
 NGROK_DOMAIN = "cockatoo-cheerful-factually.ngrok-free.app"
 RASA_PORT = 5005

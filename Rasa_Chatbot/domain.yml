@@ -44,19 +44,15 @@ intents:
   - smalltalk_bot_age
   - smalltalk_who_created_you
   - smalltalk_bot_capabilities
-  - bot_challenge  # Đang thiếu trong domain nhưng được sử dụng trong stories
-  - affirm         # Đang thiếu trong domain nhưng được sử dụng trong stories
-  - deny           # Thêm cho đầy đủ
+  - bot_challenge  
+  - affirm         
+  - deny           #
   - request_human
   - ask_major_by_subjects
   - ask_major_by_faculty
   - ask_suggest_major_by_score_with_method
   - ask_suggest_major_by_score_with_method_and_faculty
   - ask_calculate_score
-  - ask_career_guidance
-  - provide_student_interests
-  - provide_academic_strengths
-  - provide_personality_traits
   - ask_suggest_major_by_score_and_subjects
   - ask_method_detail
   - ask_check_major_admission_with_subject_scores
@@ -67,6 +63,7 @@ intents:
   - ask_how_many_major_uni
   - ask_admission_information_uni
   - ask_admission_news
+  - ask_check_major_by_achivement
 
 
 entities:
@@ -434,7 +431,6 @@ actions:
   - action_suggest_major_by_score_with_method_and_faculty
   - action_get_admission_process_by_method
   - action_calculate_score
-  - action_suggest_majors_by_strengths
   - action_suggest_major_by_score_and_subjects
   - action_detail_method
   - action_check_major_admission_with_subject_scores

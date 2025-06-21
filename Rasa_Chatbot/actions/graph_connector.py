@@ -99,7 +99,17 @@ class GraphConnector:
         with self.driver.session() as session:
             result = session.run(query, {"major": major_keyword})
             return list(result)
-        
+    
+    def get_major_by_id(self, major_keyword: str):
+        query = """
+        MATCH (m:Major)
+        WHERE m.id = $major
+        RETURN m.id AS major_id, m.name AS major, m.major_url AS majorUrl, m.quota AS quota
+        """
+        with self.driver.session() as session:
+            result = session.run(query, {"major": major_keyword})
+            return list(result)
+                
     def check_major_has_method(self, major_id: str, method_id: str):
         """
     Kiểm tra xem ngành học có sử dụng phương thức tuyển sinh cụ thể không
@@ -206,7 +216,7 @@ class GraphConnector:
         query = """
         MATCH (m:Major)-[r:HAS_ACHIEVEMENT]->(a:AchievementField)
         WHERE tolower(a.name) CONTAINS tolower($achievement)
-        RETURN m.name AS major, a.name AS achievement
+        RETURN m.id AS majorId ,m.name AS major, m.major_url AS majorUrl, a.name AS achievement
         """
         with self.driver.session() as session:
             result = session.run(query, {"achievement": achievement_keyword})

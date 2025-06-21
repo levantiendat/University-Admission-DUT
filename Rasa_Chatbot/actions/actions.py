@@ -333,6 +333,7 @@ class ActionSuggestMajorByAchievement(Action):
         achievement = next(tracker.get_latest_entity_values("achievement"), None)
         level = next(tracker.get_latest_entity_values("level"), None)
         award = next(tracker.get_latest_entity_values("award"), None)
+        major = next(tracker.get_latest_entity_values("major"), None)
         
         logging.debug(f"Achievement input: {achievement}, Level: {level}, Award: {award}")
         
@@ -345,12 +346,13 @@ class ActionSuggestMajorByAchievement(Action):
         achievement_type = normalize_achievement_field(achievement)
         normalized_level = normalize_level(level) if level else None
         normalized_award = normalize_award(award) if award else None
+        normalized_major = normalize_major(major) if major else None
         
-        logging.debug(f"Normalized achievement: {achievement_type}, Level: {normalized_level}, Award: {normalized_award}")
+        logging.debug(f"Normalized achievement: {achievement_type}, Level: {normalized_level}, Award: {normalized_award}, Major: {normalized_major}")
         
         # Nếu có đủ thông tin cấp độ và loại giải, tính điểm xét tuyển
         score = None
-        if normalized_level and normalized_award:
+        if normalized_level and normalized_award and not normalized_major:
             score = calculate_achievement_score(achievement_type, normalized_level, normalized_award)
             logging.debug(f"Calculated achievement score: {score}")
             
@@ -366,7 +368,11 @@ class ActionSuggestMajorByAchievement(Action):
             majors = self.db.get_major_by_achievement(achievement_type)
             
             if majors:
-                message = self._create_simple_response(majors, achievement_type)
+                if normalized_major:
+                    
+                    message = self._create_simple_response_check_major(majors, normalized_major, achievement_type)
+                else:
+                    message = self._create_simple_response(majors, achievement_type)
             else:
                 message = f"❌ Rất tiếc, không tìm thấy ngành phù hợp với lĩnh vực {achievement_type}.\n\nBạn có thể thử tìm với thành tích khác hoặc liên hệ trực tiếp với phòng tuyển sinh để được tư vấn chi tiết hơn."
         
@@ -405,7 +411,33 @@ class ActionSuggestMajorByAchievement(Action):
             message += f"{i}. {major_info['major']}\n"
         
         message += "\n💡 *Bạn có thể cung cấp thêm thông tin về cấp độ giải (Quốc gia, Tỉnh/Thành phố) và loại giải (Nhất, Nhì, Ba, Khuyến khích) để nhận gợi ý chính xác hơn.*"
-        message += "\n\n*Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển riêng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang*"
+        message += "\n\n*Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển tài năng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang*"
+        
+        return message
+    
+    def _create_simple_response_check_major(self, majors, major, achievement_type: str) -> str:
+        """Tạo phản hồi đơn giản khi chỉ có thông tin về lĩnh vực"""
+        check = False
+        for major_info in majors:
+            if major_info['majorId'] == major:
+                check = True
+                break
+        detail_major = self.db.get_major_by_id(major)
+        message = ""
+        if not check:
+            message += f"❌ Ngành {detail_major[0]['major']} không dùng được thành tích {achievement_type} trong xét tuyển. Chi tiết về ngành {detail_major[0]['majorUrl']} \n"
+        else:
+            message += f"✅ Ngành {detail_major[0]['major']} được dùng thành tích {achievement_type} trong xét tuyển. Chi tiết về ngành {detail_major[0]['majorUrl']} \n"
+
+        message += f"🎯 **Ngoài ra thành tích {achievement_type} có thể đăng kí vào các ngành sau:**\n\n"
+        
+        for i, major_info in enumerate(majors, 1):
+            if major_info['majorId'] == major:
+                continue
+            message += f"{i}. {major_info['major']}. Chi tiết {major_info['majorUrl']}\n"
+        
+        message += "\n💡 *Bạn có thể cung cấp thêm thông tin về cấp độ giải (Quốc gia, Tỉnh/Thành phố) và loại giải (Nhất, Nhì, Ba, Khuyến khích) để nhận gợi ý chính xác hơn.*"
+        message += "\n\n*Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển tài năng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang*"
         
         return message
     
@@ -440,14 +472,14 @@ class ActionSuggestMajorByAchievement(Action):
                 major_url = major["majorUrl"] if "majorUrl" in major else ""
                 
                 if major_url:
-                    message += f"{i}. [{major_name}]({major_url})\n"
+                    message += f"{i}. {major_name}. Chi tiết ngành {major_url}\n"
                 else:
                     message += f"{i}. {major_name}\n"
             
             message += "\n"
         
         message += "💡 *Kết quả gợi ý dựa trên điểm chuẩn từ năm 2023 và 2024, và thành tích của bạn.*\n"
-        message += "*Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển riêng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang*"
+        message += "*Bạn có thể tham khảo phương thức tuyển sinh bằng xét tuyển tài năng ở /admission/xettuyenrieng và xét tuyển thẳng ở /admission/xettuyenthang*"
         
         return message
 
@@ -1540,112 +1572,6 @@ class ActionCheckMajorAdmissionWithSubjectScores(Action):
         
         return filtered_groups
 
-
-class ActionSuggestMajorsByStrengths(Action):
-    def name(self) -> Text:
-        return "action_suggest_majors_by_strengths"
-        
-    def __init__(self):
-        self.db = GraphConnector()
-        
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        # Extract information from slots
-        interests_text = tracker.get_slot("student_interests")
-        academic_text = tracker.get_slot("academic_strengths") 
-        personality_text = tracker.get_slot("personality_traits")
-        
-        # If no information provided, prompt the user
-        if not interests_text and not academic_text and not personality_text:
-            message = (
-                "Để đề xuất ngành học phù hợp với bạn, tôi cần biết thêm về:\n\n"
-                "• **Sở thích** của bạn (ví dụ: công nghệ, lập trình, xây dựng...)\n" 
-                "• **Điểm mạnh học tập** (ví dụ: toán, lý, hóa, anh văn...)\n"
-                "• **Tính cách** (ví dụ: thích làm việc nhóm, tỉ mỉ, sáng tạo...)\n\n"
-                "Bạn có thể chia sẻ một hoặc nhiều thông tin trên để tôi gợi ý ngành phù hợp nhất!"
-            )
-            dispatcher.utter_message(text=message)
-            return []
-        
-        # Process and normalize inputs
-        interests = []
-        if interests_text:
-            interests = normalize_student_interests(interests_text)
-            
-        academic_strengths = []
-        if academic_text:
-            academic_strengths = normalize_subjects_strengths(academic_text)
-            
-        personality_traits = []
-        if personality_text:
-            personality_traits = normalize_personality_strengths(personality_text)
-        
-        # Log information for debugging
-        logging.debug(f"Normalized interests: {interests}")
-        logging.debug(f"Normalized academic strengths: {academic_strengths}")
-        logging.debug(f"Normalized personality traits: {personality_traits}")
-        
-        # Get recommendations from Neo4j
-        recommendations = self.db.get_major_recommendations_by_attributes(
-            interests=interests,
-            academic_strengths=academic_strengths,
-            personality_traits=personality_traits,
-            limit=8  # Limit to top 8 recommendations
-        )
-        
-        # Handle case where no recommendations found
-        if not recommendations:
-            message = (
-                "Tôi chưa thể đưa ra gợi ý phù hợp dựa trên thông tin bạn cung cấp. "
-                "Bạn có thể chia sẻ thêm về:\n\n"
-                "• Các môn học bạn thích và giỏi (toán, lý, hóa, sinh...)\n"
-                "• Sở thích (lập trình, máy tính, xây dựng, thiết kế...)\n"
-                "• Tính cách và kỹ năng (thích giải quyết vấn đề, làm việc nhóm, tỉ mỉ...)"
-            )
-            dispatcher.utter_message(text=message)
-            return []
-            
-        # Create response message
-        message = "📚 **Dựa vào thông tin của bạn, các ngành học phù hợp nhất là:**\n\n"
-        
-        suggested_major_ids = []  # Danh sách lưu ID của các ngành được gợi ý
-        
-        for i, recommendation in enumerate(recommendations, 1):
-            major_name = recommendation["major_name"]
-            major_id = recommendation["major_id"]
-            major_url = recommendation.get("major_url", "")
-            explanations = recommendation["explanations"]
-            
-            # Add to list of suggested majors
-            suggested_major_ids.append(major_id)
-            
-            # Create display information
-            message += f"{i}. **{major_name}**\n"
-            
-            # Add explanations
-            for explanation in explanations:
-                message += f"   - {explanation}\n"
-            
-            # Add link to major details
-            if major_url:
-                message += f"   - [Xem chi tiết về ngành]({major_url})\n"
-                
-            message += "\n"
-        
-        # Add follow-up suggestions
-        message += (
-            "💡 Bạn có thể tìm hiểu thêm về các ngành này bằng cách hỏi tôi:\n"
-            "• \"Ngành Công Nghệ Thông Tin học những gì?\"\n"
-            "• \"Điểm chuẩn ngành Kỹ thuật Điện tử?\"\n"
-            "• \"Ngành Kỹ thuật Xây dựng có những tổ hợp môn nào?\""
-        )
-        
-        dispatcher.utter_message(text=message)
-        
-        # Store suggested majors for follow-up conversation
-        return [SlotSet("suggested_majors", suggested_major_ids)]
     
 class ActionRestart(Action):
     def name(self) -> Text:

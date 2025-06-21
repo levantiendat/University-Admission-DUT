@@ -1773,135 +1773,6 @@ nlu:
     - Dựa trên kết quả [26.9](score) tổ hợp [toán](subject), [vật lý](subject), [tiếng anh](subject) theo [học bạ thpt](method), ngành nào là lựa chọn tốt nhất?
     - Em có [24.4](score) điểm khối [toán](subject), [hóa học](subject), [công nghệ công nghiệp](subject) theo phương thức [điểm thi tốt nghiệp](method), xin tư vấn ngành phù hợp.
 
-- intent: ask_career_guidance
-  examples: |
-    - ngành nào phù hợp với tôi?
-    - tôi nên chọn ngành gì?
-    - tư vấn chọn ngành cho tôi
-    - em không biết nên học ngành nào
-    - giúp em chọn ngành phù hợp
-    - ngành nào phù hợp với khả năng của tôi?
-    - định hướng ngành học
-    - tư vấn định hướng ngành học cho em
-    - với sở thích của em thì nên học ngành gì?
-    - em có thể phù hợp với những ngành nào?
-    - hãy gợi ý cho em một ngành học phù hợp
-    - em muốn được tư vấn chọn ngành
-    - giúp em tìm ngành phù hợp với bản thân
-    - ngành nào phù hợp với điểm mạnh của em?
-    - dựa vào sở thích và điểm mạnh, em nên học ngành nào?
-    - tư vấn cho em ngành nào phù hợp với tính cách của em
-    - ngành nào phù hợp với người thích [công nghệ](student_interests)?
-    - tôi [giỏi toán và lý](academic_strengths), nên học ngành nào?
-    - với người [thích làm việc nhóm](personality_traits) thì ngành gì phù hợp?
-    - tôi [thích máy tính](student_interests), nên chọn ngành gì?
-    - em [giỏi về sinh học](academic_strengths), nên học ngành nào?
-    - ngành nào phù hợp với người [tỉ mỉ và kiên nhẫn](personality_traits)?
-    - tôi [thích lập trình](student_interests) thì nên học ngành gì?
-    - chọn ngành nào thì phù hợp với em?
-    - hướng dẫn em chọn ngành học
-    - em còn phân vân nhiều ngành, không biết nên chọn ngành nào
-    - em thích ngành gì thì nên học ngành đó đúng không?
-    - ngành nào có triển vọng nhất cho em?
-
-- intent: provide_student_interests
-  examples: |
-    - tôi thích [lập trình](student_interests)
-    - tôi yêu thích [máy tính](student_interests)
-    - em đam mê [công nghệ](student_interests)
-    - tôi thích [thiết kế](student_interests)
-    - em có sở thích về [vật lý](student_interests)
-    - em quan tâm đến lĩnh vực [sinh học](student_interests)
-    - tôi yêu thích [kiến trúc](student_interests)
-    - tôi thích [nghiên cứu](student_interests)
-    - em có hứng thú với [điện tử](student_interests)
-    - em thích [xây dựng](student_interests)
-    - tôi hứng thú với [robot](student_interests)
-    - em thích [phân tích dữ liệu](student_interests)
-    - tôi quan tâm đến [môi trường](student_interests)
-    - tôi thích [giải toán](student_interests)
-    - em thích [làm thí nghiệm](student_interests)
-    - tôi thích [viết phần mềm](student_interests)
-    - tôi thích [tài chính](student_interests)
-    - em quan tâm đến [quản lý](student_interests)
-    - tôi thích [điện](student_interests) và [điện tử](student_interests)
-    - em thích [cơ khí](student_interests) và [máy móc](student_interests)
-    - tôi thích [hóa học](student_interests) và [sinh học](student_interests)
-    - sở thích của tôi là [tự động hóa](student_interests)
-    - em đam mê lĩnh vực [trí tuệ nhân tạo](student_interests)
-    - tôi hứng thú với [dữ liệu lớn](student_interests)
-    - em có sở trường về [phân tích dữ liệu](student_interests)
-    - tôi thường [xem các video về công nghệ](student_interests)
-    - em thích [làm việc với máy tính](student_interests)
-    - tôi thích [tìm hiểu về các công trình xây dựng](student_interests)
-    - em có đam mê về [ô tô và động cơ](student_interests)
-    - tôi yêu thích [vẽ và thiết kế đồ họa](student_interests)
-
-- intent: provide_academic_strengths
-  examples: |
-    - tôi [giỏi toán](academic_strengths)
-    - tôi [học tốt vật lý](academic_strengths)
-    - em [mạnh về hóa học](academic_strengths)
-    - tôi [giỏi tin học](academic_strengths)
-    - tôi [điểm cao môn sinh](academic_strengths)
-    - em [học tốt anh văn](academic_strengths)
-    - tôi [giỏi văn](academic_strengths)
-    - em [điểm cao các môn tự nhiên](academic_strengths)
-    - tôi [học giỏi các môn xã hội](academic_strengths)
-    - tôi [giỏi vẽ](academic_strengths)
-    - em [thành thạo lập trình](academic_strengths)
-    - tôi [giỏi môn toán và vật lý](academic_strengths)
-    - em [giỏi tin học và toán](academic_strengths)
-    - tôi [học tốt hóa và sinh](academic_strengths)
-    - tôi [điểm cao môn toán và văn](academic_strengths)
-    - em [học giỏi anh văn và tin học](academic_strengths)
-    - tôi [giỏi về kỹ thuật](academic_strengths)
-    - tôi [giỏi phân tích số liệu](academic_strengths)
-    - điểm mạnh của tôi là [giải quyết vấn đề](academic_strengths)
-    - em [tốt về toán và logic](academic_strengths)
-    - tôi [giỏi thể hiện ý tưởng](academic_strengths)
-    - em [học giỏi nhất toán và vật lý](academic_strengths)
-    - điểm cao nhất của tôi là [môn tin học](academic_strengths)
-    - em [thường đạt điểm cao trong các bài toán](academic_strengths)
-    - tôi [nhận học sinh giỏi môn hóa](academic_strengths)
-    - em [từng thi học sinh giỏi toán](academic_strengths)
-    - tôi [đoạt giải tin học](academic_strengths)
-    - em [giỏi về khoa học](academic_strengths)
-    - tôi [điểm trung bình các môn trên 8](academic_strengths)
-    - em [luôn đứng top đầu về môn toán](academic_strengths)
-
-- intent: provide_personality_traits
-  examples: |
-    - tôi là người [tỉ mỉ](personality_traits)
-    - tính cách của tôi [kiên nhẫn](personality_traits)
-    - tôi [thích làm việc nhóm](personality_traits)
-    - tôi [thích làm việc độc lập](personality_traits)
-    - em là người [sáng tạo](personality_traits)
-    - tính cách em [thích khám phá](personality_traits)
-    - tôi [giỏi giao tiếp](personality_traits)
-    - tôi [có khả năng lãnh đạo](personality_traits)
-    - em [thích tìm tòi](personality_traits)
-    - tính cách tôi [logic](personality_traits)
-    - tôi là người [thực tế](personality_traits)
-    - tôi [cẩn thận và chính xác](personality_traits)
-    - tôi [có tư duy phản biện](personality_traits)
-    - tính cách em [hướng ngoại](personality_traits)
-    - tính cách em [hướng nội](personality_traits)
-    - tôi [thích giải quyết vấn đề](personality_traits)
-    - em là người [thích thử thách](personality_traits)
-    - tôi [ổn định và điềm tĩnh](personality_traits)
-    - đặc điểm của tôi là [kiên trì](personality_traits)
-    - tôi [có tinh thần trách nhiệm cao](personality_traits)
-    - tính cách em [tỉ mỉ và kiên nhẫn](personality_traits)
-    - tôi [thích công nghệ và sáng tạo](personality_traits)
-    - em [giỏi phân tích và lập kế hoạch](personality_traits)
-    - tôi là người [thích trải nghiệm mới](personality_traits)
-    - em [làm việc rất cẩn thận](personality_traits)
-    - tôi [luôn muốn tìm hiểu sâu](personality_traits)
-    - em [thích làm việc có kế hoạch](personality_traits)
-    - tôi [không ngại khó khăn](personality_traits)
-    - em [thích học hỏi không ngừng](personality_traits)
-    - tôi là người [cầu toàn](personality_traits)
 
 - intent: provide_major
   examples: |
@@ -2278,3 +2149,36 @@ nlu:
     - điểm năm nay theo phương thức [học bạ](method)
     - điểm năm nay theo phương thức [đánh giá tư duy](method)
     - điểm năm nay theo phương thức [đánh giá năng lực](method)
+
+- intent: ask_check_major_by_achivement
+  examples: |
+    - Em có thể nộp hồ sơ vào ngành [kỹ thuật máy tính](major) nếu từng đạt [giải nhì](award) môn [toán](achievement) [cấp tỉnh](level) không?
+    - Tôi có [giải ba](award) [cấp thành phố](level) môn [vật lý](achievement), liệu có đủ điều kiện đăng ký ngành [kỹ thuật cơ điện tử](major) không?
+    - Với [giải nhất](award) về [hóa học](achievement) [cấp quốc gia](level), em có được xét tuyển ngành [kỹ thuật hóa học](major) không?
+    - Em từng đoạt [giải ba](award) cuộc thi về [khoa học máy tính](achievement), có thể đăng ký ngành [kỹ thuật tự động hóa](major) hay không?
+    - Con tôi có [giải khuyến khích](award) [cấp tỉnh](level) lĩnh vực [robot](achievement), có thể nộp hồ sơ vào ngành [kỹ thuật điều khiển và tự động hóa](major) không?
+    - Với thành tích [giải nhất](award) môn [tin học](achievement), tôi có thể đăng ký xét tuyển ngành [công nghệ thông tin đặc thù](major) không?
+    - Học sinh đạt [giải nhì](award) lĩnh vực [trí tuệ nhân tạo](achievement), có đủ điều kiện để nộp ngành [công nghệ thông tin đặc thù hợp tác doanh nghiệp chuyên ngành khoa học dữ liệu và trí tuệ nhân tạo](major) không?
+    - Tôi từng đạt [giải ba](award) [cấp quốc gia](level) môn [sinh học](achievement), có thể xét tuyển ngành [công nghệ sinh học chuyên ngành công nghệ sinh học y dược](major) không?
+    - Nếu em có [giải nhất](award) về [mạng máy tính](achievement), em có thể vào ngành [công nghệ thông tin ngoại ngữ nhật](major) không?
+    - Với [giải nhì](award) kỳ thi HSG [cấp thành phố](level) môn [hóa học](achievement), tôi có thể nộp hồ sơ vào ngành [công nghệ thực phẩm](major) không?
+    - Tôi có [giải ba](award) về [phần mềm giáo dục](achievement), liệu ngành [chương trình tiên tiến việt-mỹ ngành hệ thống nhúng và iot](major) có xét tuyển không?
+    - Em từng đoạt [giải nhất](award) môn [toán](achievement), có thể đăng ký ngành [kinh tế xây dựng](major) không?
+    - Con tôi có [giải nhì](award) cuộc thi về [điện tử viễn thông](achievement), có phù hợp với ngành [kỹ thuật điện tử - viễn thông chuyên ngành vi điện tử - thiết kế vi mạch](major) không?
+    - Em đạt [giải nhất](award) lĩnh vực [kỹ thuật môi trường](achievement), có được xét tuyển ngành [kỹ thuật môi trường](major) không?
+    - Với thành tích [giải](award) trong lĩnh vực [kỹ thuật cơ khí](achievement), tôi có thể nộp hồ sơ ngành [kỹ thuật cơ khí chuyên ngành cơ khí động lực](major) không?
+    - Em có [giải ba](award) về đề tài [an ninh mạng](achievement), có được vào ngành [công nghệ thông tin đặc thù](major) không?
+    - Với [giải nhất](award) môn [lý](achievement), tôi có thể xét tuyển ngành [kỹ thuật điện](major) được không?
+    - Em đoạt [giải khuyến khích](award) cuộc thi [khoa học kỹ thuật](achievement) cấp tỉnh, có thể vào ngành [quản lý tài nguyên và môi trường](major) không?
+    - Nếu tôi có [giải ba](award) về [xử lý dữ liệu lớn](achievement), tôi có thể học ngành [công nghệ thông tin khoa học dữ liệu trí tuệ nhân tạo](major) không?
+    - Em có thể đăng ký ngành [kỹ thuật tàu thủy](major) nếu từng đạt [giải nhì](award) môn [toán](achievement) không?
+    - Tôi từng được [giải nhì](award) về [máy học](achievement), có đủ điều kiện đăng ký ngành [công nghệ thông tin đặc thù](major) không?
+    - Em đạt [giải ba](award) về [cơ khí tự động hóa](achievement), có thể xét tuyển ngành [kỹ thuật cơ khí](major) không?
+    - Với thành tích [giải nhì](award) [cấp quốc gia](level) lĩnh vực [thiết kế phần mềm](achievement), em có được vào ngành [công nghệ phần mềm](major) không?
+    - Tôi có [giải nhất](award) cuộc thi sáng tạo kỹ thuật với sản phẩm liên quan đến [kỹ thuật môi trường](achievement), có phù hợp với ngành [kỹ thuật môi trường](major) không?
+    - Học sinh có [giải ba](award) môn [toán](achievement) [cấp tỉnh](level), có thể xét tuyển ngành [chương trình đào tạo kỹ sư chất lượng cao việt - pháp](major) không?
+    - Em đạt [giải nhì](award) trong lĩnh vực [vi sinh](achievement), có thể học ngành [công nghệ sinh học](major) không?
+    - Với thành tích [giải ba](award) [cấp quốc gia](level) về [mô hình thông tin trong xây dựng](achievement), em có thể học ngành [kỹ thuật xây dựng chuyên ngành mô hình thông tin và trí tuệ nhân tạo trong xây dựng](major) không?
+    - Tôi có [giải ba](award) về [tài nguyên và môi trường](achievement), liệu ngành [quản lý tài nguyên và môi trường](major) có xét tuyển không?
+    - Em có thể vào học ngành [kỹ thuật ô tô](major) nếu đạt [giải nhất](award) [cấp thành phố](level) môn [vật lý](achievement) không?
+    - Với giải về môn [sinh học](achievement), tôi có cơ hội vào ngành [công nghệ sinh học](major) không?
