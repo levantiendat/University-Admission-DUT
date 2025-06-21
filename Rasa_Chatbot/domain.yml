@@ -284,6 +284,7 @@ responses:
   utter_admission_news:
     - text: "Vào năm tuyển sinh 2025, Trường Đại Học Bách Khoa - Đại Học Đà Nẵng có những thay đổi sau: \n
           - Chỉ tiêu tuyển sinh được tăng lên từ 3650 sinh viên lên 3900 sinh viên.\n
+          - Các ngành năm nay không có xét tuyển sớm \n
           - Các ngành xét tuyển bằng phương thức thi tốt nghiệp THPT và kết quả học tập cấp THPT có số tổ hợp xét tuyển tăng lên tối đa lên tới 6 tổ hợp môn. \n
           - Chỉ tiêu của từng ngành năm nay ngoài chỉ tiêu cho xét tuyển thẳng, các phương thức xét tuyển còn lại sẽ sử dụng chung số lượng chỉ tiêu còn lại, không còn phân biệt giữa các phương thức. \n
           - Điểm xét tuyển của mỗi thí sinh đối với mỗi ngành sẽ là điểm của phương thức xét tuyển được quy đổi cao nhất từ những phương thức xét tuyển ngành đó có sử dụng. \n
