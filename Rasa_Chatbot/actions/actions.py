@@ -106,6 +106,39 @@ class ActionMajorByMethod(Action):
 
         dispatcher.utter_message(text=message)
         return []
+    
+class ActionMajorForOpportunity(Action):
+    def name(self) -> str:
+        return "action_job_opportunity_for_major"
+
+    def __init__(self):
+        self.db = GraphConnector()
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        major_entity = next(tracker.get_latest_entity_values("major"), None)
+
+        if not major_entity:
+            major_entity = tracker.get_slot("major")
+            
+        major_keyword = normalize_major(major_entity)
+
+        if major_keyword:
+            rows = self.db.get_major_by_id(major_keyword)
+            if rows:
+                message = f"📌 Cơ hội việc làm của ngành {rows[0]['major']}:\n"
+                if rows[0]['job_opportunities']:
+                    message += f"{rows[0]['job_opportunities']}\n"
+                message += f"\n💡 Bạn có thể tham khảo thêm thông tin chi tiết về ngành ở {rows[0]['majorUrl']} \n. Bạn có thể hỏi thêm thông tin về ngành như chỉ tiêu xét tuyển, tổ hợp môn xét tuyển, điểm chuẩn của ngành,..."
+            else:
+                message = "❌ Không tìm thấy ngành nào có phương thức tuyển sinh này."
+        else:
+            message = "❗ Vui lòng cung cấp tên phương thức xét tuyển."
+
+        dispatcher.utter_message(text=message)
+        return [SlotSet("major", major_entity)]
 
 class ActionDetailMethod(Action):
     def name(self) -> str:

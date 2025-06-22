@@ -504,6 +504,8 @@ stories:
       - action: action_cutoff_score
       - intent: ask_admission_process
       - action: action_get_admission_process_by_method
+      - intent: ask_job_opportunity_for_major
+      - action: action_job_opportunity_for_major
 
   - story: "Hỏi quy trình đăng kí xét tuyển"
     steps:
@@ -528,6 +530,8 @@ stories:
       - action: action_major_by_method
       - intent: provide_major_for_cutoff
       - action: action_cutoff_score
+      - intent: ask_job_opportunity_for_major
+      - action: action_job_opportunity_for_major
 
   - story: "Lưu ý xét tuyển"
     steps:
@@ -2187,8 +2191,14 @@ stories:
       - intent: thank
       - action: utter_thank
 
+  - story: ask_about_job_opportunities
+    steps:
+    - intent: ask_job_opportunity_for_major
+    - action: action_job_opportunity_for_major
+    - intent: provide_method_for_cutoff
+    - action: action_cutoff_score
 
-  - story: ask of majof count
+  - story: ask of major count
     steps:
     - intent: ask_how_many_major_uni
     - action: utter_count_of_major_uni

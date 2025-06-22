@@ -104,7 +104,7 @@ class GraphConnector:
         query = """
         MATCH (m:Major)
         WHERE m.id = $major
-        RETURN m.id AS major_id, m.name AS major, m.major_url AS majorUrl, m.quota AS quota
+        RETURN m.id AS major_id, m.name AS major, m.major_url AS majorUrl, m.quota AS quota, m.job_opportunities AS job_opportunities
         """
         with self.driver.session() as session:
             result = session.run(query, {"major": major_keyword})

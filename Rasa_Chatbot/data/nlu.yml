@@ -2188,3 +2188,58 @@ nlu:
     - Tôi có [giải ba](award) về [tài nguyên và môi trường](achievement), liệu ngành [quản lý tài nguyên và môi trường](major) có xét tuyển không?
     - Em có thể vào học ngành [kỹ thuật ô tô](major) nếu đạt [giải nhất](award) [cấp thành phố](level) môn [vật lý](achievement) không?
     - Với giải về môn [sinh học](achievement), tôi có cơ hội vào ngành [công nghệ sinh học](major) không?
+
+- intent: ask_job_opportunity_for_major
+  examples: |
+    - cơ hội việc làm của ngành
+    - cơ hội việc làm
+    - Cơ hội việc làm của ngành [Công nghệ thông tin](major) là gì?
+    - Cơ hội việc làm của ngành [Công nghệ thông tin đặc thù](major) là gì?
+    - Cơ hội việc làm của ngành [Công nghệ thông tin hợp tác doanh nghiệp](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật điện](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật điện tử - viễn thông](major) là gì?
+    - Cơ hội việc làm của ngành [Công nghệ sinh học](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật xây dựng công trình giao thông](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật máy tính](major) là gì?
+    - Cơ hội việc làm của ngành [Công nghệ thực phẩm](major) là gì?
+    - Cơ hội việc làm của ngành [Kinh tế xây dựng](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật cơ khí](major) là gì?
+    - Cơ hội việc làm của ngành [Kiến trúc](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật xây dựng đô thị thông minh](major) là gì?
+    - Cơ hội việc làm của ngành [Chương trình đào tạo kỹ sư chất lượng cao Việt - Pháp](major) là gì?
+    - Cơ hội việc làm của ngành [Công nghệ thông tin tiếng Nhật](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật nhiệt](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật điều khiển và tự động hóa](major) là gì?
+    - Cơ hội việc làm của ngành [Kỹ thuật môi trường](major) là gì?
+    - Cơ hội việc làm của ngành [Công nghệ kỹ thuật vật liệu xây dựng](major) là gì?
+    - Cơ hội việc làm của ngành [Quản lý công nghiệp](major) là gì?
+    - Ngành [Công nghệ thông tin] có dễ xin việc không?
+    - Ngành [Kỹ thuật điện] có dễ xin việc không?
+    - Ngành [Công nghệ sinh học] có dễ xin việc không?
+    - Ngành [Kỹ thuật cơ khí] có dễ xin việc không?
+    - Ngành [Kỹ thuật máy tính] có dễ xin việc không?
+    - Ngành [Công nghệ thực phẩm] có dễ xin việc không?
+    - Ngành [Kỹ thuật xây dựng công trình giao thông] có dễ xin việc không?
+    - Ngành [Kỹ thuật điện tử - viễn thông] có dễ xin việc không?
+    - Ngành [Kỹ thuật môi trường] có dễ xin việc không?
+    - Ngành [Quản lý công nghiệp] có dễ xin việc không?
+    - Em học ngành [Công nghệ thông tin] thì cơ hội việc làm ra sao?
+    - Em học ngành [Kỹ thuật điện] thì cơ hội việc làm ra sao?
+    - Em học ngành [Công nghệ sinh học] thì cơ hội việc làm ra sao?
+    - Em học ngành [Kỹ thuật cơ khí] thì cơ hội việc làm ra sao?
+    - Em học ngành [Kỹ thuật máy tính] thì cơ hội việc làm ra sao?
+    - Em học ngành [Công nghệ thực phẩm] thì cơ hội việc làm ra sao?
+    - Em học ngành [Kỹ thuật xây dựng công trình giao thông] thì cơ hội việc làm ra sao?
+    - Em học ngành [Kỹ thuật điện tử - viễn thông] thì cơ hội việc làm ra sao?
+    - Em học ngành [Kỹ thuật môi trường] thì cơ hội việc làm ra sao?
+    - Em học ngành [Quản lý công nghiệp] thì cơ hội việc làm ra sao?
+    - Tôi muốn biết ngành [Công nghệ thông tin] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Kỹ thuật điện] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Công nghệ sinh học] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Kỹ thuật cơ khí] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Kỹ thuật máy tính] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Công nghệ thực phẩm] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Kỹ thuật xây dựng công trình giao thông] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Kỹ thuật điện tử - viễn thông] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Kỹ thuật môi trường] có cơ hội việc làm sau tốt nghiệp ra sao?
+    - Tôi muốn biết ngành [Quản lý công nghiệp] có cơ hội việc làm sau tốt nghiệp ra

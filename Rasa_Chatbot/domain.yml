@@ -46,7 +46,7 @@ intents:
   - smalltalk_bot_capabilities
   - bot_challenge  
   - affirm         
-  - deny           #
+  - deny           
   - request_human
   - ask_major_by_subjects
   - ask_major_by_faculty
@@ -64,6 +64,7 @@ intents:
   - ask_admission_information_uni
   - ask_admission_news
   - ask_check_major_by_achivement
+  - ask_job_opportunity_for_major
 
 
 entities:
@@ -439,6 +440,7 @@ actions:
   - utter_count_of_major_uni
   - utter_admission_information_uni
   - utter_admission_news
+  - action_job_opportunity_for_major
 
 
 session_config:
