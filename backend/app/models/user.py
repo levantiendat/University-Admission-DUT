@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, TIMESTAMP
+from sqlalchemy import Column, Integer, String, TIMESTAMP, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
 import pytz
@@ -37,12 +37,6 @@ class User(Base):
 
     def check_password(self, plain_password: str) -> bool:
         return verify_password(plain_password, self.hashed_password)
-
-from sqlalchemy import Column, Integer, String, ForeignKey, TIMESTAMP
-from sqlalchemy.orm import relationship
-from datetime import datetime
-import pytz
-from app.models.base import Base  # Sử dụng Base chung
 
 class Question(Base):
     __tablename__ = "questions"

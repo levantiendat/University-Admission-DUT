@@ -14,3 +14,7 @@ mysql-connector-python
 httpx
 itsdangerous
 pytz
+pytest
+pytest-asyncio
+httpx
+pytest-cov
