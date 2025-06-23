@@ -197,8 +197,9 @@ def test_get_majors(client: TestClient, create_test_major):
 
 def test_create_major(client: TestClient, create_test_faculty, admin_token_headers: dict, user_token_headers: dict):
     """Test creating a major endpoint"""
+    faculty_id = create_test_faculty.id
     major_data = {
-        "faculty_id": create_test_faculty.id,
+        "faculty_id": faculty_id,
         "major_code": "APIT",
         "name": "API Testing Major",
         "seats": 100,
@@ -215,7 +216,7 @@ def test_create_major(client: TestClient, create_test_faculty, admin_token_heade
     created_major = response.json()
     assert created_major["name"] == major_data["name"]
     assert created_major["major_code"] == major_data["major_code"]
-    assert created_major["faculty_id"] == create_test_faculty.id
+    assert created_major["faculty_id"] == faculty_id
     
     # Test tạo major với tên đã tồn tại
     response = client.post(

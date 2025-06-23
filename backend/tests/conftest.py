@@ -121,3 +121,16 @@ def instructor_token_headers(client: TestClient, instructor_user: User) -> dict:
     )
     access_token = response.json()["access_token"]
     return {"Authorization": f"Bearer {access_token}"}
+
+@pytest.fixture
+def client_with_session(client):
+    """TestClient with active session"""
+    # Get visitor stats to create a session
+    response = client.get("/api/visitors/stats")
+    session_cookie = response.cookies.get("visitor_session_id")
+    
+    # Create a new client with this cookie
+    client_with_cookie = TestClient(app)
+    client_with_cookie.cookies = {"visitor_session_id": session_cookie}
+    
+    return client_with_cookie

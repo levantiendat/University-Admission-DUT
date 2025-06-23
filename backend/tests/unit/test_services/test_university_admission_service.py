@@ -115,6 +115,8 @@ def test_delete_faculty(db: Session):
 
 def test_create_major(db: Session, create_faculty):
     """Test creating a major"""
+    from app.services.university_admission_service import create_major as create_major_service
+    
     # Test tạo major mới
     major_data = MajorCreate(
         faculty_id=create_faculty.id,
@@ -124,7 +126,7 @@ def test_create_major(db: Session, create_faculty):
         description="Major of Computer Science"
     )
     
-    major = create_major(db, major_data)
+    major = create_major_service(db, major_data)
     
     assert major.name == "Computer Science"
     assert major.major_code == "MAJOR01"
@@ -134,7 +136,7 @@ def test_create_major(db: Session, create_faculty):
     
     # Test tạo major với tên đã tồn tại
     with pytest.raises(AlreadyExistsException) as excinfo:
-        create_major(db, major_data)
+        create_major_service(db, major_data)
     assert "Major already exists" in str(excinfo.value)
 
 def test_get_major(db: Session, create_major):
@@ -151,6 +153,9 @@ def test_get_major(db: Session, create_major):
 
 def test_get_majors(db: Session, create_major, create_faculty):
     """Test getting all majors"""
+    # Use the imported service function, not the fixture
+    from app.services.university_admission_service import create_major as create_major_service
+    
     # Tạo thêm một major
     major_data = MajorCreate(
         faculty_id=create_faculty.id,
@@ -159,12 +164,11 @@ def test_get_majors(db: Session, create_major, create_faculty):
         seats=120,
         description="Major of Information Technology"
     )
-    create_major(db, major_data)
+    create_major_service(db, major_data)
     
     # Test lấy danh sách major
     majors = get_majors(db)
     assert len(majors) >= 2
-    # Kiểm tra xem các major đã tạo có trong danh sách không
     major_names = [m.name for m in majors]
     assert "Test Major" in major_names
     assert "Information Technology" in major_names
@@ -202,6 +206,8 @@ def test_update_major(db: Session, create_major):
 
 def test_delete_major(db: Session, create_faculty):
     """Test deleting a major"""
+    from app.services.university_admission_service import create_major as create_major_service
+    
     # Tạo major để xóa
     major_data = MajorCreate(
         faculty_id=create_faculty.id,
@@ -210,7 +216,7 @@ def test_delete_major(db: Session, create_faculty):
         seats=100,
         description="Major To Delete Description"
     )
-    major = create_major(db, major_data)
+    major = create_major_service(db, major_data)
     
     # Test xóa major
     deleted_major = delete_major(db, major.id)
@@ -229,6 +235,9 @@ def test_delete_major(db: Session, create_faculty):
 
 def test_create_admission_method(db: Session):
     """Test creating an admission method"""
+    # Use the imported service function with an alias to avoid confusion with the fixture
+    from app.services.university_admission_service import create_admission_method as create_admission_method_service
+    
     # Test tạo admission method mới
     admission_method_data = AdmissionMethodCreate(
         name="High School Exam",
@@ -237,7 +246,7 @@ def test_create_admission_method(db: Session):
         max_score=30.0
     )
     
-    admission_method = create_admission_method(db, admission_method_data)
+    admission_method = create_admission_method_service(db, admission_method_data)
     
     assert admission_method.name == "High School Exam"
     assert admission_method.description == "Admission based on high school exam results"
@@ -246,7 +255,7 @@ def test_create_admission_method(db: Session):
     
     # Test tạo admission method với tên đã tồn tại
     with pytest.raises(AlreadyExistsException) as excinfo:
-        create_admission_method(db, admission_method_data)
+        create_admission_method_service(db, admission_method_data)
     assert "Admission method already exists" in str(excinfo.value)
 
 def test_get_admission_method(db: Session, create_admission_method):
@@ -263,6 +272,9 @@ def test_get_admission_method(db: Session, create_admission_method):
 
 def test_get_admission_methods(db: Session, create_admission_method):
     """Test getting all admission methods"""
+    # Use the imported service function, not the fixture
+    from app.services.university_admission_service import create_admission_method as create_admission_method_service
+    
     # Tạo thêm một admission method
     admission_method_data = AdmissionMethodCreate(
         name="School Records",
@@ -270,32 +282,34 @@ def test_get_admission_methods(db: Session, create_admission_method):
         min_score=0.0,
         max_score=10.0
     )
-    create_admission_method(db, admission_method_data)
+    create_admission_method_service(db, admission_method_data)
     
     # Test lấy danh sách admission method
     admission_methods = get_admission_methods(db)
     assert len(admission_methods) >= 2
-    # Kiểm tra xem các admission method đã tạo có trong danh sách không
     method_names = [m.name for m in admission_methods]
     assert "Test Admission Method" in method_names
     assert "School Records" in method_names
 
 def test_create_admission_method_major(db: Session, create_major, create_admission_method):
     """Test creating an admission method major"""
+    # Use the imported service function, not the fixture
+    from app.services.university_admission_service import create_admission_method_major as create_amm_service
+    
     # Test tạo admission method major mới
     admission_method_major_data = AdmissionMethodMajorCreate(
         major_id=create_major.id,
         admission_methods_id=create_admission_method.id
     )
     
-    admission_method_major = create_admission_method_major(db, admission_method_major_data)
+    admission_method_major = create_amm_service(db, admission_method_major_data)
     
     assert admission_method_major.major_id == create_major.id
     assert admission_method_major.admission_methods_id == create_admission_method.id
     
     # Test tạo admission method major đã tồn tại
     with pytest.raises(AlreadyExistsException) as excinfo:
-        create_admission_method_major(db, admission_method_major_data)
+        create_amm_service(db, admission_method_major_data)
     assert "Admission method major already exists" in str(excinfo.value)
 
 def test_get_admission_method_major(db: Session, create_admission_method_major):

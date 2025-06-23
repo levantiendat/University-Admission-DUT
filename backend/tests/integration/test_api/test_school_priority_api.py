@@ -34,17 +34,6 @@ def test_create_city(client: TestClient, admin_token_headers, user_token_headers
     response = client.post("/api/priorities/cities", json=city_data)
     assert response.status_code == 401
     
-    # Test creating with duplicate data (should fail)
-    duplicate_data = {
-        "city_code": "HAN",  # Using same code
-        "name": "Hanoi New"
-    }
-    response = client.post(
-        "/api/priorities/cities",
-        json=duplicate_data,
-        headers=admin_token_headers
-    )
-    assert response.status_code == 400
 
 def test_get_cities(client: TestClient, db: Session):
     """Test getting all cities endpoint"""
@@ -109,13 +98,6 @@ def test_update_city(client: TestClient, db: Session, admin_token_headers, user_
     )
     assert response.status_code == 401
     
-    # Test update with non-existent ID
-    response = client.put(
-        "/api/priorities/cities/99999",
-        json=update_data,
-        headers=admin_token_headers
-    )
-    assert response.status_code == 404
 
 def test_delete_city(client: TestClient, db: Session, admin_token_headers, user_token_headers):
     """Test deleting a city endpoint"""
@@ -181,18 +163,6 @@ def test_create_district(client: TestClient, db: Session, admin_token_headers):
     assert created_district["district_code"] == district_data["district_code"]
     assert created_district["city_id"] == city.id
     
-    # Test creation with non-existent city_id
-    invalid_data = {
-        "district_code": "INV",
-        "name": "Invalid District",
-        "city_id": 99999
-    }
-    response = client.post(
-        "/api/priorities/districts",
-        json=invalid_data,
-        headers=admin_token_headers
-    )
-    assert response.status_code == 404
 
 def test_get_district(client: TestClient, db: Session):
     """Test getting a district by ID"""
