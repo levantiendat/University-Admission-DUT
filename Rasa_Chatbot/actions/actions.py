@@ -536,7 +536,7 @@ class ActionDefaultFallback(Action):
         if new_count >= 3:
             message = "Có vẻ như tôi không thể hiểu được nhiều câu hỏi liên tiếp. Tôi sẽ khởi động lại cuộc trò chuyện."
         else:
-            message = "Xin lỗi, tôi không hiểu ý của bạn. Bạn có thể thử các câu hỏi như:\n- Điểm chuẩn ngành CNTT?\n- Ngành nào phù hợp với tôi?"
+            message = "Xin lỗi, tôi không hiểu ý của bạn. Bạn có thể thử các câu hỏi như:\n- Phương thức xét tuyển của ngành công nghệ thông tin ngoại ngữ nhật?\n- Tổ hợp xét tuyển của ngành kỹ thuật máy tính?\n-Thông tin tuyển sinh năm 2025\n-Chuẩn ngoại ngữ đầu ra\n"
         
         dispatcher.utter_message(text=message)
         
