@@ -86,6 +86,10 @@ class AdmissionMethodUpdate(BaseModel):
 class AdmissionMethodMajorBase(BaseModel):
     major_id: int
     admission_methods_id: int
+    quota: Optional[int] = None
+    minimum_score: Optional[float] = None
+    foundation_subject_id: Optional[int] = None
+    subject_minimum_score: Optional[float] = None
 
 class AdmissionMethodMajorCreate(AdmissionMethodMajorBase):
     pass
@@ -101,6 +105,10 @@ class AdmissionMethodMajorOut(AdmissionMethodMajorBase):
 class AdmissionMethodMajorUpdate(BaseModel):
     major_id: Optional[int] = None
     admission_methods_id: Optional[int] = None
+    quota: Optional[int] = None
+    minimum_score: Optional[float] = None
+    foundation_subject_id: Optional[int] = None
+    subject_minimum_score: Optional[float] = None
 
 # ---------------------------
 # Subject Schemas
