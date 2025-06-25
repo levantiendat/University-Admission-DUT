@@ -143,6 +143,10 @@ class AdmissionMethodMajor(Base):
         default=lambda: datetime.now(tz),
         onupdate=lambda: datetime.now(tz)
     )
+    quota = Column(Integer, nullable=True)
+    minimum_score = Column(Float, nullable=True)  
+    foundation_subject_id = Column(Integer, ForeignKey("subjects.id", ondelete="CASCADE"), nullable=True)
+    subject_minimum_score = Column(Float, nullable=True)
 
     major = relationship("Major", back_populates="admission_method_majors")
     admission_method = relationship("AdmissionMethod", back_populates="admission_method_majors")
@@ -152,6 +156,13 @@ class AdmissionMethodMajor(Base):
         cascade="all, delete-orphan",
         passive_deletes=True
     )
+    subject = relationship(
+        "Subject",
+        back_populates="admission_method_majors",
+        cascade="all",
+        passive_deletes=True
+    )
+    
 
 # Bảng về môn học xét tuyển theo học bạ - Điểm THPT
 class Subject(Base):
@@ -170,6 +181,12 @@ class Subject(Base):
 
     subject_group_details = relationship(
         "SubjectGroupDetail",
+        back_populates="subject",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+    admission_method_majors = relationship(
+        "AdmissionMethodMajor",
         back_populates="subject",
         cascade="all, delete-orphan",
         passive_deletes=True
