@@ -133,9 +133,73 @@ class ActionMajorForOpportunity(Action):
                     message += f"{rows[0]['job_opportunities']}\n"
                 message += f"\n💡 Bạn có thể tham khảo thêm thông tin chi tiết về ngành ở {rows[0]['majorUrl']} \n. Bạn có thể hỏi thêm thông tin về ngành như chỉ tiêu xét tuyển, tổ hợp môn xét tuyển, điểm chuẩn của ngành,..."
             else:
-                message = "❌ Không tìm thấy ngành nào có phương thức tuyển sinh này."
+                message = "❌ Không tìm thấy ngành."
         else:
-            message = "❗ Vui lòng cung cấp tên phương thức xét tuyển."
+            message = "❗ Vui lòng cung cấp tên ngành."
+
+        dispatcher.utter_message(text=message)
+        return [SlotSet("major", major_entity)]
+    
+class ActionMajorForStandartOutputLanguage(Action):
+    def name(self) -> str:
+        return "action_standard_output_language"
+
+    def __init__(self):
+        self.db = GraphConnector()
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict) -> List[Dict]:
+        
+        major_entity = next(tracker.get_latest_entity_values("major"), None)
+
+        if not major_entity:
+            major_entity = tracker.get_slot("major")
+            
+        major_keyword = normalize_major(major_entity)
+
+        if major_keyword:
+            rows = self.db.get_major_by_id(major_keyword)
+            if rows:
+                message = f"📌 Chuẩn đầu ra ngoại ngữ của ngành {rows[0]['major']}:\n"
+                if rows[0]['language_requirement']:
+                    message += f"{rows[0]['language_requirement']}\n"
+                message += f"\n💡 Bạn có thể tham khảo thêm thông tin chi tiết về quy định về chuẩn ngoại ngữ của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng tại: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view \n"
+                message += f"\n💡 Thông tin chi tiết về ngành ở {rows[0]['majorUrl']} \n. Bạn có thể hỏi thêm thông tin về ngành như chỉ tiêu xét tuyển, tổ hợp môn xét tuyển, điểm chuẩn của ngành,..."
+            else:
+                message = '''**📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO CÁC NGÀNH THUỘC TRƯỜNG ĐẠI HỌC BÁCH KHOA** \n**1. Chương trình truyền thống:**\n
+        - Cử nhân: Tiếng Anh (Bậc 3)\n
+        - Kỹ sư: Tiếng Anh (Bậc 4)\n
+      
+        2.Ngành Công nghệ thông tin (Ngoại Ngữ Nhật):\n
+        - Cử nhân: Tiếng Nhật (JLPT N3)\n
+        - Kỹ sư: Tiếng Nhật (JLPT N2)\n
+      
+        3. Chương trình Tiên Tiến Việt Mỹ:\n
+        - Cử nhân: Tiếng Anh (IELTS 5.5)\n
+        - Kỹ sư: Tiếng Anh (IELTS 6.0)\n
+      
+        4. Chương trình PFIEV:\n
+        - Kỹ sư: Tiếng Anh (Bậc 4) và Tiếng Pháp (DELF B1)\n
+      
+        *Thí sinh có thể tìm hiểu thêm tại website: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view \n'''
+        else:
+            message = '''**📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO CÁC NGÀNH THUỘC TRƯỜNG ĐẠI HỌC BÁCH KHOA** \n**1. Chương trình truyền thống:**\n
+        - Cử nhân: Tiếng Anh (Bậc 3)\n
+        - Kỹ sư: Tiếng Anh (Bậc 4)\n
+      
+        2.Ngành Công nghệ thông tin (Ngoại Ngữ Nhật):\n
+        - Cử nhân: Tiếng Nhật (JLPT N3)\n
+        - Kỹ sư: Tiếng Nhật (JLPT N2)\n
+      
+        3. Chương trình Tiên Tiến Việt Mỹ:\n
+        - Cử nhân: Tiếng Anh (IELTS 5.5)\n
+        - Kỹ sư: Tiếng Anh (IELTS 6.0)\n
+      
+        4. Chương trình PFIEV:\n
+        - Kỹ sư: Tiếng Anh (Bậc 4) và Tiếng Pháp (DELF B1)\n
+      
+        *Thí sinh có thể tìm hiểu thêm tại website: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view \n'''
 
         dispatcher.utter_message(text=message)
         return [SlotSet("major", major_entity)]

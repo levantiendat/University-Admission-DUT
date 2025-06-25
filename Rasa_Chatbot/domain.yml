@@ -8,13 +8,10 @@ intents:
   - ask_enrollment_quota_uni
   - ask_major_dthtdn_info
   - ask_training_program_major_dthtdn
-  - ask_standard_output_language_major_dthtdn
   - ask_major_nnn_info
   - ask_training_program_major_nnn
-  - ask_standard_output_language_major_nnn
   - ask_major_khdl_ttnt_info
   - ask_training_program_major_khdl_ttnt
-  - ask_standard_output_language_major_khdl_ttnt
   - ask_admission_method_uni
   - ask_admission_process
   - ask_training_program
@@ -234,24 +231,18 @@ responses:
     - text: "Ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp) tập trung đào tạo những kiến thức chuyên sâu với định hướng hợp tác doanh nghiệp."
   utter_training_program_major_dthtdn:
     - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Đặc thù – Hợp tác doanh nghiệp):\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanDT\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuDT"
-  utter_standard_output_language_major_dthtdn:
-    - text: "Chuẩn ngoại ngữ cho ngành CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: Yêu cầu Tiếng Anh đạt Bậc 3 cho Cử nhân và Bậc 4 cho Kỹ sư. Tham khảo tại: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view"
 
   ## NHÓM CNTT NGOẠI NGỮ NHẬT
   utter_major_info_nnn:
     - text: "Ngành Công nghệ thông tin (Ngoại ngữ Nhật) là chương trình đào tạo CNTT với định hướng thị trường Nhật Bản; sinh viên học chung chương trình không phân chuyên ngành."
   utter_training_program_major_nnn:
     - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Ngoại ngữ Nhật):\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanNNN\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuNNN"
-  utter_standard_output_language_major_nnn:
-    - text: "Chuẩn ngoại ngữ cho ngành Công nghệ thông tin (Ngoại ngữ Nhật): Đạt JLPT N3 cho Cử nhân và JLPT N2 cho Kỹ sư."
 
   ## NHÓM CNTT CHUYÊN NGÀNH KHOA HỌC DỮ LIỆU & TTNT
   utter_major_info_khdl_ttnt:
     - text: "Ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo đào tạo sinh viên từ căn bản đến nâng cao về Trí Tuệ Nhân Tạo, xử lý dữ liệu lớn và ứng dụng AI."
   utter_training_program_major_khdl_ttnt:
     - text: "Chương trình đào tạo của ngành Công nghệ thông tin (Đặc thù - Hợp tác doanh nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo:\n• Cử nhân: 4 năm, 130 tín chỉ, cấp bằng Cử nhân (Bậc 6) – Xem tại: https://bom.so/CuNhanKHDL\n• Kỹ sư: 5 năm, 180 tín chỉ, có cơ hội học Thạc sĩ (6 tháng đến 1 năm) – Xem tại: https://bom.so/KySuKHDL"
-  utter_standard_output_language_major_khdl_ttnt:
-    - text: "Chuẩn ngoại ngữ cho ngành CNTT (Đặc Thù - Hợp Tác Doanh Nghiệp), chuyên ngành Khoa Học Dữ Liệu & Trí Tuệ Nhân Tạo: Yêu cầu Tiếng Anh đạt Bậc 3 cho Cử nhân và Bậc 4 cho Kỹ sư. Tham khảo tại: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view"
 
   ## PHƯƠNG THỨC XÉT TUYỂN & TỔ HỢP THI CHUNG
   utter_admission_methods_uni:
@@ -298,28 +289,6 @@ responses:
   ## CHƯƠNG TRÌNH ĐÀO TẠO CHUNG
   utter_training_program:
     - text: "Chương trình đào tạo công nghệ thông tin gồm hai hình thức:\n- Cử nhân: 4 năm, 130 tín chỉ (Bằng Cử nhân, Bậc 6)\n- Kỹ sư: 5 năm, 180 tín chỉ (Có cơ hội học Thạc sĩ 6 tháng đến 1 năm)."
-
-  ## CHUẨN ĐẦU RA NGOẠI NGỮ
-  utter_standard_output_language:
-    - text: |
-        **📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO CÁC NGÀNH THUỘC TRƯỜNG ĐẠI HỌC BÁCH KHOA**
-      
-        **1. Chương trình truyền thống:**
-        - Cử nhân: Tiếng Anh (Bậc 3)
-        - Kỹ sư: Tiếng Anh (Bậc 4)
-      
-        **2. Công nghệ thông tin (Ngoại Ngữ Nhật):**
-        - Cử nhân: Tiếng Nhật (JLPT N3)
-        - Kỹ sư: Tiếng Nhật (JLPT N2)
-      
-        **3. Chương trình Tiên Tiến Việt Mỹ:**
-        - Cử nhân: Tiếng Anh (IELTS 5.5)
-        - Kỹ sư: Tiếng Anh (IELTS 6.0)
-      
-        **4. Chương trình PFIEV:**
-        - Kỹ sư: Tiếng Anh (Bậc 4) và Tiếng Pháp (DELF B1)
-      
-        *Thí sinh có thể tìm hiểu thêm tại website:* https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view
 
   ## FAQ VIỆC LÀM & CHỨNG CHỈ NGOẠI NGỮ
   utter_faq_job_opportunities:
@@ -389,16 +358,13 @@ actions:
   - utter_enrollment_quota_uni
   - utter_major_info_dthtdn
   - utter_training_program_major_dthtdn
-  - utter_standard_output_language_major_dthtdn
   - utter_major_info_nnn
   - utter_training_program_major_nnn
-  - utter_standard_output_language_major_nnn
   - utter_major_info_khdl_ttnt
   - utter_training_program_major_khdl_ttnt
-  - utter_standard_output_language_major_khdl_ttnt
   - utter_admission_methods_uni
   - utter_training_program
-  - utter_standard_output_language
+  - action_standard_output_language
   - utter_faq_job_opportunities
   - utter_faq_detail_specialized
   - utter_faq_attt

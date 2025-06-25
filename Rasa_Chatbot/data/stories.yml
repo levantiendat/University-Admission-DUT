@@ -45,15 +45,6 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 7. CNTT Đặc Thù – Hợp Tác Doanh Nghiệp: chuẩn ngoại ngữ
-  - story: "Pair - CNTT Đặc Thù: chuẩn ngoại ngữ"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_standard_output_language_major_dthtdn
-      - action: utter_standard_output_language_major_dthtdn
-      - intent: goodbye
-      - action: utter_goodbye
 
   # 8. CNTT Ngoại Ngữ Nhật: thông tin ngành
   - story: "Pair - CNTT Ngoại Ngữ Nhật: thông tin ngành"
@@ -75,15 +66,6 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 11. CNTT Ngoại Ngữ Nhật: chuẩn ngoại ngữ
-  - story: "Pair - CNTT Ngoại Ngữ Nhật: chuẩn ngoại ngữ"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_standard_output_language_major_nnn
-      - action: utter_standard_output_language_major_nnn
-      - intent: goodbye
-      - action: utter_goodbye
 
   # 12. CNTT TTNT (Khoa Học Dữ Liệu & TTNT): thông tin ngành
   - story: "Pair - CNTT TTNT: thông tin ngành"
@@ -105,15 +87,6 @@ stories:
       - intent: goodbye
       - action: utter_goodbye
 
-  # 15. CNTT TTNT: chuẩn ngoại ngữ
-  - story: "Pair - CNTT TTNT: chuẩn ngoại ngữ"
-    steps:
-      - intent: greet
-      - action: utter_greet
-      - intent: ask_standard_output_language_major_khdl_ttnt
-      - action: utter_standard_output_language_major_khdl_ttnt
-      - intent: goodbye
-      - action: utter_goodbye
 
   # 35. Chương trình đào tạo chung CNTT
   - story: "Pair - Chương trình đào tạo chung CNTT"
@@ -131,7 +104,7 @@ stories:
       - intent: greet
       - action: utter_greet
       - intent: ask_standard_output_language
-      - action: utter_standard_output_language
+      - action: action_standard_output_language
       - intent: goodbye
       - action: utter_goodbye
 
@@ -283,10 +256,6 @@ stories:
       - intent: ask_training_program_major_dthtdn
       - action: utter_training_program_major_dthtdn
 
-  - story: "Direct Pair - CNTT Đặc Thù: chuẩn ngoại ngữ"
-    steps:
-      - intent: ask_standard_output_language_major_dthtdn
-      - action: utter_standard_output_language_major_dthtdn
 
   - story: "Direct Pair - CNTT Ngoại Ngữ Nhật: thông tin ngành"
     steps:
@@ -298,10 +267,6 @@ stories:
       - intent: ask_training_program_major_nnn
       - action: utter_training_program_major_nnn
 
-  - story: "Direct Pair - CNTT Ngoại Ngữ Nhật: chuẩn ngoại ngữ"
-    steps:
-      - intent: ask_standard_output_language_major_nnn
-      - action: utter_standard_output_language_major_nnn
 
   - story: "Direct Pair - CNTT TTNT: thông tin ngành"
     steps:
@@ -313,14 +278,6 @@ stories:
       - intent: ask_training_program_major_khdl_ttnt
       - action: utter_training_program_major_khdl_ttnt
 
-  - story: "Direct Pair - CNTT TTNT: chuẩn ngoại ngữ"
-    steps:
-      - intent: ask_standard_output_language_major_khdl_ttnt
-      - action: utter_standard_output_language_major_khdl_ttnt
-
-
-
-
   - story: "Direct Pair - Chương trình đào tạo chung CNTT"
     steps:
       - intent: ask_training_program
@@ -329,7 +286,7 @@ stories:
   - story: "Direct Pair - Chuẩn đầu ra ngoại ngữ CNTT"
     steps:
       - intent: ask_standard_output_language
-      - action: utter_standard_output_language
+      - action: action_standard_output_language
 
   - story: "Direct Pair - FAQ Việc làm CNTT"
     steps:
