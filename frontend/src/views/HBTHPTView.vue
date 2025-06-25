@@ -156,10 +156,12 @@
                   <caption class="visually-hidden">Danh sách ngành xét tuyển theo học bạ THPT</caption>
                   <thead>
                     <tr class="bg-primary text-white">
-                      <th scope="col" class="text-center" style="width: 5%">STT</th>
-                      <th scope="col" style="width: 12%">Mã ngành</th>
-                      <th scope="col" style="width: 33%">Tên ngành</th>
-                      <th scope="col" style="width: 50%">Tổ hợp môn học bạ xét tuyển</th>
+                      <th scope="col" class="text-center" style="width: 3%">STT</th>
+                      <th scope="col" style="width: 7%">Mã ngành</th>
+                      <th scope="col" style="width: 26%">Tên ngành</th>
+                      <th scope="col" style="width: 50%">Tổ hợp môn xét tuyển</th>
+                      <th scope="col" style="width: 7%">Điểm sàn</th>
+                      <th scope="col" style="width: 7%">Điểm sàn môn nền tảng</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -181,6 +183,20 @@
                               {{ subject.name }}
                             </span>
                           </div>
+                        </td>
+                        <td>
+                          {{ major.minimum_score != null ? '≥ ' + major.minimum_score : 'Chưa công bố' }}
+                        </td>
+                        <td>
+                          <span v-if="major.foundation_subject_name && major.subject_minimum_score != null">
+                            {{ major.foundation_subject_name }} &ge; {{ major.subject_minimum_score }}
+                          </span>
+                          <span v-else-if="major.foundation_subject_name">
+                            Môn: {{ major.foundation_subject_name }}
+                          </span>
+                          <span v-else>
+                            Chưa công bố
+                          </span>
                         </td>
                       </tr>
                     </template>

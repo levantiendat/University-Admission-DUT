@@ -279,8 +279,10 @@
                       <th scope="col" class="text-center" style="width: 5%">STT</th>
                       <th scope="col" style="width: 12%">Mã ngành</th>
                       <th scope="col" style="width: 23%">Tên ngành</th>
-                      <th scope="col" style="width: 30%">Môn học đạt giải HSG (Phụ lục II)</th>
-                      <th scope="col" style="width: 30%">Lĩnh vực KHKT đạt giải (Phụ lục III)</th>
+                      <th scope="col" style="width: 24%">Môn học đạt giải HSG (Phụ lục II)</th>
+                      <th scope="col" style="width: 22%">Lĩnh vực KHKT đạt giải (Phụ lục III)</th>
+                      <th scope="col" style="width: 7%">Điểm sàn</th>
+                      <th scope="col" style="width: 7%">Điểm sàn môn nền tảng</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -316,6 +318,20 @@
                               {{ field.field_or_subject_name }}
                             </span>
                           </div>
+                        </td>
+                        <td>
+                          {{ major.minimum_score != null ? '≥ ' + major.minimum_score : 'Chưa công bố' }}
+                        </td>
+                        <td>
+                          <span v-if="major.foundation_subject_name && major.subject_minimum_score != null">
+                            {{ major.foundation_subject_name }} &ge; {{ major.subject_minimum_score }}
+                          </span>
+                          <span v-else-if="major.foundation_subject_name">
+                            Môn: {{ major.foundation_subject_name }}
+                          </span>
+                          <span v-else>
+                            Chưa công bố
+                          </span>
                         </td>
                       </tr>
                     </template>

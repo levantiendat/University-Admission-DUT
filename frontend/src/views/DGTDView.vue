@@ -144,8 +144,10 @@
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col" class="text-center" style="width: 5%">STT</th>
-                      <th scope="col" style="width: 15%">Mã ngành</th>
-                      <th scope="col" style="width: 80%">Tên ngành</th>
+                      <th scope="col" style="width: 20%">Mã ngành</th>
+                      <th scope="col" style="width: 55%">Tên ngành</th>
+                      <th scope="col" style="width: 9%">Điểm sàn</th>
+                      <th scope="col" style="width: 9%">Điểm sàn môn nền tảng</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -154,6 +156,20 @@
                         <td class="text-center">{{ index + 1 }}</td>
                         <td>{{ major.major_code }}</td>
                         <td>{{ major.major_name }}</td>
+                        <td>
+                          {{ major.minimum_score != null ? '≥ ' + major.minimum_score : 'Chưa công bố' }}
+                        </td>
+                        <td>
+                          <span v-if="major.foundation_subject_name && major.subject_minimum_score != null">
+                            {{ major.foundation_subject_name }} &ge; {{ major.subject_minimum_score }}
+                          </span>
+                          <span v-else-if="major.foundation_subject_name">
+                            Môn: {{ major.foundation_subject_name }}
+                          </span>
+                          <span v-else>
+                            Chưa công bố
+                          </span>
+                        </td>
                       </tr>
                     </template>
                     

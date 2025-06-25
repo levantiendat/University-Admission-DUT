@@ -59,7 +59,47 @@ export default {
         throw new Error('Vui lòng chọn ngành và phương thức tuyển sinh');
       }
 
-      return await AdmissionMethodMajorServices.createAdmissionMethodMajor(data);
+      // Xử lý đặc biệt các trường có thể null
+      const processedData = {
+        major_id: data.major_id,
+        admission_methods_id: data.admission_methods_id,
+        quota: data.quota === '' || data.quota === undefined ? null : data.quota,
+        minimum_score: data.minimum_score === '' || data.minimum_score === undefined ? null : data.minimum_score,
+        foundation_subject_id: data.foundation_subject_id === '' || data.foundation_subject_id === undefined ? null : data.foundation_subject_id,
+        subject_minimum_score: data.subject_minimum_score === '' || data.subject_minimum_score === undefined ? null : data.subject_minimum_score
+      };
+
+      // Chỉ validate số nếu không phải null
+      if (processedData.quota !== null) {
+        const quota = parseInt(processedData.quota);
+        if (isNaN(quota) || quota <= 0) {
+          throw new Error('Chỉ tiêu phải là số nguyên dương');
+        }
+        processedData.quota = quota;
+      }
+
+      if (processedData.minimum_score !== null) {
+        const minScore = parseFloat(processedData.minimum_score);
+        if (isNaN(minScore) || minScore < 0) {
+          throw new Error('Điểm sàn phải là số không âm');
+        }
+        processedData.minimum_score = minScore;
+      }
+
+
+      if (processedData.foundation_subject_id === null && processedData.subject_minimum_score !== null) {
+        throw new Error('Vui lòng chọn môn nền tảng');
+      }
+
+      if (processedData.subject_minimum_score !== null) {
+        const subjectMinScore = parseFloat(processedData.subject_minimum_score);
+        if (isNaN(subjectMinScore) || subjectMinScore < 0) {
+          throw new Error('Điểm sàn môn nền tảng phải là số không âm');
+        }
+        processedData.subject_minimum_score = subjectMinScore;
+      }
+
+      return await AdmissionMethodMajorServices.createAdmissionMethodMajor(processedData);
     } catch (error) {
       throw new Error(`Không thể tạo mối quan hệ mới: ${error.message}`);
     }
@@ -72,12 +112,94 @@ export default {
    */
   async updateAdmissionMethodMajor(admissionMethodMajorId, data) {
     try {
-      // Validate input
-      if (!data.major_id || !data.admission_methods_id) {
-        throw new Error('Vui lòng chọn ngành và phương thức tuyển sinh');
+      // Tạo đối tượng dữ liệu mới để xử lý các trường hợp đặc biệt
+      const processedData = {};
+      
+      // Chỉ thêm các trường có trong request
+      if ('major_id' in data) {
+        if (!data.major_id) throw new Error('ID ngành không hợp lệ');
+        processedData.major_id = data.major_id;
       }
-
-      return await AdmissionMethodMajorServices.updateAdmissionMethodMajor(admissionMethodMajorId, data);
+      
+      if ('admission_methods_id' in data) {
+        if (!data.admission_methods_id) throw new Error('ID phương thức tuyển sinh không hợp lệ');
+        processedData.admission_methods_id = data.admission_methods_id;
+      }
+      
+      // Xử lý các trường có thể null
+      if ('quota' in data) {
+        processedData.quota = data.quota === '' ? null : data.quota;
+        
+        if (processedData.quota !== null) {
+          const quota = parseInt(processedData.quota);
+          if (isNaN(quota) || quota <= 0) {
+            throw new Error('Chỉ tiêu phải là số nguyên dương');
+          }
+          processedData.quota = quota;
+        }
+      }
+      
+      if ('minimum_score' in data) {
+        processedData.minimum_score = data.minimum_score === '' ? null : data.minimum_score;
+        
+        if (processedData.minimum_score !== null) {
+          const minScore = parseFloat(processedData.minimum_score);
+          if (isNaN(minScore) || minScore < 0) {
+            throw new Error('Điểm sàn phải là số không âm');
+          }
+          processedData.minimum_score = minScore;
+        }
+      }
+      
+      if ('foundation_subject_id' in data) {
+        processedData.foundation_subject_id = data.foundation_subject_id === '' ? null : data.foundation_subject_id;
+      }
+      
+      if ('subject_minimum_score' in data) {
+        processedData.subject_minimum_score = data.subject_minimum_score === '' ? null : data.subject_minimum_score;
+        
+        if (processedData.subject_minimum_score !== null) {
+          const subjectMinScore = parseFloat(processedData.subject_minimum_score);
+          if (isNaN(subjectMinScore) || subjectMinScore < 0) {
+            throw new Error('Điểm sàn môn nền tảng phải là số không âm');
+          }
+          processedData.subject_minimum_score = subjectMinScore;
+        }
+      }
+      
+      // Kiểm tra nếu không có dữ liệu để cập nhật
+      if (Object.keys(processedData).length === 0) {
+        throw new Error('Không có thông tin nào được cập nhật');
+      }
+      
+      // Kiểm tra mối quan hệ giữa môn nền tảng và điểm sàn môn nền tảng
+      if ('foundation_subject_id' in processedData || 'subject_minimum_score' in processedData) {
+        let currentData;
+        try {
+          currentData = await this.getAdmissionMethodMajorById(admissionMethodMajorId);
+        } catch (err) {
+          currentData = { 
+            foundation_subject_id: null, 
+            subject_minimum_score: null 
+          };
+        }
+        
+        const finalFoundationSubjectId = 'foundation_subject_id' in processedData
+          ? processedData.foundation_subject_id
+          : currentData.foundation_subject_id;
+          
+        const finalSubjectMinScore = 'subject_minimum_score' in processedData
+          ? processedData.subject_minimum_score
+          : currentData.subject_minimum_score;
+        
+        
+        if (finalFoundationSubjectId === null && finalSubjectMinScore !== null) {
+          throw new Error('Vui lòng chọn môn nền tảng');
+        }
+      }
+      
+      // Gọi API để cập nhật
+      return await AdmissionMethodMajorServices.updateAdmissionMethodMajor(admissionMethodMajorId, processedData);
     } catch (error) {
       throw new Error(`Không thể cập nhật mối quan hệ: ${error.message}`);
     }

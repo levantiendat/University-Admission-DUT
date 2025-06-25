@@ -227,8 +227,9 @@
                   <thead>
                     <tr class="bg-primary text-white">
                       <th scope="col" class="text-center" style="width: 5%">STT</th>
-                      <th scope="col" style="width: 12%">Mã ngành</th>
+                      <th scope="col" style="width: 7%">Mã ngành</th>
                       <th scope="col" style="width: 23%">Tên ngành</th>
+                      <th scope="col" style="width: 5%">Chỉ tiêu</th>
                       <th scope="col" style="width: 30%">Môn học đạt giải HSG (Phụ lục II)</th>
                       <th scope="col" style="width: 30%">Lĩnh vực KHKT đạt giải (Phụ lục III)</th>
                     </tr>
@@ -239,6 +240,7 @@
                         <td class="text-center">{{ index + 1 }}</td>
                         <td>{{ major.major_code }}</td>
                         <td>{{ major.major_name }}</td>
+                        <td>{{ major.quota || " " }}</td>
                         <td>
                           <div class="d-flex flex-wrap gap-1">
                             <span 

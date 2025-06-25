@@ -40,7 +40,7 @@
                 </h2>
                 <div id="section2" class="accordion-collapse collapse" data-bs-parent="#announcementAccordion">
                   <div class="accordion-body p-2 fs-7">
-                    <p class="mb-1">Thí sinh tốt nghiệp THPT năm 2025, đạt ngưỡng chất lượng đầu vào do Trường quy định (sẽ thông báo sau).</p>
+                    <p class="mb-1">Thí sinh tốt nghiệp THPT năm 2025, đạt ngưỡng chất lượng đầu vào do Trường quy định (sẽ thông báo sau khi có điểm thi tốt nghiệp THPT).</p>
                   </div>
                 </div>
               </div>
@@ -168,10 +168,12 @@
                   <caption class="visually-hidden">Danh sách ngành xét tuyển theo điểm thi THPT</caption>
                   <thead>
                     <tr class="bg-primary text-white">
-                      <th scope="col" class="text-center" style="width: 5%">STT</th>
-                      <th scope="col" style="width: 12%">Mã ngành</th>
-                      <th scope="col" style="width: 30%">Tên ngành</th>
-                      <th scope="col" style="width: 53%">Tổ hợp môn xét tuyển</th>
+                      <th scope="col" class="text-center" style="width: 3%">STT</th>
+                      <th scope="col" style="width: 7%">Mã ngành</th>
+                      <th scope="col" style="width: 26%">Tên ngành</th>
+                      <th scope="col" style="width: 50%">Tổ hợp môn xét tuyển</th>
+                      <th scope="col" style="width: 7%">Điểm sàn</th>
+                      <th scope="col" style="width: 7%">Điểm sàn môn nền tảng</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -191,6 +193,20 @@
                               {{ subject.name }}
                             </span>
                           </div>
+                        </td>
+                        <td>
+                          {{ major.minimum_score != null ? '≥ ' + major.minimum_score : 'Chưa công bố' }}
+                        </td>
+                        <td>
+                          <span v-if="major.foundation_subject_name && major.subject_minimum_score != null">
+                            {{ major.foundation_subject_name }} &ge; {{ major.subject_minimum_score }}
+                          </span>
+                          <span v-else-if="major.foundation_subject_name">
+                            Môn: {{ major.foundation_subject_name }}
+                          </span>
+                          <span v-else>
+                            Chưa công bố
+                          </span>
                         </td>
                       </tr>
                     </template>
