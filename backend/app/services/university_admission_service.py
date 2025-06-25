@@ -179,6 +179,7 @@ def get_major_by_admission_method(db: Session, admission_method_id: int) -> list
             "quota": admission_method_major.quota,
             "minimum_score": admission_method_major.minimum_score,
             "foundation_subject_id": admission_method_major.foundation_subject_id,
+            "foundation_subject_name": admission_method_major.subject.name if admission_method_major.subject else None,
             "subject_minimum_score": admission_method_major.subject_minimum_score,
             "major_code": admission_method_major.major.major_code,
             "major_name": admission_method_major.major.name,
