@@ -131,7 +131,7 @@ class ActionMajorForOpportunity(Action):
                 message = f"📌 Cơ hội việc làm của ngành {rows[0]['major']}:\n"
                 if rows[0]['job_opportunities']:
                     message += f"{rows[0]['job_opportunities']}\n"
-                message += f"\n💡 Bạn có thể tham khảo thêm thông tin chi tiết về ngành ở {rows[0]['majorUrl']} \n. Bạn có thể hỏi thêm thông tin về ngành như chỉ tiêu xét tuyển, tổ hợp môn xét tuyển, điểm chuẩn của ngành,..."
+                message += f"\n💡 Bạn có thể tham khảo thêm thông tin chi tiết về ngành ở {rows[0]['majorUrl']} \n Bạn có thể hỏi thêm thông tin về ngành như chỉ tiêu xét tuyển, tổ hợp môn xét tuyển, điểm chuẩn của ngành,..."
             else:
                 message = "❌ Không tìm thấy ngành."
         else:
@@ -165,41 +165,11 @@ class ActionMajorForStandartOutputLanguage(Action):
                 if rows[0]['language_requirement']:
                     message += f"{rows[0]['language_requirement']}\n"
                 message += f"\n💡 Bạn có thể tham khảo thêm thông tin chi tiết về quy định về chuẩn ngoại ngữ của Trường Đại Học Bách Khoa - Đại Học Đà Nẵng tại: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view \n"
-                message += f"\n💡 Thông tin chi tiết về ngành ở {rows[0]['majorUrl']} \n. Bạn có thể hỏi thêm thông tin về ngành như chỉ tiêu xét tuyển, tổ hợp môn xét tuyển, điểm chuẩn của ngành,..."
+                message += f"\n💡 Thông tin chi tiết về ngành ở {rows[0]['majorUrl']} \n Bạn có thể hỏi thêm thông tin về ngành như chỉ tiêu xét tuyển, tổ hợp môn xét tuyển, điểm chuẩn của ngành,..."
             else:
-                message = '''**📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO CÁC NGÀNH THUỘC TRƯỜNG ĐẠI HỌC BÁCH KHOA** \n**1. Chương trình truyền thống:**\n
-        - Cử nhân: Tiếng Anh (Bậc 3)\n
-        - Kỹ sư: Tiếng Anh (Bậc 4)\n
-      
-        2.Ngành Công nghệ thông tin (Ngoại Ngữ Nhật):\n
-        - Cử nhân: Tiếng Nhật (JLPT N3)\n
-        - Kỹ sư: Tiếng Nhật (JLPT N2)\n
-      
-        3. Chương trình Tiên Tiến Việt Mỹ:\n
-        - Cử nhân: Tiếng Anh (IELTS 5.5)\n
-        - Kỹ sư: Tiếng Anh (IELTS 6.0)\n
-      
-        4. Chương trình PFIEV:\n
-        - Kỹ sư: Tiếng Anh (Bậc 4) và Tiếng Pháp (DELF B1)\n
-      
-        *Thí sinh có thể tìm hiểu thêm tại website: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view \n'''
+                message = '''**📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO CÁC NGÀNH THUỘC TRƯỜNG ĐẠI HỌC BÁCH KHOA** \n**1. Chương trình truyền thống:**\n- Cử nhân: Tiếng Anh (Bậc 3)\n- Kỹ sư: Tiếng Anh (Bậc 4)\n2.Ngành Công nghệ thông tin (Ngoại Ngữ Nhật):\n- Cử nhân: Tiếng Nhật (JLPT N3)\n- Kỹ sư: Tiếng Nhật (JLPT N2)\n3. Chương trình Tiên Tiến Việt Mỹ:\n- Cử nhân: Tiếng Anh (IELTS 5.5)\n- Kỹ sư: Tiếng Anh (IELTS 6.0)\n4. Chương trình PFIEV:\n- Kỹ sư: Tiếng Anh (Bậc 4) và Tiếng Pháp (DELF B1)\n*Thí sinh có thể tìm hiểu thêm tại website: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view \n'''
         else:
-            message = '''**📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO CÁC NGÀNH THUỘC TRƯỜNG ĐẠI HỌC BÁCH KHOA** \n**1. Chương trình truyền thống:**\n
-        - Cử nhân: Tiếng Anh (Bậc 3)\n
-        - Kỹ sư: Tiếng Anh (Bậc 4)\n
-      
-        2.Ngành Công nghệ thông tin (Ngoại Ngữ Nhật):\n
-        - Cử nhân: Tiếng Nhật (JLPT N3)\n
-        - Kỹ sư: Tiếng Nhật (JLPT N2)\n
-      
-        3. Chương trình Tiên Tiến Việt Mỹ:\n
-        - Cử nhân: Tiếng Anh (IELTS 5.5)\n
-        - Kỹ sư: Tiếng Anh (IELTS 6.0)\n
-      
-        4. Chương trình PFIEV:\n
-        - Kỹ sư: Tiếng Anh (Bậc 4) và Tiếng Pháp (DELF B1)\n
-      
-        *Thí sinh có thể tìm hiểu thêm tại website: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view \n'''
+            message = '''**📊 CHUẨN ĐẦU RA NGOẠI NGỮ CHO CÁC NGÀNH THUỘC TRƯỜNG ĐẠI HỌC BÁCH KHOA** \n**1. Chương trình truyền thống:**\n- Cử nhân: Tiếng Anh (Bậc 3)\n- Kỹ sư: Tiếng Anh (Bậc 4)\n2.Ngành Công nghệ thông tin (Ngoại Ngữ Nhật):\n- Cử nhân: Tiếng Nhật (JLPT N3)\n- Kỹ sư: Tiếng Nhật (JLPT N2)\n3. Chương trình Tiên Tiến Việt Mỹ:\n- Cử nhân: Tiếng Anh (IELTS 5.5)\n- Kỹ sư: Tiếng Anh (IELTS 6.0)\n4. Chương trình PFIEV:\n- Kỹ sư: Tiếng Anh (Bậc 4) và Tiếng Pháp (DELF B1)\n*Thí sinh có thể tìm hiểu thêm tại website: https://drive.google.com/file/d/1K0N8_sPTFPu-F7Utf0ZOd-7AdGZ8ehk4/view \n'''
 
         dispatcher.utter_message(text=message)
         return [SlotSet("major", major_entity)]
@@ -713,9 +683,9 @@ class ActionSuggestMajorBySubjects(Action):
         
         if majors:
             # Danh sách các môn đã chọn
-            subjects_str = ", ".join([f"**{subject}**" for subject in normalized_subjects])
+            subjects_str = ", ".join([f"{subject}" for subject in normalized_subjects])
             
-            message = f"📚 **Các ngành phù hợp với môn {subjects_str}:**\n\n"
+            message = f"📚 **Các ngành phù hợp với các môn thi {subjects_str}:**\n\n"
             
             # Xử lý kết quả trực tiếp từ Neo4j, không cần gom nhóm lại
             major_count = 0
