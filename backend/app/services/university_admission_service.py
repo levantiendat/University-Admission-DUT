@@ -884,7 +884,9 @@ def calculate_priority_points(db: Session, score: float, bonus_score: float, pri
     """
     # Determine priority area - either directly provided or look up by school_id
     bonus_score = bonus_score or 0.0
-    score_after_bonus = score + bonus_score
+    score_after_bonus = score + bonus_score if score + bonus_score <= 30 else 30.0
+    if score + bonus_score > 30: 
+        bonus_score = 30 - score
     used_priority_area = priority_area
     if school_id:
         try:
@@ -917,8 +919,10 @@ def calculate_priority_points(db: Session, score: float, bonus_score: float, pri
     # Calculate converted priority based on score
     if score_after_bonus <= 22.5:
         convert_priority = origin_priority
-    else:
+    elif score_after_bonus <= 30:
         convert_priority = ((30 - score_after_bonus) / 7.5) * origin_priority
+    else:
+        convert_priority = 0.0
     
     # Round to 2 decimal places
     convert_priority = round(convert_priority, 2)
